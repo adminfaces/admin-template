@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:o="http://omnifaces.org/ui"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:of="http://omnifaces.org/functions"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <f:view contentType="text/html">
     <h:head>
@@ -20,7 +16,7 @@
         <h:outputStylesheet library="bootstrap" name="css/bootstrap.css"/>
         <ui:insert name="head" />
     </h:head>
-    <h:body styleClass="#{themeMB.theme} sidebar-mini #{not adminSession.loggedIn ? 'sidebar-collapse':''}">
+    <h:body styleClass="#{themeMB.theme} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
         <f:loadBundle var="adm" basename="admin"/>
         <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" />
         <p:dialog modal="true" widgetVar="statusDialog"  draggable="false" closable="true" resizable="false" showHeader="false">
@@ -42,14 +38,14 @@
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                         <span class="sr-only"></span>
                     </a>
-                    <div class="navbar-custom-menu" jsf:rendered="#{adminSession.loggedIn}">
+                    <div class="navbar-custom-menu" >
                         <ui:insert name="topMenu"/>
                     </div>
                 </nav>
             </header>
 
                 <!-- side menu -->
-                <aside class="main-sidebar" jsf:rendered="#{adminSession.loggedIn}">
+                <aside class="main-sidebar" >
                     <section class="sidebar">
                            <ui:insert name="sideMenu"/>
                     </section>
@@ -61,7 +57,7 @@
                             <ui:insert name="title" />
                             <small><ui:insert name="description" /></small>
                         </h1>
-                        <ol class="breadcrumb" jsf:rendered="#{adminSession.loggedIn}">
+                        <ol class="breadcrumb" >
                             <li>
                                 <p:link href="/">
                                     <i class="fa fa-home"></i>
@@ -70,9 +66,9 @@
                             </li>
                             <ui:repeat value="#{breadCrumbs}" var="b" varStatus="status">
                                 <li class="#{status.last ? 'active':''}">
-                                    <span jsf:rendered="#{status.last}">
+                                    <h:panelGroup rendered="#{status.last}">
                                         #{b.title}
-                                    </span>
+                                    </h:panelGroup>
                                     <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
                                         #{b.title}
                                     </p:link>

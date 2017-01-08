@@ -87,8 +87,7 @@ public class AdminFilter implements Filter {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         HttpServletRequest request = (HttpServletRequest) req;
-        if (skipResource(request)
-                || (adminSession != null && adminSession.isLoggedIn())) {
+        if (skipResource(request) || adminSession.isLoggedIn()) {
             try {
                 chain.doFilter(req, resp);
             } catch (FileNotFoundException e) {
