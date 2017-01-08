@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<f:view contentType="text/html">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <!--<link rel="shortcut icon" type="image/x-icon" href="#{resource['image/favicon.ico']}"/>-->
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap.css"/>
+        <ui:insert name="head" />
+    </h:head>
+    <h:body styleClass="#{themeMB.theme} sidebar-mini #{not adminSession.loggedIn ? 'sidebar-collapse':''}">
+        <f:loadBundle var="adm" basename="admin"/>
+        <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" />
+        <p:dialog modal="true" widgetVar="statusDialog"  draggable="false" closable="true" resizable="false" showHeader="false">
+            <p:graphicImage library="primefaces-admin" name="images/ajaxloadingbar.gif"/>
+        </p:dialog>
+
+
+        <div class="wrapper">
+            <header class="main-header">
+                <a href="#{request.contextPath}/" class="logo">
+                    <span class="logo-mini">
+                        <ui:insert name="logo-mini"/>
+                    </span>
+                    <span class="logo-lg">
+                        <ui:insert name="logo-lg"/>
+                    </span>
+                </a>
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only"></span>
+                    </a>
+                    <div class="navbar-custom-menu" jsf:rendered="#{adminSession.loggedIn}">
+                        <ui:insert name="topMenu"/>
+                    </div>
+                </nav>
+            </header>
+
+                <!-- side menu -->
+                <aside class="main-sidebar" jsf:rendered="#{adminSession.loggedIn}">
+                    <section class="sidebar">
+                           <ui:insert name="sideMenu"/>
+                    </section>
+                </aside>
+                <!-- content -->
+                <div class="content-wrapper">
+                    <section class="content-header">
+                        <h1>
+                            <ui:insert name="title" />
+                            <small><ui:insert name="description" /></small>
+                        </h1>
+                        <ol class="breadcrumb" jsf:rendered="#{adminSession.loggedIn}">
+                            <li>
+                                <p:link href="/">
+                                    <i class="fa fa-home"></i>
+                                    Home
+                                </p:link>
+                            </li>
+                            <ui:repeat value="#{breadCrumbs}" var="b" varStatus="status">
+                                <li class="#{status.last ? 'active':''}">
+                                    <span jsf:rendered="#{status.last}">
+                                        #{b.title}
+                                    </span>
+                                    <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
+                                        #{b.title}
+                                    </p:link>
+                                </li>
+                            </ui:repeat>
+                        </ol>
+                    </section>
+                    <section class="content">
+                        <div class="row">
+                            <div class="ui-g-12">
+                                <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true" showDetail="true" showSummary="false" severity="error,fatal"/>
+                                <!-- we need two messages because info-messages are hidden by javascript  -->
+                                <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true" showSummary="false" severity="info,warn" />
+                                <p:tooltip /> <!-- exception messages with type tooltip -->
+                            </div>
+                        </div>
+                        <ui:insert name="body" />
+                    </section>
+                </div>
+
+
+            <footer class="main-footer">
+               <ui:insert name="footer"/>
+            </footer>
+
+        </div>
+
+        <!--
+         uncomment to use growl but remember that it is not mobile friendly
+        <p:growl showDetail="true" globalOnly="true" autoUpdate="true" showSummary="false" id="msgs" widgetVar="msgs" severity="info,warn"/>
+        -->
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+        <h:outputScript library="js" name="bootstrap.min.js"  target="head"/>
+        <h:outputScript library="js" name="admin-lte.min.js"  target="head"/>
+
+        <script type="text/javascript">
+            //<![CDATA[
+            /* hide info,warn messages */
+            $(document).on("pfAjaxComplete", function() {
+                var $messages = $("div[id$='info-messages']");
+
+                if ($messages.length) {
+                    var wordCount = $messages.text().split(/\W/).length;
+                    var readingTimeMillis = 2500 + (wordCount * 200);
+
+                    setTimeout(function() {
+                        $messages.slideUp();
+                    }, readingTimeMillis);
+                }
+            });
+
+            $(document).ready(function() {
+                var $messages = $("div[id$='info-messages']");
+
+                if ($messages.length) {
+                    var wordCount = $messages.text().split(/\W/).length;
+                    var readingTimeMillis = 2500 + (wordCount * 200);
+
+                    setTimeout(function() {
+                        $messages.slideUp();
+                    }, readingTimeMillis);
+                }
+            });
+            //]]>
+        </script>
+
+        <script type="text/javascript">
+            //<![CDATA[
+            /* Active menu management */
+
+            $(document).ready(function() {
+                activateMenu(window.location.pathname,false);
+            });
+
+            function stripTrailingSlash(str) {
+                if (str && str.substr(-1) == '/') {
+                    return str.substr(0, str.length - 1);
+                }
+                return str;
+            }
+
+            function saveCurrentActivatedUrl(url) {
+                if (typeof(Storage) !== "undefined") {
+                    localStorage.setItem("activatedMenuUrl", url);
+                }
+
+            }
+
+            /* set active style in menu based on current url */
+            function activateMenu(url, activated) {
+                var activePage = stripTrailingSlash(url);
+                $('.sidebar-menu li a').each(function () {
+                    var currentPage = stripTrailingSlash($(this).attr('href'));
+                    /*console.log("activePage:" + activePage +" currentPage:" + currentPage);*/
+                    if (activePage == currentPage) {
+                        $(this).parent().addClass('active');
+                        activated = true;
+                    }
+                });
+
+                //submenus
+                $('.sidebar-menu li ul a').each(function () {
+                    var currentPage = stripTrailingSlash($(this).attr('href'));
+                    //console.log("sub-activePage:" + activePage +" sub-currentPage:" + currentPage);
+                    if (activePage == currentPage) {
+                        $(this).parent().addClass('active');
+                        $(this).parent().parent().parent().addClass('active');
+                        activated = true;
+                    }
+                });
+
+                if(!activated && localStorage.getItem("activatedMenuUrl")){
+                    //if not activated set latest activated url
+                    activateMenu(localStorage.getItem("activatedMenuUrl"),true);
+                } else{
+                    saveCurrentActivatedUrl(url);
+                }
+
+            }
+            //]]>
+        </script>
+    </h:body>
+
+</f:view>
+</html>

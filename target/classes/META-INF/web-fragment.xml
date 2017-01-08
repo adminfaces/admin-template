@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-fragment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"
+	id="WebAppFragment_ID" version="3.0">
+
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>admin</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.xhtml</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/error.xhtml</location>
+	</error-page>
+
+</web-fragment>
