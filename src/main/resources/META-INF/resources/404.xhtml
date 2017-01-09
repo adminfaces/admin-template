@@ -3,6 +3,11 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="admin.xhtml">
 
+
+    <ui:define name="head">
+        <ui:param name="sidebarCollapse" value="true"/>
+    </ui:define>
+
     <ui:define name="body">
         <div class="error-page">
             <h2 class="headline text-yellow">404</h2>
@@ -11,7 +16,7 @@
                 <h3><i class="fa fa-warning text-yellow"></i> #{adm['label.404.not-found']}.</h3>
 
                 <p>
-                    #{adm['label.404.home']} <p:link style="text-decoration: underline" href="/index.xhtml" value="Home"
+                    #{adm['label.404.home']} <p:link style="text-decoration: underline" href="/" value="Home"
                                                      escape="false"/>.
                 </p>
 

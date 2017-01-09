@@ -7,10 +7,21 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:of="http://omnifaces.org/functions">
 
+
+    <ui:define name="head">
+        <ui:param name="sidebarCollapse" value="true"/>
+    </ui:define>
+
     <ui:define name="title">
         <h3 class="text-red align-center" style="font-size: 80px;">
             <i class="fa fa-warning text-red">#{msg['label.error.header']}</i>
         </h3>
+        <div class="pull-right">
+            <p>
+                #{adm['label.404.home']} <p:link style="text-decoration: underline" href="/" value="Home"
+                                                 escape="false"/>.
+            </p>
+        </div>
     </ui:define>
 
     <ui:define name="body">
@@ -19,7 +30,7 @@
             <div class="error-content">
                 <div class="box box-solid box-danger">
                     <div class="box-header with-border">
-                        <h3>#{label.error.title}</h3>
+                        <h3>#{adm['label.error.title']}</h3>
                     </div>
                     <div class="box-body" style="overflow: auto">
                         <ul>
@@ -41,7 +52,7 @@
             </div>
             <div class="box box-solid box-warning">
                 <div class="box-header with-border">
-                    <h3>#{msg['label.error.detail']}</h3>
+                    <h3>#{adm['label.error.detail']}</h3>
                 </div>
                 <div class="box-body" style="overflow: auto">
                     <pre>
