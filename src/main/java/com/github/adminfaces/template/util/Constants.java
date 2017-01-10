@@ -9,6 +9,7 @@ public interface Constants {
     String DEFAULT_LOGIN_PAGE = "login.xhtml";
     String DEFAULT_ERROR_PAGE = "error.xhtml";
     String DEFAULT_DATE_FORMAT = "MM/dd/yyyy HH:mm:ss";
+    String DEFAULT_PAGE_FORMAT = "xhtml";
 
     interface InitialParams {
         String DISABLE_FILTER = "com.github.adminfaces.DISABLE_FILTER";

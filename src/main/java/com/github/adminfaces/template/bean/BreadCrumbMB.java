@@ -1,6 +1,7 @@
 package com.github.adminfaces.template.bean;
 
 import com.github.adminfaces.template.model.BreadCrumb;
+import com.github.adminfaces.template.util.Constants;
 import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +18,10 @@ import static com.github.adminfaces.template.util.Assert.has;
  * Created by rafael-pestano on 30/11/16.
  */
 @SessionScoped
+@Named
 public class BreadCrumbMB implements Serializable {
+
+    private ThreadLocal<Boolean> hasClear = new ThreadLocal<>();
 
     private int maxSize = 5;
 
@@ -35,8 +39,18 @@ public class BreadCrumbMB implements Serializable {
         }
     }
 
+    public void add(String link, String title){
+        add(new BreadCrumb(link,title));
+    }
 
     public void add(BreadCrumb breadCrumb){
+        if(hasClear.get() != null) {
+            hasClear.remove();
+            return;
+        }
+        if(breadCrumb.getLink() != null && !breadCrumb.getLink().contains(".")){
+            breadCrumb.setLink(breadCrumb.getLink()+"."+ Constants.DEFAULT_PAGE_FORMAT);
+        }
         if(breadCrumbs.contains(breadCrumb)){
             breadCrumbs.remove(breadCrumb);
         }
@@ -53,11 +67,10 @@ public class BreadCrumbMB implements Serializable {
 
     public void clear(){
         breadCrumbs.clear();
+        hasClear.set(true);
     }
 
 
-    @Produces
-    @Named("breadCrumbs")
     public List<BreadCrumb> getBreadCrumbs() {
         return breadCrumbs;
     }

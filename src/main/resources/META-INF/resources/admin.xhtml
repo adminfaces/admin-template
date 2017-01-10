@@ -59,12 +59,12 @@
                         </h1>
                         <ol class="breadcrumb" >
                             <li>
-                                <p:link href="/">
+                                <p:link href="/" onclick="clearBreadCrumbs();">
                                     <i class="fa fa-home"></i>
                                     Home
                                 </p:link>
                             </li>
-                            <ui:repeat value="#{breadCrumbs}" var="b" varStatus="status">
+                            <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
                                 <li class="#{status.last ? 'active':''}">
                                     <h:panelGroup rendered="#{status.last}">
                                         #{b.title}
@@ -93,7 +93,9 @@
             <footer class="main-footer">
                <ui:insert name="footer"/>
             </footer>
-
+            <h:form>
+                <p:remoteCommand name="clearBreadCrumbs" action="#{breadCrumbMB.clear}" process="@this" update="@(.breadcrumb)" partialSubmit="true"/>
+            </h:form>
         </div>
 
         <!--
