@@ -21,5 +21,9 @@
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/error.xhtml</location>
 	</error-page>
+	<error-page>
+		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
+		<location>/expired.xhtml</location>
+	</error-page>
 
 </web-fragment>

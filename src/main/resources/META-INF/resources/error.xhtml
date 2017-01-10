@@ -1,7 +1,5 @@
 <ui:composition template="admin.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:p="http://primefaces.org/ui"
@@ -63,7 +61,12 @@
 
             </div>
         </div>
-
+        <script type="text/javascript">
+        $(document).ready(function() {
+              $(document.body).addClass('sidebar-collapse')
+                }
+        )
+        </script>
     </ui:define>
 
 </ui:composition>

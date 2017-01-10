@@ -1,0 +1,27 @@
+<ui:composition template="admin"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<ui:define name="body">
+		<div class="error-content">
+			<div class="box box-solid box-danger">
+				<div class="box-header with-border">
+					<h3>#{adm['label.expired.title']}</h3>
+				</div>
+				<div class="box-body">
+					<p>#{adm['label.expired.message']}.
+						<a href="#{requestScope['javax.servlet.error.request_uri']}">#{adm['label.expired.click-here']}</a>
+					</p>
+
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+						$(document.body).addClass('sidebar-collapse')
+					}
+			)
+		</script>
+	</ui:define>
+	
+</ui:composition>
