@@ -10,7 +10,7 @@
 
     <ui:define name="body">
         <div class="error-page">
-            <h2 class="headline text-yellow">404</h2>
+            <h2 class="headline text-yellow">#{adm['label.404.header']}</h2>
 
             <div class="error-content" style="font-size: 1.1em">
                 <h3><i class="fa fa-warning text-yellow"></i> #{adm['label.404.not-found']}.</h3>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <script type="text/javascript">
-            $(document).ready(function() {
+            $(document).ready(function () {
                         $(document.body).addClass('sidebar-collapse')
                     }
             )

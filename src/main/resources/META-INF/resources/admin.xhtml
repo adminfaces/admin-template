@@ -12,7 +12,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <!--<link rel="shortcut icon" type="image/x-icon" href="#{resource['image/favicon.ico']}"/>-->
         <h:outputStylesheet library="bootstrap" name="css/bootstrap.css"/>
         <ui:insert name="head" />
     </h:head>
@@ -81,7 +80,7 @@
                             <div class="ui-g-12">
                                 <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true" showDetail="true" showSummary="false" severity="error,fatal"/>
                                 <!-- we need two messages because info-messages are hidden by javascript  -->
-                                <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true" showSummary="false" severity="info,warn" />
+                                <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true" showSummary="true" severity="info,warn" />
                                 <p:tooltip /> <!-- exception messages with type tooltip -->
                             </div>
                         </div>
