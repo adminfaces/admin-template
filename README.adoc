@@ -1,3 +1,4 @@
 = Admin Template
 
-A https://javaserverfaces.java.net/[JSF^] admin template based on http://primefaces.org/themes[Primefaces^], https://almsaeedstudio.com/themes/AdminLTE/index2.html[Admin LTE^] and http://getbootstrap.com[Bootstrap^].
+A https://javaserverfaces.java.net/[JSF^] *fully responsive* `admin template` based on http://primefaces.org/themes[Primefaces^], https://almsaeedstudio.com/themes/AdminLTE/index2.html[Admin LTE^] and http://getbootstrap.com[Bootstrap^].
+

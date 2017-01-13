@@ -12,6 +12,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <h:outputStylesheet library="bootstrap" name="css/bootstrap.css"/>
         <ui:insert name="head" />
+        <ui:insert name="params" />
     </h:head>
     <h:body styleClass="#{themeMB.theme} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
         <f:loadBundle var="adm" basename="admin"/>
@@ -54,27 +55,29 @@
                             <ui:insert name="title" />
                             <small><ui:insert name="description" /></small>
                         </h1>
-                        <ol class="breadcrumb" >
-                            <li>
-                                <p:link href="/" onclick="clearBreadCrumbs();">
-                                    <i class="fa fa-home"></i>
-                                    Home
-                                </p:link>
-                            </li>
-                            <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
-                                <li class="#{status.last ? 'active':''}">
-                                    <h:panelGroup rendered="#{status.last}">
-                                        #{b.title}
-                                    </h:panelGroup>
-                                    <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
-                                        #{b.title}
+                        <ui:fragment rendered="#{empty renderBreadCrumb or renderBreadCrumb eq 'true'}">
+                            <ol class="breadcrumb" >
+                                <li>
+                                    <p:link href="/" onclick="clearBreadCrumbs();">
+                                        <i class="fa fa-home"></i>
+                                        Home
                                     </p:link>
                                 </li>
-                            </ui:repeat>
-                        </ol>
+                                <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
+                                    <li class="#{status.last ? 'active':''}">
+                                        <h:panelGroup rendered="#{status.last}">
+                                            #{b.title}
+                                        </h:panelGroup>
+                                        <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
+                                            #{b.title}
+                                        </p:link>
+                                    </li>
+                                </ui:repeat>
+                            </ol>
+                        </ui:fragment>
                     </section>
                     <section class="content">
-                        <div class="row">
+                        <div class="ui-g">
                             <div class="ui-g-12">
                                 <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true" showDetail="true" showSummary="false" severity="error,fatal"/>
                                 <!-- we need two messages because info-messages are hidden by javascript  -->
