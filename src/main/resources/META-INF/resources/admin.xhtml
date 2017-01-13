@@ -91,7 +91,7 @@
                <ui:insert name="footer"/>
             </footer>
             <h:form>
-                <p:remoteCommand name="clearBreadCrumbs" action="#{breadCrumbMB.clear}" process="@this" update="@(.breadcrumb)" partialSubmit="true" global="false"/>
+                <p:remoteCommand name="clearBreadCrumbs" actionListener="#{breadCrumbMB.clear}" process="@this" update="@(.breadcrumb)" partialSubmit="true" global="false"/>
             </h:form>
         </div>
 

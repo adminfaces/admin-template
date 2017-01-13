@@ -1,0 +1,76 @@
+<ui:composition template="admin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+
+    <ui:define name="body">
+      <div class="row">
+            <div class="ui-g-12"> 
+                <div class="error-page">
+                    <h2 class="headline text-red">#{adm['label.500.header']}</h2>
+
+                    <div class="error-content" style="font-size: 1.1em">
+                        <h3>
+                            <i class="fa fa-warning text-red"></i> #{adm['label.500.message']}.
+                        </h3>
+
+                        <p>
+                            #{adm['label.go-back']} <p:link style="text-decoration: underline" href="/" value="Home"
+                                                             escape="false"/>.
+                        </p>
+                    </div>
+                </div>    
+         </div>
+      </div>          
+
+     <div class="row">
+         <div class="ui-g-12"> 
+        <div class="box box-solid box-danger">
+                <div class="box-header with-border">
+                    <h3>#{adm['label.500.title']}</h3>
+                </div>
+                <div class="box-body" style="overflow: auto">
+                    <ul>
+                        <li><b>Date/time:</b> #{of:formatDate(now, dateFormatMB.dateFormat)}</li>
+                        <li><b>User agent:</b> #{header['user-agent']}</li>
+                        <li>
+                            <b>User IP:</b> #{empty header['x-forwarded-for'] ? request.remoteAddr : fn:split(header['x-forwarded-for'], ',')[0]}
+                        </li>
+                        <li><b>Request URI:</b> <a
+                                href="#{requestScope['javax.servlet.error.request_uri']}">#{requestScope['javax.servlet.error.request_uri']}</a>
+                        </li>
+                        <li><b>Ajax request:</b> #{facesContext.partialViewContext.ajaxRequest ? 'Yes' : 'No'}</li>
+                        <li><b>Status code:</b> #{requestScope['javax.servlet.error.status_code']}</li>
+                        <li><b>Exception type:</b> #{requestScope['javax.servlet.error.exception_type']}</li>
+                        <li><b>Message:</b> #{requestScope['javax.servlet.error.message']}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border">
+                    <h3>#{adm['label.500.detail']}</h3>
+                </div>
+                <div class="box-body" style="overflow: auto">
+                    <pre>
+#{of:printStackTrace(requestScope['javax.servlet.error.exception'])}
+#{of:printStackTrace(requestScope['javax.servlet.error.exception_stacktrace'])}
+					</pre>
+                </div>
+
+            </div>
+        </div>
+      </div>
+       
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                        $(document.body).addClass('sidebar-collapse')
+                    }
+            )
+        </script>
+    </ui:define>
+
+</ui:composition>

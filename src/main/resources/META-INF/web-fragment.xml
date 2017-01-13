@@ -19,7 +19,7 @@
 	</error-page>
 	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
-		<location>/error.xhtml</location>
+		<location>/500.xhtml</location>
 	</error-page>
 	<error-page>
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
