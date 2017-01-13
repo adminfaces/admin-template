@@ -8,4 +8,6 @@
         <exception-handler-factory>com.github.adminfaces.template.exception.CustomExceptionHandlerFactory</exception-handler-factory>
     </factory>
 
+
+
 </faces-config>
