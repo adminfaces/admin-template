@@ -1,6 +1,6 @@
 package com.github.adminfaces.template.filter;
 
-import com.github.adminfaces.template.bean.AdminConfig;
+import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.security.AdminSession;
 import com.github.adminfaces.template.util.Constants;
 import org.slf4j.Logger;

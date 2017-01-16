@@ -1,4 +1,4 @@
-<ui:composition template="admin.xhtml"
+<ui:composition template="#{adminConfig.templatePath}"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -34,7 +34,7 @@
                 </div>
                 <div class="box-body" style="overflow: auto">
                     <ul>
-                        <li><b>Date/time:</b> #{of:formatDate(now, dateFormatMB.dateFormat)}</li>
+                        <li><b>Date/time:</b> #{of:formatDate(now, adminConfig.dateFormat)}</li>
                         <li><b>User agent:</b> #{header['user-agent']}</li>
                         <li>
                             <b>User IP:</b> #{empty header['x-forwarded-for'] ? request.remoteAddr : fn:split(header['x-forwarded-for'], ',')[0]}

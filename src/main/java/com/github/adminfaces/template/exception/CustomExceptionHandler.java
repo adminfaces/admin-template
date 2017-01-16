@@ -24,7 +24,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.github.adminfaces.template.bean.AdminConfig;
+import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.util.Constants;
 import org.omnifaces.config.WebXml;
 import org.omnifaces.util.Exceptions;
