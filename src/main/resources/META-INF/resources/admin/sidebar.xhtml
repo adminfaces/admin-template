@@ -11,23 +11,13 @@
     <cc:implementation>
          <h:panelGroup rendered="#{cc.attrs.collapsed}">
              <script type="text/javascript">
-                 $(document).ready(function () {
-                             if(!$(document.body).hasClass('sidebar-collapse')) {
-                                 $(document.body).addClass('sidebar-collapse')
-                             }
-                         }
-                 )
+                 collapseSidebar();
              </script>
          </h:panelGroup>
 
         <h:panelGroup rendered="#{empty cc.attrs.collapsed or not cc.attrs.collapsed}">
             <script type="text/javascript">
-                $(document).ready(function () {
-                            if($(document.body).hasClass('sidebar-collapse')) {
-                                $(document.body).removeClass('sidebar-collapse')
-                            }
-                        }
-                )
+                 expandSidebar();
             </script>
         </h:panelGroup>
     </cc:implementation>

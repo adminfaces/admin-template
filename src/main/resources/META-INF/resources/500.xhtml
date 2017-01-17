@@ -3,6 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
                 xmlns:of="http://omnifaces.org/functions">
 
 
@@ -63,14 +64,7 @@
             </div>
         </div>
       </div>
-       
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                        $(document.body).addClass('sidebar-collapse')
-                    }
-            )
-        </script>
+        <adm:sidebar collapsed="true"/>
     </ui:define>
 
 </ui:composition>

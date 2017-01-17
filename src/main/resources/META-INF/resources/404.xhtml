@@ -1,12 +1,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:adm="http://github.com/adminfaces"
                 template="#{adminConfig.templatePath}">
 
-
-    <ui:define name="head">
-        <ui:param name="sidebarCollapse" value="true"/>
-    </ui:define>
 
     <ui:define name="body">
         <div class="error-page">
@@ -22,12 +19,7 @@
 
             </div>
         </div>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                        $(document.body).addClass('sidebar-collapse')
-                    }
-            )
-        </script>
+        <adm:sidebar collapsed="true"/>
     </ui:define>
 
 

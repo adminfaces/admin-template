@@ -1,6 +1,6 @@
 <facelet-taglib version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
-    <namespace>http://github.com/admin-faces</namespace>
+    <namespace>http://github.com/adminfaces</namespace>
     <composite-library-name>admin</composite-library-name>
 </facelet-taglib>

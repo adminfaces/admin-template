@@ -94,7 +94,7 @@ function searchMenu(criteria) {
             });
             if (childMatch) {
                 $(this).addClass('active');
-            } else{
+            } else {
                 $(this).removeClass('active');
             }
         });//end treeview search
@@ -102,16 +102,16 @@ function searchMenu(criteria) {
         $('.sidebar-menu li').each(function () {
             $(this).not(".treeview").each(function () {
                 let elementText = $(this).html();
-                if (elementText .toLowerCase().indexOf(criteria) == -1) {
+                if (elementText.toLowerCase().indexOf(criteria) == -1) {
                     $(this).hide();
-                }else{
+                } else {
                     $(this).show();
                 }
             });
 
         });
 
-    } else{
+    } else {
         $('.sidebar-menu li').each(function () {
             if ($(this)) {
                 $(this).show();
@@ -141,5 +141,25 @@ function searchMenu(criteria) {
             }
 
         })
+    }
+}
+
+function collapseSidebar() {
+    if (!$(document.body).hasClass('sidebar-collapse')) {
+        $(document.body).addClass('sidebar-collapse')
+    }
+}
+
+function expandSidebar() {
+    if ($(document.body).hasClass('sidebar-collapse')) {
+        $(document.body).removeClass('sidebar-collapse')
+    }
+}
+
+function toggleSidebar() {
+    if ($(document.body).hasClass('sidebar-collapse')) {
+        $(document.body).removeClass('sidebar-collapse')
+    } else {
+        $(document.body).addClass('sidebar-collapse')
     }
 }

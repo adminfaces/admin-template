@@ -1,5 +1,6 @@
 <ui:composition template="#{adminConfig.templatePath}"
-	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:adm="http://github.com/adminfaces"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
 	<ui:define name="body">
@@ -16,12 +17,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript">
-			$(document).ready(function() {
-						$(document.body).addClass('sidebar-collapse')
-					}
-			)
-		</script>
+		<adm:sidebar collapsed="true"/>
 	</ui:define>
 	
 </ui:composition>
