@@ -1,11 +1,13 @@
 package com.github.adminfaces.template.bean;
 
+import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.model.BreadCrumb;
 import com.github.adminfaces.template.util.Constants;
 import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,20 +24,17 @@ public class BreadCrumbMB implements Serializable {
 
     private ThreadLocal<Boolean> hasClear = new ThreadLocal<>();
 
+    @Inject
+    protected AdminConfig adminConfig;
+
+
     private int maxSize = 5;
 
     private List<BreadCrumb> breadCrumbs = new ArrayList<>();
 
     @PostConstruct
     public void init(){
-        String breadCrumbSizeParam = Faces.getInitParameter("com.github.adminfaces.BREAD_CRUMB_SIZE");
-        if(has(breadCrumbSizeParam)) {
-            try{
-                maxSize = Integer.parseInt(breadCrumbSizeParam);
-            }catch (NumberFormatException nfe){
-                //no-op
-            }
-        }
+          maxSize = adminConfig.getBreadCrumbMaxSize();
     }
 
     public void add(String link, String title){

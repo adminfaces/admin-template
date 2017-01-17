@@ -28,6 +28,7 @@ public class AdminConfig implements Serializable {
     private String errorPage;
     private String dateFormat;
     private String templatePath;
+    private Integer breadCrumbMaxSize;
 
 
     @PostConstruct
@@ -56,6 +57,7 @@ public class AdminConfig implements Serializable {
         indexPage = getProperty("admin.indexPage");
         dateFormat = getProperty("admin.dateFormat");
         templatePath = getProperty("admin.templatePath");
+        breadCrumbMaxSize = Integer.parseInt(getProperty("admin.breadcrumbSize"));
     }
 
     private String getProperty(String property) {
@@ -98,6 +100,14 @@ public class AdminConfig implements Serializable {
 
     public String getTemplatePath() {
         return templatePath;
+    }
+
+    public Integer getBreadCrumbMaxSize() {
+        return breadCrumbMaxSize;
+    }
+
+    public void setBreadCrumbMaxSize(Integer breadCrumbMaxSize) {
+        this.breadCrumbMaxSize = breadCrumbMaxSize;
     }
 
     public void setTemplatePath(String templatePath) {
