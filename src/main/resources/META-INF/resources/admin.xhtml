@@ -36,20 +36,22 @@
                         <span class="sr-only"></span>
                     </a>
                     <div class="navbar-custom-menu" >
-                        <ui:insert name="topMenu"/>
+                        <ui:insert name="top-menu"/>
                     </div>
                 </nav>
             </header>
 
                 <!-- side menu -->
                 <aside class="main-sidebar" >
-                    <ui:insert name="sidebar"/>
+                    <ui:insert name="before-sidebar"/>
                     <section class="sidebar">
-                           <ui:insert name="sideMenu"/>
+                           <ui:insert name="sidebar"/>
                     </section>
+                    <ui:insert name="after-sidebar"/>
                 </aside>
                 <!-- content -->
                 <div class="content-wrapper">
+                    <ui:insert name="before-content-header"/>
                     <section class="content-header">
                         <h1>
                             <ui:insert name="title" />
@@ -75,18 +77,24 @@
                                 </ui:repeat>
                             </ol>
                         </ui:fragment>
+                        <ui:insert name="content-header"/>
                     </section>
                     <section class="content">
-                        <div class="ui-g">
-                            <div class="ui-g-12">
-                                <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true" showDetail="true" showSummary="false" severity="error,fatal"/>
-                                <!-- we need two messages because info-messages are hidden by javascript  -->
-                                <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true" showSummary="true" severity="info,warn" />
-                                <p:tooltip /> <!-- exception messages with type tooltip -->
+                          <ui:insert name="before-content"/>
+                          <ui:fragment rendered="#{adminConfig.renderMessages}">
+                               <div class="ui-g">
+                                <div class="ui-g-12">
+                                    <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true" showDetail="true" showSummary="false" severity="error,fatal"/>
+                                    <!-- we need two messages because info-messages are hidden by javascript  -->
+                                    <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true" showSummary="true" severity="info,warn" />
+                                    <p:tooltip /> <!-- exception messages with type tooltip -->
+                                </div>
                             </div>
-                        </div>
+                          </ui:fragment>
+
                         <ui:insert name="body" />
                     </section>
+                    <ui:insert name="after-content"/>
                 </div>
 
 

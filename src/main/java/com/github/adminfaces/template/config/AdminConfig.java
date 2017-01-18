@@ -29,6 +29,7 @@ public class AdminConfig implements Serializable {
     private String dateFormat;
     private String templatePath;
     private Integer breadCrumbMaxSize;
+    private boolean renderMessages;
 
 
     @PostConstruct
@@ -58,6 +59,7 @@ public class AdminConfig implements Serializable {
         dateFormat = getProperty("admin.dateFormat");
         templatePath = getProperty("admin.templatePath");
         breadCrumbMaxSize = Integer.parseInt(getProperty("admin.breadcrumbSize"));
+        renderMessages = Boolean.parseBoolean(getProperty("admin.renderMessages"));
     }
 
     private String getProperty(String property) {
@@ -112,5 +114,13 @@ public class AdminConfig implements Serializable {
 
     public void setTemplatePath(String templatePath) {
         this.templatePath = templatePath;
+    }
+
+    public boolean isRenderMessages() {
+        return renderMessages;
+    }
+
+    public void setRenderMessages(boolean renderMessages) {
+        this.renderMessages = renderMessages;
     }
 }
