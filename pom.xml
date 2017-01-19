@@ -134,13 +134,6 @@
                     </plugin>
                 </plugins>
             </build>
-            <distributionManagement>
-                <repository>
-                    <id>bintray</id>
-                    <url>https://api.bintray.com/maven/rmpestano/adminfaces/admin-template</url>
-                </repository>
-            </distributionManagement>
-
         </profile>
 
     </profiles>
@@ -150,6 +143,19 @@
             <id>snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+           <id>central</id>
+           <url>https://oss.sonatype.org/content/repositories/releases</url>
+        </repository>
     </distributionManagement>
+
+     <repositories>
+        <repository>
+            <snapshots/>
+            <id>snapshots</id>
+            <name>libs-snapshot</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
 
 </project>
