@@ -1,5 +1,4 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:cc="http://java.sun.com/jsf/composite">
 
@@ -9,17 +8,17 @@
     </cc:interface>
 
     <cc:implementation>
-         <h:panelGroup rendered="#{cc.attrs.collapsed}">
+         <ui:fragment rendered="#{cc.attrs.collapsed}">
              <script type="text/javascript">
                  collapseSidebar();
              </script>
-         </h:panelGroup>
+         </ui:fragment>
 
-        <h:panelGroup rendered="#{empty cc.attrs.collapsed or not cc.attrs.collapsed}">
+        <ui:fragment rendered="#{empty cc.attrs.collapsed or not cc.attrs.collapsed}">
             <script type="text/javascript">
                  expandSidebar();
             </script>
-        </h:panelGroup>
+        </ui:fragment>
     </cc:implementation>
 
 </ui:composition>
