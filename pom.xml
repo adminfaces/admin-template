@@ -8,7 +8,7 @@
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>9</version>
-        <relativePath />
+        <relativePath/>
     </parent>
 
     <groupId>com.github.adminfaces</groupId>
@@ -64,6 +64,12 @@
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
             <version>2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>4.7.0</version>
         </dependency>
 
         <dependency>
@@ -144,12 +150,12 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
-           <id>central</id>
-           <url>https://oss.sonatype.org/content/repositories/releases</url>
+            <id>central</id>
+            <url>https://oss.sonatype.org/content/repositories/releases</url>
         </repository>
     </distributionManagement>
 
-     <repositories>
+    <repositories>
         <repository>
             <snapshots/>
             <id>snapshots</id>
