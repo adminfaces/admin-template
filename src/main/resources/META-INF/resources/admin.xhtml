@@ -84,9 +84,9 @@
                           <ui:fragment rendered="#{adminConfig.renderMessages}">
                                <div class="ui-g">
                                 <div class="ui-g-12">
-                                    <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true" showDetail="true" showSummary="false" severity="error,fatal"/>
+                                    <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true" showDetail="true" severity="error,fatal" escape="false"/>
                                     <!-- we need two messages because info-messages are hidden by javascript  -->
-                                    <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true" showSummary="true" severity="info,warn" />
+                                    <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true" severity="info,warn" escape="false" />
                                     <p:tooltip /> <!-- exception messages with type tooltip -->
                                 </div>
                             </div>

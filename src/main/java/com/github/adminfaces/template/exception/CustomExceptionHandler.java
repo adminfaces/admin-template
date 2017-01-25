@@ -182,7 +182,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             throw new FacesException(e);
         }
-        if (e.getExceptionList() != null && !e.getExceptionList().isEmpty()) {
+        if (has(e.getExceptionList())) {
             for (BusinessException be : e.getExceptionList()) {
                 addFacesMessage(be);
             }
@@ -194,9 +194,17 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
     }
 
     private void addFacesMessage(BusinessException be) {
-        FacesMessage facesMessage = Messages.create(be.getSeverity(), be.getMessage());
+        FacesMessage facesMessage = new FacesMessage();
+        if (has(be.getSummary())) {
+            facesMessage.setSummary(be.getSummary());
+        }
         if (has(be.getDetail())) {
             facesMessage.setDetail(be.getDetail());
+        }
+        if (has(be.getSeverity())) {
+            facesMessage.setSeverity(be.getSeverity());
+        } else {
+            facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
         }
         Messages.add(be.getFieldId(), facesMessage);
     }
