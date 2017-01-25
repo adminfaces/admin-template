@@ -3,7 +3,6 @@ package com.github.adminfaces.template.bean;
 import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.model.BreadCrumb;
 import com.github.adminfaces.template.util.Constants;
-import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -23,7 +22,7 @@ import static com.github.adminfaces.template.util.Assert.has;
 @Named
 public class BreadCrumbMB implements Serializable {
 
-    private ThreadLocal<Boolean> hasClear = new ThreadLocal<>();
+    private ThreadLocal<Boolean> hasCleared = new ThreadLocal<>();
 
     @Inject
     protected AdminConfig adminConfig;
@@ -38,13 +37,17 @@ public class BreadCrumbMB implements Serializable {
           maxSize = adminConfig.getBreadCrumbMaxSize();
     }
 
-    public void add(String link, String title){
+    public void add(String link, String title, Boolean clear){
+        if(clear != null && clear){
+            breadCrumbs.clear();
+        }
         add(new BreadCrumb(link,title));
     }
 
     public void add(BreadCrumb breadCrumb){
-        if(hasClear.get() != null) {
-            hasClear.remove();
+        if(hasCleared.get() != null) {
+            //when clicking on home breadcrumb it calls add two times
+            hasCleared.remove();
             return;
         }
 
@@ -71,7 +74,7 @@ public class BreadCrumbMB implements Serializable {
 
     public void clear(){
         breadCrumbs.clear();
-        hasClear.set(true);
+        hasCleared.set(true);
     }
 
 
