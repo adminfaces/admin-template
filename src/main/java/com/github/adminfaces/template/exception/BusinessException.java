@@ -39,6 +39,16 @@ public class BusinessException extends RuntimeException implements Serializable 
         super(summary);
         this.summary = summary;
     }
+    
+    /**
+     * @param summary exception summary
+     * @param detail exception detail
+     */
+    public BusinessException(String summary, String detail) {
+        super(summary);
+        this.detail = detail;
+        this.summary = summary;
+    }
 
 
     /**
@@ -110,7 +120,7 @@ public class BusinessException extends RuntimeException implements Serializable 
         }
         return severity;
     }
-
+    
     public String getFieldId() {
         return fieldId;
     }
