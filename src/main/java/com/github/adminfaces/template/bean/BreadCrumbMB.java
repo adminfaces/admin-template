@@ -7,6 +7,7 @@ import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -46,6 +47,11 @@ public class BreadCrumbMB implements Serializable {
             hasClear.remove();
             return;
         }
+
+        if(!has(breadCrumb.getLink())){
+            breadCrumb.setLink(FacesContext.getCurrentInstance().getViewRoot().getViewId());
+        }
+
         if(breadCrumb.getLink() != null && !breadCrumb.getLink().contains(".")){
             breadCrumb.setLink(breadCrumb.getLink()+"."+ Constants.DEFAULT_PAGE_FORMAT);
         }
