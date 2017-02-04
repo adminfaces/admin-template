@@ -70,8 +70,6 @@ public class AdminFilter implements Filter {
                 indexPage = indexPage.startsWith("/") ? indexPage.substring(1):indexPage;
             }catch (Exception e) {
                 log.error("problem initializing admin filter",e);
-            } finally {
-                log.info("Admin filter initialized");
             }
         }
 
