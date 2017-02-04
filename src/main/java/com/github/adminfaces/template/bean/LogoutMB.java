@@ -22,16 +22,16 @@ public class LogoutMB {
 
 
     public void doLogout() throws IOException {
-        String indexPage = adminConfig.getIndexPage();
-        if (indexPage == null || "".equals(indexPage)) {
-            indexPage = Constants.DEFAULT_INDEX_PAGE;
+        String loginPage = adminConfig.getLoginPage();
+        if (loginPage == null || "".equals(loginPage)) {
+            loginPage = Constants.DEFAULT_INDEX_PAGE;
         }
-        if (!indexPage.startsWith("/")) {
-            indexPage = "/" + indexPage;
+        if (!loginPage.startsWith("/")) {
+            loginPage = "/" + loginPage;
         }
         Faces.getSession().invalidate();
         ExternalContext ec = Faces.getExternalContext();
-        ec.redirect(ec.getRequestContextPath() + indexPage);
+        ec.redirect(ec.getRequestContextPath() + loginPage);
     }
 
 }
