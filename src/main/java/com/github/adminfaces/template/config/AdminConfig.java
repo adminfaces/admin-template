@@ -30,6 +30,7 @@ public class AdminConfig implements Serializable {
     private String templatePath;
     private Integer breadCrumbMaxSize;
     private boolean renderMessages;
+    private boolean disableFilter;
 
 
     @PostConstruct
@@ -60,6 +61,7 @@ public class AdminConfig implements Serializable {
         templatePath = getProperty("admin.templatePath");
         breadCrumbMaxSize = Integer.parseInt(getProperty("admin.breadcrumbSize"));
         renderMessages = Boolean.parseBoolean(getProperty("admin.renderMessages"));
+        disableFilter = Boolean.parseBoolean(getProperty("admin.disableFilter"));
     }
 
     private String getProperty(String property) {
@@ -98,6 +100,14 @@ public class AdminConfig implements Serializable {
 
     public void setErrorPage(String errorPage) {
         this.errorPage = errorPage;
+    }
+
+    public boolean isDisableFilter() {
+        return disableFilter;
+    }
+
+    public void setDisableFilter(boolean disableFilter) {
+        this.disableFilter = disableFilter;
     }
 
     public String getTemplatePath() {
