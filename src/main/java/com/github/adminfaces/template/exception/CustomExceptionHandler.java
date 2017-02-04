@@ -90,6 +90,9 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
         final HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 
+        /* logoff request: send user to logon page and add current page (referer) to 'page' querystring
+        so we can send user back to the page after he logs in again.
+        */
         if (request.getAttribute("logoff") != null && request.getAttribute("logoff").equals("true")) {
             redirectToLogon(request, context);
         }
