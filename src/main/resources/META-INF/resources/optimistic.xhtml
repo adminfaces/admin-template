@@ -1,0 +1,23 @@
+<ui:composition xmlns:adm="http://github.com/adminfaces"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="#{adminConfig.templatePath}">
+
+    <ui:define name="body">
+        <div class="error-content">
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border" style="padding-top: 1px">
+                    <h3>#{adm['label.optimistic.title']}</h3>
+                </div>
+                <div class="box-body">
+                    <p>#{adm['label.optimistic.message']}.
+                        <a href="#{requestScope['javax.servlet.error.request_uri']}">#{adm['label.optimistic.click-here']}</a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <adm:sidebar collapsed="true"/>
+    </ui:define>
+
+</ui:composition>

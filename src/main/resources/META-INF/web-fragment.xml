@@ -20,6 +20,10 @@
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
 		<location>/expired.xhtml</location>
 	</error-page>
+	<error-page>
+		<exception-type>javax.persistence.OptimisticLockException</exception-type>
+		<location>/optimistic.xhtml</location>
+	</error-page>
 	<mime-mapping>
 		<extension>ico</extension>
 		<mime-type>image/x-icon</mime-type>
