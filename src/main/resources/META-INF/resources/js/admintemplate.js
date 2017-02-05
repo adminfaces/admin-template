@@ -163,3 +163,23 @@ function toggleSidebar() {
         $(document.body).addClass('sidebar-collapse')
     }
 }
+
+function toggleSidebarMini() {
+    if ($(document.body).hasClass('sidebar-mini')) {
+        $(document.body).removeClass('sidebar-mini')
+    } else {
+        $(document.body).addClass('sidebar-mini')
+    }
+}
+
+function setSidebarMini() {
+    if (!$(document.body).hasClass('sidebar-mini')) {
+        $(document.body).addClass('sidebar-mini')
+    }
+}
+
+function removeSidebarMini() {
+    if ($(document.body).hasClass('sidebar-mini')) {
+        $(document.body).removeClass('sidebar-mini')
+    }
+}

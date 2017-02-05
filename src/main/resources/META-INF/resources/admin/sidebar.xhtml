@@ -4,7 +4,9 @@
 
 
     <cc:interface>
-        <cc:attribute name="collapsed" required="true" shortDescription="When true it will collapse layout sidebar on document ready"  />
+        <cc:attribute name="collapsed" shortDescription="When true it will collapse layout sidebar."  />
+        <cc:attribute name="mini" shortDescription="When true it will remove sidebar from layout."  />
+
     </cc:interface>
 
     <cc:implementation>
@@ -14,9 +16,21 @@
              </script>
          </ui:fragment>
 
+         <ui:fragment rendered="#{cc.attrs.mini}">
+             <script type="text/javascript">
+                 setSidebarMini();
+             </script>
+         </ui:fragment>
+
         <ui:fragment rendered="#{empty cc.attrs.collapsed or not cc.attrs.collapsed}">
             <script type="text/javascript">
                  expandSidebar();
+            </script>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{empty cc.attrs.mini or not cc.attrs.mini}">
+            <script type="text/javascript">
+                 removeSidebarMini();
             </script>
         </ui:fragment>
     </cc:implementation>
