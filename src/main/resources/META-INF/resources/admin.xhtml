@@ -11,9 +11,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <ui:insert name="head" />
-        <ui:insert name="after-head" />
+        <ui:insert name="head-end" />
     </h:head>
     <h:body styleClass="#{themeMB.theme} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
+        <ui:insert name="body-begin" />
         <f:loadBundle var="adm" basename="admin"/>
         <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" />
         <p:dialog modal="true" widgetVar="statusDialog"  draggable="false" closable="true" resizable="false" showHeader="false">
@@ -43,15 +44,15 @@
 
                 <!-- side menu -->
                 <aside class="main-sidebar" >
-                    <ui:insert name="before-sidebar"/>
+                    <ui:insert name="menu-begin"/>
                     <section class="sidebar">
-                           <ui:insert name="sidebar"/>
+                           <ui:insert name="menu"/>
                     </section>
-                    <ui:insert name="after-sidebar"/>
+                    <ui:insert name="menu-end"/>
                 </aside>
                 <!-- content -->
                 <div class="content-wrapper">
-                    <ui:insert name="before-content-header"/>
+                    <ui:insert name="content-wrapper"/>
                     <section class="content-header">
                         <h1>
                             <ui:insert name="title" />
@@ -80,7 +81,7 @@
                         <ui:insert name="content-header"/>
                     </section>
                     <section class="content">
-                          <ui:insert name="before-content"/>
+                          <ui:insert name="content-begin"/>
                           <ui:fragment rendered="#{adminConfig.renderMessages}">
                                <div class="ui-g">
                                 <div class="ui-g-12">
@@ -94,7 +95,7 @@
 
                         <ui:insert name="body" />
                     </section>
-                    <ui:insert name="after-content"/>
+                    <ui:insert name="content-end"/>
                 </div>
 
 
@@ -110,7 +111,6 @@
         <h:outputScript library="js" name="bootstrap.min.js"  target="head"/>
         <h:outputScript library="js" name="admin-lte.min.js"  target="head"/>
         <h:outputScript library="js" name="admintemplate.js"  target="head"/>
-
 
     </h:body>
 
