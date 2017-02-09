@@ -40,6 +40,7 @@ function stripTrailingSlash(str) {
 
 function saveCurrentActivatedUrl(url) {
     if (typeof(Storage) !== "undefined") {
+        //console.log("saving :" + url);
         localStorage.setItem("activatedMenuUrl", url);
     }
 
@@ -50,7 +51,7 @@ function activateMenu(url, activated) {
     var activePage = stripTrailingSlash(url);
     $('.sidebar-menu li a').each(function () {
         var currentPage = stripTrailingSlash($(this).attr('href'));
-        /*console.log("activePage:" + activePage +" currentPage:" + currentPage);*/
+        //console.log("activePage:" + activePage +" currentPage:" + currentPage);
         if (activePage == currentPage) {
             $(this).parent().addClass('active');
             activated = true;
