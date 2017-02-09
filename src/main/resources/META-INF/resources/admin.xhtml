@@ -17,7 +17,7 @@
         <ui:insert name="body-begin" />
         <f:loadBundle var="adm" basename="admin"/>
         <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" />
-        <p:dialog modal="true" widgetVar="statusDialog"  draggable="false" closable="true" resizable="false" showHeader="false">
+        <p:dialog modal="true" widgetVar="statusDialog"  draggable="false" closable="true" resizable="false" showHeader="false" style="z-index: 9999!important">
             <p:graphicImage library="primefaces-admin" name="images/ajaxloadingbar.gif"/>
         </p:dialog>
 
