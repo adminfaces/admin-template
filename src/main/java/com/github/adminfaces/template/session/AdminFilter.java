@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ResourceBundle;
 
 import static com.github.adminfaces.template.util.Assert.has;
@@ -19,12 +22,11 @@ import static com.github.adminfaces.template.util.Assert.has;
 /**
  * Based on https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/filter/ConventionsFilter.java
  * Created by rafael-pestano on 07/01/17.
- *
+ * <p>
  * This filter controls when user must be redirected to logon
  * and saves current url to redirect back when session expires
- *
  */
-@WebFilter(urlPatterns={"/*"})
+@WebFilter(urlPatterns = {"/*"})
 public class AdminFilter implements Filter {
 
     private static final String FACES_RESOURCES = "javax.faces.resource";
@@ -44,32 +46,32 @@ public class AdminFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        log.info("Using AdminFaces "+ ResourceBundle.getBundle("admin").getString("admin.version"));
+        log.info("Using AdminFaces " + ResourceBundle.getBundle("admin").getString("admin.version"));
         String disableAdminFilter = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.DISABLE_FILTER);
-        if(adminConfig.isDisableFilter() || has(disableAdminFilter) && Boolean.valueOf(disableAdminFilter)) {
+        if (adminConfig.isDisableFilter() || has(disableAdminFilter) && Boolean.valueOf(disableAdminFilter)) {
             disableFilter = true;
         }
-        if(!disableFilter){
-            try{
-                loginPage =  filterConfig.getServletContext().getInitParameter(Constants.InitialParams.LOGIN_PAGE);
-                if(!has(loginPage)){
-                     loginPage = has(adminConfig) ? adminConfig.getLoginPage():Constants.DEFAULT_LOGIN_PAGE;
+        if (!disableFilter) {
+            try {
+                loginPage = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.LOGIN_PAGE);
+                if (!has(loginPage)) {
+                    loginPage = has(adminConfig) ? adminConfig.getLoginPage() : Constants.DEFAULT_LOGIN_PAGE;
                 }
-                errorPage =  filterConfig.getServletContext().getInitParameter(Constants.InitialParams.ERROR_PAGE);
-                if(!has(errorPage)){
-                    errorPage = has(adminConfig) ? adminConfig.getErrorPage():Constants.DEFAULT_ERROR_PAGE;
+                errorPage = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.ERROR_PAGE);
+                if (!has(errorPage)) {
+                    errorPage = has(adminConfig) ? adminConfig.getErrorPage() : Constants.DEFAULT_ERROR_PAGE;
                 }
-                indexPage =  filterConfig.getServletContext().getInitParameter(Constants.InitialParams.INDEX_PAGE);
-                if(!has(indexPage)){
-                    indexPage = has(adminConfig) ? adminConfig.getIndexPage():Constants.DEFAULT_INDEX_PAGE;
+                indexPage = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.INDEX_PAGE);
+                if (!has(indexPage)) {
+                    indexPage = has(adminConfig) ? adminConfig.getIndexPage() : Constants.DEFAULT_INDEX_PAGE;
                 }
 
                 //removes leading '/'
-                errorPage =  errorPage.startsWith("/") ? errorPage.substring(1):errorPage;
-                loginPage = loginPage.startsWith("/") ? loginPage.substring(1):loginPage;
-                indexPage = indexPage.startsWith("/") ? indexPage.substring(1):indexPage;
-            }catch (Exception e) {
-                log.error("problem initializing admin filter",e);
+                errorPage = errorPage.startsWith("/") ? errorPage.substring(1) : errorPage;
+                loginPage = loginPage.startsWith("/") ? loginPage.substring(1) : loginPage;
+                indexPage = indexPage.startsWith("/") ? indexPage.substring(1) : indexPage;
+            } catch (Exception e) {
+                log.error("problem initializing admin filter", e);
             }
         }
 
@@ -77,24 +79,41 @@ public class AdminFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
-        if(disableFilter){
+        if (disableFilter) {
             return;
         }
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         HttpServletRequest request = (HttpServletRequest) req;
         if (skipResource(request) || adminSession.isLoggedIn()) {
+            if (request.getRequestURI().equals(request.getContextPath() + "/")) {
+                ((HttpServletResponse) resp).sendRedirect(request.getContextPath() + "/" + indexPage);
+                return;
+            }
+            if(adminSession.isLoggedIn() && has(request.getHeader("Referer")) && request.getHeader("Referer").contains("?page=")){
+                ((HttpServletResponse) resp).sendRedirect(request.getContextPath() + "/" + extractPageFromURL(request.getHeader("Referer")));
+                return;
+            }
             try {
                 chain.doFilter(req, resp);
             } catch (FileNotFoundException e) {
-                ((HttpServletResponse)resp).sendError(404);
+                ((HttpServletResponse) resp).sendError(404);
             }
         } else { //resource not skipped AND user not logged in
-            request.setAttribute("logoff", "true");//let CustomExceptionHandler redirect to logon when user is not logged in
-            request.setAttribute("queryString", request.getQueryString());
-            chain.doFilter(req,resp);
+            redirectToLogon(request, (HttpServletResponse) resp);
+            return;
         }
 
+    }
+
+    private String extractPageFromURL(String referer) {
+        String page = referer.substring(referer.indexOf("page=")+5);
+        try {
+            return URLDecoder.decode(page,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            log.warn("Could not extract page from url",e);
+            return indexPage;
+        }
     }
 
     @Override
@@ -104,15 +123,55 @@ public class AdminFilter implements Filter {
 
     /**
      * skips faces-resources, index or logon pages
+     *
      * @param request
      * @return true if resource must be skipped by the filter false otherwise
      */
     private boolean skipResource(HttpServletRequest request) {
         String path = request.getServletPath().replaceAll("/", "");
         //log.warning("path to skip:"+path);
-        boolean skip =  path.startsWith(FACES_RESOURCES) || path.equalsIgnoreCase(loginPage) || path.equalsIgnoreCase(indexPage) || path.equalsIgnoreCase(errorPage);
+        boolean skip = path.startsWith(FACES_RESOURCES) || path.equalsIgnoreCase(loginPage) || path.equalsIgnoreCase(errorPage);
         //log.warning("skip result:"+skip);
         return skip;
     }
 
+    private void redirectToLogon(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String referer = request.getHeader("Referer");
+            String recoveryUrlParams = "";
+            if (has(referer)) {
+                if (referer.contains("?")) {
+                    recoveryUrlParams = referer.substring(referer.lastIndexOf("?") + 1);
+                }
+            } else {
+                recoveryUrlParams = request.getQueryString();
+            }
+            String requestedPage = request.getRequestURI();
+            StringBuilder recoveryUrl = null;
+            if (!loginPage.equals(requestedPage) && requestedPage.contains(".")) {
+                if(requestedPage.contains(request.getContextPath())){
+                    requestedPage = requestedPage.replace(request.getContextPath(),"");
+                }
+                recoveryUrl = new StringBuilder(requestedPage);
+                if (has(recoveryUrlParams)) {
+                    recoveryUrl.append("?").append(recoveryUrlParams);
+                }
+            }
+            String redirectUrl = request.getContextPath() + "/" + loginPage + (has(recoveryUrl) ? "?page=" + URLEncoder.encode(recoveryUrl.toString(), "UTF-8") : "");
+
+            if ("partial/ajax".equals(request.getHeader("Faces-Request"))) {
+                //redirect on ajax request: //http://stackoverflow.com/questions/13366936/jsf-filter-not-redirecting-after-initial-redirect
+                response.setContentType("text/xml");
+                response.getWriter()
+                        .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+                        .printf("<partial-response><redirect url=\"%s\"></redirect></partial-response>", redirectUrl);
+            } else {//normal redirect
+                response.sendRedirect(redirectUrl);
+            }
+
+        } catch (Exception e) {
+            log.error("Could not redirect to " + loginPage, e);
+        }
+
+    }
 }

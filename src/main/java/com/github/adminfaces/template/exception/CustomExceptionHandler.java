@@ -88,46 +88,9 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
             goToErrorPage(context, rootCause);
         }
 
-        final HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-
-        /* logoff request: send user to logon page and add current page (referer) to 'page' querystring
-        so we can send user back to the page after he logs in again.
-        */
-        if (request.getAttribute("logoff") != null && request.getAttribute("logoff").equals("true")) {
-            redirectToLogon(request, context);
-        }
-
     }
 
-    private void redirectToLogon(HttpServletRequest request, FacesContext context) {
-        ExternalContext externalContext = context.getExternalContext();
-        String logonPage = externalContext.getInitParameter(Constants.InitialParams.LOGIN_PAGE);
-        if (!has(logonPage)) {
-            logonPage = adminConfig != null ? adminConfig.getLoginPage() : Constants.DEFAULT_LOGIN_PAGE;
-        }
-        if (!logonPage.startsWith("/")) {
-            logonPage = "/" + logonPage;
-        }
-        try {
-            String referer = request.getHeader("Referer");
-            String recoveryUrlParams = "";
-            if (has(referer)) {
-                if (referer.contains("?")) {
-                    recoveryUrlParams = referer.substring(referer.lastIndexOf("?") + 1);
-                }
-            } else { //try to get params from queryString which was put by AdminFilter
-                recoveryUrlParams = (String) request.getAttribute("queryString");
-            }
-            StringBuilder recoveryUrl = new StringBuilder(context.getViewRoot().getViewId());
-            if (!"".equals(recoveryUrlParams)) {
-                recoveryUrl.append("?").append(recoveryUrlParams);
-            }
-            context.getExternalContext().redirect(externalContext.getRequestContextPath() + logonPage + "?page=" + URLEncoder.encode(recoveryUrl.toString(), "UTF-8"));
 
-        } catch (Exception e) {
-            logger.error("Could not redirect to " + logonPage, e);
-        }
-    }
 
     /**
      * @param context
