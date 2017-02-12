@@ -32,7 +32,6 @@ public class AdminFilter implements Filter {
     private static final String FACES_RESOURCES = "javax.faces.resource";
     private static final Logger log = LoggerFactory.getLogger(AdminFilter.class.getCanonicalName());
 
-
     private boolean disableFilter;
     private String loginPage;
     private String errorPage;
@@ -85,21 +84,26 @@ public class AdminFilter implements Filter {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) resp;
+
+
         if (skipResource(request) || adminSession.isLoggedIn()) {
-            if (request.getRequestURI().equals(request.getContextPath() + "/")) {
-                ((HttpServletResponse) resp).sendRedirect(request.getContextPath() + "/" + indexPage);
+            if (!adminSession.isUserRedirected() && request.getRequestURI().equals(request.getContextPath() + "/")) {
+                adminSession.setUserRedirected(true);
+                response.sendRedirect(request.getContextPath() + "/" + indexPage);
                 return;
             }
-            if(adminSession.isLoggedIn() && has(request.getHeader("Referer")) && request.getHeader("Referer").contains("?page=")){
-                ((HttpServletResponse) resp).sendRedirect(request.getContextPath() + "/" + extractPageFromURL(request.getHeader("Referer")));
+            if(!adminSession.isUserRedirected() && adminSession.isLoggedIn() && has(request.getHeader("Referer")) && request.getHeader("Referer").contains("?page=")){
+                adminSession.setUserRedirected(true);
+                response.sendRedirect(request.getContextPath() + extractPageFromURL(request.getHeader("Referer")));
                 return;
             }
             try {
                 chain.doFilter(req, resp);
             } catch (FileNotFoundException e) {
-                ((HttpServletResponse) resp).sendError(404);
+                response.sendError(404);
             }
-        } else { //resource not skipped AND user not logged in
+        } else if(!adminSession.isUserRedirected()){ //resource not skipped (e.g a page that is not logon page) AND user not logged in
             redirectToLogon(request, (HttpServletResponse) resp);
             return;
         }
@@ -158,7 +162,6 @@ public class AdminFilter implements Filter {
                 }
             }
             String redirectUrl = request.getContextPath() + "/" + loginPage + (has(recoveryUrl) ? "?page=" + URLEncoder.encode(recoveryUrl.toString(), "UTF-8") : "");
-
             if ("partial/ajax".equals(request.getHeader("Faces-Request"))) {
                 //redirect on ajax request: //http://stackoverflow.com/questions/13366936/jsf-filter-not-redirecting-after-initial-redirect
                 response.setContentType("text/xml");
@@ -174,4 +177,5 @@ public class AdminFilter implements Filter {
         }
 
     }
+
 }

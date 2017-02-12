@@ -15,11 +15,22 @@ public class AdminSession implements Serializable {
 
     private boolean isLoggedIn = true;
 
+    //avoid multiple redirects when redirecting user back to previous page after session expiration
+    private boolean userRedirected = false;
+
     public boolean isLoggedIn(){
         return isLoggedIn;
     }
 
     public void setIsLoggedIn(boolean isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
+    }
+
+    public boolean isUserRedirected() {
+        return userRedirected;
+    }
+
+    public void setUserRedirected(boolean userRedirected) {
+        this.userRedirected = userRedirected;
     }
 }
