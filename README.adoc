@@ -35,6 +35,11 @@ Admin template will bring the following transitive dependencies:
 
 ----
 <dependency>
+    <groupId>com.github.adminfaces</groupId>
+    <artifactId>admin-theme</artifactId>
+    <version>version</version>
+</dependency>
+<dependency>
     <groupId>org.primefaces</groupId>
     <artifactId>primefaces</artifactId>
     <version>6.0</version>
