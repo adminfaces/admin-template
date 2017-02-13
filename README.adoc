@@ -38,10 +38,6 @@ Of cource you can override them in your pom.xml as needed.
 
 Now you can use it in your JSF pages:
 
-++++
-<img align="right" height="350" width="400" src="https://github.com/adminfaces/admin-template/blob/master/template-example.png" style="max-width:100%;">
-++++
-
 [source,html]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -124,7 +120,9 @@ Now you can use it in your JSF pages:
 ----
 <1> /admin.xhtml is the location of the template
 
-The above page definition renders as fo
+The above page definition renders as following:
+
+image:template-example.png[]
 
 There are also other regions defined in admin.xhtml template, https://raw.githubusercontent.com/adminfaces/admin-template/master/admin-template-regions.png[see here^].
 
