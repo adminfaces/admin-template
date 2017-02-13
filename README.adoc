@@ -39,7 +39,7 @@ Of cource you can override them in your pom.xml as needed.
 Now you can use it in your JSF pages:
 
 ++++
-<img align="right" height="400" width="500" src="https://github.com/adminfaces/admin-template/blob/master/template-example.png" style="max-width:100%;">
+<img align="right" height="350" width="350" src="https://github.com/adminfaces/admin-template/blob/master/template-example.png" style="max-width:100%;">
 ++++
 
 [source,html]
@@ -126,4 +126,8 @@ Now you can use it in your JSF pages:
 
 There are also other regions defined in admin.xhtml template:
 
-image::admin-template-regions.png[link="https://github.com/adminfaces/admin-template/blob/master/src/main/resources/META-INF/resources/admin.xhtml"]
+++++
+<a href="https://github.com/adminfaces/admin-template/blob/master/admin-template-regions.png">
+<img align="right" height="400" width="300" src="https://github.com/adminfaces/admin-template/blob/master/admin-template-regions.png" style="max-width:100%;">
+</a>
+++++
