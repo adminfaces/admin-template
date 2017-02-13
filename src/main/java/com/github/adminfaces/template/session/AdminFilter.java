@@ -88,8 +88,7 @@ public class AdminFilter implements Filter {
 
 
         if (skipResource(request) || adminSession.isLoggedIn()) {
-            if (!adminSession.isUserRedirected() && request.getRequestURI().equals(request.getContextPath() + "/")) {
-                adminSession.setUserRedirected(true);
+            if (request.getRequestURI().equals(request.getContextPath() + "/")) {
                 response.sendRedirect(request.getContextPath() + "/" + indexPage);
                 return;
             }
@@ -103,7 +102,7 @@ public class AdminFilter implements Filter {
             } catch (FileNotFoundException e) {
                 response.sendError(404);
             }
-        } else if(!adminSession.isUserRedirected()){ //resource not skipped (e.g a page that is not logon page) AND user not logged in
+        } else { //resource not skipped (e.g a page that is not logon page) AND user not logged in
             redirectToLogon(request, (HttpServletResponse) resp);
             return;
         }
