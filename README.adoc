@@ -120,7 +120,7 @@ Now you can use it in your JSF pages:
 ----
 <1> /admin.xhtml is the location of the template
 
-The above page definition renders as following:
+The above page definition renders as follows:
 
 image:template-example.png[]
 
