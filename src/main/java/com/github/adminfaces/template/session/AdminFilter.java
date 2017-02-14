@@ -22,8 +22,8 @@ import static com.github.adminfaces.template.util.Assert.has;
 /**
  * Based on https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/filter/ConventionsFilter.java
  * Created by rafael-pestano on 07/01/17.
- * <p>
- * This filter controls when user must be redirected to logon
+ *
+ * This filter controls when user must be redirected to logon or index page
  * and saves current url to redirect back when session expires
  */
 @WebFilter(urlPatterns = {"/*"})
@@ -142,13 +142,13 @@ public class AdminFilter implements Filter {
         try {
             String referer = request.getHeader("Referer");
             String recoveryUrlParams = "";
-            if (has(referer)) {
-                if (referer.contains("?")) {
-                    recoveryUrlParams = referer.substring(referer.lastIndexOf("?") + 1);
-                }
+            //get request parameters
+            if (has(referer) && referer.contains("?")) {
+                recoveryUrlParams = referer.substring(referer.lastIndexOf("?") + 1);
             } else {
                 recoveryUrlParams = request.getQueryString();
             }
+            //saves page where user were
             String requestedPage = request.getRequestURI();
             StringBuilder recoveryUrl = null;
             if (!loginPage.equals(requestedPage) && requestedPage.contains(".")) {
@@ -160,7 +160,12 @@ public class AdminFilter implements Filter {
                     recoveryUrl.append("?").append(recoveryUrlParams);
                 }
             }
-            String redirectUrl = request.getContextPath() + "/" + loginPage + (has(recoveryUrl) ? "?page=" + URLEncoder.encode(recoveryUrl.toString(), "UTF-8") : "");
+            /*
+             if saved page is not null and is not index page then send user to logon page and save
+            / previous page in url param named 'page'
+            */
+            String redirectUrl = request.getContextPath() + "/" + loginPage + (has(recoveryUrl) &&
+                    !recoveryUrl.toString().contains(indexPage) ? "?page=" + URLEncoder.encode(recoveryUrl.toString(), "UTF-8") : "");
             if ("partial/ajax".equals(request.getHeader("Faces-Request"))) {
                 //redirect on ajax request: //http://stackoverflow.com/questions/13366936/jsf-filter-not-redirecting-after-initial-redirect
                 response.setContentType("text/xml");
