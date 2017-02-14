@@ -164,14 +164,14 @@ admin.disableFilter=false <8>
 ----
 <1> login page location (relative to webapp). It you only be used if you configure <<Admin Session>>.
 <2> index page location. User will be redirected to it when it access app root (contextPath/).
-<3> Date formate used in error page (https://raw.githubusercontent.com/adminfaces/admin-template/master/src/main/resources/META-INF/resources/500.xhtml[500.xhtml^]).
+<3> Date format used in error page (https://raw.githubusercontent.com/adminfaces/admin-template/master/src/main/resources/META-INF/resources/500.xhtml[500.xhtml^]).
 <4> facelets template to be used on build in admin-template pages like 500.xhtml, 404.xhtml, viewexpired.xhtml. By default it uses admin.xhtml but you can define any template (e.g one that extends admin.xhtml). 
 <5> Number of breadcrumbs to queue before removing the older ones.
 <6> When false, p:messages defined in admin template will not be rendered.
 <7> When false ajaxStatus, which triggers the loading bar on every ajax request, will not be rendered.
 <8> Disables AdminFilter, responsible for redirecting user after session timeout, sending user to logon page when it is not logged in among other things.
 
-IMPORTANT: You don't need to declare all values in your admin-config.properties, you specify only the ones you need to change.
+IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need in order to change.
 
 == Admin Session
 
@@ -187,7 +187,7 @@ By default the user *is always logged in* and you need to override it (by using 
 
 When isLoggedIn is `false` you got the following mechanisms activated:
 
-. Access to any page, besided the login, redirects user to login;
+. Access to any page, besides the login, redirects user to login;
 . When session is expired user is redirected to logon and current page (before expiration) is saved so user is redirected back to where it was before session expiration.
 
 NOTE: It is up to you to decide whether the user is logged in or not.
