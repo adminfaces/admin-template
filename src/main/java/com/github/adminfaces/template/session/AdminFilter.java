@@ -87,12 +87,12 @@ public class AdminFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
 
+        if (request.getRequestURI().equals(request.getContextPath() + "/")) {
+            response.sendRedirect(request.getContextPath() + "/" + indexPage);
+            return;
+        }
         if (skipResource(request) || adminSession.isLoggedIn()) {
-            if (request.getRequestURI().equals(request.getContextPath() + "/")) {
-                response.sendRedirect(request.getContextPath() + "/" + indexPage);
-                return;
-            }
-            if(!adminSession.isUserRedirected() && adminSession.isLoggedIn() && has(request.getHeader("Referer")) && request.getHeader("Referer").contains("?page=")){
+            if (!adminSession.isUserRedirected() && adminSession.isLoggedIn() && has(request.getHeader("Referer")) && request.getHeader("Referer").contains("?page=")) {
                 adminSession.setUserRedirected(true);
                 response.sendRedirect(request.getContextPath() + extractPageFromURL(request.getHeader("Referer")));
                 return;
@@ -110,11 +110,11 @@ public class AdminFilter implements Filter {
     }
 
     private String extractPageFromURL(String referer) {
-        String page = referer.substring(referer.indexOf("page=")+5);
+        String page = referer.substring(referer.indexOf("page=") + 5);
         try {
-            return URLDecoder.decode(page,"UTF-8");
+            return URLDecoder.decode(page, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            log.warn("Could not extract page from url",e);
+            log.warn("Could not extract page from url", e);
             return indexPage;
         }
     }
@@ -152,8 +152,8 @@ public class AdminFilter implements Filter {
             String requestedPage = request.getRequestURI();
             StringBuilder recoveryUrl = null;
             if (!loginPage.equals(requestedPage) && requestedPage.contains(".")) {
-                if(requestedPage.contains(request.getContextPath())){
-                    requestedPage = requestedPage.replace(request.getContextPath(),"");
+                if (requestedPage.contains(request.getContextPath())) {
+                    requestedPage = requestedPage.replace(request.getContextPath(), "");
                 }
                 recoveryUrl = new StringBuilder(requestedPage);
                 if (has(recoveryUrlParams)) {
