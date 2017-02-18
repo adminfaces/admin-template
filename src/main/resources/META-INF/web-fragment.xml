@@ -9,6 +9,10 @@
 		<param-value>admin</param-value>
 	</context-param>
 	<error-page>
+		<error-code>403</error-code>
+		<location>/403.xhtml</location>
+	</error-page>
+	<error-page>
 		<error-code>404</error-code>
 		<location>/404.xhtml</location>
 	</error-page>

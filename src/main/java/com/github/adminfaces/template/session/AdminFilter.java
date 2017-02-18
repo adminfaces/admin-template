@@ -100,6 +100,7 @@ public class AdminFilter implements Filter {
             try {
                 chain.doFilter(req, resp);
             } catch (FileNotFoundException e) {
+                log.warn("File not found", e);
                 response.sendError(404);
             }
         } else { //resource not skipped (e.g a page that is not logon page) AND user not logged in

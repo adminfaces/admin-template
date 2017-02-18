@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{adminConfig.templatePath}">
+
+
+    <ui:define name="body">
+        <div class="error-page">
+            <h2 class="headline text-fatal">#{adm['label.403.header']}</h2>
+
+            <div class="error-content" style="font-size: 1.1em">
+                <h3><i class="fa fa-lock text-fatal"></i> #{adm['label.403.message']}.</h3>
+
+                <p>
+                    #{adm['label.go-back']} <p:link style="text-decoration: underline" href="/" value="Home"
+                                                     escape="false"/>.
+                </p>
+
+            </div>
+        </div>
+        <adm:sidebar collapsed="true"/>
+    </ui:define>
+
+
+</ui:composition>
