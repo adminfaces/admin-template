@@ -1,16 +1,19 @@
 	package com.github.adminfaces.template.exception;
 
-/**
+    import javax.ejb.ApplicationException;
+    import java.io.Serializable;
+
+    /**
  * Created by rmpestano on 18/02/17.
  * A marker exception to redirect user to 403.xhtml. See web-fragment.xml
  */
 @ApplicationException(rollback = true)
 public class AccessDeniedException  extends RuntimeException implements Serializable {
 
-	  public BusinessException() {
+	  public AccessDeniedException() {
     	}
 
-    public BusinessException(Throwable cause) {
+    public AccessDeniedException(Throwable cause) {
         super(cause);
     }
 
@@ -18,7 +21,7 @@ public class AccessDeniedException  extends RuntimeException implements Serializ
      *
      * @param msg exception message
      */
-    public BusinessException(String msg) {
+    public AccessDeniedException(String msg) {
         super(msg);
     }
     
