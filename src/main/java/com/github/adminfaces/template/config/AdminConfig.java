@@ -26,6 +26,8 @@ public class AdminConfig implements Serializable {
     private String loginPage;
     private String indexPage;
     private String errorPage;
+    private String accessDeniedPage;
+    private String notFoundPage;
     private String dateFormat;
     private String templatePath;
     private Integer breadCrumbMaxSize;
@@ -57,6 +59,8 @@ public class AdminConfig implements Serializable {
     protected void loadDefaults() {
         loginPage = getProperty("admin.loginPage");
         errorPage = getProperty("admin.errorPage");
+        accessDeniedPage = getProperty("admin.accessDeniedPage");
+        notFoundPage = getProperty("admin.notFoundPage");
         indexPage = getProperty("admin.indexPage");
         dateFormat = getProperty("admin.dateFormat");
         templatePath = getProperty("admin.templatePath");
@@ -83,6 +87,13 @@ public class AdminConfig implements Serializable {
         return errorPage;
     }
 
+    public String getAccessDeniedPage() {
+        return accessDeniedPage;
+    }
+
+    public String getNotFoundPage() {
+        return notFoundPage;
+    }
 
     public String getDateFormat() {
         return dateFormat;
@@ -102,6 +113,14 @@ public class AdminConfig implements Serializable {
 
     public void setErrorPage(String errorPage) {
         this.errorPage = errorPage;
+    }
+
+    public void setAccessDeniedPage(String accessDeniedPage) {
+        this.accessDeniedPage = accessDeniedPage;
+    }
+
+    public void setNotFoundPage(String notFoundPage) {
+        this.notFoundPage = notFoundPage;
     }
 
     public boolean isDisableFilter() {
