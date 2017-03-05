@@ -109,7 +109,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         request.setAttribute(ERROR_EXCEPTION + "_stacktrace", e);
-        request.setAttribute(ERROR_EXCEPTION_TYPE, e.getClass());
+        request.setAttribute(ERROR_EXCEPTION_TYPE, e.getClass().getName());
         request.setAttribute(ERROR_MESSAGE, e.getMessage());
         request.setAttribute(ERROR_REQUEST_URI, request.getHeader("Referer"));
         request.setAttribute(ERROR_STATUS_CODE, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -187,7 +187,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
 
     /**
-     * If there is any faces message queued add primefaces validation failed
+     * If there is any faces message queued add PrimeFaces validation failed
      *
      * @param context
      */
