@@ -184,3 +184,23 @@ function removeSidebarMini() {
         $(document.body).removeClass('sidebar-mini')
     }
 }
+
+function showBar() {
+    var mq = window.matchMedia("(max-width: 767px)");
+    if (typeof mq != 'undefined' && mq.matches) {
+        document.getElementById('loader').style.visibility = 'visible';
+    } else {
+        PF('statusDialog').show();
+    }
+}
+
+function hideBar() {
+    var mq = window.matchMedia("(max-width: 767px)");
+    if (typeof mq != 'undefined' && mq.matches) {
+        document.getElementById('loader').style.visibility = 'hidden';
+    } else {
+        PF('statusDialog').hide();
+    }
+
+}
+

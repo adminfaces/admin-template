@@ -9,20 +9,29 @@
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <ui:insert name="head" />
-        <ui:insert name="head-end" />
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <ui:insert name="head"/>
+        <ui:insert name="head-end"/>
     </h:head>
     <h:body styleClass="#{themeMB.theme} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
-        <ui:insert name="body-begin" />
+        <ui:insert name="body-begin"/>
         <f:loadBundle var="adm" basename="admin"/>
-        <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" />
-        <p:dialog modal="true" widgetVar="statusDialog"  draggable="false" closable="true" resizable="false" responsive="true" showHeader="false" style="z-index: 9999!important">
+        <p:ajaxStatus styleClass="visible-sm" rendered="#{adminConfig.renderAjaxStatus}"
+                      onstart="showBar();"
+                      onsuccess="hideBar();"/>
+
+        <p:dialog modal="true" widgetVar="statusDialog" draggable="false" closable="false"
+                  resizable="false" responsive="true" showHeader="false"
+                  style="z-index: 9999!important;position: fixed">
             <p:graphicImage library="primefaces-admin" name="images/ajaxloadingbar.gif"/>
         </p:dialog>
 
-
         <div class="wrapper">
+            <div id="loader" class="load-bar" style="visibility: hidden">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
             <header class="main-header">
                 <a href="#{request.contextPath}/" class="logo">
                     <span class="logo-mini">
@@ -36,81 +45,84 @@
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                         <span class="sr-only"></span>
                     </a>
-                    <div class="navbar-custom-menu" >
+                    <div class="navbar-custom-menu">
                         <ui:insert name="top-menu"/>
                     </div>
                 </nav>
             </header>
 
-                <!-- side menu -->
-                <aside class="main-sidebar" >
-                    <ui:insert name="menu-begin"/>
-                    <section class="sidebar">
-                           <ui:insert name="menu"/>
-                    </section>
-                    <ui:insert name="menu-end"/>
-                </aside>
-                <!-- content -->
-                <div class="content-wrapper">
-                    <ui:insert name="content-wrapper"/>
-                    <section class="content-header">
-                        <h1>
-                            <ui:insert name="title" />
-                            <small><ui:insert name="description" /></small>
-                        </h1>
-                        <ui:fragment rendered="#{empty renderBreadCrumb or renderBreadCrumb eq 'true'}">
-                            <ol class="breadcrumb" >
-                                <li>
-                                    <p:link href="/" onclick="clearBreadCrumbs();">
-                                        <i class="fa fa-home"></i>
-                                        Home
+            <!-- side menu -->
+            <aside class="main-sidebar">
+                <ui:insert name="menu-begin"/>
+                <section class="sidebar">
+                    <ui:insert name="menu"/>
+                </section>
+                <ui:insert name="menu-end"/>
+            </aside>
+            <!-- content -->
+            <div class="content-wrapper">
+                <ui:insert name="content-wrapper"/>
+                <section class="content-header">
+                    <h1>
+                        <ui:insert name="title"/>
+                        <small><ui:insert name="description"/></small>
+                    </h1>
+                    <ui:fragment rendered="#{empty renderBreadCrumb or renderBreadCrumb eq 'true'}">
+                        <ol class="breadcrumb">
+                            <li>
+                                <p:link href="/" onclick="clearBreadCrumbs();">
+                                    <i class="fa fa-home"></i>
+                                    Home
+                                </p:link>
+                            </li>
+                            <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
+                                <li class="#{status.last ? 'active':''}">
+                                    <h:panelGroup rendered="#{status.last}">
+                                        #{b.title}
+                                    </h:panelGroup>
+                                    <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
+                                        #{b.title}
                                     </p:link>
                                 </li>
-                                <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
-                                    <li class="#{status.last ? 'active':''}">
-                                        <h:panelGroup rendered="#{status.last}">
-                                            #{b.title}
-                                        </h:panelGroup>
-                                        <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
-                                            #{b.title}
-                                        </p:link>
-                                    </li>
-                                </ui:repeat>
-                            </ol>
-                        </ui:fragment>
-                        <ui:insert name="content-header"/>
-                    </section>
-                    <section class="content">
-                          <ui:insert name="content-begin"/>
-                          <ui:fragment rendered="#{adminConfig.renderMessages}">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true" showDetail="true" severity="error,fatal" escape="false"/>
-                                    <!-- we need two messages because info-messages are hidden by javascript  -->
-                                    <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true" severity="info,warn" escape="false" />
-                                    <p:tooltip /> <!-- exception messages with type tooltip -->
-                                </div>
+                            </ui:repeat>
+                        </ol>
+                    </ui:fragment>
+                    <ui:insert name="content-header"/>
+                </section>
+                <section class="content">
+                    <ui:insert name="content-begin"/>
+                    <ui:fragment rendered="#{adminConfig.renderMessages}">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true"
+                                            showDetail="true" severity="error,fatal" escape="false"/>
+                                <!-- we need two messages because info-messages are hidden by javascript  -->
+                                <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true"
+                                            severity="info,warn" escape="false"/>
+                                <p:tooltip/> <!-- exception messages with type tooltip -->
                             </div>
-                          </ui:fragment>
+                        </div>
+                    </ui:fragment>
 
-                        <ui:insert name="body" />
-                    </section>
-                    <ui:insert name="content-end"/>
-                </div>
+                    <ui:insert name="body"/>
+                </section>
+                <ui:insert name="content-end"/>
+            </div>
 
 
             <footer class="main-footer">
-               <ui:insert name="footer"/>
+                <ui:insert name="footer"/>
             </footer>
             <h:form>
-                <p:remoteCommand name="clearBreadCrumbs" actionListener="#{breadCrumbMB.clear}" process="@this" update="@(.breadcrumb)" partialSubmit="true" global="false"/>
+                <p:remoteCommand name="clearBreadCrumbs" actionListener="#{breadCrumbMB.clear}" process="@this"
+                                 update="@(.breadcrumb)" partialSubmit="true" global="false"/>
             </h:form>
         </div>
 
-        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
-        <h:outputScript library="js" name="bootstrap.min.js"  target="head"/>
-        <h:outputScript library="js" name="admin-lte.min.js"  target="head"/>
-        <h:outputScript library="js" name="admintemplate.js"  target="head"/>
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
+        <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
+        <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
+        <h:outputScript library="js" name="admintemplate.js" target="head"/>
 
     </h:body>
 
