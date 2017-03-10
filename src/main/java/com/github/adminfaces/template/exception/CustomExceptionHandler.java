@@ -197,20 +197,4 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         }
     }
 
-    private void redirect(HttpServletRequest request, HttpServletResponse response, String page) {
-        try {
-            String contextPath = request.getContextPath() + "/";
-            if ("partial/ajax".equals(request.getHeader("Faces-Request"))) {
-                response.setContentType("text/xml");
-                response.getWriter()
-                        .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-                        .printf("<partial-response><redirect url=\"%s\"></redirect></partial-response>", (contextPath + page).replace("//","/"));
-            } else {
-                response.sendRedirect(contextPath + page);
-            }
-        } catch (IOException e) {
-            logger.error("Could not redirect to page " + page, e);
-        }
-    }
-
 }
