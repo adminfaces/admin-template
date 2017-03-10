@@ -82,9 +82,9 @@ function searchMenu(criteria) {
     if (criteria != null && criteria.length >= 2) {
         criteria = criteria.toLowerCase();
         $('.sidebar-menu li.treeview').each(function () {
-            let childMatch = false;
+            var childMatch = false;
             $(this).find("ul li span").each(function () {
-                let childText = $(this).html();
+                var childText = $(this).html();
                 if (childText.toLowerCase().indexOf(criteria) == -1) {
                     $(this).parent().hide();
                 } else {
@@ -102,7 +102,7 @@ function searchMenu(criteria) {
 
         $('.sidebar-menu li').each(function () {
             $(this).not(".treeview").each(function () {
-                let elementText = $(this).html();
+                var elementText = $(this).html();
                 if (elementText.toLowerCase().indexOf(criteria) == -1) {
                     $(this).hide();
                 } else {
