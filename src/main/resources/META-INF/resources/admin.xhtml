@@ -17,8 +17,8 @@
         <ui:insert name="body-begin"/>
         <f:loadBundle var="adm" basename="admin"/>
         <p:ajaxStatus styleClass="visible-sm" rendered="#{adminConfig.renderAjaxStatus}"
-                      onstart="showBar();"
-                      onsuccess="hideBar();"/>
+                      onstart="PF('statusDialog').show()"
+                      onsuccess="PF('statusDialog').hide()"/>
 
         <p:dialog modal="true" widgetVar="statusDialog" draggable="false" closable="false"
                   resizable="false" responsive="true" showHeader="false"
@@ -27,11 +27,7 @@
         </p:dialog>
 
         <div class="wrapper">
-            <div id="loader" class="load-bar" style="visibility: hidden">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
+          
             <header class="main-header">
                 <a href="#{request.contextPath}/" class="logo">
                     <span class="logo-mini">
@@ -117,6 +113,9 @@
                 <p:remoteCommand name="clearBreadCrumbs" actionListener="#{breadCrumbMB.clear}" process="@this"
                                  update="@(.breadcrumb)" partialSubmit="true" global="false"/>
             </h:form>
+            <div class="visible-sm" style="position: fixed; bottom: 20px; right: 25px; width: 40px; height: 40px; color: rgb(238, 238, 238); line-height: 40px; text-align: center; background-color: rgb(34, 45, 50); cursor: pointer; border-radius: 5px; z-index: 99999; opacity: 0.7;" onclick="window.scrollTo(0,0)">
+                <i class="fa fa-chevron-up"></i>
+            </div>
         </div>
 
         <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
