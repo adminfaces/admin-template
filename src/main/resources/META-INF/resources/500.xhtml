@@ -41,12 +41,12 @@
                             <b>User IP:</b> #{empty header['x-forwarded-for'] ? request.remoteAddr : fn:split(header['x-forwarded-for'], ',')[0]}
                         </li>
                         <li><b>Request URI:</b> <a
-                                href="#{requestScope['javax.servlet.error.request_uri']}">#{requestScope['javax.servlet.error.request_uri']}</a>
+                                href="#{adminRequestedUri}">#{adminRequestedUri}</a>
                         </li>
                         <li><b>Ajax request:</b> #{facesContext.partialViewContext.ajaxRequest ? 'Yes' : 'No'}</li>
-                        <li><b>Status code:</b> #{requestScope['javax.servlet.error.status_code']}</li>
-                        <li><b>Exception type:</b> #{requestScope['javax.servlet.error.exception_type']}</li>
-                        <li><b>Message:</b> #{requestScope['javax.servlet.error.message']}</li>
+                        <li><b>Status code:</b> #{adminStatus}</li>
+                        <li><b>Exception type:</b> #{adminExceptionType}</li>
+                        <li><b>Message:</b> #{adminErrorMessage}</li>
                     </ul>
                 </div>
             </div>
@@ -56,8 +56,7 @@
                 </div>
                 <div class="box-body" style="overflow: auto">
                     <pre>
-#{of:printStackTrace(requestScope['javax.servlet.error.exception'])}
-#{of:printStackTrace(requestScope['javax.servlet.error.exception_stacktrace'])}
+#{of:printStackTrace(adminException)}
 					</pre>
                 </div>
 

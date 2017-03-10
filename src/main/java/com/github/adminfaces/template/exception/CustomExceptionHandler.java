@@ -1,30 +1,7 @@
 package com.github.adminfaces.template.exception;
 
-import static com.github.adminfaces.template.util.Assert.has;
-import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION;
-import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION_TYPE;
-import static javax.servlet.RequestDispatcher.ERROR_MESSAGE;
-import static javax.servlet.RequestDispatcher.ERROR_REQUEST_URI;
-import static javax.servlet.RequestDispatcher.ERROR_STATUS_CODE;
-
-import java.io.FileNotFoundException;
-import java.net.URLEncoder;
-import java.util.Iterator;
-
-import javax.ejb.EJBException;
-import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExceptionHandlerWrapper;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.PhaseId;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.github.adminfaces.template.config.AdminConfig;
+import com.github.adminfaces.template.bean.AdminExceptionMB;
+import com.github.adminfaces.template.model.AdminException;
 import com.github.adminfaces.template.util.Constants;
 import org.omnifaces.config.WebXml;
 import org.omnifaces.util.Exceptions;
@@ -32,6 +9,22 @@ import org.omnifaces.util.Messages;
 import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.ejb.EJBException;
+import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExceptionHandler;
+import javax.faces.context.ExceptionHandlerWrapper;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ExceptionQueuedEvent;
+import javax.faces.event.PhaseId;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Iterator;
+
+import static com.github.adminfaces.template.util.Assert.has;
 
 
 /**
@@ -50,9 +43,6 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         this.wrapped = exceptionHandler;
     }
 
-    @Inject
-    AdminConfig adminConfig;
-
     @Override
     public ExceptionHandler getWrapped() {
         return wrapped;
@@ -65,6 +55,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         handleException(context);
         wrapped.handle();
     }
+
 
     /**
      * @param context
@@ -91,7 +82,6 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
     }
 
 
-
     /**
      * @param context
      * @param e
@@ -108,12 +98,9 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         }
 
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        request.setAttribute(ERROR_EXCEPTION + "_stacktrace", e);
-        request.setAttribute(ERROR_EXCEPTION_TYPE, e.getClass().getName());
-        request.setAttribute(ERROR_MESSAGE, e.getMessage());
-        request.setAttribute(ERROR_REQUEST_URI, request.getHeader("Referer"));
-        request.setAttribute(ERROR_STATUS_CODE, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-
+        AdminExceptionMB adminExceptionMB = context.getApplication().evaluateExpressionGet(context, "#{adminExceptionMB}", AdminExceptionMB.class);
+        AdminException adminException = new AdminException(e, request.getHeader("Referer"), "" + HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        adminExceptionMB.create(adminException);
         String errorPage = findErrorPage(e);
         if (!has(errorPage)) {
             String errorPageParam = context.getExternalContext().getInitParameter(Constants.InitialParams.ERROR_PAGE);
@@ -121,7 +108,14 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
                 errorPage = Constants.DEFAULT_ERROR_PAGE;
             }
         }
-        context.getApplication().getNavigationHandler().handleNavigation(context, null, errorPage);
+        //context.getApplication().getNavigationHandler().handleNavigation(context, null, errorPage); //do not work on android webview
+        String urlExtension = context.getViewRoot().getViewId().substring(context.getViewRoot().getViewId().indexOf(".") + 1);
+        String pageToRedirect = errorPage.substring(0,errorPage.indexOf(".") + 1) + urlExtension;
+        try {
+            context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath()+pageToRedirect);
+        } catch (Exception e1) {
+              logger.error("Could not redirect to page " + context.getExternalContext().getRequestContextPath()+pageToRedirect, e);
+        }
         context.renderResponse();
     }
 
@@ -200,6 +194,22 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
                 validationFailed();
                 break;
             }
+        }
+    }
+
+    private void redirect(HttpServletRequest request, HttpServletResponse response, String page) {
+        try {
+            String contextPath = request.getContextPath() + "/";
+            if ("partial/ajax".equals(request.getHeader("Faces-Request"))) {
+                response.setContentType("text/xml");
+                response.getWriter()
+                        .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+                        .printf("<partial-response><redirect url=\"%s\"></redirect></partial-response>", (contextPath + page).replace("//","/"));
+            } else {
+                response.sendRedirect(contextPath + page);
+            }
+        } catch (IOException e) {
+            logger.error("Could not redirect to page " + page, e);
         }
     }
 
