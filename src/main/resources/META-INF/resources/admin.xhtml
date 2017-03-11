@@ -17,8 +17,8 @@
         <ui:insert name="body-begin"/>
         <f:loadBundle var="adm" basename="admin"/>
         <p:ajaxStatus styleClass="visible-sm" rendered="#{adminConfig.renderAjaxStatus}"
-                      onstart="PF('statusDialog').show()"
-                      onsuccess="PF('statusDialog').hide()"/>
+                        onstart="showBar();"
+                        onsuccess="hideBar();"/>
 
         <p:dialog modal="true" widgetVar="statusDialog" draggable="false" closable="false"
                   resizable="false" responsive="true" showHeader="false"
@@ -27,7 +27,11 @@
         </p:dialog>
 
         <div class="wrapper">
-          
+            <div id="loader" class="load-bar" style="display: none">
+                 <div class="bar"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+            </div>
             <header class="main-header">
                 <a href="#{request.contextPath}/" class="logo">
                     <span class="logo-mini">

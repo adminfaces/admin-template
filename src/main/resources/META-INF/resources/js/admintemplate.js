@@ -186,3 +186,20 @@ function removeSidebarMini() {
 }
  
 
+function showBar() {
+    var mq = window.matchMedia("(max-width: 767px)");
+    if (typeof mq != 'undefined' && mq.matches) {
+        document.getElementById('loader').style.display = 'inline';
+    } else {
+        PF('statusDialog').show();
+    }
+}
+
+function hideBar() {
+    var mq = window.matchMedia("(max-width: 767px)");
+    if (typeof mq != 'undefined' && mq.matches) {
+        document.getElementById('loader').style.display = 'none';
+    } else {
+        PF('statusDialog').hide();
+    }
+}
