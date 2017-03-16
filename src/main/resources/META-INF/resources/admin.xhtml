@@ -117,10 +117,16 @@
                 <p:remoteCommand name="clearBreadCrumbs" actionListener="#{breadCrumbMB.clear}" process="@this"
                                  update="@(.breadcrumb)" partialSubmit="true" global="false"/>
             </h:form>
-            <div id="scrollTop" class="visible-xs" style="position: fixed; bottom: 10px; right: 20px; width: 34px; height: 34px; color: rgb(238, 238, 238); line-height: 34px; text-align: center; background-color: rgb(34, 45, 50); cursor: pointer; border-radius: 3px; z-index: 99999; opacity: 0.7;" onclick="window.scrollTo(0,0)">
+            <div id="scrollTop" style="display:none;position: fixed; bottom: 10px; right: 20px; width: 34px; height: 34px; color: rgb(238, 238, 238); line-height: 34px; text-align: center; background-color: rgb(34, 45, 50); cursor: pointer; border-radius: 3px; z-index: 99999; opacity: 0.7;" onclick="window.scrollTo(0,0)">
                 <i class="fa fa-chevron-up"></i>
             </div>
         </div>
+
+            <script type="text/javascript">
+                if(isMobile()) {
+                    window.onscroll=activateScrollToTop;
+                }
+            </script>
 
         <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
         <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
