@@ -187,8 +187,7 @@ function removeSidebarMini() {
  
 
 function showBar() {
-    var mq = window.matchMedia("(max-width: 767px)");
-    if (typeof mq != 'undefined' && mq.matches) {
+    if (isMobile()) {
         document.getElementById('loader').style.display = 'inline';
     } else {
         PF('statusDialog').show();
@@ -196,10 +195,14 @@ function showBar() {
 }
 
 function hideBar() {
-    var mq = window.matchMedia("(max-width: 767px)");
-    if (typeof mq != 'undefined' && mq.matches) {
+    if (isMobile()) {
         document.getElementById('loader').style.display = 'none';
     } else {
         PF('statusDialog').hide();
     }
+}
+
+function isMobile() {
+    var mq = window.matchMedia("(max-width: 767px)");
+    return (typeof mq != 'undefined' && mq.matches);
 }
