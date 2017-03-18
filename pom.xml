@@ -68,7 +68,7 @@
         <dependency>
             <groupId>com.github.adminfaces</groupId>
             <artifactId>admin-theme</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>1.0.0-RC1</version>
         </dependency>
 
         <dependency>
