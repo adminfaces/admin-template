@@ -14,6 +14,7 @@
 :caution-caption: :fire:
 :warning-caption: :warning:
 
+image:https://maven-badges.herokuapp.com/maven-central/com.github.adminfaces/admin-template/badge.svg["Maven Central",link="http://search.maven.org/#search|ga|1|admin-template"]
 image:https://badges.gitter.im/Join%20Chat.svg[link="https://gitter.im/adminfaces?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"]
 
 A https://javaserverfaces.java.net/[JSF^] *fully responsive* `admin template` based on http://primefaces.org/themes[Primefaces^], https://almsaeedstudio.com/themes/AdminLTE/index2.html[Admin LTE^] and http://getbootstrap.com[Bootstrap^].
