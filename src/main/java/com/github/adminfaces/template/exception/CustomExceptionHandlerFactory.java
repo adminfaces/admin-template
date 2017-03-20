@@ -5,7 +5,7 @@ import javax.faces.context.ExceptionHandlerFactory;
 
 public class CustomExceptionHandlerFactory extends ExceptionHandlerFactory {
 
-	private final javax.faces.context.ExceptionHandlerFactory parent;
+	private final ExceptionHandlerFactory parent;
 
 	public CustomExceptionHandlerFactory(final ExceptionHandlerFactory parent) {
 		this.parent = parent;
