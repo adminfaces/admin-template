@@ -1,0 +1,19 @@
+.ripple {
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    position: absolute;
+    opacity: 1;
+}
+.rippleEffect {
+    animation: rippleDrop .6s linear;
+}
+
+@keyframes rippleDrop {
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
