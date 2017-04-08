@@ -69,7 +69,7 @@
                         <ui:insert name="title"/>
                         <small><ui:insert name="description"/></small>
                     </h1>
-                    <ui:fragment rendered="#{(empty renderBreadCrumb or renderBreadCrumb eq 'true') or (adminConfig.renderBreadCrumb)}">
+                    <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
                         <ol class="breadcrumb">
                             <li>
                                 <p:link styleClass="ripplelink" href="/" onclick="clearBreadCrumbs();">
