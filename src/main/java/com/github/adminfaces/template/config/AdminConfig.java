@@ -34,6 +34,7 @@ public class AdminConfig implements Serializable {
     private boolean disableFilter;
     private boolean enableRipple;
     private boolean renderBreadCrumb;
+    private String rippleElements;
 
 
     @PostConstruct
@@ -68,6 +69,7 @@ public class AdminConfig implements Serializable {
         disableFilter = Boolean.parseBoolean(getProperty("admin.disableFilter"));
         enableRipple = Boolean.parseBoolean(getProperty("admin.enableRipple"));
         renderBreadCrumb = Boolean.parseBoolean(getProperty("admin.renderBreadCrumb"));
+        rippleElements = getProperty("admin.rippleElements");
 
     }
 
@@ -162,5 +164,13 @@ public class AdminConfig implements Serializable {
 
     public void setRenderBreadCrumb(boolean renderBreadCrumb) {
         this.renderBreadCrumb = renderBreadCrumb;
+    }
+
+    public String getRippleElements() {
+        return rippleElements;
+    }
+
+    public void setRippleElements(String rippleElements) {
+        this.rippleElements = rippleElements;
     }
 }

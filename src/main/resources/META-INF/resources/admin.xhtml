@@ -72,7 +72,7 @@
                     <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
                         <ol class="breadcrumb">
                             <li>
-                                <p:link styleClass="ripplelink" href="/" onclick="clearBreadCrumbs();">
+                                <p:link href="/" onclick="clearBreadCrumbs();">
                                     <i class="fa fa-home"></i>
                                     Home
                                 </p:link>
@@ -82,7 +82,7 @@
                                     <h:panelGroup rendered="#{status.last}">
                                         #{b.title}
                                     </h:panelGroup>
-                                    <p:link styleClass="ripplelink" href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
+                                    <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
                                         #{b.title}
                                     </p:link>
                                 </li>
@@ -130,9 +130,7 @@
                 window.onscroll = activateScrollToTop;
             <ui:fragment rendered = "#{adminConfig.enableRipple}">
                 /*<![CDATA[*/
-                var rippleElements = '.ripplelink,button.ui-button,.ui-selectlistbox-item,.ui-multiselectlistbox-item,.ui-selectonemenu,.ui-selectcheckboxmenu,' +
-                    '.ui-autocomplete,.ui-autocomplete-item,.ui-splitbutton-menubutton,.ui-splitbutton,.input-group,.ui-paginator-page,.ui-paginator-next,.ui-paginator-prev,' +
-                    '.ui-chkbox-icon,.ui-radiobutton-icon,.ui-link,.form-control,.btn,.ui-sortable-column';
+                var rippleElements = '#{adminConfig.rippleElements}';
 
                 $(function () {
                     $(document.body).off('mousedown.ripple', rippleElements)
