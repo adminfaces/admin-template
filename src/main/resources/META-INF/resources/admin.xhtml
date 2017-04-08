@@ -128,41 +128,41 @@
 
             if (isMobile()) {
                 window.onscroll = activateScrollToTop;
-            <ui:fragment rendered = "#{adminConfig.enableRipple}">
-                /*<![CDATA[*/
-                var rippleElements = '#{adminConfig.rippleElements}';
+                <ui:fragment rendered = "#{adminConfig.enableRipple}">
+                    /*<![CDATA[*/
+                    var rippleElements = '#{adminConfig.rippleElements}';
 
-                $(function () {
-                    $(document.body).off('mousedown.ripple', rippleElements)
-                        .on('mousedown.ripple', rippleElements, null, function (e) {
-                            var element = $(this);
-                            $(".ripple").remove();
-                            var posX = element.offset().left,
-                                posY = element.offset().top,
-                                width = element.outerWidth(),
-                                height = element.outerHeight();
+                    $(function () {
+                        $(document.body).off('mousedown.ripple', rippleElements)
+                            .on('mousedown.ripple', rippleElements, null, function (e) {
+                                var element = $(this);
+                                $(".ripple").remove();
+                                var posX = element.offset().left,
+                                    posY = element.offset().top,
+                                    width = element.outerWidth(),
+                                    height = element.outerHeight();
 
-                            element.prepend("<span class='ripple'></span>");
+                                element.prepend("<span class='ripple'></span>");
 
 
-                            if (width >= height) {
-                                height = width;
-                            } else {
-                                width = height;
-                            }
-                            var x = e.pageX - posX - width / 2;
-                            var y = e.pageY - posY - height / 2;
+                                if (width >= height) {
+                                    height = width;
+                                } else {
+                                    width = height;
+                                }
+                                var x = e.pageX - posX - width / 2;
+                                var y = e.pageY - posY - height / 2;
 
-                            $(".ripple").css({
-                                width: width,
-                                height: height,
-                                top: y + 'px',
-                                left: x + 'px'
-                            }).addClass("rippleEffect");
-                        });
-                });
-                /* ]]>*/
-            </ui:fragment >
+                                $(".ripple").css({
+                                    width: width,
+                                    height: height,
+                                    top: y + 'px',
+                                    left: x + 'px'
+                                }).addClass("rippleEffect");
+                            });
+                    });
+                    /* ]]>*/
+                </ui:fragment>
             }
 
 
