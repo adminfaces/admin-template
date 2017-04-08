@@ -139,8 +139,8 @@
                             $(".ripple").remove();
                             var posX = element.offset().left,
                                 posY = element.offset().top,
-                                width = element.width(),
-                                height = element.height();
+                                width = element.outerWidth(),
+                                height = element.outerHeight();
 
                             element.prepend("<span class='ripple'></span>");
 
