@@ -71,14 +71,14 @@
                     </h1>
                     <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
                         <ol class="breadcrumb">
-                            <li>
+                            <li style="position: relative;">
                                 <p:link href="/" onclick="clearBreadCrumbs();">
                                     <i class="fa fa-home"></i>
                                     Home
                                 </p:link>
                             </li>
                             <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
-                                <li class="#{status.last ? 'active':''}">
+                                <li style="position: relative;" class="#{status.last ? 'active':''}">
                                     <h:panelGroup rendered="#{status.last}">
                                         #{b.title}
                                     </h:panelGroup>
