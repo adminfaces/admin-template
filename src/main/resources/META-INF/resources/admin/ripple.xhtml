@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:cc="http://java.sun.com/jsf/composite">
+
+
+    <cc:interface>
+        <cc:attribute name="elements" default="#{adminConfig.rippleElements}"
+                      shortDescription="Comma separated values containing selectors of elements to apply ripple effect. Ex: button.ui-button, a.ui-link"/>
+        <cc:attribute name="mobileOnly" default="true"
+                      shortDescription="Flag indicating wheater the ripple effect should be applied only to mobile devices. Default is true"/>
+    </cc:interface>
+
+    <cc:implementation>
+        <ui:fragment rendered="#{cc.attrs.rendered}">
+            <script type="text/javascript">
+                /*<![CDATA[*/
+
+                if ('#{not cc.attrs.mobileOnly}') {
+                    ripple();
+                } else if (isMobile()) {
+                    ripple();
+                }
+
+                function ripple() {
+                    var rippleElements = '#{cc.attrs.elements}';
+
+                    $(function () {
+                        $(document.body).off('mousedown.ripple', rippleElements)
+                            .on('mousedown.ripple', rippleElements, null, function (e) {
+                                var element = $(this);
+                                $(".ripple").remove();
+                                var posX = element.offset().left,
+                                    posY = element.offset().top,
+                                    width = element.outerWidth(),
+                                    height = element.outerHeight();
+
+                                element.prepend("<span class='ripple'></span>");
+
+
+                                if (width >= height) {
+                                    height = width;
+                                } else {
+                                    width = height;
+                                }
+                                var x = e.pageX - posX - width / 2;
+                                var y = e.pageY - posY - height / 2;
+
+                                $(".ripple").css({
+                                    width: width,
+                                    height: height,
+                                    top: y + 'px',
+                                    left: x + 'px'
+                                }).addClass("rippleEffect");
+                            });
+                    });
+                }
+                /* ]]>*/
+            </script>
+        </ui:fragment>
+    </cc:implementation>
+
+</ui:composition>
