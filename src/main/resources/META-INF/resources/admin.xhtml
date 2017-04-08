@@ -10,7 +10,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <h:outputStylesheet rendered="#{adminConfig.enableRipple}" library="css" name="ripple.css" target="head"/>
+        <h:outputStylesheet library="css" name="ripple.css" rendered="#{adminConfig.enableRipple}" target="head"/>
         <ui:insert name="head"/>
         <ui:insert name="head-end"/>
     </h:head>
@@ -125,18 +125,56 @@
             </div>
         </div>
 
-            <script type="text/javascript">
-                if(isMobile()) {
-                    window.onscroll=activateScrollToTop;
-                }
-            </script>
+        <script type="text/javascript">
+
+            if (isMobile()) {
+                window.onscroll = activateScrollToTop;
+            <ui:fragment rendered = "#{adminConfig.enableRipple}">
+                /*<![CDATA[*/
+                var rippleElements = '.ripplelink,button.ui-button,.ui-selectlistbox-item,.ui-multiselectlistbox-item,.ui-selectonemenu,.ui-selectcheckboxmenu,' +
+                    '.ui-autocomplete,.ui-autocomplete-item,.ui-splitbutton-menubutton,.ui-splitbutton,.input-group,.ui-paginator-page,.ui-paginator-next,.ui-paginator-prev,' +
+                    '.ui-chkbox-icon,.ui-radiobutton-icon,.ui-link,.form-control,.btn,.ui-sortable-column';
+
+                $(function () {
+                    $(document.body).off('mousedown.ripple', rippleElements)
+                        .on('mousedown.ripple', rippleElements, null, function (e) {
+                            var element = $(this);
+                            $(".ripple").remove();
+                            var posX = element.offset().left,
+                                posY = element.offset().top,
+                                width = element.width(),
+                                height = element.height();
+
+                            element.prepend("<span class='ripple'></span>");
+
+
+                            if (width >= height) {
+                                height = width;
+                            } else {
+                                width = height;
+                            }
+                            var x = e.pageX - posX - width / 2;
+                            var y = e.pageY - posY - height / 2;
+
+                            $(".ripple").css({
+                                width: width,
+                                height: height,
+                                top: y + 'px',
+                                left: x + 'px'
+                            }).addClass("rippleEffect");
+                        });
+                });
+                /* ]]>*/
+            </ui:fragment >
+            }
+
+
+        </script>
 
         <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
         <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
         <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
         <h:outputScript library="js" name="admintemplate.js" target="head"/>
-        <h:outputScript rendered="#{adminConfig.enableRipple}" library="js" name="ripple.js" target="head"/>
-
 
     </h:body>
 
