@@ -69,10 +69,10 @@
                         <ui:insert name="title"/>
                         <small><ui:insert name="description"/></small>
                     </h1>
-                    <ui:fragment rendered="#{empty renderBreadCrumb or renderBreadCrumb eq 'true'}">
+                    <ui:fragment rendered="#{(empty renderBreadCrumb or renderBreadCrumb eq 'true') or (adminConfig.renderBreadCrumb)}">
                         <ol class="breadcrumb">
                             <li>
-                                <p:link href="/" onclick="clearBreadCrumbs();">
+                                <p:link styleClass="ripplelink" href="/" onclick="clearBreadCrumbs();">
                                     <i class="fa fa-home"></i>
                                     Home
                                 </p:link>
@@ -82,7 +82,7 @@
                                     <h:panelGroup rendered="#{status.last}">
                                         #{b.title}
                                     </h:panelGroup>
-                                    <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
+                                    <p:link styleClass="ripplelink" href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
                                         #{b.title}
                                     </p:link>
                                 </li>

@@ -33,6 +33,7 @@ public class AdminConfig implements Serializable {
     private boolean renderAjaxStatus;
     private boolean disableFilter;
     private boolean enableRipple;
+    private boolean renderBreadCrumb;
 
 
     @PostConstruct
@@ -66,6 +67,8 @@ public class AdminConfig implements Serializable {
         renderAjaxStatus = Boolean.parseBoolean(getProperty("admin.renderAjaxStatus"));
         disableFilter = Boolean.parseBoolean(getProperty("admin.disableFilter"));
         enableRipple = Boolean.parseBoolean(getProperty("admin.enableRipple"));
+        renderBreadCrumb = Boolean.parseBoolean(getProperty("admin.renderBreadCrumb"));
+
     }
 
     private String getProperty(String property) {
@@ -151,5 +154,13 @@ public class AdminConfig implements Serializable {
 
     public void setEnableRipple(boolean enableRipple) {
         this.enableRipple = enableRipple;
+    }
+
+    public boolean isRenderBreadCrumb() {
+        return renderBreadCrumb;
+    }
+
+    public void setRenderBreadCrumb(boolean renderBreadCrumb) {
+        this.renderBreadCrumb = renderBreadCrumb;
     }
 }
