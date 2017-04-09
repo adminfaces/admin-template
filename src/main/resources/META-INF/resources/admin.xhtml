@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"  xmlns:adm="http://github.com/adminfaces">
+      xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces">
 
 <f:view contentType="text/html">
     <h:head>
@@ -28,9 +28,9 @@
 
         <div class="wrapper">
             <div id="loader" class="load-bar" style="display: none">
-                 <div class="bar"></div>
-                  <div class="bar"></div>
-                  <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
             </div>
             <header class="main-header">
                 <a href="#{request.contextPath}/" class="logo">
@@ -70,19 +70,19 @@
                         <small><ui:insert name="description"/></small>
                     </h1>
                     <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
-                        <ol class="breadcrumb">
+                        <ol class="breadcrumb" style="overflow: hidden;">
                             <li style="position: relative;">
-                                <p:link href="/" onclick="clearBreadCrumbs();">
+                                <p:link href="/" onclick="clearBreadCrumbs();" style="position: relative;">
                                     <i class="fa fa-home"></i>
                                     Home
                                 </p:link>
                             </li>
                             <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
-                                <li style="position: relative;" class="#{status.last ? 'active':''}">
+                                <li class="#{status.last ? 'active':''}">
                                     <h:panelGroup rendered="#{status.last}">
                                         #{b.title}
                                     </h:panelGroup>
-                                    <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC">
+                                    <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC;position: relative">
                                         #{b.title}
                                     </p:link>
                                 </li>
@@ -130,8 +130,7 @@
             }
         </script>
 
-        <adm:ripple rendered="#{adminConfig.enableRipple}" />
-
+        <adm:ripple />
 
         <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
         <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
