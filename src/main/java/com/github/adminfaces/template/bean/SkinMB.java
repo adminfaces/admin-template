@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 @Named
 @SessionScoped
-public class ThemeMB implements Serializable{
+public class SkinMB implements Serializable {
 
     private String theme = "skin-blue";
 

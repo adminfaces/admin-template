@@ -13,7 +13,7 @@
         <ui:insert name="head"/>
         <ui:insert name="head-end"/>
     </h:head>
-    <h:body styleClass="#{themeMB.theme} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
+    <h:body styleClass="#{skinMB.theme} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
         <ui:insert name="body-begin"/>
         <f:loadBundle var="adm" basename="admin"/>
         <p:ajaxStatus   rendered="#{adminConfig.renderAjaxStatus}"
