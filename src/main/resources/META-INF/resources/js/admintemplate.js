@@ -241,14 +241,14 @@ $(document).ready(function () {
 
         $("a[data-toggle='offcanvas']").on('click', function () {
             if ($("body").hasClass('sidebar-open')) {
+                slideout.close();
                 document.getElementById('sidebar').style.display = 'none';
                 document.getElementById('content').style.transform = 'initial';
-                slideout.close();
 
             } else {
+                slideout.open();
                 document.getElementById('sidebar').style.display = 'block';
                 document.getElementById('content').style.transform = '230px';
-                slideout.open();
             }
         });
 
@@ -259,10 +259,27 @@ $(document).ready(function () {
 
 
         slideout.on('close', function () {
-            document.getElementById('sidebar').style.display = 'none';
-            removeBodyClass('sidebar-open');
+            slideoutClose();
         });
+
+        $(".content-wrapper").click(function () {
+            if (!$("body").hasClass("sidebar-open") && document.getElementById('content').style.transform !== 'initial') {
+                document.getElementById('content').style.transform = 'initial';
+            }
+        });
+
+    }
+
+    function slideoutClose() {
+        document.getElementById('sidebar').style.display = 'none';
+        removeBodyClass('sidebar-open');
+    }
+
+    function slideoutOpen() {
+        document.getElementById('sidebar').style.display = 'block';
+        removeBodyClass('sidebar-open');
     }
 
 
 });
+
