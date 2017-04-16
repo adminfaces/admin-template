@@ -16,9 +16,9 @@
     <h:body styleClass="#{skinMB.theme} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
         <ui:insert name="body-begin"/>
         <f:loadBundle var="adm" basename="admin"/>
-        <p:ajaxStatus   rendered="#{adminConfig.renderAjaxStatus}"
-                        onstart="showBar();"
-                        onsuccess="hideBar();"/>
+        <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
+                      onstart="showBar();"
+                      onsuccess="hideBar();"/>
 
         <p:dialog modal="true" widgetVar="statusDialog" draggable="false" closable="false"
                   resizable="false" responsive="true" showHeader="false"
@@ -52,8 +52,8 @@
             </header>
 
             <!-- side menu -->
-            <aside class="main-sidebar">
-                <div id="sidebar">
+            <aside id="sidebar" class="main-sidebar slideout-menu">
+                <div >
                     <ui:insert name="menu-begin"/>
                     <section class="sidebar">
                         <ui:insert name="menu"/>
@@ -119,7 +119,9 @@
                 <p:remoteCommand name="clearBreadCrumbs" actionListener="#{breadCrumbMB.clear}" process="@this"
                                  update="@(.breadcrumb)" partialSubmit="true" global="false"/>
             </h:form>
-            <div id="scrollTop" class="ripplelink" style="display:none;position: fixed; bottom: 10px; right: 20px; width: 34px; height: 34px; color: rgb(238, 238, 238); line-height: 34px; text-align: center; background-color: rgb(34, 45, 50); cursor: pointer; border-radius: 3px; z-index: 99999; opacity: 0.7;" onclick="window.scrollTo(0,0)">
+            <div id="scrollTop" class="ripplelink"
+                 style="display:none;position: fixed; bottom: 10px; right: 20px; width: 34px; height: 34px; color: rgb(238, 238, 238); line-height: 34px; text-align: center; background-color: rgb(34, 45, 50); cursor: pointer; border-radius: 3px; z-index: 99999; opacity: 0.7;"
+                 onclick="window.scrollTo(0,0)">
                 <i class="fa fa-chevron-up"></i>
             </div>
         </div>
@@ -127,15 +129,16 @@
         <script type="text/javascript">
             if (isMobile()) {
                 window.onscroll = activateScrollToTop;
-            }
+              }
         </script>
 
-        <adm:ripple />
+        <adm:ripple/>
 
         <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
         <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
         <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
         <h:outputScript library="js" name="admintemplate.js" target="head"/>
+        <h:outputScript library="js" name="slideout.min.js" target="head"/>
 
     </h:body>
 

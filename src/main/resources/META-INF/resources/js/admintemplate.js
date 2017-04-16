@@ -145,6 +145,19 @@ function searchMenu(criteria) {
     }
 }
 
+function setBodyClass(clazz) {
+    if (!$(document.body).hasClass(clazz)) {
+        $(document.body).addClass(clazz)
+    }
+}
+
+function removeBodyClass(clazz) {
+    if ($(document.body).hasClass(clazz)) {
+        $(document.body).removeClass(clazz)
+    }
+}
+
+
 function collapseSidebar() {
     if (!$(document.body).hasClass('sidebar-collapse')) {
         $(document.body).addClass('sidebar-collapse')
@@ -184,7 +197,6 @@ function removeSidebarMini() {
         $(document.body).removeClass('sidebar-mini')
     }
 }
- 
 
 function showBar() {
     if (isMobile()) {
@@ -208,10 +220,49 @@ function isMobile() {
 }
 
 
-function activateScrollToTop(){
-    if(isMobile() && window.pageYOffset > 400) {
+function activateScrollToTop() {
+    if (isMobile() && window.pageYOffset > 400) {
         $('#scrollTop').show(500);
     } else {
         $('#scrollTop').hide(500);
     }
 }
+
+
+//slideoutjs integration
+$(document).ready(function () {
+    if (isMobile()) {
+        var slideout = new Slideout({
+            'panel': document.getElementById('content'),
+            'menu': document.getElementById('sidebar'),
+            'padding': 230,
+            'tolerance': 70
+        });
+
+        $("a[data-toggle='offcanvas']").on('click', function () {
+            if ($("body").hasClass('sidebar-open')) {
+                document.getElementById('sidebar').style.display = 'none';
+                document.getElementById('content').style.transform = 'initial';
+                slideout.close();
+
+            } else {
+                document.getElementById('sidebar').style.display = 'block';
+                document.getElementById('content').style.transform = '230px';
+                slideout.open();
+            }
+        });
+
+        slideout.on('translatestart', function () {
+            document.getElementById('sidebar').style.display = 'block';
+            setBodyClass('sidebar-open');
+        });
+
+
+        slideout.on('close', function () {
+            document.getElementById('sidebar').style.display = 'none';
+            removeBodyClass('sidebar-open');
+        });
+    }
+
+
+});
