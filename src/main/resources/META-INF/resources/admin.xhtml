@@ -53,7 +53,7 @@
 
             <!-- side menu -->
             <aside id="sidebar" class="main-sidebar slideout-menu">
-                <div >
+                <div>
                     <ui:insert name="menu-begin"/>
                     <section class="sidebar">
                         <ui:insert name="menu"/>
@@ -129,7 +129,7 @@
         <script type="text/javascript">
             if (isMobile()) {
                 window.onscroll = activateScrollToTop;
-              }
+            }
         </script>
 
         <adm:ripple/>
@@ -138,8 +138,17 @@
         <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
         <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
         <h:outputScript library="js" name="admintemplate.js" target="head"/>
-        <h:outputScript library="js" name="slideout.min.js" target="head"/>
+        <!-- slide in/out menu integration  -->
+        <h:outputScript library="js" name="slideout.min.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
+        <h:outputScript library="js" name="adminslide.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
+        <ui:fragment rendered="#{not adminConfig.enableSlideMenu}">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.slideout-menu').removeClass('slideout-menu');
+                });
 
+            </script>
+        </ui:fragment>
     </h:body>
 
 </f:view>
