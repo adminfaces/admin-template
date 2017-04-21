@@ -215,3 +215,20 @@ When isLoggedIn is `false` you got the following mechanisms activated:
 . When session is expired user is redirected to logon and current page (before expiration) is saved so user is redirected back to where it was before session expiration.
 
 NOTE: It is up to you to decide whether the user is logged in or not.
+
+
+== Snapshot
+
+Snapshots are published to https://oss.sonatype.org/content/repositories/snapshots/com/github/adminfaces/[maven central^] on each commit, to use it just declare the repository below on yur `pom.xml`:
+
+[source,xml]
+----
+<repositories>
+    <repository>
+        <snapshots/>
+        <id>snapshots</id>
+        <name>libs-snapshot</name>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+</repositories>
+----
