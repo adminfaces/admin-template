@@ -19,6 +19,27 @@ image:https://badges.gitter.im/Join%20Chat.svg[link="https://gitter.im/adminface
 
 A https://javaserverfaces.java.net/[JSF^] *fully responsive* `admin template` based on http://primefaces.org/themes[Primefaces^], https://almsaeedstudio.com/themes/AdminLTE/index2.html[Admin LTE^] and http://getbootstrap.com[Bootstrap^].
 
+
+== Features
+
+Below is a non exhaustive list of notable features brought out of the box by this template:
+
+* Fully responsive
+** Its based on Bootstrap and AdminLTE two well tested and solid frameworks
+* Mobile and PWA friendly
+* Some functionalities are enabled only on mobile devices, like:
+** Material design load bar
+** Ripple effect (can be disabled)
+** Touch enabled menu to slide in/out (can be disabled) +
+image:https://cloud.githubusercontent.com/assets/1592273/25071807/dd37121e-2296-11e7-855c-8f20b59dcf5f.gif[]
+** Scroll to top
+* Automatically activates (highlight) menu based on current page
+* Custom <<Error Pages, error pages>>
+* Configurable, see <<Configuration>>
+* http://adminfaces-rpestano.rhcloud.com/showcase/pages/layout/breadcrumb.xhtml[Breadcrumb^] based navigation; (can be disabled)
+* Back to previous screen when logging in again after session expiration (or accessing a page via url without being logged in)
+
+
 == Usage
 
 First include it in your classpath:
