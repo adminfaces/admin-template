@@ -85,6 +85,9 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
      * @throws Throwable
      */
     private void goToErrorPage(FacesContext context, Throwable e) {
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        request.setAttribute(ERROR_EXCEPTION + "_stacktrace", e);
+
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             throw new FacesException(e);
         }
@@ -94,8 +97,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
             throw new FacesException(e);
         }
 
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        request.setAttribute(ERROR_EXCEPTION + "_stacktrace", e);
+
         request.setAttribute(ERROR_EXCEPTION_TYPE, e.getClass().getName());
         request.setAttribute(ERROR_MESSAGE, e.getMessage());
         request.setAttribute(ERROR_REQUEST_URI, request.getHeader("Referer"));
