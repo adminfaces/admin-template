@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
  * Created by rmpestano on 28/04/17.
  */
 public class AdminServletContextListener implements ServletContextListener {
-    private static final Logger log = LoggerFactory.getLogger(AdminFilter.class.getCanonicalName());
+    private static final Logger log = LoggerFactory.getLogger(AdminServletContextListener.class.getCanonicalName());
 
 
     @Override
