@@ -16,8 +16,12 @@ public class AdminServletContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        log.info("Using Admin Template " + ResourceBundle.getBundle("admin").getString("admin.version"));
-        log.info("Using Admin Theme " + ResourceBundle.getBundle("admin-theme").getString("theme.version"));
+        try {
+            log.info("Using Admin Template " + ResourceBundle.getBundle("admin").getString("admin.version"));
+            log.info("Using Admin Theme " + ResourceBundle.getBundle("admin-theme").getString("theme.version"));
+        }catch (Exception e) {
+            log.warn("Could not get AdminFaces version.",e);
+        }
     }
 
     @Override
