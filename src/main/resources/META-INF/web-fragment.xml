@@ -37,4 +37,10 @@
         <location>/optimistic.xhtml</location>
     </error-page>
 
+    <listener>
+        <listener-class>
+            com.github.adminfaces.template.session.AdminServletContextListener
+        </listener-class>
+    </listener>
+
 </web-fragment>
