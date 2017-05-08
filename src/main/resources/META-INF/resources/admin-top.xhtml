@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces">
+
+<f:view contentType="text/html">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <ui:insert name="head"/>
+        <ui:insert name="head-end"/>
+    </h:head>
+
+    <h:body styleClass="#{skinMB.theme} layout-top-nav hold-transition">
+
+        <style type="text/css">
+
+            body .container {
+                width: 100%;
+            }
+
+            span.caret {
+                margin-left: 3px;
+                margin-top: -2px;
+            }
+
+            li.dropdown {
+                margin-left: -7px
+            }
+
+            li.dropdown i {
+                float: left;
+                padding: 3px 5px 3px 0;
+            }
+
+            @media (max-width: 1024px) {
+                li.messages-menu, li.notifications-menu, li.tasks-menu {
+                    display: none ;
+                }
+
+                li.dropdown > a > i {
+                    display: none;
+                }
+
+                #navbar-search-input {
+                    width: 150px;
+                }
+            }
+
+            @media (max-width: 767px) {
+                li.messages-menu, li.notifications-menu, li.tasks-menu {
+                    display: inline ;
+                }
+
+                li.dropdown i {
+                    display: inline;
+                }
+
+                #navbar-search-input {
+                    width: 100%;
+                }
+
+            }
+        </style>
+
+        <ui:insert name="body-begin"/>
+        <f:loadBundle var="adm" basename="admin"/>
+        <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
+                      onstart="showBar();"
+                      onsuccess="hideBar();"/>
+
+        <p:dialog modal="true" widgetVar="statusDialog" draggable="false" closable="false"
+                  resizable="false" responsive="true" showHeader="false"
+                  style="z-index: 9999!important;position: fixed">
+            <p:graphicImage library="primefaces-admin" name="images/ajaxloadingbar.gif"/>
+        </p:dialog>
+
+
+        <div class="wrapper">
+            <div id="loader" class="load-bar" style="display: none">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a href="#{request.contextPath}/" class="navbar-brand">
+                                <ui:insert name="logo"/>
+                            </a>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                 <ui:insert name="menu"/>
+                            </ul>
+                            <ui:insert name="search"/>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                        <div class="navbar-custom-menu">
+                            <ui:insert name="top-menu"/>
+                        </div>
+                        <!-- /.navbar-custom-menu -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+            </header>
+            <!-- Full Width Column -->
+            <div id="content" class="content-wrapper">
+                <ui:insert name="content-wrapper"/>
+                <div class="container">
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header">
+                        <h1>
+                            <ui:insert name="title"/>
+                            <small><ui:insert name="description"/></small>
+                        </h1>
+                        <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
+                            <ol class="breadcrumb" style="overflow: hidden;">
+                                <li style="position: relative;">
+                                    <p:link href="/" onclick="clearBreadCrumbs();" style="position: relative;">
+                                        <i class="fa fa-home"></i>
+                                        Home
+                                    </p:link>
+                                </li>
+                                <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
+                                    <li class="#{status.last ? 'active':''}">
+                                        <h:panelGroup rendered="#{status.last}">
+                                            #{b.title}
+                                        </h:panelGroup>
+                                        <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC;position: relative">
+                                            #{b.title}
+                                        </p:link>
+                                    </li>
+                                </ui:repeat>
+                            </ol>
+                        </ui:fragment>
+                        <ui:insert name="content-header"/>
+                    </section>
+
+                    <!-- Main content -->
+                    <section class="content">
+                        <ui:insert name="content-begin"/>
+                        <ui:fragment rendered="#{adminConfig.renderMessages}">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true"
+                                                showDetail="true" severity="error,fatal" escape="false"/>
+                                    <!-- we need two messages because info-messages are hidden by javascript  -->
+                                    <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true"
+                                                severity="info,warn" escape="false"/>
+                                    <p:tooltip/> <!-- exception messages with type tooltip -->
+                                </div>
+                            </div>
+                        </ui:fragment>
+
+                        <ui:insert name="body"/>
+                    </section>
+                    <ui:insert name="content-end"/>
+                    <!-- /.content -->
+                </div>
+                <!-- /.container -->
+            </div>
+
+
+            <footer class="main-footer">
+                <ui:insert name="footer"/>
+            </footer>
+        </div>
+        <!-- ./wrapper -->
+        <script type="text/javascript">
+            if (isMobile()) {
+                window.onscroll = activateScrollToTop;
+            }
+        </script>
+
+        <adm:ripple/>
+
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
+        <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
+        <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
+        <h:outputScript library="js" name="admintemplate.js" target="head"/>
+
+
+    </h:body>
+
+</f:view>
+</html>

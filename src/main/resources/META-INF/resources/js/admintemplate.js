@@ -28,7 +28,9 @@ $(document).ready(function () {
 /* Active menu management */
 
 $(document).ready(function () {
-    activateMenu(window.location.pathname, false);
+    if (!$(document.body).hasClass("layout-top-nav")) {
+        activateMenu(window.location.pathname, false);
+    }
 });
 
 function stripTrailingSlash(str) {
