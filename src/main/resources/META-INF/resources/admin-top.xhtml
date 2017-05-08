@@ -186,7 +186,10 @@
         <!-- ./wrapper -->
         <script type="text/javascript">
             if (isMobile()) {
-                window.onscroll = activateScrollToTop;
+                window.onscroll = activateScrollToTop
+                if(typeof slideout !== 'undefined') {
+                    slideout.destroy();
+                }
             }
         </script>
 
