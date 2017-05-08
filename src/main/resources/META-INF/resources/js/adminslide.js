@@ -1,6 +1,6 @@
 //slideoutjs integration
 $(document).ready(function () {
-    if (isMobile()) {
+    if (isMobile() && !$(document.body).hasClass("layout-top-nav")) {
         var slideout = new Slideout({
             'panel': document.getElementById('content'),
             'menu': document.getElementById('sidebar'),
