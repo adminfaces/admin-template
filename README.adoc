@@ -185,15 +185,27 @@ admin.breadcrumbSize=5 <5>
 admin.renderMessages=true <6>
 admin.renderAjaxStatus=true <7>
 admin.disableFilter=false <8>
+admin.renderBreadCrumb=true <9>
+admin.enableSlideMenu=true <10>
+admin.enableRipple=true <11>
+admin.rippleElements= .ripplelink,button.ui-button,.ui-selectlistbox-item,.ui-multiselectlistbox-item,.ui-selectonemenu-label,.ui-selectcheckboxmenu,\
+.ui-autocomplete-dropdown, .ui-autocomplete-item ... (the list goes on) <12>
+admin.skin=skin-blue <13>
+
 ----
 <1> login page location (relative to webapp). It you only be used if you configure <<Admin Session>>.
 <2> index page location. User will be redirected to it when it access app root (contextPath/).
 <3> Date format used in error page (https://raw.githubusercontent.com/adminfaces/admin-template/master/src/main/resources/META-INF/resources/500.xhtml[500.xhtml^]).
-<4> facelets template to be used on build in admin-template pages like 500.xhtml, 404.xhtml, viewexpired.xhtml. By default it uses admin.xhtml but you can define any template (e.g one that extends admin.xhtml). 
+<4> facelets template to be used on build in admin-template pages like 500.xhtml, 404.xhtml, viewexpired.xhtml, see <<Error Pages>>. By default it uses admin.xhtml but you can define any template (e.g one that extends admin.xhtml).
 <5> Number of breadcrumbs to queue before removing the older ones.
 <6> When false, p:messages defined in admin template will not be rendered.
 <7> When false ajaxStatus, which triggers the loading bar on every ajax request, will not be rendered.
 <8> Disables AdminFilter, responsible for redirecting user after session timeout, sending user to logon page when it is not logged in among other things.
+<9> When false, the breadCrumb component, declared in admin template, will not be rendered.
+<10> If true will make left menu touch enable (can be closed or opened via touch)
+<11> When true it will create a http://materializecss.com/waves.html#![wave/ripple effect^] on elements specified by `rippleElements`.
+<12> A list of comma separated list of (jquery) selector which elements will be affected by ripple effect.
+<13> Default template skin
 
 IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need in order to change.
 
