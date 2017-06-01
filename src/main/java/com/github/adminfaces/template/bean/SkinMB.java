@@ -1,8 +1,14 @@
 package com.github.adminfaces.template.bean;
 
+import com.github.adminfaces.template.config.AdminConfig;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+
+import static com.github.adminfaces.template.util.Assert.has;
 
 /**
  * Created by rmpestano on 07/01/17.
@@ -11,19 +17,29 @@ import java.io.Serializable;
 @SessionScoped
 public class SkinMB implements Serializable {
 
-    private String theme = "skin-blue";
+    private String skin;
 
+    @Inject
+    private AdminConfig adminConfig;
 
-    public void changeTheme(String theme){
-        this.theme = theme;
+    @PostConstruct
+    public void init() {
+        skin = adminConfig.getSkin();
+        if(!has(skin)) {
+            skin = "skin-blue";
+        }
     }
 
 
-    public String getTheme() {
-        return theme;
+    public void changeSkin(String skin){
+        this.skin = skin;
     }
 
-    public void setTheme(String theme) {
-        this.theme = theme;
+    public String getSkin() {
+        return skin;
+    }
+
+    public void setSkin(String skin) {
+        this.skin = skin;
     }
 }
