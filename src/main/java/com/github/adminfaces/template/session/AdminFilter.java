@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ResourceBundle;
 
 import static com.github.adminfaces.template.util.Assert.has;
 
