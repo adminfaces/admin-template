@@ -36,6 +36,7 @@ public class AdminConfig implements Serializable {
     private boolean renderBreadCrumb;
     private boolean enableSlideMenu;
     private String rippleElements;
+    private String skin;
 
 
     @PostConstruct
@@ -72,7 +73,7 @@ public class AdminConfig implements Serializable {
         renderBreadCrumb = Boolean.parseBoolean(getProperty("admin.renderBreadCrumb"));
         rippleElements = getProperty("admin.rippleElements");
         enableSlideMenu =  Boolean.parseBoolean(getProperty("admin.enableSlideMenu"));
-
+        skin = getProperty("admin.skin");
     }
 
     private String getProperty(String property) {
@@ -182,5 +183,13 @@ public class AdminConfig implements Serializable {
 
     public void setEnableSlideMenu(boolean enableSlideMenu) {
         this.enableSlideMenu = enableSlideMenu;
+    }
+
+    public String getSkin() {
+        return skin;
+    }
+
+    public void setSkin(String skin) {
+        this.skin = skin;
     }
 }

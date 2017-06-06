@@ -14,7 +14,7 @@
         <ui:insert name="head"/>
         <ui:insert name="head-end"/>
     </h:head>
-    <h:body styleClass="#{skinMB.theme} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
+    <h:body styleClass="#{skinMB.skin} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
         <ui:insert name="body-begin"/>
         <f:loadBundle var="adm" basename="admin"/>
         <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
@@ -41,7 +41,7 @@
                     <span class="logo-lg">
                         <ui:insert name="logo-lg"/>
                     </span>
-                    <span class="logo-lg">
+                     <span class="logo-lg">
                         <ui:insert name="logo"/>
                     </span>
                 </a>
@@ -142,7 +142,7 @@
         <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
         <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
         <h:outputScript library="js" name="admintemplate.js" target="head"/>
-        <!-- slide in/out menu integration  -->
+         <!-- slide in/out menu integration  -->
         <h:outputScript library="js" name="slideout.min.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
         <h:outputScript library="js" name="adminslide.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
         <ui:fragment rendered="#{not adminConfig.enableSlideMenu}">
