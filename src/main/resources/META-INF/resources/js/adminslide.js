@@ -1,5 +1,14 @@
 //slideoutjs integration
 $(document).ready(function () {
+    initSlideout();
+});
+
+$(window).on('resize', function(){
+    initSlideout();
+});
+
+
+function initSlideout() {
     if (isMobile() && !$(document.body).hasClass("layout-top-nav")) {
         var slideout = new Slideout({
             'panel': document.getElementById('content'),
@@ -37,17 +46,18 @@ $(document).ready(function () {
             }
         });
 
-    }
-
-    function slideoutClose() {
-        document.getElementById('sidebar').style.display = 'none';
-        removeBodyClass('sidebar-open');
-    }
-
-    function slideoutOpen() {
+    } else {
         document.getElementById('sidebar').style.display = 'block';
-        removeBodyClass('sidebar-open');
+        document.getElementById('content').style.transform = 'initial';
     }
+}
 
+function slideoutClose() {
+    document.getElementById('sidebar').style.display = 'none';
+    removeBodyClass('sidebar-open');
+}
 
-});
+function slideoutOpen() {
+    document.getElementById('sidebar').style.display = 'block';
+    removeBodyClass('sidebar-open');
+}
