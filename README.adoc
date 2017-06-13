@@ -29,7 +29,7 @@ Below is a non exhaustive list of notable features brought out of the box by thi
 * Mobile and PWA friendly
 * Some functionalities are enabled only on mobile devices, like:
 ** Material design load bar
-** Ripple effect based on http://materializecss.com/waves.html[materialize^]+
+** Ripple effect based on http://materializecss.com/waves.html[materialize^] +
 image:https://user-images.githubusercontent.com/1592273/27104868-d9bfb33e-5063-11e7-83be-2201a3f8cda5.gif[]
 ** Touch enabled menu to slide in/out +
 image:https://cloud.githubusercontent.com/assets/1592273/25071807/dd37121e-2296-11e7-855c-8f20b59dcf5f.gif[]
