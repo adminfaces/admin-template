@@ -46,7 +46,7 @@ function initSlideout() {
             }
         });
 
-    } else {
+    } else if (document.getElementById('sidebar')) {
         document.getElementById('sidebar').style.display = 'block';
         document.getElementById('content').style.transform = 'initial';
     }
