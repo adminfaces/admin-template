@@ -5,7 +5,7 @@ cache:
   directories:
   - "$HOME/.m2/repository"
 script:
-- mvn clean package deploy --settings settings.xml
+- mvn clean -U package deploy --settings settings.xml
 env:
   global:
   - secure: yyc7C5k/ERqys8nHwui/ZqOTlQ/3VmZ5spGsgC7wQ1J75qJyhYp4N0UInQu4+YXR1+NVmxNX46pj//61+HRwdPBR2P9kffQeFRGRyKKKOgQcRnbmzQFvri9Ndu6yIZgATs5mfcxYqNWYaDZU/RQ/98J1oil+UxrI+RzZrlMnsENMCIJVwRPf64CYw+UgNtSFS/MBHERUVVBfmA2j5oyJSPHVIEPH4nq6UDStm3gsa4IEt40pKAD/a+Jnr3j+/I/X0QXb4A5s7OhvyfyZW2TFqd7JvzgFE/sumAgHdenFqFJWS57GAAFWvvY51R1+IA7YZXNtH7L752LVNYgswjPmsFJc2mxsNI0nJItDSfhfEa4eGrhJsXQw4me9dWXBYSCO+lwfFyTRf9cNeWoTooKwkm9emx6aOr+J8fr5GWdAkKF1FpvcEYOoa/6Dv9Xek84VFLOS1OjVrCYDlvmTYztQTcruRkSnb1c35T88JPfDt2kgIweQC7lTtHHH7viy5VkN36ovzpccpQl1SHZoiwPqlnDuTCRtwsdvF9qCCVwNyhVrMw+13nJTnzRkOGQ2cYn+f2e8ISLIyVJYtgNqctWQjtpW8qkh8y7lexevVfUgquZvXOkIDD+G5EM3DViGb3CzPE369oS3hud6k4+Sbbsg58ZTO+9uLngSGOE7apsk7rU=
