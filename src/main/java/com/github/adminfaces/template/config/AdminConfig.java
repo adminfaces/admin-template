@@ -37,6 +37,7 @@ public class AdminConfig implements Serializable {
     private boolean enableSlideMenu;
     private String rippleElements;
     private String skin;
+    private boolean autoShowNavbar;
 
 
     @PostConstruct
@@ -74,6 +75,7 @@ public class AdminConfig implements Serializable {
         rippleElements = getProperty("admin.rippleElements");
         enableSlideMenu =  Boolean.parseBoolean(getProperty("admin.enableSlideMenu"));
         skin = getProperty("admin.skin");
+        autoShowNavbar =  Boolean.parseBoolean(getProperty("admin.autoShowNavbar"));
     }
 
     private String getProperty(String property) {
@@ -191,5 +193,13 @@ public class AdminConfig implements Serializable {
 
     public void setSkin(String skin) {
         this.skin = skin;
+    }
+
+    public boolean isAutoShowNavbar() {
+        return autoShowNavbar;
+    }
+
+    public void setAutoShowNavbar(boolean autoShowNavbar) {
+        this.autoShowNavbar = autoShowNavbar;
     }
 }
