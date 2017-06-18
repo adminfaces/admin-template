@@ -2,11 +2,11 @@
 
 Tell us briefly what the problem is about.
 
-##### Expected Behaviour
+##### Current Behaviour
 
 An image may worth a thousand words
 
-##### Current Behaviour
+##### Expected Behaviour
 
 An image may worth a thousand words
 
