@@ -262,7 +262,7 @@ function setFixedNavbar() {
 }
 
 var scrollPosition = 0;
-var scrollTimer, lastScrollFireTime, scrollTimerNav, lastScrollFireTimeNav = 0;
+var scrollTimerNav, lastScrollFireTimeNav = 0;
 
 function activateAutoShowNavbarOnScrollUp() {
     if (isMobile() && window.pageYOffset > 150) {
@@ -274,37 +274,27 @@ function activateAutoShowNavbarOnScrollUp() {
         } else {
             //scroll up (position fixed navbar)
             setFixedNavbar();
+            adjustSidebarPosition();
         }
         scrollPosition = currentScrollPositionNav;
 
     } else {
         setStaticNavbar();
+        adjustSidebarPosition();
     }
 }
 
-$(window).scroll(function () {
-    if (isMobile()) {
-        var minScrollTime = 300;
-        var now = new Date().getTime();
-        if (!scrollTimer) {
-            if (now - lastScrollFireTime > (3 * minScrollTime)) {
-                activateFixedSidebarOnScrollDown();   // fire immediately on first scroll
-                lastScrollFireTime = now;
-            }
-            scrollTimer = setTimeout(function () {
-                scrollTimer = null;
-                lastScrollFireTime = new Date().getTime();
-                activateFixedSidebarOnScrollDown();
-            }, minScrollTime);
-        }
-    }
-});
 
-function activateFixedSidebarOnScrollDown() {
-    if (isMobile() && window.pageYOffset > 150) {
-        setFixedSidebar();
-    } else {
-        setDefaultSidebar();
+function adjustSidebarPosition() {
+    if (isMobile()) {
+        var sidebar = $('#sidebar');
+        if (window.pageYOffset > 150) {
+            var sidebarOffset = window.pageYOffset - 100 + "px";
+            sidebar.animate({top: sidebarOffset, "z-index": 1031},400);
+        } else {
+            sidebar.css("top", 0);
+            sidebar.css("z-index", 1);
+        }
     }
 }
 

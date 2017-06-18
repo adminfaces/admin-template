@@ -10,7 +10,7 @@ $(window).on('resize', function () {
 
 function initSlideout() {
     if (isMobile() && !$(document.body).hasClass("layout-top-nav") && document.getElementById('sidebar')) {
-
+        var sidebar = $('#sidebar');
         var slideout = new Slideout({
             'panel': document.getElementById('content'),
             'menu': document.getElementById('sidebar'),
@@ -25,6 +25,7 @@ function initSlideout() {
                 document.getElementById('content').style.transform = 'initial';
 
             } else {
+                adjustSidebarPosition();
                 slideout.open();
                 document.getElementById('sidebar').style.display = 'block';
                 document.getElementById('content').style.transform = '230px';
@@ -33,7 +34,6 @@ function initSlideout() {
 
         slideout.on('translatestart', function () {
             setBodyClass('sidebar-open');
-            var sidebar = $('#sidebar');
             sidebar.show(500);
         });
 
@@ -63,6 +63,7 @@ function initSlideout() {
 
 function slideoutClose() {
     removeBodyClass('sidebar-open');
+    adjustSidebarPosition();
 }
 
 function slideoutOpen() {
