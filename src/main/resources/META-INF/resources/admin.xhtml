@@ -158,23 +158,25 @@
             <script type="text/javascript">
                 $(window).scroll(function () {
                     if (isMobile()) {
-                        var minScrollTime = 300;
+                        var minScrollTimeNav = 300;
                         var now = new Date().getTime();
-                        if (!scrollTimer) {
-                            if (now - lastScrollFireTime > (3 * minScrollTime)) {
+                        if (!scrollTimerNav) {
+                            if (now - lastScrollFireTimeNav > (3 * minScrollTimeNav)) {
                                 activateAutoShowNavbarOnScrollUp();   // fire immediately on first scroll
-                                lastScrollFireTime = now;
+                                lastScrollFireTimeNav = now;
                             }
-                            scrollTimer = setTimeout(function() {
-                                scrollTimer = null;
-                                lastScrollFireTime = new Date().getTime();
+                            scrollTimerNav = setTimeout(function() {
+                                scrollTimerNav = null;
+                                lastScrollFireTimeNav = new Date().getTime();
                                 activateAutoShowNavbarOnScrollUp();
-                            }, minScrollTime);
+                            }, minScrollTimeNav);
                         }
                     }
                 });
             </script>
         </ui:fragment>
+
+
     </h:body>
 
 </f:view>
