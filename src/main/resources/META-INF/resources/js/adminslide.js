@@ -38,6 +38,10 @@ function initSlideout() {
         });
 
 
+        slideout.on('beforeopen', function () {
+            adjustSidebarPosition();
+        });
+
         slideout.on('close', function () {
             slideoutClose();
         });
@@ -63,7 +67,6 @@ function initSlideout() {
 
 function slideoutClose() {
     removeBodyClass('sidebar-open');
-    adjustSidebarPosition();
 }
 
 function slideoutOpen() {

@@ -297,21 +297,3 @@ function adjustSidebarPosition() {
         }
     }
 }
-
-function setFixedSidebar() {
-    var sidebar = $('#sidebar');
-    if (sidebar.hasClass('sidebar-fixed')) {
-        return;
-    }
-    sidebar.animate({visibility: "hidden", opacity: 0}, 0);
-    sidebar.addClass('sidebar-fixed');
-    sidebar.animate({visibility: "visible", opacity: 1.0}, 500);
-}
-
-function setDefaultSidebar() {
-    var sidebar = $('#sidebar');
-    if (!sidebar.hasClass('sidebar-fixed')) {
-        return;
-    }
-    sidebar.removeClass('sidebar-fixed');
-}
