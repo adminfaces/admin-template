@@ -290,7 +290,8 @@ function adjustSidebarPosition() {
         var sidebar = $('#sidebar');
         if (window.pageYOffset > 150) {
             var sidebarOffset = window.pageYOffset - 100 + "px";
-            sidebar.animate({top: sidebarOffset, "z-index": 1031},400);
+            sidebar.css("top", sidebarOffset);
+            sidebar.css("z-index", 1031);
         } else {
             sidebar.css("top", 0);
             sidebar.css("z-index", 1);
