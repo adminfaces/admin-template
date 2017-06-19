@@ -38,7 +38,7 @@ function initSlideout() {
         });
 
 
-        slideout.on('beforeopen', function () {
+        slideout.on('translateend', function () {
             adjustSidebarPosition();
         });
 
