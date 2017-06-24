@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.adminfaces.template.util.Assert.has;
+
 /**
  * Based on https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/exception/BusinessException.java
  *
@@ -149,5 +151,11 @@ public class BusinessException extends RuntimeException implements Serializable 
     public BusinessException addException(BusinessException be){
         exceptionList.add(be);
         return this;
+    }
+
+    public void build() {
+        if(has(summary) || has(detail) || has(exceptionList)) {
+            throw this;
+        }
     }
 }
