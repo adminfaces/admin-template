@@ -12,7 +12,7 @@ import static com.github.adminfaces.template.util.Assert.has;
 /**
  * Based on https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/exception/BusinessException.java
  *
- * Application exception used to show faces messages when buisiness exception is thrown.
+ * Application exception used to show faces messages when business exception is thrown.
  *
  * @see CustomExceptionHandler#handleBusinessException(FacesContext, BusinessException)
  */
