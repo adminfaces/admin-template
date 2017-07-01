@@ -298,3 +298,18 @@ function adjustSidebarPosition() {
         }
     }
 }
+
+$(document).ready(function () {
+    adminMaterial();
+});
+
+$(document).on("pfAjaxComplete", function () {
+    adminMaterial();
+});
+
+function adminMaterial() {
+    $('div.material input.ui-inputfield').on('focus blur', function (e) {
+        $(this).parents('div.material').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
+    }).trigger('blur');
+
+}
