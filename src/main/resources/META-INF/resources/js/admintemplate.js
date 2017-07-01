@@ -308,8 +308,7 @@ $(document).on("pfAjaxComplete", function () {
 });
 
 function adminMaterial() {
-    $('div.material input.ui-inputfield').on('focus blur', function (e) {
+    $('div.material input.ui-inputfield, div.material textarea.ui-inputtextarea').on('focus blur', function (e) {
         $(this).parents('div.material').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
     }).trigger('blur');
-
 }
