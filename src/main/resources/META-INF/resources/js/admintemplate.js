@@ -308,7 +308,21 @@ $(document).on("pfAjaxComplete", function () {
 });
 
 function adminMaterial() {
+    // every time an input is focused/blur verify if it has value if true then add 'focused' class on material div
+    // when material div if focused then (material) label will float
     $('div.material input.ui-inputfield, div.material textarea.ui-inputtextarea').on('focus blur', function (e) {
         $(this).parents('div.material').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
     }).trigger('blur');
+
+    //add focused class on material div each time a checkbox (from checkbox menu) is clicked
+    //if there are itens on checkboxmenu then it is considered focused and (material) label will be removed
+    $(document).on('click', 'div.ui-selectcheckboxmenu-panel div.ui-chkbox', function (e) {
+        $('div.material div.ui-selectcheckboxmenu').parents('div.material').toggleClass('focused', $('div.material div.ui-selectcheckboxmenu span.ui-selectcheckboxmenu-token-label').size() > 0);
+    });
+
+    //when checkbox menu is blur then decide if it 'focused' based on size of itens
+    $(document).on('blur', 'div.material div.ui-selectcheckboxmenu', function (e) {
+        $('div.material div.ui-selectcheckboxmenu').parents('div.material').removeClass('focused', $('div.material div.ui-selectcheckboxmenu span.ui-selectcheckboxmenu-token-label').size() === 0);
+        $('div.material div.ui-selectcheckboxmenu').parents('div.material').toggleClass('focused', $('div.material div.ui-selectcheckboxmenu span.ui-selectcheckboxmenu-token-label').size() > 0);
+    });
 }
