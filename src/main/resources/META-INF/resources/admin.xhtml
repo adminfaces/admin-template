@@ -145,10 +145,11 @@
         <!-- slide in/out menu integration  -->
         <h:outputScript library="js" name="slideout.min.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
         <h:outputScript library="js" name="adminslide.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
-        <ui:fragment rendered="#{not adminConfig.enableSlideMenu}">
+        <ui:fragment rendered="#{not adminConfig.enableSlideMenu or not empty enableSlideMenu and enableSlideMenu eq 'false'}">
             <script type="text/javascript">
                 $(document).ready(function () {
                     $('.slideout-menu').removeClass('slideout-menu');
+                    $('.slideout-panel').removeClass('slideout-panel');
                 });
 
             </script>
