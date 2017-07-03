@@ -145,7 +145,7 @@
         <!-- slide in/out menu integration  -->
         <h:outputScript library="js" name="slideout.min.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
         <h:outputScript library="js" name="adminslide.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
-        <ui:fragment rendered="#{not adminConfig.enableSlideMenu or not empty enableSlideMenu and enableSlideMenu eq 'false'}">
+        <ui:fragment rendered="#{not adminConfig.enableSlideMenu or (not empty enableSlideMenu and enableSlideMenu eq 'false')}">
             <script type="text/javascript">
                 $(document).ready(function () {
                     $('.slideout-menu').removeClass('slideout-menu');
@@ -155,7 +155,7 @@
             </script>
         </ui:fragment>
 
-        <ui:fragment rendered="#{adminConfig.autoShowNavbar}">
+        <ui:fragment rendered="#{adminConfig.autoShowNavbar and (empty autoShowNavbar or autoShowNavbar eq 'true')}">
             <script type="text/javascript">
                 $(window).scroll(function () {
                     if (isMobile()) {
