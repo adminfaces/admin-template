@@ -211,11 +211,11 @@ admin.autoShowNavbar=true <14>
 <7> When false ajaxStatus, which triggers the loading bar on every ajax request, will not be rendered.
 <8> Disables AdminFilter, responsible for redirecting user after session timeout, sending user to logon page when it is not logged in among other things.
 <9> When false, the breadCrumb component, declared in admin template, will not be rendered.
-<10> If true will make left menu touch enable (can be closed or opened via touch). Can be enable/disabled per page with <ui:param name="autoShowNavbar" value="false".
+<10> If true will make left menu touch enable (can be closed or opened via touch). Can be enable/disabled per page with <ui:param name="enableSlideMenu" value="false".
 <11> When true it will create a http://materializecss.com/waves.html#![wave/ripple effect^] on elements specified by `rippleElements`.
 <12> A list of comma separated list of (jquery) selector which elements will be affected by ripple effect.
 <13> Default template skin
-<14> Automatic shows navbar when users scrolls page up (on small screens). Can be enable/disabled per page with <ui:param name="enableSlideMenu" value="false".
+<14> Automatic shows navbar when users scrolls page up (on small screens). Can be enable/disabled per page with <ui:param name="autoShowNavbar" value="false".
 
 IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need in order to change.
 
