@@ -92,6 +92,7 @@ public class AdminFilter implements Filter {
 
         if (request.getRequestURI().contains(request.getContextPath() + "/public/")) {
             chain.doFilter(req, resp);
+            return;
         }
 
 
