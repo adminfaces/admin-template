@@ -89,6 +89,12 @@ public class AdminFilter implements Filter {
             response.sendRedirect(request.getContextPath() + "/" + indexPage);
             return;
         }
+
+        if (request.getRequestURI().contains(request.getContextPath() + "/public/")) {
+            chain.doFilter(req, resp);
+        }
+
+
         if (skipResource(request) || adminSession.isLoggedIn()) {
             if (!adminSession.isUserRedirected() && adminSession.isLoggedIn() && has(request.getHeader("Referer")) && request.getHeader("Referer").contains("?page=")) {
                 adminSession.setUserRedirected(true);
