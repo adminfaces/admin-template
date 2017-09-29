@@ -189,7 +189,7 @@ public class AdminFilter implements Filter {
     }
 
     private boolean isValidRecoveryUrl(StringBuilder recoveryUrl) {
-        return !recoveryUrl.toString().contains(indexPage) && !recoveryUrl.toString().contains(errorPage);
+        return !recoveryUrl.toString().contains(indexPage) && !recoveryUrl.toString().contains(Constants.ACCESS_DENIED_PAGE);
     }
 
 }
