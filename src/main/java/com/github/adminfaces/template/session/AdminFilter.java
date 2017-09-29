@@ -171,7 +171,7 @@ public class AdminFilter implements Filter {
             / previous page in url param named 'page'
             */
             String redirectUrl = request.getContextPath() + "/" + loginPage + (has(recoveryUrl) &&
-                    !recoveryUrl.toString().contains(indexPage) ? "?page=" + URLEncoder.encode(recoveryUrl.toString(), "UTF-8") : "");
+                    isValidRecoveryUrl(recoveryUrl) ? "?page=" + URLEncoder.encode(recoveryUrl.toString(), "UTF-8") : "");
             if ("partial/ajax".equals(request.getHeader("Faces-Request"))) {
                 //redirect on ajax request: //http://stackoverflow.com/questions/13366936/jsf-filter-not-redirecting-after-initial-redirect
                 response.setContentType("text/xml");
@@ -186,6 +186,10 @@ public class AdminFilter implements Filter {
             log.error("Could not redirect to " + loginPage, e);
         }
 
+    }
+
+    private boolean isValidRecoveryUrl(StringBuilder recoveryUrl) {
+        return !recoveryUrl.toString().contains(indexPage) && !recoveryUrl.toString().contains(errorPage);
     }
 
 }
