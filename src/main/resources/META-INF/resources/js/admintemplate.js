@@ -331,6 +331,10 @@ function adminMaterial() {
     $(document).on('blur', 'div.material div.ui-selectcheckboxmenu', function (e) {
         materialCheckboxMenu();
     });
+
+    $(document).on("click","div.material.icon-left i", function () {
+        $(this).next().focus();
+    });
 }
 
 function materialCheckboxMenu() {
@@ -341,4 +345,5 @@ function materialInputs() {
     $('div.material input.ui-inputfield, div.material textarea.ui-inputtextarea').each(function(){
         $(this).parents('div.material').toggleClass('focused', this.value.length > 0);
     });
+
 }
