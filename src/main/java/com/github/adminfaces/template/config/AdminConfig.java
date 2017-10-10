@@ -38,6 +38,7 @@ public class AdminConfig implements Serializable {
     private String rippleElements;
     private String skin;
     private boolean autoShowNavbar;
+    private String ignoredResources;//comma separated resources (pages or urls) to be ignored in AdminFilter
 
 
     @PostConstruct
@@ -76,6 +77,7 @@ public class AdminConfig implements Serializable {
         enableSlideMenu =  Boolean.parseBoolean(getProperty("admin.enableSlideMenu"));
         skin = getProperty("admin.skin");
         autoShowNavbar =  Boolean.parseBoolean(getProperty("admin.autoShowNavbar"));
+        ignoredResources =  getProperty("admin.ignoredResources");
     }
 
     private String getProperty(String property) {
@@ -201,5 +203,13 @@ public class AdminConfig implements Serializable {
 
     public void setAutoShowNavbar(boolean autoShowNavbar) {
         this.autoShowNavbar = autoShowNavbar;
+    }
+
+    public String getIgnoredResources() {
+        return ignoredResources;
+    }
+
+    public void setIgnoredResources(String ignoredResources) {
+        this.ignoredResources = ignoredResources;
     }
 }

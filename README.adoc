@@ -200,6 +200,7 @@ admin.rippleElements= .ripplelink,button.ui-button,.ui-selectlistbox-item,.ui-mu
 .ui-autocomplete-dropdown, .ui-autocomplete-item ... (the list goes on) <12>
 admin.skin=skin-blue <13>
 admin.autoShowNavbar=true <14>
+admin.ignoredResources= <15>
 
 ----
 <1> login page location (relative to webapp). It you only be used if you configure <<Admin Session>>.
@@ -216,6 +217,7 @@ admin.autoShowNavbar=true <14>
 <12> A list of comma separated list of (jquery) selector which elements will be affected by ripple effect.
 <13> Default template skin
 <14> Automatic shows navbar when users scrolls page up (on small screens). Can be enable/disabled per page with <ui:param name="autoShowNavbar" value="false".
+<15> Comma separated resources (pages or urls) to be skiped by AdminFilter. Ex: /rest,/pages/car-list.xhtml
 
 IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need in order to change.
 

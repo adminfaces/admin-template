@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.github.adminfaces.template.util.Assert.has;
 
@@ -42,6 +45,8 @@ public class AdminFilter implements Filter {
     @Inject
     AdminConfig adminConfig;
 
+    private List<String> ignoredResources = new ArrayList<>();
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         String disableAdminFilter = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.DISABLE_FILTER);
@@ -67,6 +72,15 @@ public class AdminFilter implements Filter {
                 errorPage = errorPage.startsWith("/") ? errorPage.substring(1) : errorPage;
                 loginPage = loginPage.startsWith("/") ? loginPage.substring(1) : loginPage;
                 indexPage = indexPage.startsWith("/") ? indexPage.substring(1) : indexPage;
+
+                ignoredResources.add(loginPage);
+                ignoredResources.add(errorPage);
+
+                String configuredResouces = adminConfig.getIgnoredResources();
+                if(has(configuredResouces)) {
+                    this.ignoredResources.addAll(Arrays.asList(configuredResouces.split(",")));
+                }
+
             } catch (Exception e) {
                 log.error("problem initializing admin filter", e);
             }
@@ -85,7 +99,8 @@ public class AdminFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
 
-        if (request.getRequestURI().equals(request.getContextPath() + "/")) {
+        if (request.getRequestURI().equals(request.getContextPath() + "/")
+                || (adminSession.isLoggedIn() && request.getRequestURI().endsWith(loginPage))) {
             response.sendRedirect(request.getContextPath() + "/" + indexPage);
             return;
         }
@@ -139,7 +154,7 @@ public class AdminFilter implements Filter {
     private boolean skipResource(HttpServletRequest request) {
         String path = request.getServletPath().replaceAll("/", "");
         //log.warning("path to skip:"+path);
-        boolean skip = path.startsWith(FACES_RESOURCES) || path.equalsIgnoreCase(loginPage) || path.equalsIgnoreCase(errorPage);
+        boolean skip = path.startsWith(FACES_RESOURCES) || ignoredResources.contains(path);
         //log.warning("skip result:"+skip);
         return skip;
     }
