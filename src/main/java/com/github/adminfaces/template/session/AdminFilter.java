@@ -173,8 +173,8 @@ public class AdminFilter implements Filter {
             String requestedPage = request.getRequestURI();
             StringBuilder recoveryUrl = null;
             if (!loginPage.equals(requestedPage) && requestedPage.contains(".")) {
-                if (requestedPage.contains(request.getContextPath())) {
-                    requestedPage = requestedPage.replace(request.getContextPath(), "");
+                if (requestedPage.startsWith(request.getContextPath())) {
+                    requestedPage = requestedPage.replaceFirst(request.getContextPath(), "");
                 }
                 recoveryUrl = new StringBuilder(requestedPage);
                 if (has(recoveryUrlParams)) {
