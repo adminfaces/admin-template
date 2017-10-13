@@ -12,20 +12,10 @@ An image may worth a thousand words
 
 ##### How to reproduce  
 
-A sample xhtml code may help, ex:
+Please describe the steps to reproduce the issue. The more the details the more is likely the issue will be reproduced and fixed.
 
-```html
- <div class="ui-g-12 ui-md-4">
-    <h1>OrderList</h1>
-    <p:orderList value="#{orderListMB.cities}" var="city" controlsLocation="left" itemLabel="#{city}"
-                 itemValue="#{city}" responsive="true">
-        <f:facet name="caption">Cities List</f:facet>
-    </p:orderList>
-    </div>
-</div>
-```
+A sample project or code may help. Can it be reproduced in [admin-starter](https://github.com/adminfaces/admin-starter)?
 
 ##### Additional Information
 
 * Affected version: 
-* Browser version:
