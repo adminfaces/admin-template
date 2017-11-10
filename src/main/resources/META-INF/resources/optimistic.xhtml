@@ -1,5 +1,7 @@
 <ui:composition xmlns:adm="http://github.com/adminfaces"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="#{adminConfig.templatePath}">
 
@@ -18,6 +20,10 @@
             </div>
         </div>
         <adm:sidebar collapsed="true"/>
+
+        <h:form>
+            <p:remoteCommand autoRun="true" process="@none" global="false" partialSubmit="true" update="@none" oncomplete="$.AdminLTE.layout.fix()"/>
+        </h:form>
     </ui:define>
 
 </ui:composition>

@@ -1,23 +1,28 @@
 <ui:composition template="#{adminConfig.templatePath}"
-	xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:adm="http://github.com/adminfaces"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
-	<ui:define name="body">
-		<div class="error-content">
-			<div class="box box-solid box-danger">
-				<div class="box-header with-border" style="padding-top: 1px">
-					<h3>#{adm['label.expired.title']}</h3>
-				</div>
-				<div class="box-body">
-					<p>#{adm['label.expired.message']}.
-						<a href="#{requestScope['javax.servlet.error.request_uri']}">#{adm['label.expired.click-here']}</a>
-					</p>
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-				</div>
-			</div>
-		</div>
-		<adm:sidebar collapsed="true"/>
-	</ui:define>
-	
+    <ui:define name="body">
+        <div class="error-content">
+            <div class="box box-solid box-danger">
+                <div class="box-header with-border" style="padding-top: 1px">
+                    <h3>#{adm['label.expired.title']}</h3>
+                </div>
+                <div class="box-body">
+                    <p>#{adm['label.expired.message']}.
+                        <a href="#{requestScope['javax.servlet.error.request_uri']}">#{adm['label.expired.click-here']}</a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <adm:sidebar collapsed="true"/>
+        <h:form>
+            <p:remoteCommand autoRun="true" process="@none" global="false" partialSubmit="true" update="@none" oncomplete="$.AdminLTE.layout.fix()"/>
+        </h:form>
+    </ui:define>
+
 </ui:composition>
