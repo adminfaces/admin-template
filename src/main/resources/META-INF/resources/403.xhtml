@@ -1,6 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:adm="http://github.com/adminfaces"
                 template="#{adminConfig.templatePath}">
 
@@ -14,12 +15,16 @@
 
                 <p>
                     #{adm['label.go-back']} <p:link style="text-decoration: underline" href="/" value="Home"
-                                                     escape="false"/>.
+                                                    escape="false"/>.
                 </p>
 
             </div>
         </div>
         <adm:sidebar collapsed="true"/>
+
+        <h:form>
+            <p:remoteCommand autoRun="true" process="@none" global="false" partialSubmit="true" update="@none" oncomplete="$.AdminLTE.layout.fix()"/>
+        </h:form>
     </ui:define>
 
 
