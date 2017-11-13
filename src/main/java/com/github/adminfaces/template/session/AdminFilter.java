@@ -91,6 +91,7 @@ public class AdminFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         if (disableFilter) {
+            chain.doFilter(req, resp);
             return;
         }
         req.setCharacterEncoding("UTF-8");
