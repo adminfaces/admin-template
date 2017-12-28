@@ -2,8 +2,6 @@ package com.github.adminfaces.template.session;
 
 import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.util.Constants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.servlet.*;
@@ -18,6 +16,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.github.adminfaces.template.util.Assert.has;
 
@@ -32,7 +32,7 @@ import static com.github.adminfaces.template.util.Assert.has;
 public class AdminFilter implements Filter {
 
     private static final String FACES_RESOURCES = "javax.faces.resource";
-    private static final Logger log = LoggerFactory.getLogger(AdminFilter.class.getCanonicalName());
+    private static final Logger log = Logger.getLogger(AdminFilter.class.getName());
 
     private boolean disableFilter;
     private String loginPage;
@@ -82,7 +82,7 @@ public class AdminFilter implements Filter {
                 }
 
             } catch (Exception e) {
-                log.error("problem initializing admin filter", e);
+                log.log(Level.SEVERE,"problem initializing admin filter", e);
             }
         }
 
@@ -121,7 +121,7 @@ public class AdminFilter implements Filter {
             try {
                 chain.doFilter(req, resp);
             } catch (FileNotFoundException e) {
-                log.warn("File not found", e);
+                log.log(Level.WARNING,"File not found", e);
                 response.sendError(404);
             }
         } else { //resource not skipped (e.g a page that is not logon page) AND user not logged in
@@ -136,7 +136,7 @@ public class AdminFilter implements Filter {
         try {
             return URLDecoder.decode(page, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            log.warn("Could not extract page from url", e);
+            log.log(Level.WARNING,"Could not extract page from url", e);
             return indexPage;
         }
     }
@@ -199,7 +199,7 @@ public class AdminFilter implements Filter {
             }
 
         } catch (Exception e) {
-            log.error("Could not redirect to " + loginPage, e);
+            log.log(Level.SEVERE,"Could not redirect to " + loginPage, e);
         }
 
     }

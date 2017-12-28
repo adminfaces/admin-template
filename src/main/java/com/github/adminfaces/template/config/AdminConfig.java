@@ -1,7 +1,5 @@
 package com.github.adminfaces.template.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -9,6 +7,8 @@ import javax.inject.Named;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.github.adminfaces.template.util.Assert.has;
 
@@ -19,7 +19,7 @@ import static com.github.adminfaces.template.util.Assert.has;
 @ApplicationScoped
 public class AdminConfig implements Serializable {
 
-    private static final Logger log = LoggerFactory.getLogger(AdminConfig.class);
+    private static final Logger log = Logger.getLogger(AdminConfig.class.getName());
 
     private Properties adminConfigFile;//default config
     private Properties userConfigFile;//user defined properties
@@ -49,13 +49,13 @@ public class AdminConfig implements Serializable {
         try (InputStream is = cl.getResourceAsStream(("admin-config.properties"))) {
             userConfigFile.load(is);
         } catch (Exception ex) {
-            log.warn("Could not load user defined admin template properties.", ex);
+            log.log(Level.WARNING,"Could not load user defined admin template properties.", ex);
         }
 
         try (InputStream isDefault = cl.getResourceAsStream(("config/admin-config.properties"))) {
             adminConfigFile.load(isDefault);
         } catch (Exception ex) {
-            log.error("Could not load admin template default properties.", ex);
+            log.log(Level.SEVERE,"Could not load admin template default properties.", ex);
         }
 
         loadDefaults();

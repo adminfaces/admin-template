@@ -5,8 +5,6 @@ import org.omnifaces.config.WebXml;
 import org.omnifaces.util.Exceptions;
 import org.omnifaces.util.Messages;
 import org.primefaces.context.RequestContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJBException;
 import javax.faces.FacesException;
@@ -20,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.github.adminfaces.template.util.Assert.has;
 import static javax.servlet.RequestDispatcher.*;
@@ -34,7 +34,7 @@ import static javax.servlet.RequestDispatcher.*;
  */
 public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomExceptionHandler.class.getCanonicalName());
+    private static final Logger logger = Logger.getLogger(CustomExceptionHandler.class.getName());
     private ExceptionHandler wrapped;
 
     public CustomExceptionHandler(ExceptionHandler exceptionHandler) {
@@ -93,7 +93,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         }
 
         if (e instanceof FileNotFoundException) {
-            logger.warn("File not found", e);
+            logger.log(Level.WARNING,"File not found", e);
             throw new FacesException(e);
         }
 
