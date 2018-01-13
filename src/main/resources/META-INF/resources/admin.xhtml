@@ -28,43 +28,64 @@
         </p:dialog>
 
         <div class="wrapper">
-            <div id="loader" class="load-bar" style="display: none">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-            <header class="main-header">
-                <a href="#{request.contextPath}/" class="logo">
-                    <span class="logo-mini">
-                        <ui:insert name="logo-mini"/>
-                    </span>
-                    <span class="logo-lg">
-                        <ui:insert name="logo-lg"/>
-                    </span>
-                    <span class="logo-lg">
-                        <ui:insert name="logo"/>
-                    </span>
-                </a>
-                <nav class="navbar navbar-static-top" role="navigation">
-                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                        <span class="sr-only"></span>
-                    </a>
-                    <div class="navbar-custom-menu">
-                        <ui:insert name="top-menu"/>
-                    </div>
-                </nav>
-            </header>
-
-            <!-- side menu -->
-            <aside id="sidebar" class="main-sidebar slideout-menu">
-                <div>
-                    <ui:insert name="menu-begin"/>
-                    <section class="sidebar">
-                        <ui:insert name="menu"/>
-                    </section>
-                    <ui:insert name="menu-end"/>
-                </div>
-            </aside>
+        	<ui:fragment rendered="#{empty renderLoader or renderLoader eq 'true'}">
+	            <div id="loader" class="load-bar" style="display: none">
+	                <div class="bar"></div>
+	                <div class="bar"></div>
+	                <div class="bar"></div>
+	            </div>
+            </ui:fragment>
+            
+            <ui:fragment rendered="#{empty renderHeader or renderHeader eq 'true'}">
+	            <header class="main-header">
+	                <a href="#{request.contextPath}/" class="logo">
+	                    <span class="logo-mini">
+	                        <ui:insert name="logo-mini"/>
+	                    </span>
+	                    <span class="logo-lg">
+	                        <ui:insert name="logo-lg"/>
+	                    </span>
+	                    <span class="logo-lg">
+	                        <ui:insert name="logo"/>
+	                    </span>
+	                </a>
+	                <nav class="navbar navbar-static-top" role="navigation">
+	                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+	                        <span class="sr-only"></span>
+	                    </a>
+	                    <div class="navbar-custom-menu">
+	                        <ui:insert name="top-menu"/>
+	                    </div>
+	                </nav>
+	            </header>
+			</ui:fragment>
+			<ui:insert name="main-header"/>
+			
+            <!-- sidebar -->
+            <ui:fragment rendered="#{empty renderSideBar or renderSideBar eq 'true'}">
+	            <aside id="sidebar" class="main-sidebar slideout-menu">
+	                <div>
+	                    <ui:insert name="menu-begin"/>
+	                    <section class="sidebar">
+	                        <ui:insert name="menu"/>
+	                    </section>
+	                    <ui:insert name="menu-end"/>
+	                </div>
+	            </aside>
+            </ui:fragment>
+            <ui:fragment rendered="#{not (empty renderSideBar or renderSideBar eq 'true')}">
+            	<style type="text/css">
+            		/*When side-menu original dont visible, we need remove local of menu*/
+	            	.content-wrapper, .right-side, .main-footer {
+					    margin-left: 0px;
+					}
+            	</style>
+            </ui:fragment>
+            
+            <!-- sidebar -->
+            <ui:insert name="sidebar"/>
+            
+            
             <!-- content -->
             <div id="content" class="content-wrapper">
                 <ui:insert name="content-wrapper"/>
