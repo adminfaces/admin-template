@@ -348,7 +348,7 @@ function adminMaterial() {
 }
 
 function materialCheckboxMenu() {
-    $('div.material div.ui-selectcheckboxmenu').parents('div.material').toggleClass('focused', $('div.material div.ui-selectcheckboxmenu span.ui-selectcheckboxmenu-token-label').size() > 0);
+    $('div.material div.ui-selectcheckboxmenu').parents('div.material').toggleClass('focused', $('div.material div.ui-selectcheckboxmenu span.ui-selectcheckboxmenu-token-label').length > 0);
 }
 
 function materialInputs() {
