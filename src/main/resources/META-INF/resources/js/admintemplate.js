@@ -303,13 +303,14 @@ $(document).ready(function () {
     setTimeout(function () {
         adminMaterial();
     }, 250);
-
+    materialSwitch();
 });
 
 $(document).on("pfAjaxComplete", function () {
     setTimeout(function () {
         adminMaterial();
     }, 250);
+    materialSwitch();
 });
 
 function adminMaterial() {
@@ -356,8 +357,8 @@ function adminMaterial() {
         $(this).next().removeClass('material-focus');
     });
 
-
 }
+
 
 function materialCheckboxMenu() {
     $('div.material div.ui-selectcheckboxmenu').parents('div.material').toggleClass('focused', $('div.material div.ui-selectcheckboxmenu span.ui-selectcheckboxmenu-token-label').length > 0);
@@ -373,3 +374,17 @@ function materialInputs() {
         $(this).parents('div.ui-material').toggleClass('focused', this.value.length > 0);
     });
 }
+
+function materialSwitch() {
+    $('div.ui-inputswitch').each(function () {
+        if ($('.ui-inputswitch-on.ui-state-active').width() > 0) {
+            $(this).addClass('ui-inputswitch-active');
+        } else {
+            $(this).removeClass('ui-inputswitch-active');
+        }
+    });
+}
+
+$(document).on("click", "div.ui-inputswitch", function () {
+    materialSwitch();
+});
