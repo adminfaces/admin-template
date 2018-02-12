@@ -321,6 +321,10 @@ function adminMaterial() {
         $(this).parents('div.material').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
     }).trigger('blur');
 
+    $('div.ui-material input.ui-inputfield, div.ui-material textarea.ui-inputtextarea').on('focus blur', function (e) {
+        $(this).parents('div.ui-material').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
+    }).trigger('blur');
+
     //add focused class on material div each time a checkbox (from checkbox menu) is clicked
     //if there are itens on checkboxmenu then it is considered focused and (material) label will be removed
     $(document).on('click', 'div.ui-selectcheckboxmenu-panel div.ui-chkbox', function (e) {
@@ -332,11 +336,19 @@ function adminMaterial() {
         materialCheckboxMenu();
     });
 
-    $(document).on("click","div.material.icon-left i", function () {
+    $(document).on('blur', 'div.ui-material div.ui-selectcheckboxmenu', function (e) {
+        materialCheckboxMenu();
+    });
+
+    $(document).on("click", "div.material.icon-left i", function () {
         $(this).next().focus();
     });
 
-    $(document).on("click","span.ui-calendar.ui-trigger-calendar,span.ui-autocomplete", function () {
+    $(document).on("click", "div.ui-material.icon-left i", function () {
+        $(this).next().focus();
+    });
+
+    $(document).on("click", "span.ui-calendar.ui-trigger-calendar,span.ui-autocomplete", function () {
         $(this).next().addClass('material-focus');
     });
 
@@ -349,11 +361,15 @@ function adminMaterial() {
 
 function materialCheckboxMenu() {
     $('div.material div.ui-selectcheckboxmenu').parents('div.material').toggleClass('focused', $('div.material div.ui-selectcheckboxmenu span.ui-selectcheckboxmenu-token-label').length > 0);
+    $('div.ui-material div.ui-selectcheckboxmenu').parents('div.ui-material').toggleClass('focused', $('div.ui-material div.ui-selectcheckboxmenu span.ui-selectcheckboxmenu-token-label').length > 0);
 }
 
 function materialInputs() {
-    $('div.material input.ui-inputfield, div.material textarea.ui-inputtextarea').each(function(){
+    $('div.material input.ui-inputfield, div.material textarea.ui-inputtextarea').each(function () {
         $(this).parents('div.material').toggleClass('focused', this.value.length > 0);
     });
 
+    $('div.ui-material input.ui-inputfield, div.ui-material textarea.ui-inputtextarea').each(function () {
+        $(this).parents('div.ui-material').toggleClass('focused', this.value.length > 0);
+    });
 }
