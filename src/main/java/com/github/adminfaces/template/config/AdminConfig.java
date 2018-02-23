@@ -25,7 +25,6 @@ public class AdminConfig implements Serializable {
     private Properties userConfigFile;//user defined properties
     private String loginPage;
     private String indexPage;
-    private String errorPage;
     private String dateFormat;
     private String templatePath;
     private Integer breadCrumbMaxSize;
@@ -63,7 +62,6 @@ public class AdminConfig implements Serializable {
 
     protected void loadDefaults() {
         loginPage = getProperty("admin.loginPage");
-        errorPage = getProperty("admin.errorPage");
         indexPage = getProperty("admin.indexPage");
         dateFormat = getProperty("admin.dateFormat");
         templatePath = getProperty("admin.templatePath");
@@ -93,10 +91,6 @@ public class AdminConfig implements Serializable {
         return indexPage;
     }
 
-    public String getErrorPage() {
-        return errorPage;
-    }
-
     public String getDateFormat() {
         return dateFormat;
     }
@@ -111,10 +105,6 @@ public class AdminConfig implements Serializable {
 
     public void setIndexPage(String indexPage) {
         this.indexPage = indexPage;
-    }
-
-    public void setErrorPage(String errorPage) {
-        this.errorPage = errorPage;
     }
 
     public boolean isDisableFilter() {
