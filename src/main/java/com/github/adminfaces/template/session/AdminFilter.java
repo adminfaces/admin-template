@@ -61,7 +61,7 @@ public class AdminFilter implements Filter {
                 }
                 errorPage = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.ERROR_PAGE);
                 if (!has(errorPage)) {
-                    errorPage = has(adminConfig) ? adminConfig.getErrorPage() : Constants.DEFAULT_ERROR_PAGE;
+                    errorPage = Constants.DEFAULT_ERROR_PAGE;
                 }
                 indexPage = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.INDEX_PAGE);
                 if (!has(indexPage)) {
@@ -112,7 +112,7 @@ public class AdminFilter implements Filter {
         }
 
 
-        if (skipResource(request) || adminSession.isLoggedIn()) {
+        if (skipResource(request, response) || adminSession.isLoggedIn()) {
             if (!adminSession.isUserRedirected() && adminSession.isLoggedIn() && has(request.getHeader("Referer")) && request.getHeader("Referer").contains("?page=")) {
                 adminSession.setUserRedirected(true);
                 response.sendRedirect(request.getContextPath() + extractPageFromURL(request.getHeader("Referer")));
@@ -147,16 +147,14 @@ public class AdminFilter implements Filter {
     }
 
     /**
-     * skips faces-resources, index or logon pages
+     * skips faces-resources, index, error or logon pages
      *
      * @param request
      * @return true if resource must be skipped by the filter false otherwise
      */
-    private boolean skipResource(HttpServletRequest request) {
+    private boolean skipResource(HttpServletRequest request, HttpServletResponse response) {
         String path = request.getServletPath().replaceAll("/", "");
-        //log.warning("path to skip:"+path);
-        boolean skip = path.startsWith(FACES_RESOURCES) || ignoredResources.contains(path);
-        //log.warning("skip result:"+skip);
+        boolean skip = path.startsWith(FACES_RESOURCES) || ignoredResources.contains(path) || response.getStatus() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
         return skip;
     }
 
