@@ -22,7 +22,7 @@
         <adm:sidebar collapsed="true"/>
 
         <h:form>
-            <p:remoteCommand autoRun="true" process="@none" global="false" partialSubmit="true" update="@none" oncomplete="$.AdminLTE.layout.fix()"/>
+            <p:remoteCommand autoRun="true" process="@none" global="false" partialSubmit="true" update="@none" oncomplete="$('body').layout('fix')"/>
         </h:form>
     </ui:define>
 
