@@ -67,7 +67,6 @@
             <groupId>com.github.adminfaces</groupId>
             <artifactId>admin-theme</artifactId>
             <version>1.0.0-RC12</version>
-            <classifier>dev</classifier>
         </dependency>
 
     </dependencies>
