@@ -18,7 +18,7 @@ function initSlideout() {
             'tolerance': 70
         });
 
-        $("a[data-toggle='offcanvas']").on('click', function () {
+        $("a[data-toggle='push-menu']").on('click', function () {
             if ($("body").hasClass('sidebar-open')) {
                 slideout.close();
                 document.getElementById('sidebar').style.display = 'none';
