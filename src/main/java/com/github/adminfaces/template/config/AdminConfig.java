@@ -6,6 +6,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +40,7 @@ public class AdminConfig implements Serializable {
     private String skin;
     private boolean autoShowNavbar;
     private String ignoredResources;//comma separated resources (pages or urls) to be ignored in AdminFilter
+    private String loadingImage;
 
 
     @PostConstruct
@@ -64,6 +67,9 @@ public class AdminConfig implements Serializable {
         loginPage = getProperty("admin.loginPage");
         indexPage = getProperty("admin.indexPage");
         dateFormat = getProperty("admin.dateFormat");
+        if(!has(dateFormat)) {
+            dateFormat =  ((SimpleDateFormat)DateFormat.getDateTimeInstance()).toLocalizedPattern();
+        }
         templatePath = getProperty("admin.templatePath");
         breadCrumbMaxSize = Integer.parseInt(getProperty("admin.breadcrumbSize"));
         renderMessages = Boolean.parseBoolean(getProperty("admin.renderMessages"));
@@ -76,6 +82,7 @@ public class AdminConfig implements Serializable {
         skin = getProperty("admin.skin");
         autoShowNavbar =  Boolean.parseBoolean(getProperty("admin.autoShowNavbar"));
         ignoredResources =  getProperty("admin.ignoredResources");
+        loadingImage =  getProperty("admin.loadingImage");
     }
 
     private String getProperty(String property) {
@@ -201,5 +208,13 @@ public class AdminConfig implements Serializable {
 
     public void setIgnoredResources(String ignoredResources) {
         this.ignoredResources = ignoredResources;
+    }
+
+    public String getLoadingImage() {
+        return loadingImage;
+    }
+
+    public void setLoadingImage(String loadingImage) {
+        this.loadingImage = loadingImage;
     }
 }
