@@ -26,7 +26,7 @@ Below is a non exhaustive list of notable features brought out of the box by thi
 
 * Fully responsive
 ** Its based on Bootstrap and AdminLTE two well tested and solid frameworks
-* Enhanced mobile experience (below features are enabled only on small screens)
+* Enhanced mobile experience, below features are enabled only on small screens:
 ** Material design load bar
 ** Ripple effect based on http://materializecss.com/waves.html[materialize css^] +
 image:https://user-images.githubusercontent.com/1592273/27104868-d9bfb33e-5063-11e7-83be-2201a3f8cda5.gif[]
@@ -55,8 +55,8 @@ First include it in your classpath:
 </dependency>
 ----
 
-[IMPORTANT]
-======
+[WARNING]
+====
 Admin template will bring the following transitive dependencies:
 
 ----
@@ -84,10 +84,14 @@ Admin template will bring the following transitive dependencies:
 </dependency>
 ----    
 
-Of cource you can override them in your pom.xml as needed.
-======
+Which you can override in your pom.xml as needed.
+====
 
-Now you can use it in your JSF pages:
+With the template dependency in classpath now you can use `admin` facelets template into your JSF pages.
+
+=== Example
+
+Consider the following sample page:
 
 [source,html]
 ----
@@ -206,7 +210,7 @@ admin.loadingImage=ajaxloadingbar.gif <16>
 ----
 <1> login page location (relative to webapp). It you only be used if you configure <<Admin Session>>.
 <2> index page location. User will be redirected to it when it access app root (contextPath/).
-<3> Date format used in error page (https://raw.githubusercontent.com/adminfaces/admin-template/master/src/main/resources/META-INF/resources/500.xhtml[500.xhtml^]), by default it is JVM default format.
+<3> Date format used in error page (http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/500.xhtml[500.xhtml^]), by default it is JVM default format.
 <4> facelets template to be used on build in admin-template pages like 500.xhtml, 404.xhtml, viewexpired.xhtml, see <<Error Pages>>. By default it uses admin.xhtml but you can define any template (e.g one that extends admin.xhtml).
 <5> Number of breadcrumbs to queue before removing the older ones.
 <6> When false, p:messages defined in admin template will not be rendered.
@@ -234,7 +238,7 @@ AdminSession is a simple session scoped bean which controls whether user is logg
     }
 ----
 
-By default the user *is always logged in* and you need to override it (by using https://github.com/adminfaces/admin-starter/blob/2659e762271f9e1864bd2290f3dbf5018087eccd/src/main/java/com/github/adminfaces/starter/infra/security/LogonMB.java#L28[bean specialization^] or calling `setIsLoggedIn()` method) to change its value.
+By default the user *is always logged in* and you need to override it (by using https://github.com/adminfaces/admin-starter/blob/2659e762271f9e1864bd2290f3dbf5018087eccd/src/main/java/com/github/adminfaces/starter/infra/security/LogonMB.java#L28[bean specialization^] or via injection and calling `setIsLoggedIn()` method) to change its value, see <<Overriding AdminSession>>.
 
 When isLoggedIn is `false` you got the following mechanisms activated:
 
@@ -243,6 +247,176 @@ When isLoggedIn is `false` you got the following mechanisms activated:
 
 NOTE: It is up to you to decide whether the user is logged in or not.
 
+=== Overriding AdminSession
+
+There are two ways to override AdminSession default value which is <<AdminSession Specialization, specialization>> and <<AdminSession Injection, injection>>.
+
+==== AdminSession Specialization
+
+A simple way to change AdminSession logged in value is by extending it:
+
+[source,java]
+----
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Specializes;
+import com.github.adminfaces.template.session.AdminSession;
+import org.omnifaces.util.Faces;
+import java.io.Serializable;
+
+@SessionScoped
+@Specializes
+public class LogonMB extends AdminSession implements Serializable {
+
+    private String currentUser;
+    private String email;
+    private String password;
+    private boolean remember;
+
+
+    public void login() throws IOException {
+        currentUser = email;
+        addDetailMessage("Logged in successfully as <b>" + email + "</b>");
+        Faces.getExternalContext().getFlash().setKeepMessages(true);
+        Faces.redirect("index.xhtml");
+    }
+
+    @Override
+    public boolean isLoggedIn() {
+
+        return currentUser != null;
+    }
+
+    //getters&setters
+}
+----
+
+=== AdminSession Injection
+
+Another way is to inject it into your security authentication logic:
+
+
+[source,java]
+----
+import com.github.adminfaces.template.session.AdminSession;
+import org.omnifaces.util.Messages;
+import org.omnifaces.util.Faces;
+
+@SessionScoped
+@Named("authorizer")
+public class CustomAuthorizer implements Serializable {
+
+    private String currentUser;
+
+    @Inject
+    AdminSession adminSession;
+
+    public void login(String username) {
+        currentUser = username;
+        adminSession.setIsLoggedIn(true);
+        Messages.addInfo(null,"Logged in sucessfully as <b>"+username+"</b>");
+        Faces.redirect("index.xhtml");
+    }
+
+}
+----
+
+IMPORTANT: As isLoggedIn is `true by default` you need to set it to false on application startup so user is redirected to login page. This step is not needed when <<AdminSession Specialization>>.
+
+
+== Error Pages
+
+The template comes with custom error pages like `403`, `404`, `500`, `ViewExpired` and `OptimisticLock`.
+
+.500
+User is going to be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/500.xhtml[*500.xhtml*^] whenever a _500_ response code is returned in a request.
+
+The page will also be triggered when a `Throwable` is raised (and not catch).
+
+Here is how 500 page look like:
+
+image::500.png[]
+
+.403
+User is redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/403.xhtml[*403.xhtml*^] whenever a _403_ response code is returned in a request. The page will also be triggered when a `com.github.adminfaces.template.exception.AccessDeniedException` is raised.
+
+image::403.png[]
+
+.404
+User will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/non-existing.xhtml[*404.xhtml*^] whenever a 404 response code is returned from a request.
+
+image::404.png[]
+
+.ViewExpired
+When a JSF `javax.faces.application.ViewExpiredException` is raised user will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/expired.xhtml[*expired.xhtml*^].
+
+image::expired.png[]
+
+.OptimisticLock
+When a JPA `javax.persistence.OptimisticLockException` is thrown user will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/optimistic.xhtml[*optimistic.xhtml*^].
+
+image::optimistic.png[]
+
+=== Providing custom error pages
+
+You can provide your own custom pages (and other status codes) by configuring them in web.xml, example:
+
+[source,xml]
+----
+<error-page>
+    <error-code>404</error-code>
+    <location>/404.xhtml</location>
+</error-page>
+<error-page>
+    <error-code>500</error-code>
+    <location>/500.xhtml</location>
+</error-page>
+<error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/500.xhtml</location>
+</error-page>
+----
+
+=== Overriding error pages
+
+You can also override error pages by placing the pages (with same name) described in <<Error Pages>> section on the root of your application (`webapp/`).
+
+=== Labels and Messages in error pages
+
+Labels and messages in error pages are provided via http://docs.oracle.com/javaee/6/tutorial/doc/bnaxw.html#bnaxy[JSF resource bundle] mechanism.
+
+Below is `admin.properties` resource bundle which provides messages for error pages:
+
+.src/main/resources/admin.properties
+----
+label.go-back=Go back to
+
+#403
+label.403.header=403
+label.403.message=Access denied! You do not have access to the requested page.
+
+#404
+label.404.header=404
+label.404.message=Oops! Page not found
+
+#500
+label.500.header=500
+label.500.message=Oops! Something went wrong
+label.500.title=Unexpected error
+label.500.detail=Details
+
+#expired
+label.expired.title=View expired
+label.expired.message= The requested page could not be recovered.
+label.expired.click-here= Click here to reload the page.
+
+#optimistic
+label.optimistic.title=Record already updated
+label.optimistic.message= The requested record has been already updated by another user.
+label.optimistic.click-here= Click here to reload the updated record from database.
+
+----
+
+To override labels just provide a file named _admin.properties_ in your application `resources` folder.
 
 == Snapshots
 
