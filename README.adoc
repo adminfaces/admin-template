@@ -34,7 +34,7 @@ image:https://user-images.githubusercontent.com/1592273/27104868-d9bfb33e-5063-1
 image:https://cloud.githubusercontent.com/assets/1592273/25071807/dd37121e-2296-11e7-855c-8f20b59dcf5f.gif[]
 ** Scroll to top
 * Automatically activates (highlight) menu based on current page +
-image:menu-highlight.png[]
+image:https://github.com/adminfaces/admin-showcase/raw/master/src/docs/images/menu-highlight.png[link="https://github.com/adminfaces/admin-showcase/blob/master/src/docs/images/menu-highlight.png?raw=true"]
 * Custom <<Error Pages, error pages>>
 * Configurable, see <<Configuration>>
 * http://adminfaces-rpestano.rhcloud.com/showcase/pages/layout/breadcrumb.xhtml[Breadcrumb^] based navigation
