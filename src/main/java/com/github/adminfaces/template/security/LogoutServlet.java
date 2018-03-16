@@ -20,7 +20,7 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-         Faces.getSession().invalidate();
+        Faces.getSession().invalidate();
         ExternalContext ec = Faces.getExternalContext();
         ec.redirect(ec.getRequestContextPath() + getLoginPage());
     }
