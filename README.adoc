@@ -207,6 +207,8 @@ admin.skin=skin-blue <13>
 admin.autoShowNavbar=true <14>
 admin.ignoredResources= <15>
 admin.loadingImage=ajaxloadingbar.gif <16>
+admin.extensionLessUrls=false <17>
+
 
 ----
 <1> login page location (relative to webapp). It you only be used if you configure <<Admin Session>>.
@@ -223,8 +225,9 @@ admin.loadingImage=ajaxloadingbar.gif <16>
 <12> A list of comma separated list of (jquery) selector which elements will be affected by ripple effect.
 <13> Default template skin
 <14> Automatic shows navbar when users scrolls page up (on small screens). Can be enable/disabled per page with <ui:param name="autoShowNavbar" value="false".
-<15> Comma separated resources (pages or urls) to be skiped by AdminFilter. Ex: /rest,/pages/car-list.xhtml
+<15> Comma separated resources (pages or urls) to be skiped by AdminFilter. Ex: /rest,/pages/car-list.xhtml.
 <16> image used for the loading popup. It must be under `webapp/resources/images` folder.
+<17> Removes extension suffix from breadCrumb links.
 
 IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need in order to change.
 
