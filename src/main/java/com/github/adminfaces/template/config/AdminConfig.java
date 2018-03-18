@@ -35,6 +35,7 @@ public class AdminConfig implements Serializable {
     private boolean disableFilter;
     private boolean enableRipple;
     private boolean renderBreadCrumb;
+    private boolean extensionLessUrls;
     private boolean enableSlideMenu;
     private String rippleElements;
     private String skin;
@@ -77,6 +78,7 @@ public class AdminConfig implements Serializable {
         disableFilter = Boolean.parseBoolean(getProperty("admin.disableFilter"));
         enableRipple = Boolean.parseBoolean(getProperty("admin.enableRipple"));
         renderBreadCrumb = Boolean.parseBoolean(getProperty("admin.renderBreadCrumb"));
+        extensionLessUrls = Boolean.parseBoolean(getProperty("admin.extensionLessUrls"));
         rippleElements = getProperty("admin.rippleElements");
         enableSlideMenu =  Boolean.parseBoolean(getProperty("admin.enableSlideMenu"));
         skin = getProperty("admin.skin");
@@ -168,6 +170,14 @@ public class AdminConfig implements Serializable {
 
     public void setRenderBreadCrumb(boolean renderBreadCrumb) {
         this.renderBreadCrumb = renderBreadCrumb;
+    }
+
+    public boolean isExtensionLessUrls() {
+        return extensionLessUrls;
+    }
+
+    public void setExtensionLessUrls(boolean extensionLessUrls) {
+        this.extensionLessUrls = extensionLessUrls;
     }
 
     public String getRippleElements() {
