@@ -51,13 +51,18 @@ public class BreadCrumbMB implements Serializable {
             return;
         }
 
-        if(!has(breadCrumb.getLink())){
-            breadCrumb.setLink(FacesContext.getCurrentInstance().getViewRoot().getViewId());
+        String link = breadCrumb.getLink();
+        if(!has(link)){
+            link = FacesContext.getCurrentInstance().getViewRoot().getViewId();
         }
 
-        if(breadCrumb.getLink() != null && !breadCrumb.getLink().contains(".")){
-            breadCrumb.setLink(breadCrumb.getLink()+"."+ Constants.DEFAULT_PAGE_FORMAT);
+        if(link != null && adminConfig.isExtensionLessUrls()) {
+            link = link.substring(0, link.lastIndexOf("."));
+        }else if(link != null && !link.contains(".")){
+            link = link + "." + Constants.DEFAULT_PAGE_FORMAT;
         }
+        breadCrumb.setLink(link);
+
         if(breadCrumbs.contains(breadCrumb)){
             breadCrumbs.remove(breadCrumb);
         }
