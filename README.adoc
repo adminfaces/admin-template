@@ -14,6 +14,7 @@
 :caution-caption: :fire:
 :warning-caption: :warning:
 
+image:https://travis-ci.org/adminfaces/admin-template.svg[Build Status (Travis CI), link=https://travis-ci.org/adminfaces/admin-template]
 image:https://maven-badges.herokuapp.com/maven-central/com.github.adminfaces/admin-template/badge.svg["Maven Central",link="http://search.maven.org/#search|ga|1|admin-template"]
 image:https://badges.gitter.im/Join%20Chat.svg[link="https://gitter.im/adminfaces?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"]
 
@@ -34,7 +35,7 @@ image:https://user-images.githubusercontent.com/1592273/27104868-d9bfb33e-5063-1
 image:https://cloud.githubusercontent.com/assets/1592273/25071807/dd37121e-2296-11e7-855c-8f20b59dcf5f.gif[]
 ** Scroll to top
 * Automatically activates (highlight) menu based on current page +
-image:menu-highlight.png[]
+image:https://github.com/adminfaces/admin-showcase/raw/master/src/docs/images/menu-highlight.png[link="https://github.com/adminfaces/admin-showcase/blob/master/src/docs/images/menu-highlight.png?raw=true"]
 * Custom <<Error Pages, error pages>>
 * Configurable, see <<Configuration>>
 * http://adminfaces-rpestano.rhcloud.com/showcase/pages/layout/breadcrumb.xhtml[Breadcrumb^] based navigation
@@ -334,27 +335,27 @@ The page will also be triggered when a `Throwable` is raised (and not catch).
 
 Here is how 500 page look like:
 
-image::500.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/500.png[]
 
 .403
-User is redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/403.xhtml[*403.xhtml*^] whenever a _403_ response code is returned in a request. The page will also be triggered when a `com.github.adminfaces.template.exception.AccessDeniedException` is raised.
+User is redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/403.xhtml[403.xhtml^] whenever a _403_ response code is returned in a request. The page will also be triggered when a `com.github.adminfaces.template.exception.AccessDeniedException` is raised.
 
-image::403.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/403.png[]
 
 .404
-User will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/non-existing.xhtml[*404.xhtml*^] whenever a 404 response code is returned from a request.
+User will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/non-existing.xhtml[404.xhtml^] whenever a 404 response code is returned from a request.
 
-image::404.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/404.png[]
 
 .ViewExpired
-When a JSF `javax.faces.application.ViewExpiredException` is raised user will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/expired.xhtml[*expired.xhtml*^].
+When a JSF `javax.faces.application.ViewExpiredException` is raised user will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/expired.xhtml[expired.xhtml^].
 
-image::expired.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/expired.png[]
 
 .OptimisticLock
-When a JPA `javax.persistence.OptimisticLockException` is thrown user will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/optimistic.xhtml[*optimistic.xhtml*^].
+When a JPA `javax.persistence.OptimisticLockException` is thrown user will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/optimistic.xhtml[optimistic.xhtml^].
 
-image::optimistic.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/optimistic.png[]
 
 === Providing custom error pages
 

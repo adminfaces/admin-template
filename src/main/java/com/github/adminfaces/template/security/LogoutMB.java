@@ -1,4 +1,4 @@
-package com.github.adminfaces.template.bean;
+package com.github.adminfaces.template.security;
 
 import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.util.Constants;
@@ -24,7 +24,7 @@ public class LogoutMB {
     public void doLogout() throws IOException {
         String loginPage = adminConfig.getLoginPage();
         if (loginPage == null || "".equals(loginPage)) {
-            loginPage = Constants.DEFAULT_INDEX_PAGE;
+            loginPage = Constants.DEFAULT_LOGIN_PAGE;
         }
         if (!loginPage.startsWith("/")) {
             loginPage = "/" + loginPage;
