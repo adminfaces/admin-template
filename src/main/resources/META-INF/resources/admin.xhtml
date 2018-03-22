@@ -71,10 +71,13 @@
             </aside>
             <!-- content -->
             <div id="content" class="content-wrapper">
+                <adm:breadcrumb title="#{title}" rendered="#{not empty title}"/>
                 <ui:insert name="content-wrapper"/>
                 <section class="content-header">
                     <h1>
-                        <ui:insert name="title"/>
+                        <ui:insert name="title">
+                            <h:outputText value="#{title}" rendered="#{not empty title}"/>
+                        </ui:insert>
                         <small><ui:insert name="description"/></small>
                     </h1>
                     <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">

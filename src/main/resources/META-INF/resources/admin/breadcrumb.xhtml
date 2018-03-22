@@ -11,7 +11,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <f:event type="preRenderView" listener="#{breadCrumbMB.add(cc.attrs.link, cc.attrs.title, cc.attrs.clear)}"/>
+        <f:event type="preRenderView" listener="#{breadCrumbMB.add(cc.attrs.link, cc.attrs.title, cc.attrs.clear, cc.rendered)}"/>
     </cc:implementation>
 
 </ui:composition>

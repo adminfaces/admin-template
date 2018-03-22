@@ -37,11 +37,13 @@ public class BreadCrumbMB implements Serializable {
           maxSize = adminConfig.getBreadCrumbMaxSize();
     }
 
-    public void add(String link, String title, Boolean clear){
+    public void add(String link, String title, Boolean clear, Boolean shouldAdd){
         if(clear != null && clear){
             breadCrumbs.clear();
         }
-        add(new BreadCrumb(link,title));
+        if(shouldAdd) {
+            add(new BreadCrumb(link, title));
+        }
     }
 
     public void add(BreadCrumb breadCrumb){
