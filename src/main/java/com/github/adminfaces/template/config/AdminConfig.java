@@ -1,6 +1,8 @@
 package com.github.adminfaces.template.config;
 
 
+import static com.github.adminfaces.template.util.Assert.has;
+import com.github.adminfaces.template.util.Constants;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -12,7 +14,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.github.adminfaces.template.util.Assert.has;
 
 /**
  * Created by rafael-pestano on 22/11/16.
@@ -89,6 +90,13 @@ public class AdminConfig implements Serializable {
 
     private String getProperty(String property) {
         return has(userConfigFile.getProperty(property)) ? userConfigFile.getProperty(property) : adminConfigFile.getProperty(property);
+    }
+    
+    public String getPageSufix() {
+          if(!has(indexPage)) {
+            return Constants.DEFAULT_PAGE_FORMAT;
+        }
+        return indexPage.substring(indexPage.lastIndexOf('.')+1);
     }
 
 
