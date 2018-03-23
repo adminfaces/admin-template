@@ -38,7 +38,7 @@ image:https://cloud.githubusercontent.com/assets/1592273/25071807/dd37121e-2296-
 image:https://github.com/adminfaces/admin-showcase/raw/master/src/docs/images/menu-highlight.png[link="https://github.com/adminfaces/admin-showcase/blob/master/src/docs/images/menu-highlight.png?raw=true"]
 * Custom <<Error Pages, error pages>>
 * Configurable, see <<Configuration>>
-* http://adminfaces-rpestano.rhcloud.com/showcase/pages/layout/breadcrumb.xhtml[Breadcrumb^] based navigation
+* http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/pages/layout/breadcrumb.xhtml[Breadcrumb^] based navigation
 * Back to previous screen when logging in again after session expiration (or accessing a page via url without being logged in)
 
 NOTE: Most of the above features can be disabled via <<Configuration,configuration>> mechanism;
