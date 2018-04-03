@@ -18,4 +18,5 @@ A sample project or code may help. Can it be reproduced in [admin-starter](https
 
 ##### Additional Information
 
-* Affected version: 
+* AdminFaces version:  
+* PrimeFaces version: 
