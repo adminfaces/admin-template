@@ -21,7 +21,7 @@
                       onstart="showBar();"
                       onsuccess="hideBar();"/>
 
-        <p:dialog modal="true" widgetVar="statusDialog" draggable="false" closable="false"
+        <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
                   resizable="false" responsive="true" showHeader="false"
                   style="z-index: 9999!important;position: fixed">
             <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
@@ -76,7 +76,7 @@
                 <section class="content-header">
                     <h1>
                         <ui:insert name="title">
-                            <h:outputText value="#{title}" rendered="#{not empty title}"/>
+                            <h:outputText value="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.message']}"/>
                         </ui:insert>
                         <small><ui:insert name="description"/></small>
                     </h1>

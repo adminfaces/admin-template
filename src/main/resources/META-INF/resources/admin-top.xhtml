@@ -118,8 +118,9 @@
                 </nav>
             </header>
             <!-- Full Width Column -->
-            <div id="content" class="content-wrapper">
-                <adm:breadcrumb title="#{title}" rendered="#{not empty title}"/>
+            <div id="content" class="content-wrapper">                             
+
+                <adm:breadcrumb title="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.message']}}"/>
                 <ui:insert name="content-wrapper"/>
                 <div class="container">
                     <!-- Content Header (Page header) -->
