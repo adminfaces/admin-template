@@ -5,11 +5,9 @@
                 xmlns:cc="http://java.sun.com/jsf/composite">
 
 
-    <cc:interface>
-    </cc:interface>
-
-    <cc:implementation>
-        <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="hidden-sm hidden-xs" rendered="#{cc.rendered}">
+    <ui:fragment rendered="#{adminConfig.renderControlSidebar}" >
+        <!-- controlsidebar component. Could not create a composite component because it can only have one insert region: https://stackoverflow.com/questions/7654122/multiple-ccinsertchildren-in-the-same-composite-component -->
+        <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="hidden-sm hidden-xs">
             <style type="text/css">
 
                 .control-sidebar-dark b.sidebar-bold  {
@@ -22,19 +20,18 @@
 
             </style>
 
-
             <h:form prependId="false">
                 <p:commandLink  id="link-toggle-layout" action="#{layoutMB.toggleTemplate}" ajax="false" style="visibility: hidden"/>
-                <ui:insert name="before-content"/>
+                <ui:insert name="before-controlsidebar-content"/>
                 <aside class="control-sidebar control-sidebar-dark">
                     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
                         <li class="active"><a href="#control-sidebar-theme-demo-options-tab" data-toggle="tab">
                                 <i class="fa fa-wrench"></i></a></li>
-                        <ui:insert name="tabs-config"/>
+                        <ui:insert name="controlsidebar-tabs"/>
                     </ul>
                     <div class="tab-content">
                         <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active">
-                            <ui:insert name="before-control-sidebar"/>
+                            <ui:insert name="before-controlsidebar"/>
                             <div>
                                 <h4 class="control-sidebar-heading">Layout Options</h4>
                                 <div class="form-group">
@@ -66,7 +63,7 @@
                                 <div class="form-group">
                                     <span class="control-sidebar-subheading">
                                         <p:outputLabel id="sidebar-toggle-label" value="Toggle Sidebar" for="sidebar-toggle"/>
-                                        <p:selectBooleanCheckbox id="sidebar-toggle" styleClass="pull-right black" />
+                                        <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="sidebar-toggle" styleClass="pull-right black" />
                                     </span>
                                     <p>Toggle the left sidebar's state (open or collapse).</p>
                                 </div>
@@ -79,8 +76,8 @@
                                 </div>
                                 <div class="form-group">
                                     <span class="control-sidebar-subheading">
-                                        <p:outputLabel id="control-sidebar-toggle-label" value="Toggle Control Sidebar Slide" for="control-sidebar-toggle"/>
-                                        <p:selectBooleanCheckbox id="control-sidebar-toggle" styleClass="pull-right black" />
+                                        <p:outputLabel id="control-sidebar-toggle-label" value="Control Sidebar Slide" for="control-sidebar-toggle"/>
+                                        <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="control-sidebar-toggle" styleClass="pull-right black" />
                                     </span>
                                     <p>If checked the right sidebar will be fixed on the page.</p>
                                 </div>
@@ -393,24 +390,44 @@
                                                          process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                         <p class="text-center no-margin">Teal Light</p>
                                     </li>
-                                    <ui:insert name="after-skin"/>
+                                    <ui:insert name="after-controlsidebar-skin"/>
                                 </ul>
 
-                                <ui:insert name="after-control-sidebar"/>
+                                <ui:insert name="after-controlsidebar-tabs"/>
                             </div>
                         </div>
 
-                        <ui:insert name="content"/>
+                        <ui:insert name="controlsidebar-content"/>
 
                     </div>
                 </aside>
-                <ui:insert name="after-content"/>
+                <ui:insert name="after-controlsidebar-content"/>
                 <div class="control-sidebar-bg"></div>
 
             </h:form>
+            
+            <script type="text/javascript">
+                 /*<![CDATA[*/
+                function replaceSkinWith(newSkin, $this) {
+                    $('.skin-link').each(function () {
+                        $(this).addClass('full-opacity-hover');
+                    });
+                    $this.removeClass('full-opacity-hover');
+                    var cl = $('body').attr("class").split(" ");
+                    for (var i = 0; i < cl.length; i++) {
+                        if (cl[i].startsWith('skin-')) {
+                            $('body').removeClass(cl[i])
+                        }
+                    }
+                    $('body').addClass(newSkin);
+                }
+
+                function updateSidebarToggle() {
+                    $('.control-sidebar').addClass('control-sidebar-open');
+                }
+                 /* ]]>*/
+            </script>    
         </h:panelGroup>
-
-
-    </cc:implementation>
+    </ui:fragment>
 
 </ui:composition>

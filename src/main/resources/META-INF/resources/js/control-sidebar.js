@@ -51,7 +51,7 @@ $(function () {
 
     function updateSidebarSkin(sidebarSkin) {
         var $sidebar = $('.control-sidebar');
-        var sidebarSkinCkbox = $('div[id$=sidebar-skin] span.ui-chkbox-icon');
+        var sidebarSkinCkbox = $('#sidebar-skin span.ui-chkbox-icon');
         if (sidebarSkin == 'control-sidebar-light') {
             $sidebar.removeClass('control-sidebar-dark');
             sidebarSkinCkbox.addClass('ui-icon-blank');
@@ -70,7 +70,7 @@ $(function () {
     }
 
     function updateBoxedLayout(boxedLayout) {
-        var boxedLayoutCkbox = $('div[id$=boxed-layout] span.ui-chkbox-icon');
+        var boxedLayoutCkbox = $('#boxed-layout span.ui-chkbox-icon');
         if (boxedLayout === true || boxedLayout === 'true') {
             boxedLayoutCkbox.addClass('ui-icon-check');
             boxedLayoutCkbox.removeClass('ui-icon-blank');
@@ -87,7 +87,7 @@ $(function () {
     }
 
     function updateFixedLayout(fixedLayout) {
-        var fixedLayoutCkbox = $('div[id$=fixed-layout] span.ui-chkbox-icon');
+        var fixedLayoutCkbox = $('#fixed-layout span.ui-chkbox-icon');
         if (fixedLayout === true || fixedLayout === 'true') {
             fixedLayoutCkbox.addClass('ui-icon-check');
             fixedLayoutCkbox.removeClass('ui-icon-blank');
@@ -105,7 +105,7 @@ $(function () {
 
     function updateSidebarToggle(sidebarControlOpen) {
 
-        var sidebarOpenCkbox = $('div[id$=control-sidebar-toggle] span.ui-chkbox-icon');
+        var sidebarOpenCkbox = $('#control-sidebar-toggle span.ui-chkbox-icon');
         if (sidebarControlOpen === true || sidebarControlOpen === 'true') {
             sidebarOpenCkbox.addClass('ui-icon-check');
             sidebarOpenCkbox.removeClass('ui-icon-blank');
@@ -129,7 +129,7 @@ $(function () {
             return;//on layout-top it doesn't exists
         }
         var expandOnHover = get('layout.sidebar-expand-hover');
-        var sidebarExpandCkbox = $('div[id$=sidebar-expand-hover] span.ui-chkbox-icon');
+        var sidebarExpandCkbox = $('#sidebar-expand-hover span.ui-chkbox-icon');
         if (expandOnHover === true || expandOnHover === 'true') {
             PF('sidebarExpand').input.click();
             $pushMenu.expandOnHover();
@@ -146,7 +146,7 @@ $(function () {
             return;//on layout-top it doesn't exists
         }
         var expandOnHover = PF('sidebarExpand').input.is(':checked');
-        var sidebarExpandCkbox = $('div[id$=sidebar-expand-hover] span.ui-chkbox-icon');
+        var sidebarExpandCkbox = $('#sidebar-expand-hover span.ui-chkbox-icon');
 
         if (expandOnHover) {
             $pushMenu.expandOnHover();
@@ -204,7 +204,7 @@ $(function () {
         loadSidebarExpand();
 
 
-        $('div[id$=sidebar-skin]').on('click', function () {
+        $('#sidebar-skin').on('click', function () {
             var sidebarSkin;
             if ($('.control-sidebar').hasClass('control-sidebar-dark')) {
                 sidebarSkin = 'control-sidebar-light'
@@ -216,7 +216,7 @@ $(function () {
             }, 20);
         });
 
-        $('div[id$=boxed-layout] .ui-chkbox-box, label[id$=boxed-layout-label]').on('click', function () {
+        $('#boxed-layout .ui-chkbox-box, #boxed-layout-label').on('click', function () {
             var boxedLayout = !$('body').hasClass('layout-boxed');
             setTimeout(function () {
                 changeLayout('layout-boxed');
@@ -224,7 +224,7 @@ $(function () {
             }, 20);
         });
 
-        $('div[id$=fixed-layout] .ui-chkbox-box, label[id$=fixed-layout-label]').on('click', function () {
+        $('#fixed-layout .ui-chkbox-box, #fixed-layout-label').on('click', function () {
             var fixedLayout = !$('body').hasClass('fixed');
             setTimeout(function () {
                 changeLayout('fixed');
@@ -232,7 +232,7 @@ $(function () {
             }, 20);
         });
 
-        $('div[id$=control-sidebar-toggle] .ui-chkbox-box, label[id$=control-sidebar-toggle-label]').on('click', function () {
+        $('#control-sidebar-toggle .ui-chkbox-box, #control-sidebar-toggle-label').on('click', function () {
             setTimeout(function () {
                 changeLayout('control-sidebar-open');
                 updateSidebarToggle($('body').hasClass('control-sidebar-open'));
@@ -241,13 +241,13 @@ $(function () {
         });
 
 
-        $('div[id$=sidebar-expand-hover] .ui-chkbox-box, label[id$=sidebar-expand-hover-label]').on('click', function () {
+        $('#sidebar-expand-hover .ui-chkbox-box, #sidebar-expand-hover-label').on('click', function () {
             setTimeout(function () {
                 updateSidebarExpand();
             }, 20);
         });
 
-        $('#controlsidebar\\:sidebar-toggle .ui-chkbox-box, #controlsidebar\\:sidebar-toggle-label').on('click', function () {
+        $('#sidebar-toggle .ui-chkbox-box, #sidebar-toggle-label').on('click', function () {
             $('.sidebar-toggle').click();
         });
 
@@ -274,22 +274,3 @@ $(function () {
 
 
 });
-
-function replaceSkinWith(newSkin, $this) {
-    $('.skin-link').each(function () {
-        $(this).addClass('full-opacity-hover');
-    });
-    $this.removeClass('full-opacity-hover');
-    var cl = $('body').attr("class").split(" ");
-    for (var i = 0; i < cl.length; i++) {
-        if (cl[i].startsWith('skin-')) {
-            $('body').removeClass(cl[i])
-        }
-    }
-    $('body').addClass(newSkin);
-
-}
-
-function updateSidebarToggle() {
-    $('.control-sidebar').addClass('control-sidebar-open');
-}
