@@ -45,7 +45,7 @@ public class BreadCrumbMB implements Serializable {
     }
 
     public void add(String link, String title, Boolean clear, Boolean shouldAdd) {
-        if (shouldAdd) {
+        if (shouldAdd != null && shouldAdd) {
             this.add(link, title, clear);
         }
     }

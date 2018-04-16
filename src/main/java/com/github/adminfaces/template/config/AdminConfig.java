@@ -43,6 +43,7 @@ public class AdminConfig implements Serializable {
     private boolean autoShowNavbar;
     private String ignoredResources;//comma separated resources (pages or urls) to be ignored in AdminFilter
     private String loadingImage;
+    private boolean renderControlSidebar;
 
 
     @PostConstruct
@@ -86,6 +87,7 @@ public class AdminConfig implements Serializable {
         autoShowNavbar =  Boolean.parseBoolean(getProperty("admin.autoShowNavbar"));
         ignoredResources =  getProperty("admin.ignoredResources");
         loadingImage =  getProperty("admin.loadingImage");
+        renderControlSidebar =  Boolean.parseBoolean(getProperty("admin.renderControlSidebar"));
     }
 
     private String getProperty(String property) {
@@ -235,4 +237,14 @@ public class AdminConfig implements Serializable {
     public void setLoadingImage(String loadingImage) {
         this.loadingImage = loadingImage;
     }
+
+    public boolean isRenderControlSidebar() {
+        return renderControlSidebar;
+    }
+
+    public void setRenderControlSidebar(boolean renderControlSidebar) {
+        this.renderControlSidebar = renderControlSidebar;
+    }
+    
+    
 }
