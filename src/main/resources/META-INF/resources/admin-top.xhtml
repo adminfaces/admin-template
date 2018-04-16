@@ -4,236 +4,234 @@
       xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces">
 
-    <f:view contentType="text/html">
-        <h:head>
-            <meta charset="utf-8"/>
-            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-            <meta name="apple-mobile-web-app-capable" content="yes"/>
-            <meta name="mobile-web-app-capable" content="yes"/>
-            <ui:insert name="head"/>
-            <ui:insert name="head-end"/>
-        </h:head>
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <ui:insert name="head"/>
+        <ui:insert name="head-end"/>
+    </h:head>
 
-        <h:body styleClass="#{skinMB.skin} layout-top-nav hold-transition">
+    <h:body styleClass="#{skinMB.skin} layout-top-nav hold-transition">
 
-            <style type="text/css">
+        <style type="text/css">
 
-                body .container {
+            body .container {
+                width: 100%;
+            }
+
+            span.caret {
+                margin-left: 3px;
+                margin-top: -2px;
+            }
+
+            li.dropdown {
+                margin-left: -7px
+            }
+
+            li.dropdown i {
+                float: left;
+                padding: 3px 5px 3px 0;
+            }
+
+            @media (max-width: 1024px) {
+                li.messages-menu, li.notifications-menu, li.tasks-menu {
+                    display: none ;
+                }
+
+                li.dropdown > a > i {
+                    display: none;
+                }
+
+                #navbar-search-input {
+                    width: 150px;
+                }
+            }
+
+            @media (max-width: 767px) {
+                li.messages-menu, li.notifications-menu, li.tasks-menu {
+                    display: inline ;
+                }
+
+                li.dropdown > a > i {
+                    display: inline;
+                }
+
+                #navbar-search-input {
                     width: 100%;
                 }
 
-                span.caret {
-                    margin-left: 3px;
-                    margin-top: -2px;
-                }
+            }
 
-                li.dropdown {
-                    margin-left: -7px
-                }
+        </style>
 
-                li.dropdown i {
-                    float: left;
-                    padding: 3px 5px 3px 0;
-                }
+        <ui:insert name="body-begin"/>
+        <f:loadBundle var="adm" basename="admin"/>
+        <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
+                      onstart="showBar();"
+                      onsuccess="hideBar();"/>
 
-                @media (max-width: 1024px) {
-                    li.messages-menu, li.notifications-menu, li.tasks-menu {
-                        display: none ;
-                    }
-
-                    li.dropdown > a > i {
-                        display: none;
-                    }
-
-                    #navbar-search-input {
-                        width: 150px;
-                    }
-                }
-
-                @media (max-width: 767px) {
-                    li.messages-menu, li.notifications-menu, li.tasks-menu {
-                        display: inline ;
-                    }
-
-                    li.dropdown > a > i {
-                        display: inline;
-                    }
-
-                    #navbar-search-input {
-                        width: 100%;
-                    }
-
-                }
-
-            </style>
-
-            <ui:insert name="body-begin"/>
-            <f:loadBundle var="adm" basename="admin"/>
-            <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
-                          onstart="showBar();"
-                          onsuccess="hideBar();"/>
-
-            <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
-                      resizable="false" responsive="true" showHeader="false"
-                      style="z-index: 9999!important;position: fixed">
-                <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
-            </p:dialog>
+        <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
+                  resizable="false" responsive="true" showHeader="false"
+                  style="z-index: 9999!important;position: fixed">
+            <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
+        </p:dialog>
 
 
-            <div class="wrapper">
-                <div id="loader" class="load-bar" style="display: none">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-                <header class="main-header">
-                    <nav class="navbar navbar-static-top">
-                        <div class="container">
-                            <div class="navbar-header">
-                                <a href="#{request.contextPath}/" class="navbar-brand">
-                                    <ui:insert name="logo"/>
-                                </a>
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-                                    <i class="fa fa-bars"></i>
-                                </button>
-                            </div>
-
-                            <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-                                <ui:insert name="menu"/>
-
-                                <ui:insert name="menu-end"/>
-                            </div>
-                            <!-- /.navbar-collapse -->
-                            <div class="navbar-custom-menu">
-                                <ui:insert name="top-menu"/>
-                            </div>
-
-                            <div class="center-navbar">
-                                <ui:insert name="center-header"/>
-                            </div>
-                            <!-- /.navbar-custom-menu -->
-                        </div>
-                        <!-- /.container-fluid -->
-                    </nav>
-                </header>
-                <!-- Full Width Column -->
-                <div id="content" class="content-wrapper">
-                    <adm:breadcrumb title="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.message']}}"/>
-                    <ui:insert name="content-wrapper"/>
+        <div class="wrapper">
+            <div id="loader" class="load-bar" style="display: none">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
                     <div class="container">
-                        <!-- Content Header (Page header) -->
-                        <section class="content-header">
-                            <h1>
-                                <ui:insert name="title"/>
-                                <small><ui:insert name="description"/></small>
-                            </h1>
-                            <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
-                                <ol class="breadcrumb" style="overflow: hidden;">
-                                    <li style="position: relative;">
-                                        <p:link href="/" onclick="clearBreadCrumbs();" style="position: relative;">
-                                            <i class="fa fa-home"></i>
-                                            Home
+                        <div class="navbar-header">
+                            <a href="#{request.contextPath}/" class="navbar-brand">
+                                <ui:insert name="logo"/>
+                            </a>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                            <ui:insert name="menu"/>
+
+                            <ui:insert name="menu-end"/>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                        <div class="navbar-custom-menu">
+                            <ui:insert name="top-menu"/>
+                        </div>
+
+                        <div class="center-navbar">
+                            <ui:insert name="center-header"/>
+                        </div>
+                        <!-- /.navbar-custom-menu -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+            </header>
+            <!-- Full Width Column -->
+            <div id="content" class="content-wrapper">
+                <adm:breadcrumb title="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.message']}}"/>
+                <ui:insert name="content-wrapper"/>
+                <div class="container">
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header">
+                        <h1>
+                            <ui:insert name="title"/>
+                            <small><ui:insert name="description"/></small>
+                        </h1>
+                        <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
+                            <ol class="breadcrumb" style="overflow: hidden;">
+                                <li style="position: relative;">
+                                    <p:link href="/" onclick="clearBreadCrumbs();" style="position: relative;">
+                                        <i class="fa fa-home"></i>
+                                        Home
+                                    </p:link>
+                                </li>
+                                <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
+                                    <li class="#{status.last ? 'active':''}">
+                                        <h:panelGroup rendered="#{status.last}">
+                                            #{b.title}
+                                        </h:panelGroup>
+                                        <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC;position: relative">
+                                            #{b.title}
                                         </p:link>
                                     </li>
-                                    <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
-                                        <li class="#{status.last ? 'active':''}">
-                                            <h:panelGroup rendered="#{status.last}">
-                                                #{b.title}
-                                            </h:panelGroup>
-                                            <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC;position: relative">
-                                                #{b.title}
-                                            </p:link>
-                                        </li>
-                                    </ui:repeat>
-                                </ol>
-                            </ui:fragment>
-                            <ui:insert name="content-header"/>
-                        </section>
+                                </ui:repeat>
+                            </ol>
+                        </ui:fragment>
+                        <ui:insert name="content-header"/>
+                    </section>
 
-                        <!-- Main content -->
-                        <section class="content">
-                            <ui:insert name="content-begin"/>
-                            <ui:fragment rendered="#{adminConfig.renderMessages}">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true"
-                                                    showDetail="true" severity="error,fatal" escape="false"/>
-                                        <!-- we need two messages because info-messages are hidden by javascript  -->
-                                        <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true"
-                                                    severity="info,warn" escape="false"/>
-                                        <p:tooltip/> <!-- exception messages with type tooltip -->
-                                    </div>
+                    <!-- Main content -->
+                    <section class="content">
+                        <ui:insert name="content-begin"/>
+                        <ui:fragment rendered="#{adminConfig.renderMessages}">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true"
+                                                showDetail="true" severity="error,fatal" escape="false"/>
+                                    <!-- we need two messages because info-messages are hidden by javascript  -->
+                                    <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true"
+                                                severity="info,warn" escape="false"/>
+                                    <p:tooltip/> <!-- exception messages with type tooltip -->
                                 </div>
-                            </ui:fragment>
+                            </div>
+                        </ui:fragment>
 
-                            <ui:insert name="body"/>
-                        </section>
-                        <ui:insert name="content-end"/>
-                        <h:form prependId="false">
-                            <ui:include src="/controlsidebar.xhtml"/> 
-                        </h:form>
-                        <!-- /.content -->
-                    </div>
-                    <!-- /.container -->
+                        <ui:insert name="body"/>
+                    </section>
+                    <ui:insert name="content-end"/>
+                    <h:form prependId="false">
+                        <ui:include src="/controlsidebar.xhtml"/> 
+                    </h:form>
+                    <!-- /.content -->
                 </div>
-
-
-                <footer class="main-footer">
-                    <ui:insert name="footer"/>
-                </footer>
-                <h:form>
-                    <p:remoteCommand name="clearBreadCrumbs" actionListener="#{breadCrumbMB.clear}" process="@this"
-                                     update="@(.breadcrumb)" partialSubmit="true" global="false"/>
-                </h:form>
-                <div id="scrollTop" class="ripplelink"
-                     style="display:none;position: fixed; bottom: 10px; right: 20px; width: 34px; height: 34px; color: rgb(238, 238, 238); line-height: 34px; text-align: center; background-color: rgb(34, 45, 50); cursor: pointer; border-radius: 50%; z-index: 99999; opacity: 0.7;"
-                     onclick="window.scrollTo(0, 0)">
-                    <i class="fa fa-chevron-up" style="position:relative;top: -2px"></i>
-                </div>
-                <ui:insert name="wrapper-end"/>
+                <!-- /.container -->
             </div>
 
-            <ui:insert name="after-wrapper"/>
-            <!-- ./wrapper -->
+
+            <footer class="main-footer">
+                <ui:insert name="footer"/>
+            </footer>
+            <h:form>
+                <p:remoteCommand name="clearBreadCrumbs" actionListener="#{breadCrumbMB.clear}" process="@this"
+                                 update="@(.breadcrumb)" partialSubmit="true" global="false"/>
+            </h:form>
+            <div id="scrollTop" class="ripplelink"
+                 style="display:none;position: fixed; bottom: 10px; right: 20px; width: 34px; height: 34px; color: rgb(238, 238, 238); line-height: 34px; text-align: center; background-color: rgb(34, 45, 50); cursor: pointer; border-radius: 50%; z-index: 99999; opacity: 0.7;"
+                 onclick="window.scrollTo(0, 0)">
+                <i class="fa fa-chevron-up" style="position:relative;top: -2px"></i>
+            </div>
+            <ui:insert name="wrapper-end"/>
+        </div>
+
+        <ui:insert name="after-wrapper"/>
+        <!-- ./wrapper -->
+        <script type="text/javascript">
+            if (isMobile()) {
+                window.onscroll = activateScrollToTop
+            }
+        </script>
+
+        <adm:ripple/>
+
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
+        <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
+        <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
+        <h:outputScript library="js" name="admintemplate.js" target="head"/>
+        <h:outputScript library="js" name="control-sidebar.js" target="head" rendered="#{adminConfig.renderControlSidebar}"/>
+
+        <ui:fragment rendered="#{adminConfig.autoShowNavbar and (empty autoShowNavbar or autoShowNavbar eq 'true')}">
             <script type="text/javascript">
-                if (isMobile()) {
-                    window.onscroll = activateScrollToTop
-                }
-            </script>
-
-            <adm:ripple/>
-
-            <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
-            <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
-            <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
-            <h:outputScript library="js" name="admintemplate.js" target="head"/>
-            <h:outputScript library="js" name="control-sidebar.js" target="head" rendered="#{adminConfig.renderControlSidebar}"/>
-
-            <ui:fragment rendered="#{adminConfig.autoShowNavbar and (empty autoShowNavbar or autoShowNavbar eq 'true')}">
-                <script type="text/javascript">
-                    $(window).scroll(function () {
-                        if (isMobile()) {
-                            var minScrollTimeNav = 300;
-                            var now = new Date().getTime();
-                            if (!scrollTimerNav) {
-                                if (now - lastScrollFireTimeNav > (3 * minScrollTimeNav)) {
-                                    activateAutoShowNavbarOnScrollUp();   // fire immediately on first scroll
-                                    lastScrollFireTimeNav = now;
-                                }
-                                scrollTimerNav = setTimeout(function () {
-                                    scrollTimerNav = null;
-                                    lastScrollFireTimeNav = new Date().getTime();
-                                    activateAutoShowNavbarOnScrollUp();
-                                }, minScrollTimeNav);
+                $(window).scroll(function () {
+                    if (isMobile()) {
+                        var minScrollTimeNav = 300;
+                        var now = new Date().getTime();
+                        if (!scrollTimerNav) {
+                            if (now - lastScrollFireTimeNav > (3 * minScrollTimeNav)) {
+                                activateAutoShowNavbarOnScrollUp();   // fire immediately on first scroll
+                                lastScrollFireTimeNav = now;
                             }
+                            scrollTimerNav = setTimeout(function () {
+                                scrollTimerNav = null;
+                                lastScrollFireTimeNav = new Date().getTime();
+                                activateAutoShowNavbarOnScrollUp();
+                            }, minScrollTimeNav);
                         }
-                    });
-                </script>
-            </ui:fragment>
+                    }
+                });
+            </script>
+        </ui:fragment>
 
 
-        </h:body>
+    </h:body>
 
-    </f:view>
 </html>

@@ -7,197 +7,195 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:adm="http://github.com/adminfaces">
 
-    <f:view contentType="text/html">
-        <h:head>
-            <meta charset="utf-8"/>
-            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-            <meta name="apple-mobile-web-app-capable" content="yes"/>
-            <meta name="mobile-web-app-capable" content="yes"/>
-            <ui:insert name="head"/>
-            <ui:insert name="head-end"/>
-        </h:head>
-        <h:body styleClass="#{skinMB.skin} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
-            <ui:insert name="body-begin"/>
-            <f:loadBundle var="adm" basename="admin"/>
-            <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
-                          onstart="showBar();"
-                          onsuccess="hideBar();"/>
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <ui:insert name="head"/>
+        <ui:insert name="head-end"/>
+    </h:head>
+    <h:body styleClass="#{skinMB.skin} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
+        <ui:insert name="body-begin"/>
+        <f:loadBundle var="adm" basename="admin"/>
+        <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
+                      onstart="showBar();"
+                      onsuccess="hideBar();"/>
 
-            <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
-                      resizable="false" responsive="true" showHeader="false"
-                      style="z-index: 9999!important;position: fixed">
-                <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
-            </p:dialog>
+        <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
+                  resizable="false" responsive="true" showHeader="false"
+                  style="z-index: 9999!important;position: fixed">
+            <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
+        </p:dialog>
 
-            <div class="wrapper">
-                <div id="loader" class="load-bar" style="display: none">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-                <header class="main-header">
-                    <a href="#{request.contextPath}/" class="logo">
-                        <span class="logo-mini">
-                            <ui:insert name="logo-mini"/>
-                        </span>
-                        <span class="logo-lg">
-                            <ui:insert name="logo-lg"/>
-                        </span>
-                        <span class="logo-lg">
-                            <ui:insert name="logo"/>
-                        </span>
+        <div class="wrapper">
+            <div id="loader" class="load-bar" style="display: none">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <header class="main-header">
+                <a href="#{request.contextPath}/" class="logo">
+                    <span class="logo-mini">
+                        <ui:insert name="logo-mini"/>
+                    </span>
+                    <span class="logo-lg">
+                        <ui:insert name="logo-lg"/>
+                    </span>
+                    <span class="logo-lg">
+                        <ui:insert name="logo"/>
+                    </span>
+                </a>
+                <nav class="navbar navbar-static-top">
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only"></span>
                     </a>
-                    <nav class="navbar navbar-static-top">
-                        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                            <span class="sr-only"></span>
-                        </a>
-                        <div class="navbar-custom-menu">
-                            <ui:insert name="top-menu"/>
-                        </div>
-
-                        <div class="center-navbar">
-                            <ui:insert name="center-header"/>
-                        </div>
-                    </nav>
-                </header>
-
-                <!-- side menu -->
-                <aside id="sidebar" class="main-sidebar slideout-menu">
-                    <div>
-                        <ui:insert name="menu-begin"/>
-                        <section class="sidebar">
-                            <ui:insert name="menu"/>
-                        </section>
-                        <ui:insert name="menu-end"/>
+                    <div class="navbar-custom-menu">
+                        <ui:insert name="top-menu"/>
                     </div>
-                </aside>
-                <!-- content -->
-                <div id="content" class="content-wrapper">
-                    <adm:breadcrumb title="#{title}" rendered="#{not empty title}"/>
-                    <ui:insert name="content-wrapper"/>
-                    <section class="content-header">
-                        <h1>
-                            <ui:insert name="title">
-                                <h:outputText value="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.message']}"/>
-                            </ui:insert>
-                            <small><ui:insert name="description"/></small>
-                        </h1>
-                        <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
-                            <ol class="breadcrumb" style="overflow: hidden;">
-                                <li style="position: relative;">
-                                    <p:link href="/" onclick="clearBreadCrumbs();" style="position: relative;">
-                                        <i class="fa fa-home"></i>
-                                        Home
+
+                    <div class="center-navbar">
+                        <ui:insert name="center-header"/>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- side menu -->
+            <aside id="sidebar" class="main-sidebar slideout-menu">
+                <div>
+                    <ui:insert name="menu-begin"/>
+                    <section class="sidebar">
+                        <ui:insert name="menu"/>
+                    </section>
+                    <ui:insert name="menu-end"/>
+                </div>
+            </aside>
+            <!-- content -->
+            <div id="content" class="content-wrapper">
+                <adm:breadcrumb title="#{title}" rendered="#{not empty title}"/>
+                <ui:insert name="content-wrapper"/>
+                <section class="content-header">
+                    <h1>
+                        <ui:insert name="title">
+                            <h:outputText value="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.message']}"/>
+                        </ui:insert>
+                        <small><ui:insert name="description"/></small>
+                    </h1>
+                    <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
+                        <ol class="breadcrumb" style="overflow: hidden;">
+                            <li style="position: relative;">
+                                <p:link href="/" onclick="clearBreadCrumbs();" style="position: relative;">
+                                    <i class="fa fa-home"></i>
+                                    Home
+                                </p:link>
+                            </li>
+                            <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
+                                <li class="#{status.last ? 'active':''}">
+                                    <h:panelGroup rendered="#{status.last}">
+                                        #{b.title}
+                                    </h:panelGroup>
+                                    <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC;position: relative">
+                                        #{b.title}
                                     </p:link>
                                 </li>
-                                <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
-                                    <li class="#{status.last ? 'active':''}">
-                                        <h:panelGroup rendered="#{status.last}">
-                                            #{b.title}
-                                        </h:panelGroup>
-                                        <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC;position: relative">
-                                            #{b.title}
-                                        </p:link>
-                                    </li>
-                                </ui:repeat>
-                            </ol>
-                        </ui:fragment>
-                        <ui:insert name="content-header"/>
-                    </section>
-                    <section class="content">
-                        <ui:insert name="content-begin"/>
-                        <ui:fragment rendered="#{adminConfig.renderMessages}">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true"
-                                                showDetail="true" severity="error,fatal" escape="false"/>
-                                    <!-- we need two messages because info-messages are hidden by javascript  -->
-                                    <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true"
-                                                severity="info,warn" escape="false"/>
-                                    <p:tooltip/> <!-- exception messages with type tooltip -->
-                                </div>
+                            </ui:repeat>
+                        </ol>
+                    </ui:fragment>
+                    <ui:insert name="content-header"/>
+                </section>
+                <section class="content">
+                    <ui:insert name="content-begin"/>
+                    <ui:fragment rendered="#{adminConfig.renderMessages}">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true"
+                                            showDetail="true" severity="error,fatal" escape="false"/>
+                                <!-- we need two messages because info-messages are hidden by javascript  -->
+                                <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true"
+                                            severity="info,warn" escape="false"/>
+                                <p:tooltip/> <!-- exception messages with type tooltip -->
                             </div>
-                        </ui:fragment>
+                        </div>
+                    </ui:fragment>
 
-                        <ui:insert name="body"/>
-                    </section>
-                    <ui:insert name="content-end"/>
-                </div>
-
-
-                <footer class="main-footer">
-                    <ui:insert name="footer"/>
-                </footer>
-                <h:form>
-                    <p:remoteCommand name="clearBreadCrumbs" actionListener="#{breadCrumbMB.clear}" process="@this"
-                                     update="@(.breadcrumb)" partialSubmit="true" global="false"/>
-                </h:form>
-                <div id="scrollTop" class="ripplelink"
-                     style="display:none;position: fixed; bottom: 10px; right: 20px; width: 34px; height: 34px; color: rgb(238, 238, 238); line-height: 34px; text-align: center; background-color: rgb(34, 45, 50); cursor: pointer; border-radius: 50%; z-index: 99999; opacity: 0.7;"
-                     onclick="window.scrollTo(0, 0)">
-                    <i class="fa fa-chevron-up" style="position:relative;top: -2px"></i>
-                </div>
-
-                <ui:insert name="wrapper-end"/>
-                <h:form prependId="false">
-                     <ui:include src="/controlsidebar.xhtml"/> 
-                </h:form>     
-               
+                    <ui:insert name="body"/>
+                </section>
+                <ui:insert name="content-end"/>
             </div>
 
-            <ui:insert name="after-wrapper"/>
 
+            <footer class="main-footer">
+                <ui:insert name="footer"/>
+            </footer>
+            <h:form>
+                <p:remoteCommand name="clearBreadCrumbs" actionListener="#{breadCrumbMB.clear}" process="@this"
+                                 update="@(.breadcrumb)" partialSubmit="true" global="false"/>
+            </h:form>
+            <div id="scrollTop" class="ripplelink"
+                 style="display:none;position: fixed; bottom: 10px; right: 20px; width: 34px; height: 34px; color: rgb(238, 238, 238); line-height: 34px; text-align: center; background-color: rgb(34, 45, 50); cursor: pointer; border-radius: 50%; z-index: 99999; opacity: 0.7;"
+                 onclick="window.scrollTo(0, 0)">
+                <i class="fa fa-chevron-up" style="position:relative;top: -2px"></i>
+            </div>
+
+            <ui:insert name="wrapper-end"/>
+            <h:form prependId="false">
+                <ui:include src="/controlsidebar.xhtml"/> 
+            </h:form>     
+
+        </div>
+
+        <ui:insert name="after-wrapper"/>
+
+        <script type="text/javascript">
+            if (isMobile()) {
+                window.onscroll = activateScrollToTop;
+            }
+        </script>
+
+        <adm:ripple/>
+
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
+        <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
+        <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
+        <h:outputScript library="js" name="admintemplate.js" target="head"/>
+        <!-- slide in/out menu integration  -->
+        <h:outputScript library="js" name="slideout.min.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
+        <h:outputScript library="js" name="adminslide.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
+        <h:outputScript library="js" name="control-sidebar.js" target="head" rendered="#{adminConfig.renderControlSidebar}"/>
+        <ui:fragment rendered="#{not adminConfig.enableSlideMenu or (not empty enableSlideMenu and enableSlideMenu eq 'false')}">
             <script type="text/javascript">
-                if (isMobile()) {
-                    window.onscroll = activateScrollToTop;
-                }
+                $(document).ready(function () {
+                    $('.slideout-menu').removeClass('slideout-menu');
+                    $('.slideout-panel').removeClass('slideout-panel');
+                });
+
             </script>
+        </ui:fragment>
 
-            <adm:ripple/>
-
-            <h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
-            <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
-            <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
-            <h:outputScript library="js" name="admintemplate.js" target="head"/>
-            <!-- slide in/out menu integration  -->
-            <h:outputScript library="js" name="slideout.min.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
-            <h:outputScript library="js" name="adminslide.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
-            <h:outputScript library="js" name="control-sidebar.js" target="head" rendered="#{adminConfig.renderControlSidebar}"/>
-            <ui:fragment rendered="#{not adminConfig.enableSlideMenu or (not empty enableSlideMenu and enableSlideMenu eq 'false')}">
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                        $('.slideout-menu').removeClass('slideout-menu');
-                        $('.slideout-panel').removeClass('slideout-panel');
-                    });
-
-                </script>
-            </ui:fragment>
-
-            <ui:fragment rendered="#{adminConfig.autoShowNavbar and (empty autoShowNavbar or autoShowNavbar eq 'true')}">
-                <script type="text/javascript">
-                    $(window).scroll(function () {
-                        if (isMobile()) {
-                            var minScrollTimeNav = 300;
-                            var now = new Date().getTime();
-                            if (!scrollTimerNav) {
-                                if (now - lastScrollFireTimeNav > (3 * minScrollTimeNav)) {
-                                    activateAutoShowNavbarOnScrollUp();   // fire immediately on first scroll
-                                    lastScrollFireTimeNav = now;
-                                }
-                                scrollTimerNav = setTimeout(function () {
-                                    scrollTimerNav = null;
-                                    lastScrollFireTimeNav = new Date().getTime();
-                                    activateAutoShowNavbarOnScrollUp();
-                                }, minScrollTimeNav);
+        <ui:fragment rendered="#{adminConfig.autoShowNavbar and (empty autoShowNavbar or autoShowNavbar eq 'true')}">
+            <script type="text/javascript">
+                $(window).scroll(function () {
+                    if (isMobile()) {
+                        var minScrollTimeNav = 300;
+                        var now = new Date().getTime();
+                        if (!scrollTimerNav) {
+                            if (now - lastScrollFireTimeNav > (3 * minScrollTimeNav)) {
+                                activateAutoShowNavbarOnScrollUp();   // fire immediately on first scroll
+                                lastScrollFireTimeNav = now;
                             }
+                            scrollTimerNav = setTimeout(function () {
+                                scrollTimerNav = null;
+                                lastScrollFireTimeNav = new Date().getTime();
+                                activateAutoShowNavbarOnScrollUp();
+                            }, minScrollTimeNav);
                         }
-                    });
-                </script>
-            </ui:fragment>
+                    }
+                });
+            </script>
+        </ui:fragment>
 
 
-        </h:body>
+    </h:body>
 
-    </f:view>
 </html>
