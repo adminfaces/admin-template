@@ -140,7 +140,9 @@
                 </div>
 
                 <ui:insert name="wrapper-end"/>
-                <ui:include src="/controlsidebar.xhtml"/> 
+                <h:form prependId="false">
+                     <ui:include src="/controlsidebar.xhtml"/> 
+                </h:form>     
                
             </div>
 

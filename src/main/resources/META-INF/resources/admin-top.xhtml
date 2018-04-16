@@ -170,7 +170,9 @@
                             <ui:insert name="body"/>
                         </section>
                         <ui:insert name="content-end"/>
-                        <ui:include src="/controlsidebar.xhtml"/> 
+                        <h:form prependId="false">
+                            <ui:include src="/controlsidebar.xhtml"/> 
+                        </h:form>
                         <!-- /.content -->
                     </div>
                     <!-- /.container -->
