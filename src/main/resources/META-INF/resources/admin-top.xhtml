@@ -124,7 +124,9 @@
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            <ui:insert name="title"/>
+                            <ui:insert name="title">
+                                 <h:outputText value="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.message']}"/>
+                            </ui:insert>   
                             <small><ui:insert name="description"/></small>
                         </h1>
                         <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
