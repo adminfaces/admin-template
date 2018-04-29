@@ -14,19 +14,14 @@ public class LayoutMB implements Serializable {
 
     private String template;
 
-    private boolean flat;
-
-    private boolean darkSidebar;
-    
     private boolean defaultTemplateSelected;
 
     @PostConstruct
     public void init() {
         setDefaultTemplate();
-        flat = false;
         darkSidebar = true;
     }
-
+    
     public String getTemplate() {
         return template;
     }
@@ -59,14 +54,6 @@ public class LayoutMB implements Serializable {
         this.defaultTemplateSelected = defaultTemplateSelected;
     }
     
-
-    public boolean isFlat() {
-        return flat;
-    }
-
-    public void setFlat(boolean flat) {
-        this.flat = flat;
-    }
 
     public boolean isDarkSidebar() {
         return darkSidebar;
