@@ -92,10 +92,10 @@
                             <ul class="list-unstyled clearfix">
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
 
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-blue" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-blue', $(this));" 
-                                                   oncomplete="updateSkinBlue()"
+                                                   oncomplete="updateSkinBlue()" 
                                                    process="@this" update="@none" partialSubmit="true">
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9">
@@ -111,11 +111,11 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-blue')}" name="updateSkinBlue"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Blue</p>
                                 </li>
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-black" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-black', $(this));" 
                                                    oncomplete="updateSkinBlack()"
@@ -130,14 +130,14 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-black')}" name="updateSkinBlack"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Black</p>
                                 </li>
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-purple" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-purple', $(this));" 
-                                                   oncomplete="updateSkinPurple()"
+                                                   oncomplete="updateSkinPurple()" 
                                                    process="@this" update="@none" partialSubmit="true">
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-purple-active"></span>
@@ -148,14 +148,14 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-purple')}"
-                                                     name="updateSkinPurple" process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-purple')}" name="updateSkinPurple"
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Purple</p>
 
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-green" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-green', $(this));" 
                                                    oncomplete="updateSkinGreen();"
@@ -172,12 +172,12 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-green')}" name="updateSkinGreen"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Green</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-red" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-red', $(this));" 
                                                    oncomplete="updateSkinRed()"
@@ -194,12 +194,12 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-red')}" name="updateSkinRed"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Red</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-yellow" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-yellow', $(this));" 
                                                    oncomplete="updateSkinYellow()"
@@ -216,15 +216,15 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-yellow')}" name="updateSkinYellow"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Yellow</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-teal" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-teal', $(this));" 
-                                                   oncomplete="updateSkinTeal()"
+                                                   oncomplete="updateSkinTeal()" 
                                                    process="@this" update="@none" partialSubmit="true">
 
                                         <div>
@@ -238,11 +238,11 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-teal')}" name="updateSkinTeal"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Teal</p>
                                 </li>
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue-light' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-blue-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-blue-light', $(this));" 
                                                    oncomplete="updateSkinBlueLight()"
@@ -259,12 +259,12 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-blue-light')}" name="updateSkinBlueLight"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Blue Light</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black-light' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-black-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-black-light', $(this));" 
                                                    oncomplete="updateSkinBlackLight()"
@@ -281,13 +281,13 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-black-light')}" name="updateSkinBlackLight"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Black Light</p>
                                 </li>
 
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple-light' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-purple-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-purple-light', $(this));" 
                                                    oncomplete="updateSkinPurpleLight()"
@@ -303,12 +303,12 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-purple-light')}" name="updateSkinPurpleLight"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Purple Light</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red-light' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-red-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-red-light', $(this));" 
                                                    oncomplete="updateSkinRedLight()"
@@ -323,13 +323,13 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-green-light')}" name="updateSkinGreenLight"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
-                                    <p class="text-center no-margin">Green Light</p>
+                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-red-light')}" name="updateSkinRedLight"
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                    <p class="text-center no-margin">Red Light</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green-light' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-green-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-green-light', $(this));" 
                                                    oncomplete="updateSkinGreenLight()"
@@ -345,12 +345,12 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-green-light')}" name="updateSkinGreenLight"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Green Light</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow-light' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-yellow-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-yellow-light', $(this));" 
                                                    oncomplete="updateSkinYellowLight()"
@@ -366,11 +366,11 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-yellow-light')}" name="updateSkinYellowLight"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Yellow Light</p>
                                 </li>
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
-                                    <p:commandLink styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal-light' ? '':'full-opacity-hover'}" 
+                                    <p:commandLink id="btn-skin-teal-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
                                                    onclick="replaceSkinWith('skin-teal-light', $(this));" 
                                                    oncomplete="updateSkinTealLight()"
@@ -386,7 +386,7 @@
                                         </div>
                                     </p:commandLink>
                                     <p:remoteCommand action="#{skinMB.changeSkin('skin-teal-light')}" name="updateSkinTealLight"
-                                                     process="@this" update="@none" oncomplete="setTimeout(updateSidebarToggle,30)"/>
+                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Teal Light</p>
                                 </li>
                                 <ui:insert name="after-controlsidebar-skin"/>
@@ -405,7 +405,7 @@
 
             <script type="text/javascript">
                 /*<![CDATA[*/
-                function replaceSkinWith(newSkin, $this) {
+               function replaceSkinWith(newSkin, $this) {
                     $('.skin-link').each(function () {
                         $(this).addClass('full-opacity-hover');
                     });
@@ -417,8 +417,11 @@
                         }
                     }
                     $('body').addClass(newSkin);
+                    if (typeof (Storage) !== 'undefined') {
+                        localStorage.setItem('layout.skin', newSkin)
+                    }
                 }
-
+                
                 function updateSidebarToggle() {
                     $('.control-sidebar').addClass('control-sidebar-open');
                 }

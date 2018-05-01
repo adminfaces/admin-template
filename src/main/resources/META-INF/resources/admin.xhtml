@@ -9,7 +9,6 @@
     
     <ui:insert name="metadata"/>
 
-
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -144,7 +143,7 @@
             <ui:insert name="wrapper-end"/>
             <h:form prependId="false">
                 <ui:include src="/controlsidebar.xhtml"/> 
-            </h:form>     
+            </h:form>
 
         </div>
 
@@ -163,9 +162,9 @@
         <h:outputScript library="js" name="admin-lte.min.js" target="head"/>
         <h:outputScript library="js" name="admintemplate.js" target="head"/>
         <!-- slide in/out menu integration  -->
-        <h:outputScript library="js" name="slideout.min.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
-        <h:outputScript library="js" name="adminslide.js" target="head" rendered="#{adminConfig.enableSlideMenu}"/>
-        <h:outputScript library="js" name="control-sidebar.js" target="head" rendered="#{adminConfig.renderControlSidebar}"/>
+        <h:outputScript library="js" name="slideout.min.js" target="head" rendered="#{adminConfig.enableSlideMenu and (empty enableSlideMenu or enableSlideMenu eq 'true')}"/>
+        <h:outputScript library="js" name="adminslide.js" target="head" rendered="#{adminConfig.enableSlideMenu and (empty enableSlideMenu or enableSlideMenu eq 'true')}"/>
+        <h:outputScript library="js" name="control-sidebar.js" target="head" rendered="#{adminConfig.renderControlSidebar and (empty renderControlSidebar or renderControlSidebar eq 'true')}"/>
         <ui:fragment rendered="#{not adminConfig.enableSlideMenu or (not empty enableSlideMenu and enableSlideMenu eq 'false')}">
             <script type="text/javascript">
                 $(document).ready(function () {

@@ -166,8 +166,21 @@ $(function () {
     }
 
 
+    function loadSkin() {
+        var skin = get('layout.skin');
+        if (skin && !$('body').hasClass(skin)) {
+            $('#btn-'+skin).click();
+            setTimeout(function () {
+                $('.control-sidebar').removeClass('control-sidebar-open');
+                $('body').removeClass('control-sidebar-open');
+                alert('call')
+            }, 50);
+        }
+    }
+
+
     /**
-     * Retrieve default settings and apply them to the template
+     * Retrieve stored settings and apply them to the template
      *
      * @returns void
      */
@@ -255,6 +268,8 @@ $(function () {
         $('#content').click(function () {
             $('.control-sidebar').removeClass('control-sidebar-open');
         });
+
+        loadSkin();
 
     }
 
