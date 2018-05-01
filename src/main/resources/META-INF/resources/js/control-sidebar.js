@@ -173,7 +173,6 @@ $(function () {
             setTimeout(function () {
                 $('.control-sidebar').removeClass('control-sidebar-open');
                 $('body').removeClass('control-sidebar-open');
-                alert('call')
             }, 50);
         }
     }
