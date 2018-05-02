@@ -22,63 +22,63 @@
                     <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active">
                         <ui:insert name="before-controlsidebar"/>
                         <div>
-                            <h4 class="control-sidebar-heading">Layout Options</h4>
+                            <h4 class="control-sidebar-heading">#{adm['controlsidebar.header']}</h4>
                             <div class="form-group">
                                 <span class="control-sidebar-subheading">
-                                    <p:outputLabel id="toggle-menu-layout-label" value="Menu orientation" for="toggle-menu-layout"/>
+                                    <p:outputLabel id="toggle-menu-layout-label" value="#{adm['controlsidebar.label.menu-horientation']}" for="toggle-menu-layout"/>
                                     <p:selectBooleanCheckbox value="#{layoutMB.defaultTemplateSelected}" id="toggle-menu-layout" styleClass="pull-right black" >
                                         <p:ajax process="@none" update="@none" global="false" oncomplete="$('a[id$=link-toggle-layout]').click()" />
                                     </p:selectBooleanCheckbox>    
                                 </span>
-                                <p>Toggle menu orientation between <b class="sidebar-bold">left</b> and <b class="sidebar-bold">top</b> menu. By default left menu is activated.</p>
+                                <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.menu-horientation']}"/></p>
                             </div>
 
                             <div class="form-group">
                                 <span class="control-sidebar-subheading">
-                                    <p:outputLabel id="fixed-layout-label" value="Fixed  Layout" for="fixed-layout"/>
+                                    <p:outputLabel id="fixed-layout-label" value="#{adm['controlsidebar.label.fixed-layout']}" for="fixed-layout"/>
                                     <p:selectBooleanCheckbox id="fixed-layout" styleClass="pull-right black" />
                                 </span>
-                                <p>Activate the fixed layout, if checked the top bar will be fixed on the page. You can't use fixed and boxed layouts together.</p>
+                                <p>#{adm['controlsidebar.txt.fixed-layout']}</p>
                             </div>
 
                             <div class="form-group">
                                 <span class="control-sidebar-subheading">
-                                    <p:outputLabel id="boxed-layout-label" value="Boxed Layout" for="boxed-layout"/>
+                                    <p:outputLabel id="boxed-layout-label" value="#{adm['controlsidebar.label.boxed-layout']}" for="boxed-layout"/>
                                     <p:selectBooleanCheckbox id="boxed-layout" styleClass="pull-right black" />
                                 </span>
-                                <p>Activate the boxed layout.</p>
+                                <p>#{adm['controlsidebar.txt.boxed-layout']}</p>
                             </div>
 
                             <div class="form-group">
                                 <span class="control-sidebar-subheading">
-                                    <p:outputLabel id="sidebar-toggle-label" value="Toggle Sidebar" for="sidebar-toggle"/>
+                                    <p:outputLabel id="sidebar-toggle-label" value="#{adm['controlsidebar.label.sidebar-toggle']}" for="sidebar-toggle"/>
                                     <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="sidebar-toggle" styleClass="pull-right black" />
                                 </span>
-                                <p>Toggle the left sidebar's state (open or collapse).</p>
+                                <p>#{adm['controlsidebar.txt.sidebar-toggle']}</p>
                             </div>
                             <div class="form-group">
                                 <span class="control-sidebar-subheading">
-                                    <p:outputLabel id="sidebar-expand-hover-label" value=" Sidebar Expand on Hover" for="sidebar-expand-hover"/>
+                                    <p:outputLabel id="sidebar-expand-hover-label" value="#{adm['controlsidebar.label.sidebar-expand-hover']}" for="sidebar-expand-hover"/>
                                     <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="sidebar-expand-hover" widgetVar="sidebarExpand" styleClass="pull-right black" />
                                 </span>
-                                <p>If checked the left sidebar will expand on hover.</p>
+                                <p>#{adm['controlsidebar.txt.sidebar-expand-hover']}</p>
                             </div>
                             <div class="form-group">
                                 <span class="control-sidebar-subheading">
-                                    <p:outputLabel id="control-sidebar-toggle-label" value="Control Sidebar Slide" for="control-sidebar-toggle"/>
+                                    <p:outputLabel id="control-sidebar-toggle-label" value="#{adm['controlsidebar.label.sidebar-slide']}" for="control-sidebar-toggle"/>
                                     <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="control-sidebar-toggle" styleClass="pull-right black" />
                                 </span>
-                                <p>If checked the right sidebar will be fixed on the page.</p>
+                                <p>#{adm['controlsidebar.txt.sidebar-slide']}</p>
                             </div>
                             <div class="form-group">
                                 <span class="control-sidebar-subheading">
-                                    <p:outputLabel value="Toggle Right Sidebar Skin" for="sidebar-skin"/>
+                                    <p:outputLabel value="#{adm['controlsidebar.label.sidebar-skin']}" for="sidebar-skin"/>
                                     <p:selectBooleanCheckbox id="sidebar-skin" styleClass="pull-right black"/>
                                 </span>
-                                <p>Toggle between dark and light skins for the right sidebar</p>
+                                <p>#{adm['controlsidebar.txt.sidebar-skin']}</p>
                             </div>
 
-                            <h4 class="control-sidebar-heading">Skins</h4>
+                            <h4 class="control-sidebar-heading">#{adm['controlsidebar.header.skins']}</h4>
                             <ul class="list-unstyled clearfix">
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-blue" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue' ? '':'full-opacity-hover'}" 
