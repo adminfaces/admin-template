@@ -19,7 +19,6 @@ public class LayoutMB implements Serializable {
     @PostConstruct
     public void init() {
         setDefaultTemplate();
-        darkSidebar = true;
     }
     
     public String getTemplate() {
@@ -54,12 +53,4 @@ public class LayoutMB implements Serializable {
         this.defaultTemplateSelected = defaultTemplateSelected;
     }
     
-
-    public boolean isDarkSidebar() {
-        return darkSidebar;
-    }
-
-    public void setDarkSidebar(boolean darkSidebar) {
-        this.darkSidebar = darkSidebar;
-    }
 }
