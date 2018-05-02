@@ -5,17 +5,33 @@
                 xmlns:cc="http://java.sun.com/jsf/composite">
 
 
-    <ui:fragment rendered="#{adminConfig.renderControlSidebar}" >
+    <ui:fragment rendered="#{adminConfig.renderControlSidebar or (not empty renderControlSidebar and renderControlSidebar eq 'true')}" >
         <!-- controlsidebar component. Could not create a composite component because it can only have one insert region: https://stackoverflow.com/questions/7654122/multiple-ccinsertchildren-in-the-same-composite-component -->
         <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="hidden-sm hidden-xs">
             <style type="text/css">
 
+                aside.control-sidebar {
+                    right:0;
+                }
                 .control-sidebar-dark b.sidebar-bold  {
                     color: #fff;
                 }
 
                 .control-sidebar-light b.sidebar-bold {
                     color: #111;
+                }
+
+                .control-sidebar-dark a.skin-link:not(.full-opacity-hover) {
+                    -moz-box-shadow: 0 0 10px #1f89ce!important;
+                    -webkit-box-shadow: 0 0 10px #1f89ce!important;
+                    box-shadow: 0 0 10px #1f89ce!important;
+                    border-color: #97ccef!important;
+                }
+
+                .control-sidebar-light a.skin-link:not(.full-opacity-hover) {
+                    -moz-box-shadow: 0 0 10px #222!important;
+                    -webkit-box-shadow: 0 0 10px #222!important;
+                    box-shadow: 0 0 10px #222!important;
                 }
 
             </style>
@@ -94,9 +110,9 @@
 
                                     <p:commandLink id="btn-skin-blue" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-blue', $(this));" 
-                                                   oncomplete="updateSkinBlue()" 
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-blue')}"
+                                                   oncomplete="replaceSkinWith('skin-blue')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9">
 
@@ -110,16 +126,14 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-blue')}" name="updateSkinBlue"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Blue</p>
                                 </li>
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-black" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-black', $(this));" 
-                                                   oncomplete="updateSkinBlack()"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-black')}"
+                                                   oncomplete="replaceSkinWith('skin-black')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
                                         <div style="box-shadow: 0 0 2px rgba(0,0,0,0.1)" class="clearfix">
                                             <span style="display:block; width: 20%; float: left; height: 7px; background: #fefefe"></span>
                                             <span style="display:block; width: 80%; float: left; height: 7px; background: #fefefe"></span>
@@ -129,16 +143,14 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-black')}" name="updateSkinBlack"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Black</p>
                                 </li>
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-purple" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-purple', $(this));" 
-                                                   oncomplete="updateSkinPurple()" 
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-purple')}"
+                                                   oncomplete="replaceSkinWith('skin-purple')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-purple-active"></span>
                                             <span class="bg-purple" style="display:block; width: 80%; float: left; height: 7px;"></span>
@@ -148,8 +160,6 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-purple')}" name="updateSkinPurple"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Purple</p>
 
                                 </li>
@@ -157,9 +167,9 @@
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-green" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-green', $(this));" 
-                                                   oncomplete="updateSkinGreen();"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-green')}"
+                                                   oncomplete="replaceSkinWith('skin-green')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-green-active"></span>
@@ -171,17 +181,15 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-green')}" name="updateSkinGreen"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Green</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-red" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-red', $(this));" 
-                                                   oncomplete="updateSkinRed()"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-red')}"
+                                                   oncomplete="replaceSkinWith('skin-red')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-red-active"></span>
@@ -193,17 +201,15 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-red')}" name="updateSkinRed"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Red</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-yellow" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-yellow', $(this));" 
-                                                   oncomplete="updateSkinYellow()"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-yellow')}"
+                                                   oncomplete="replaceSkinWith('skin-yellow')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-yellow-active"></span>
@@ -215,17 +221,15 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-yellow')}" name="updateSkinYellow"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Yellow</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-teal" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-teal', $(this));" 
-                                                   oncomplete="updateSkinTeal()" 
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-teal')}" 
+                                                   oncomplete="replaceSkinWith('skin-teal')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-teal-active"></span>
@@ -237,16 +241,14 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-teal')}" name="updateSkinTeal"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Teal</p>
                                 </li>
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-blue-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-blue-light', $(this));" 
-                                                   oncomplete="updateSkinBlueLight()"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-blue-light')}"
+                                                   oncomplete="replaceSkinWith('skin-blue-light')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9"></span>
@@ -258,17 +260,15 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-blue-light')}" name="updateSkinBlueLight"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Blue Light</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-black-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-black-light', $(this));" 
-                                                   oncomplete="updateSkinBlackLight()"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-black-light')}"
+                                                   oncomplete="replaceSkinWith('skin-black-light')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div style="box-shadow: 0 0 2px rgba(0,0,0,0.1)" class="clearfix">
                                             <span style="display:block; width: 20%; float: left; height: 7px; background: #fefefe"></span>
@@ -280,8 +280,6 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-black-light')}" name="updateSkinBlackLight"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Black Light</p>
                                 </li>
 
@@ -289,9 +287,9 @@
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-purple-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-purple-light', $(this));" 
-                                                   oncomplete="updateSkinPurpleLight()"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-purple-light')}"
+                                                   oncomplete="replaceSkinWith('skin-purple-light')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-purple-active"></span>
@@ -302,17 +300,15 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-purple-light')}" name="updateSkinPurpleLight"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Purple Light</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-red-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-red-light', $(this));" 
-                                                   oncomplete="updateSkinRedLight()"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-red-light')}" 
+                                                   oncomplete="replaceSkinWith('skin-red-light')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-red-active"></span>
@@ -323,17 +319,15 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-red-light')}" name="updateSkinRedLight"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Red Light</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-green-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-green-light', $(this));" 
-                                                   oncomplete="updateSkinGreenLight()"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-green-light')}"
+                                                   oncomplete="replaceSkinWith('skin-green-light')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-green-active"></span>
@@ -344,17 +338,15 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-green-light')}" name="updateSkinGreenLight"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Green Light</p>
                                 </li>
 
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-yellow-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-yellow-light', $(this));" 
-                                                   oncomplete="updateSkinYellowLight()"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-yellow-light')}"
+                                                   oncomplete="replaceSkinWith('skin-yellow-light')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-yellow-active"></span>
@@ -365,16 +357,14 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-yellow-light')}" name="updateSkinYellowLight"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Yellow Light</p>
                                 </li>
                                 <li style="float:left; width: 33.33333%; padding: 5px;">
                                     <p:commandLink id="btn-skin-teal-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal-light' ? '':'full-opacity-hover'}" 
                                                    style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)"
-                                                   onclick="replaceSkinWith('skin-teal-light', $(this));" 
-                                                   oncomplete="updateSkinTealLight()"
-                                                   process="@this" update="@none" partialSubmit="true">
+                                                   action="#{skinMB.changeSkin('skin-teal-light')}"
+                                                   oncomplete="replaceSkinWith('skin-teal-light')"
+                                                   process="@this" update="controlsidebarPanel" partialSubmit="true">
 
                                         <div>
                                             <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-teal-active"></span>
@@ -385,8 +375,6 @@
                                             <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
                                         </div>
                                     </p:commandLink>
-                                    <p:remoteCommand action="#{skinMB.changeSkin('skin-teal-light')}" name="updateSkinTealLight"
-                                                     process="@this" update="@none" global="false" oncomplete="setTimeout(updateSidebarToggle,30)"/>
                                     <p class="text-center no-margin">Teal Light</p>
                                 </li>
                                 <ui:insert name="after-controlsidebar-skin"/>
@@ -405,11 +393,11 @@
 
             <script type="text/javascript">
                 /*<![CDATA[*/
-               function replaceSkinWith(newSkin, $this) {
+                function replaceSkinWith(newSkin) {
                     $('.skin-link').each(function () {
                         $(this).addClass('full-opacity-hover');
                     });
-                    $this.removeClass('full-opacity-hover');
+                    $('#btn-' + newSkin).removeClass('full-opacity-hover');
                     var cl = $('body').attr("class").split(" ");
                     for (var i = 0; i < cl.length; i++) {
                         if (cl[i].startsWith('skin-')) {
@@ -421,10 +409,7 @@
                         localStorage.setItem('layout.skin', newSkin)
                     }
                 }
-                
-                function updateSidebarToggle() {
-                    $('.control-sidebar').addClass('control-sidebar-open');
-                }
+
                 /* ]]>*/
             </script>    
         </h:panelGroup>

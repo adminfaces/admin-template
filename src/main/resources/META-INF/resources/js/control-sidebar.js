@@ -170,10 +170,6 @@ $(function () {
         var skin = get('layout.skin');
         if (skin && !$('body').hasClass(skin)) {
             $('#btn-'+skin).click();
-            setTimeout(function () {
-                $('.control-sidebar').removeClass('control-sidebar-open');
-                $('body').removeClass('control-sidebar-open');
-            }, 50);
         }
     }
 
