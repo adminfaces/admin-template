@@ -8,34 +8,6 @@
     <ui:fragment rendered="#{adminConfig.renderControlSidebar or (not empty renderControlSidebar and renderControlSidebar eq 'true')}" >
         <!-- controlsidebar component. Could not create a composite component because it can only have one insert region: https://stackoverflow.com/questions/7654122/multiple-ccinsertchildren-in-the-same-composite-component -->
         <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="hidden-sm hidden-xs">
-            <style type="text/css">
-
-                aside.control-sidebar {
-                    right:0;
-                }
-                .control-sidebar-dark b.sidebar-bold  {
-                    color: #fff;
-                }
-
-                .control-sidebar-light b.sidebar-bold {
-                    color: #111;
-                }
-
-                .control-sidebar-dark a.skin-link:not(.full-opacity-hover) {
-                    -moz-box-shadow: 0 0 10px #1f89ce!important;
-                    -webkit-box-shadow: 0 0 10px #1f89ce!important;
-                    box-shadow: 0 0 10px #1f89ce!important;
-                    border-color: #97ccef!important;
-                }
-
-                .control-sidebar-light a.skin-link:not(.full-opacity-hover) {
-                    -moz-box-shadow: 0 0 10px #222!important;
-                    -webkit-box-shadow: 0 0 10px #222!important;
-                    box-shadow: 0 0 10px #222!important;
-                }
-
-            </style>
-
             <p:commandLink  id="link-toggle-layout" action="#{layoutMB.toggleTemplate}" ajax="false" style="visibility: hidden"/>
             <ui:insert name="before-controlsidebar-content"/>
             <aside class="control-sidebar control-sidebar-dark">
