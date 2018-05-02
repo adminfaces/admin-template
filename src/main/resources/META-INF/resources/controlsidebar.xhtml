@@ -6,7 +6,6 @@
 
 
     <ui:fragment rendered="#{adminConfig.renderControlSidebar or (not empty renderControlSidebar and renderControlSidebar eq 'true')}" >
-        <!-- controlsidebar component. Could not create a composite component because it can only have one insert region: https://stackoverflow.com/questions/7654122/multiple-ccinsertchildren-in-the-same-composite-component -->
         <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="hidden-sm hidden-xs">
             <p:commandLink  id="link-toggle-layout" action="#{layoutMB.toggleTemplate}" ajax="false" style="visibility: hidden"/>
             <ui:insert name="before-controlsidebar-content"/>
