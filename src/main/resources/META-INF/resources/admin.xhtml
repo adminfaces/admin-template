@@ -83,12 +83,12 @@
                         </ui:insert>
                         <small><ui:insert name="description"/></small>
                     </h1>
-                    <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
+                    <ui:fragment rendered="#{adminConfig.renderBreadCrumb and (empty renderBreadCrumb or not renderBreadCrumb) }">
                         <ol class="breadcrumb" style="overflow: hidden;">
                             <li style="position: relative;">
                                 <p:link href="/" onclick="clearBreadCrumbs();" style="position: relative;">
                                     <i class="fa fa-home"></i>
-                                    #{adm[label.home]}
+                                    #{adm['label.home']}
                                 </p:link>
                             </li>
                             <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
