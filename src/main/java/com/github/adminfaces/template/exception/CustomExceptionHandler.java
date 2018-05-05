@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 import static com.github.adminfaces.template.util.Assert.has;
 import static javax.servlet.RequestDispatcher.*;
 
-
 /**
  * Based on: https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/exception/ConventionsExceptionHandler.java
  * This handler adds FacesMessages when BusinessExceptions are thrown

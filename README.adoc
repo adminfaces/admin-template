@@ -40,6 +40,7 @@ image:https://github.com/adminfaces/admin-showcase/raw/master/src/docs/images/me
 * Configurable, see <<Configuration>>
 * http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/pages/layout/breadcrumb.xhtml[Breadcrumb^] based navigation
 * Back to previous screen when logging in again after session expiration (or accessing a page via url without being logged in)
+* Layout customization via <<Control Sidebar>>
 
 NOTE: Most of the above features can be disabled via <<Configuration,configuration>> mechanism;
 
@@ -69,7 +70,7 @@ Admin template will bring the following transitive dependencies:
 <dependency>
     <groupId>org.primefaces</groupId>
     <artifactId>primefaces</artifactId>
-    <version>6.1</version>
+    <version>6.2</version>
 </dependency>
 
 <dependency>
@@ -78,11 +79,6 @@ Admin template will bring the following transitive dependencies:
     <version>2.1</version>
 </dependency>
 
-<dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-api</artifactId>
-    <version>1.7.22</version>
-</dependency>
 ----    
 
 Which you can override in your pom.xml as needed.
@@ -384,14 +380,16 @@ You can provide your own custom pages (and other status codes) by configuring th
 
 You can also override error pages by placing the pages (with same name) described in <<Error Pages>> section on the root of your application (`webapp/`).
 
-=== Labels and Messages in error pages
+== Internationalization
 
-Labels and messages in error pages are provided via http://docs.oracle.com/javaee/6/tutorial/doc/bnaxw.html#bnaxy[JSF resource bundle] mechanism.
+Labels in <<Error Pages, error pages>> and <<Control Sidebar, control sidebar>> are provided via http://docs.oracle.com/javaee/6/tutorial/doc/bnaxw.html#bnaxy[JSF resource bundle] mechanism.
 
-Below is `admin.properties` resource bundle which provides messages for error pages:
+Following are the default labels in admin resource bundle:
 
 .src/main/resources/admin.properties
 ----
+#general
+admin.version=${project.version}
 label.go-back=Go back to
 
 #403
@@ -418,9 +416,82 @@ label.optimistic.title=Record already updated
 label.optimistic.message= The requested record has been already updated by another user.
 label.optimistic.click-here= Click here to reload the updated record from database.
 
+#controlsidebar
+controlsidebar.header=Layout Options
+controlsidebar.label.menu-horientation=Left menu layout
+controlsidebar.txt.menu-horientation=Toggle menu orientation between <b class\="sidebar-bold">left</b> and <b class\="sidebar-bold">top</b> menu. By default left menu is activated.
+controlsidebar.label.fixed-layout=Fixed Layout
+controlsidebar.txt.fixed-layout=Activate the fixed layout, if checked the top bar will be fixed on the page. You can't use fixed and boxed layouts together.
+controlsidebar.label.boxed-layout=Boxed Layout
+controlsidebar.txt.boxed-layout=Activate the boxed layout.
+controlsidebar.label.sidebar-toggle=Toggle Sidebar
+controlsidebar.txt.sidebar-toggle=Toggle the left sidebar's state (open or collapse).
+controlsidebar.label.sidebar-expand-hover=Sidebar Expand on Hover
+controlsidebar.txt.sidebar-expand-hover=If checked the left sidebar will expand on hover.
+controlsidebar.label.sidebar-slide=Control Sidebar Slide
+controlsidebar.txt.sidebar-slide=If checked the right sidebar will be fixed on the page.
+controlsidebar.label.sidebar-skin=Right Sidebar Skin
+controlsidebar.txt.sidebar-skin=Toggle right sidebar skin between <b class\="sidebar-bold">dark</b> and <b class\="sidebar-bold">light</b>. By default dark skin is actvated.
+controlsidebar.header.skins=Skins
+
 ----
 
-To override labels just provide a file named _admin.properties_ in your application `resources` folder.
+[TIP] 
+====
+You can provide your own language bundle adding a file named _admin_YOUR_LANGUAGE.properties_ in your application `resources` folder. 
+
+Don't forget to add it as `supported locale` in *faces-config*, see https://github.com/adminfaces/admin-template/blob/02c0db5d9ff567c803e7e83f336f8a7308e9d4ec/src/main/resources/META-INF/faces-config.xml#L9[example here^]. 
+
+====
+
+IMPORTANT: You can contribute your language locale to AdminFaces, https://github.com/adminfaces/admin-template/tree/master/src/main/resources[check here^] the current supported locales.  
+
+== Control Sidebar
+
+ControlSidebar is a component which provides a panel so user can `customize` the template layout:
+
+image::controlsidebar.png[]
+
+Options selected by user are stored on `browser local storage` so they are remembered no matter the user logs off the application.
+
+=== Usage
+
+To enable the control sidebar you need to add the following entry in `src/main/resources/admin-config.properties`:
+
+----
+admin.renderControlSidebar=true
+----
+
+And then add a link or button on your page which opens the sidebar. The link or button must use `data-toggle` attribute:
+
+----
+  <a href="#" id="layout-setup" data-toggle="control-sidebar" class="hidden-sm hidden-xs"><i class="fa fa-gears"></i></a>
+----
+
+On admin-starter the link is located on https://github.com/adminfaces/admin-starter/blob/c8adbe5e692171b144b93292e14ea203b654a13b/src/main/webapp/includes/top-bar.xhtml#L58[top-bar.xhtml^]. 
+
+http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/pages/layout/controlsidebar.xhtml[Click here^] to see controlsidebar in action on admin showcase.
+
+
+By default the control sidebar comes only with the configuration tab but you can define additional tabs by defining `controlsidebar-tabs` and `controlsidebar-content` on your template. An example can be found on https://github.com/adminfaces/admin-starter/blob/c8adbe5e692171b144b93292e14ea203b654a13b/src/main/webapp/WEB-INF/templates/template.xhtml#L38[admin-starter template^].  
+
+[IMPORTANT]
+====
+ControlSidebar is hidden on mobile devices but you can override this using the following css on your template:
+
+-----
+  div#controlsidebarPanel {
+           display: block!important;
+      }
+-----
+
+Also don't forget to remove the `hidden-sm hidden-xs` classes from the button/link that opens the sidebar:
+
+----
+   <a  href="#" class="ui-link ui-widget" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+----
+
+====
 
 == Snapshots
 

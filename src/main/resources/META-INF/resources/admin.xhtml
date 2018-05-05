@@ -20,7 +20,6 @@
     </h:head>
     <h:body styleClass="#{skinMB.skin} sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''}">
         <ui:insert name="body-begin"/>
-        <f:loadBundle var="adm" basename="admin"/>
         <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
                       onstart="showBar();"
                       onsuccess="hideBar();"/>
@@ -84,12 +83,12 @@
                         </ui:insert>
                         <small><ui:insert name="description"/></small>
                     </h1>
-                    <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb eq 'true') }">
+                    <ui:fragment rendered="#{adminConfig.renderBreadCrumb and (empty renderBreadCrumb or not renderBreadCrumb) }">
                         <ol class="breadcrumb" style="overflow: hidden;">
                             <li style="position: relative;">
                                 <p:link href="/" onclick="clearBreadCrumbs();" style="position: relative;">
                                     <i class="fa fa-home"></i>
-                                    Home
+                                    #{adm['label.home']}
                                 </p:link>
                             </li>
                             <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
