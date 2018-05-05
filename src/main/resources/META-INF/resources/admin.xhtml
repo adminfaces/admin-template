@@ -83,7 +83,7 @@
                         </ui:insert>
                         <small><ui:insert name="description"/></small>
                     </h1>
-                    <ui:fragment rendered="#{adminConfig.renderBreadCrumb and (empty renderBreadCrumb or not renderBreadCrumb) }">
+                    <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb) }">
                         <ol class="breadcrumb" style="overflow: hidden;">
                             <li style="position: relative;">
                                 <p:link href="/" onclick="clearBreadCrumbs();" style="position: relative;">
