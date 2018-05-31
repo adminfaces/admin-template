@@ -174,7 +174,7 @@
                                                 <p:outputLabel id="fixed-layout-label" value="#{adm['controlsidebar.label.fixed-layout']}" for="fixed-layout"/>
                                                 <p:selectBooleanCheckbox id="fixed-layout" styleClass="pull-right black" />
                                             </span>
-                                            <p>#{adm['controlsidebar.txt.fixed-layout']}</p>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.fixed-layout']}"/></p>
                                         </div>
 
                                         <div class="form-group">
@@ -182,7 +182,7 @@
                                                 <p:outputLabel id="boxed-layout-label" value="#{adm['controlsidebar.label.boxed-layout']}" for="boxed-layout"/>
                                                 <p:selectBooleanCheckbox id="boxed-layout" styleClass="pull-right black" />
                                             </span>
-                                            <p>#{adm['controlsidebar.txt.boxed-layout']}</p>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.boxed-layout']}"/></p>
                                         </div>
 
                                         <div class="form-group">
@@ -190,28 +190,28 @@
                                                 <p:outputLabel id="sidebar-toggle-label" value="#{adm['controlsidebar.label.sidebar-toggle']}" for="sidebar-toggle"/>
                                                 <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="sidebar-toggle" styleClass="pull-right black" />
                                             </span>
-                                            <p>#{adm['controlsidebar.txt.sidebar-toggle']}</p>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-toggle']}"/></p>
                                         </div>
                                         <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="sidebar-expand-hover-label" value="#{adm['controlsidebar.label.sidebar-expand-hover']}" for="sidebar-expand-hover"/>
                                                 <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="sidebar-expand-hover" widgetVar="sidebarExpand" styleClass="pull-right black" />
                                             </span>
-                                            <p>#{adm['controlsidebar.txt.sidebar-expand-hover']}</p>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-expand-hover']}"/></p>
                                         </div>
                                         <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="control-sidebar-toggle-label" value="#{adm['controlsidebar.label.sidebar-slide']}" for="control-sidebar-toggle"/>
                                                 <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="control-sidebar-toggle" styleClass="pull-right black" />
                                             </span>
-                                            <p>#{adm['controlsidebar.txt.sidebar-slide']}</p>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-slide']}"/></p>
                                         </div>
                                         <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel value="#{adm['controlsidebar.label.sidebar-skin']}" for="sidebar-skin"/>
                                                 <p:selectBooleanCheckbox id="sidebar-skin" styleClass="pull-right black"/>
                                             </span>
-                                            <p>#{adm['controlsidebar.txt.sidebar-skin']}</p>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-skin']}"/></p>
                                         </div>
 
                                         <h4 class="control-sidebar-heading">#{adm['controlsidebar.header.skins']}</h4>
@@ -542,7 +542,7 @@
             </script>
         </ui:fragment>
 
-        <ui:fragment rendered="#{adminConfig.autoShowNavbar and (empty autoShowNavbar or autoShowNavbar eq 'true')}">
+        <ui:fragment rendered="#{adminConfig.autoShowNavbar and (empty autoShowNavbar or autoShowNavbar)}">
             <script type="text/javascript">
                 $(window).scroll(function () {
                     if (isMobile()) {
