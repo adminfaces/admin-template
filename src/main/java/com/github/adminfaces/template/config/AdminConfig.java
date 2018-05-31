@@ -134,6 +134,10 @@ public class AdminConfig implements Serializable {
         this.disableFilter = disableFilter;
     }
 
+    @Deprecated
+    /**
+     * @deprecated use LayoutMB#template
+     */
     public String getTemplatePath() {
         return templatePath;
     }
