@@ -164,7 +164,7 @@ function removeBodyClass(clazz) {
 }
 
 function collapseSidebar() {
-    if (!$(document.body).hasClass('sidebar-collapse')) {
+    if (!$(document.body).hasClass('sidebar-collapse') && !$(document.body).hasClass('layout-top-nav')) {
         $(document.body).addClass('sidebar-collapse')
     }
 }
@@ -178,7 +178,7 @@ function expandSidebar() {
 function toggleSidebar() {
     if ($(document.body).hasClass('sidebar-collapse')) {
         $(document.body).removeClass('sidebar-collapse')
-    } else {
+    } else if(!$(document.body).hasClass('layout-top-nav')) {
         $(document.body).addClass('sidebar-collapse')
     }
 }
