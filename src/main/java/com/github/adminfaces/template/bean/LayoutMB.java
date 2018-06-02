@@ -16,8 +16,8 @@ public class LayoutMB implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(LayoutMB.class.getName());
     private static final String DEFAULT_TEMPLATE = "/admin.xhtml"; //template bundled in admin-template 
-    private static final String APP_TEMPLATE_PATH = "/WEB-INF/templates/template.xhtml"; // template provided by applications
-    private static final String APP_TEMPLATE_TOP_PATH = "/WEB-INF/templates/template-top.xhtml";
+    private static final String APP_TEMPLATE_PATH = "/WEB-INF/templates/template.xhtml"; // application template (left menu)
+    private static final String APP_TEMPLATE_TOP_PATH = "/WEB-INF/templates/template-top.xhtml"; //application template (top menu)
 
     private String template;
     private Boolean appTemplateExists;
