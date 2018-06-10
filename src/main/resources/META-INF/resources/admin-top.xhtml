@@ -132,17 +132,17 @@
                         <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb)}">
                             <ol class="breadcrumb" style="overflow: hidden;">
                                 <li style="position: relative;">
-                                    <p:link href="/" onclick="clearBreadCrumbs();" style="position: relative;">
+                                    <a href="#{request.contextPath}/" onclick="clearBreadCrumbs();" style="position: relative;">
                                         <i class="fa fa-home"></i>
                                         #{adm['label.home']}
-                                    </p:link>
+                                    </a>
                                 </li>
                                 <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
                                     <li class="#{status.last ? 'active':''}">
                                         <h:panelGroup rendered="#{status.last}">
                                             #{b.title}
                                         </h:panelGroup>
-                                        <p:link href="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC;position: relative">
+                                        <p:link outcome="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC;position: relative">
                                             #{b.title}
                                         </p:link>
                                     </li>
@@ -234,7 +234,7 @@
                                                 <div class="form-group">
                                                     <span class="control-sidebar-subheading">
                                                         <p:outputLabel id="control-sidebar-toggle-label" value="#{adm['controlsidebar.label.sidebar-slide']}" for="control-sidebar-toggle"/>
-                                                        <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="control-sidebar-toggle" styleClass="pull-right black" />
+                                                        <p:selectBooleanCheckbox  id="control-sidebar-toggle" styleClass="pull-right black" />
                                                     </span>
                                                     <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-slide']}"/></p>
                                                 </div>
