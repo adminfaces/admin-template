@@ -76,7 +76,7 @@ public class LayoutMB implements Serializable {
         try {
             appTemplateExists = Faces.getExternalContext().getResourceAsStream(APP_TEMPLATE_PATH) != null;
         } catch (Exception e) {
-            LOG.warning("Could not find application defined template (), failing back to default admin template.");
+            LOG.warning(String.format("Could not find application defined template in path '%s' due to following error: %s. Falling back to default admin template. See application template documentation for more details: https://github.com/adminfaces/admin-template#application-template", APP_TEMPLATE_PATH, e.getMessage()));
             appTemplateExists = false;
         }
 
