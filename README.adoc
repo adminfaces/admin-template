@@ -176,7 +176,125 @@ The above page definition renders as follows:
 
 image:template-example.png[]
 
-There are also other regions defined in admin.xhtml template, https://raw.githubusercontent.com/adminfaces/admin-template/master/admin-template-regions.png[see here^].
+There are also other regions defined in admin.xhtml template, https://github.com/adminfaces/admin-template/blob/master/src/main/resources/META-INF/resources/admin.xhtml[see here^].
+
+== Application template
+
+Instead of repeating sections like *menu*, *logo*, *head* and *footer* on every page we can create a template inside our application which uses `admin.xhtml` as template:
+
+./WEB-INF/templates/template.xhtml
+[source,html]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/admin.xhtml"> 
+
+    <ui:define name="head">
+            <title>Admin Starter</title>
+            <h:outputStylesheet library="css" name="starter.css"/>
+    </ui:define>
+
+    <ui:define name="logo-lg">
+        Admin Starter
+    </ui:define>
+
+    <ui:define name="logo-mini">
+        Admin
+    </ui:define>
+
+    <ui:define name="menu">
+        <ul class="sidebar-menu">
+            <li>
+                <p:link href="/index.xhtml" onclick="clearBreadCrumbs()">
+                    <i class="fa fa-home"></i>
+                    <span>Home</span>
+                </p:link>
+            </li>
+	        <li class="header">
+	            General
+	        </li>
+	        <li>
+	            <p:link href="/car-list.xhtml">
+	                <i class="fa fa-car"></i>
+	                <span>Cars</span>
+	            </p:link>
+	        </li>
+        </ul>
+     </ui:define>
+
+    <ui:define name="top-menu">
+        <ui:include src="/includes/top-bar.xhtml"/>
+    </ui:define>
+
+    <ui:define name="footer">
+        <a target="_blank"
+           href="https://github.com/adminfaces/">
+            Copyright (C) 2017 - AdminFaces
+        </a>
+
+        <div class="pull-right hidden-xs" style="color: gray">
+            <i>1.0.0</i>
+        </div>
+    </ui:define>
+
+</ui:composition>   
+----
+
+And now the page can just define its content and title:
+
+./webapp/mypage.xhtml
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template.xhtml"> 
+
+    <ui:define name="title">
+        A page title
+    </ui:define>
+
+    <ui:define name="description">
+        A page description
+    </ui:define>
+
+    <ui:define name="body">
+    	<h2>Page body</h2>
+    </ui:define>
+
+</ui:composition>   
+----
+
+
+=== Switching between *left menu* and *top menu* templates
+
+AdminFaces supports two layout modes, one is *left based menu* and the other is *top based menu*. 
+
+The user can change layout modes via <<Control Sidebar, control sidebar>> but to make it work you have to use *LayoutMB* to define page template:
+
+./webapp/mypage.xhtml
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="#{layoutMB.template}"> 
+
+<!-- page content -->
+
+</ui:composition> 
+----
+
+As a *convention over configuration* LayoutMB will load templates from the following locations:
+
+* `webapp/WEB-INF/templates/template.xhtml` for the `left menu` based template 
+* `webapp/WEB-INF/templates/template-top.xhtml` for horizontal menu layout.
+
+See admin-starer templates for a reference: https://github.com/adminfaces/admin-starter/tree/master/src/main/webapp/WEB-INF/templates
 
 == Configuration
 
@@ -189,44 +307,44 @@ Here are the default values as well as its description:
 admin.loginPage=login.xhtml <1>
 admin.indexPage=index.xhtml <2>
 admin.dateFormat= <3>
-admin.templatePath=admin.xhtml <4>
-admin.breadcrumbSize=5 <5>
-admin.renderMessages=true <6>
-admin.renderAjaxStatus=true <7>
-admin.disableFilter=false <8>
-admin.renderBreadCrumb=true <9>
-admin.enableSlideMenu=true <10>
-admin.enableRipple=true <11>
+admin.breadcrumbSize=5 <4>
+admin.renderMessages=true <5>
+admin.renderAjaxStatus=true <6>
+admin.disableFilter=false <7>
+admin.renderBreadCrumb=true <8>
+admin.enableSlideMenu=true <9>
+admin.enableRipple=true <10>
 admin.rippleElements= .ripplelink,button.ui-button,.ui-selectlistbox-item,.ui-multiselectlistbox-item,.ui-selectonemenu-label,.ui-selectcheckboxmenu,\
-.ui-autocomplete-dropdown, .ui-autocomplete-item ... (the list goes on) <12>
-admin.skin=skin-blue <13>
-admin.autoShowNavbar=true <14>
-admin.ignoredResources= <15>
-admin.loadingImage=ajaxloadingbar.gif <16>
-admin.extensionLessUrls=false <17>
+.ui-autocomplete-dropdown, .ui-autocomplete-item ... (the list goes on) <11>
+admin.skin=skin-blue <12>
+admin.autoShowNavbar=true <13>
+admin.ignoredResources= <14>
+admin.loadingImage=ajaxloadingbar.gif <15>
+admin.extensionLessUrls=false <16>
+admin.renderControlSidebar=false <17>
 
 
 ----
 <1> login page location (relative to webapp). It you only be used if you configure <<Admin Session>>.
 <2> index page location. User will be redirected to it when it access app root (contextPath/).
 <3> Date format used in error page (http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/500.xhtml[500.xhtml^]), by default it is JVM default format.
-<4> facelets template to be used on build in admin-template pages like 500.xhtml, 404.xhtml, viewexpired.xhtml, see <<Error Pages>>. By default it uses admin.xhtml but you can define any template (e.g one that extends admin.xhtml).
-<5> Number of breadcrumbs to queue before removing the older ones.
-<6> When false, p:messages defined in admin template will not be rendered.
-<7> When false ajaxStatus, which triggers the loading bar on every ajax request, will not be rendered.
-<8> Disables AdminFilter, responsible for redirecting user after session timeout, sending user to logon page when it is not logged in among other things.
-<9> When false, the breadCrumb component, declared in admin template, will not be rendered.
-<10> If true will make left menu touch enable (can be closed or opened via touch). Can be enable/disabled per page with <ui:param name="enableSlideMenu" value="false".
-<11> When true it will create a http://materializecss.com/waves.html#![wave/ripple effect^] on elements specified by `rippleElements`.
-<12> A list of comma separated list of (jquery) selector which elements will be affected by ripple effect.
-<13> Default template skin
-<14> Automatic shows navbar when users scrolls page up (on small screens). Can be enable/disabled per page with <ui:param name="autoShowNavbar" value="false".
-<15> Comma separated resources (pages or urls) to be skiped by AdminFilter. Ex: /rest,/pages/car-list.xhtml.
-<16> image used for the loading popup. It must be under `webapp/resources/images` folder.
-<17> Removes extension suffix from breadCrumb links.
+<4> Number of breadcrumbs to queue before removing the older ones.
+<5> When false, p:messages defined in admin template will not be rendered.
+<6> When false ajaxStatus, which triggers the loading bar on every ajax request, will not be rendered.
+<7> Disables AdminFilter, responsible for redirecting user after session timeout, sending user to logon page when it is not logged in among other things.
+<8> When false, the breadCrumb component, declared in admin template, will not be rendered.
+<9> If true will make left menu touch enable (can be closed or opened via touch). Can be enable/disabled per page with <ui:param name="enableSlideMenu" value="false".
+<10> When true it will create a http://materializecss.com/waves.html#![wave/ripple effect^] on elements specified by `rippleElements`.
+<11> A list of comma separated list of (jquery) selector which elements will be affected by ripple effect.
+<12> Default template skin
+<13> Automatic shows navbar when users scrolls page up (on small screens). Can be enable/disabled per page with <ui:param name="autoShowNavbar" value="false".
+<14> Comma separated resources (pages or urls) to be skiped by AdminFilter. Ex: /rest,/pages/car-list.xhtml.
+<15> image used for the loading popup. It must be under `webapp/resources/images` folder.
+<16> Removes extension suffix from breadCrumb links.
+<17> When true it will activate <<Control Sidebar, control sidebar>> component.
 
-IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need in order to change.
 
+IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need to change.
 
 == Admin Session
 
@@ -446,6 +564,7 @@ Don't forget to add it as `supported locale` in *faces-config*, see https://gith
 
 IMPORTANT: You can contribute your language locale to AdminFaces, https://github.com/adminfaces/admin-template/tree/master/src/main/resources[check here^] the current supported locales.  
 
+
 == Control Sidebar
 
 ControlSidebar is a component which provides a panel so user can `customize` the template layout:
@@ -470,7 +589,7 @@ And then add a link or button on your page which opens the sidebar. The link or 
 
 On admin-starter the link is located on https://github.com/adminfaces/admin-starter/blob/c8adbe5e692171b144b93292e14ea203b654a13b/src/main/webapp/includes/top-bar.xhtml#L58[top-bar.xhtml^]. 
 
-http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/pages/layout/controlsidebar.xhtml[Click here^] to see controlsidebar in action on admin showcase.
+{link-admin-showcase-openshift}/pages/layout/controlsidebar.xhtml[Click here^] to see controlsidebar in action on admin showcase.
 
 
 By default the control sidebar comes only with the configuration tab but you can define additional tabs by defining `controlsidebar-tabs` and `controlsidebar-content` on your template. An example can be found on https://github.com/adminfaces/admin-starter/blob/c8adbe5e692171b144b93292e14ea203b654a13b/src/main/webapp/WEB-INF/templates/template.xhtml#L38[admin-starter template^].  
