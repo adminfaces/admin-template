@@ -178,6 +178,13 @@ image:template-example.png[]
 
 There are also other regions defined in admin.xhtml template, https://github.com/adminfaces/admin-template/blob/master/src/main/resources/META-INF/resources/admin.xhtml[see here^].
 
+[TIP]
+====
+A good practice is to define a template on your application which extends the admin template, see https://github.com/adminfaces/admin-starter/blob/master/src/main/webapp/WEB-INF/templates/template.xhtml[admin-starter application template here^].
+
+So in your pages you use your template instead of admin.
+====
+
 == Application template
 
 Instead of repeating sections like *menu*, *logo*, *head* and *footer* on every page we can create a template inside our application which uses `admin.xhtml` as template:
@@ -267,7 +274,6 @@ And now the page can just define its content and title:
 
 </ui:composition>   
 ----
-
 
 === Switching between *left menu* and *top menu* templates
 
