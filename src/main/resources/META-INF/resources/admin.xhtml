@@ -95,9 +95,11 @@
                                     <h:panelGroup rendered="#{status.last}">
                                         #{b.title}
                                     </h:panelGroup>
-                                    <p:link outcome="#{b.link}" rendered="#{not status.last}" style="color: #3C8DBC;position: relative">
-                                        #{b.title}
-                                    </p:link>
+                                    <h:panelGroup rendered="#{not status.last}">
+	                                    <a href="#{request.contextPath.concat(b.link)}" style="color: #3C8DBC;position: relative">
+	                                        #{b.title}
+	                                    </a>
+                                    </h:panelGroup>
                                 </li>
                             </ui:repeat>
                         </ol>
