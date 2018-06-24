@@ -45,7 +45,7 @@ public class AdminFilter implements Filter {
     @Inject
     AdminConfig adminConfig;
 
-    private List<String> ignoredResources = new ArrayList<>();
+    private final List<String> ignoredResources = new ArrayList<>();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -94,6 +94,7 @@ public class AdminFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
+        
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         HttpServletRequest request = (HttpServletRequest) req;
@@ -106,11 +107,11 @@ public class AdminFilter implements Filter {
             return;
         }
 
+        //skips public pages
         if (request.getRequestURI().contains(request.getContextPath() + "/public/")) {
             chain.doFilter(req, resp);
             return;
         }
-
 
         if (skipResource(request, response) || adminSession.isLoggedIn()) {
             if (!adminSession.isUserRedirected() && adminSession.isLoggedIn() && has(request.getHeader("Referer")) && request.getHeader("Referer").contains("?page=")) {
