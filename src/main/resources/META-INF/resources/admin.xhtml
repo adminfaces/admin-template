@@ -534,6 +534,7 @@
         <h:outputScript library="js" name="slideout.min.js" target="head" rendered="#{adminConfig.enableSlideMenu and (empty enableSlideMenu or enableSlideMenu)}"/>
         <h:outputScript library="js" name="adminslide.js" target="head" rendered="#{adminConfig.enableSlideMenu and (empty enableSlideMenu or enableSlideMenu)}"/>
         <h:outputScript library="js" name="control-sidebar.js" target="head" rendered="#{adminConfig.renderControlSidebar and (empty renderControlSidebar or renderControlSidebar)}"/>
+        <h:outputScript library="js" name="slimscroll.min.js" target="head"/> 
         <ui:fragment rendered="#{not adminConfig.enableSlideMenu or (not empty enableSlideMenu and enableSlideMenu eq 'false')}">
             <script type="text/javascript">
                 $(document).ready(function () {
