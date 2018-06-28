@@ -589,6 +589,7 @@ admin.renderControlSidebar=true
 
 And then add a link or button on your page which opens the sidebar. The link or button must use `data-toggle` attribute:
 
+----
   <a href="#" id="layout-setup" data-toggle="control-sidebar" class="hidden-sm hidden-xs"><i class="fa fa-gears"></i></a>
 ----
 
