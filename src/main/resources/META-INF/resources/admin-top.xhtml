@@ -176,7 +176,7 @@
                     <ui:fragment rendered="#{adminConfig.renderControlSidebar and (empty renderControlSidebar or renderControlSidebar)}" >
                         <h:form prependId="false">
                             <!-- controlsidebar component, can't be a composite component because of multiple ui:insert and can't be an external xhtml because myfaces will not propagete ui:params and child pages will not be able to define inserted regions -->
-                            <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}>
+                            <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}">
                                 <p:commandLink  id="link-toggle-layout" action="#{layoutMB.toggleTemplate}" ajax="false" style="visibility: hidden"/>
                                 <ui:insert name="before-controlsidebar-content"/>
                                 <aside class="control-sidebar control-sidebar-dark">
