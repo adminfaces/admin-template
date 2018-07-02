@@ -144,8 +144,8 @@
             <ui:fragment rendered="#{adminConfig.renderControlSidebar and (empty renderControlSidebar or renderControlSidebar)}" >
                 <h:form prependId="false">
                     <!-- controlsidebar component, can't be a composite component because of multiple ui:insert and can't be an external xhtml because myfaces will not propagete ui:params and child pages will not be able to define inserted regions -->
-                    <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="hidden-sm hidden-xs">
-                        <p:commandLink  id="link-toggle-layout" action="#{layoutMB.toggleTemplate}" ajax="false" style="visibility: hidden"/>
+                    <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}">
+                        <p:commandLink id="link-toggle-layout" action="#{layoutMB.toggleTemplate}" ajax="false" style="visibility: hidden"/>
                         <ui:insert name="before-controlsidebar-content"/>
                         <aside class="control-sidebar control-sidebar-dark">
                             <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
@@ -164,7 +164,7 @@
                                         <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="toggle-menu-layout-label" value="#{adm['controlsidebar.label.menu-horientation']}" for="toggle-menu-layout"/>
-                                                <p:selectBooleanCheckbox value="#{layoutMB.defaultTemplateSelected}" id="toggle-menu-layout" styleClass="pull-right black" >
+                                                <p:selectBooleanCheckbox value="#{layoutMB.leftMenuTemplate}" id="toggle-menu-layout" styleClass="pull-right black" widgetVar="toggleLayout">
                                                     <p:ajax process="@none" update="@none" global="false" oncomplete="$('a[id$=link-toggle-layout]').click()" />
                                                 </p:selectBooleanCheckbox>    
                                             </span>
@@ -174,7 +174,7 @@
                                         <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="fixed-layout-label" value="#{adm['controlsidebar.label.fixed-layout']}" for="fixed-layout"/>
-                                                <p:selectBooleanCheckbox id="fixed-layout" styleClass="pull-right black" />
+                                                <p:selectBooleanCheckbox id="fixed-layout" styleClass="pull-right black"/>
                                             </span>
                                             <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.fixed-layout']}"/></p>
                                         </div>
@@ -534,7 +534,6 @@
         <h:outputScript library="js" name="slideout.min.js" target="head" rendered="#{adminConfig.enableSlideMenu and (empty enableSlideMenu or enableSlideMenu)}"/>
         <h:outputScript library="js" name="adminslide.js" target="head" rendered="#{adminConfig.enableSlideMenu and (empty enableSlideMenu or enableSlideMenu)}"/>
         <h:outputScript library="js" name="control-sidebar.js" target="head" rendered="#{adminConfig.renderControlSidebar and (empty renderControlSidebar or renderControlSidebar)}"/>
-        <h:outputScript library="js" name="slimscroll.min.js" target="head"/> 
         <ui:fragment rendered="#{not adminConfig.enableSlideMenu or (not empty enableSlideMenu and enableSlideMenu eq 'false')}">
             <script type="text/javascript">
                 $(document).ready(function () {

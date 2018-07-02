@@ -3,6 +3,7 @@ package com.github.adminfaces.template.config;
 
 import static com.github.adminfaces.template.util.Assert.has;
 import com.github.adminfaces.template.util.Constants;
+import java.io.IOException;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -16,6 +17,8 @@ import java.util.logging.Logger;
 
 
 /**
+ * Holds global application configuration 
+ * 
  * Created by rafael-pestano on 22/11/16.
  */
 @Named
@@ -44,7 +47,9 @@ public class AdminConfig implements Serializable {
     private String ignoredResources;//comma separated resources (pages or urls) to be ignored in AdminFilter
     private String loadingImage;
     private boolean renderControlSidebar;
-
+    private boolean leftMenuTemplate;
+    private String pageSuffix;
+    private ControlSidebarConfig controlSidebar;
 
     @PostConstruct
     public void init() {
@@ -53,13 +58,13 @@ public class AdminConfig implements Serializable {
         userConfigFile = new Properties();
         try (InputStream is = cl.getResourceAsStream(("admin-config.properties"))) {
             userConfigFile.load(is);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             log.log(Level.WARNING,"Could not load user defined admin template properties. Falling back to default properties.");
         }
 
         try (InputStream isDefault = cl.getResourceAsStream(("config/admin-config.properties"))) {
             adminConfigFile.load(isDefault);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             log.log(Level.SEVERE,"Could not load admin template default properties.", ex);
         }
 
@@ -88,17 +93,41 @@ public class AdminConfig implements Serializable {
         ignoredResources =  getProperty("admin.ignoredResources");
         loadingImage =  getProperty("admin.loadingImage");
         renderControlSidebar =  Boolean.parseBoolean(getProperty("admin.renderControlSidebar"));
+        leftMenuTemplate = Boolean.parseBoolean(getProperty("admin.controlSidebar.leftMenuTemplate"));
+        
+        boolean controlSidebarShowOnMobile = Boolean.parseBoolean(getProperty("admin.controlSidebar.showOnMobile"));
+        controlSidebar = new ControlSidebarConfig(controlSidebarShowOnMobile);
     }
 
+    /**
+     * Looks for the property into user defined admin-config.properties then if not found looks into System property.
+     * If none is found defaults to admin-config.properties provided within admin-template
+     * @param property name
+     * @return 
+     */
     private String getProperty(String property) {
-        return has(userConfigFile.getProperty(property)) ? userConfigFile.getProperty(property) : adminConfigFile.getProperty(property);
+        return has(userConfigFile.getProperty(property)) ? userConfigFile.getProperty(property) : 
+               has(System.getProperty(property)) ? System.getProperty(property) : adminConfigFile.getProperty(property);
     }
     
+    /**
+     * infer page suffix from index and login page configured in admin-config.properties
+     * 
+     * If none is configured then use default suffix: 'xhtml'.
+     */
     public String getPageSufix() {
-          if(!has(indexPage)) {
-            return Constants.DEFAULT_PAGE_FORMAT;
+        if(has(pageSuffix)) {
+            return pageSuffix;
         }
-        return indexPage.substring(indexPage.lastIndexOf('.')+1);
+        if(!has(indexPage) && !has(loginPage)) {
+            pageSuffix = Constants.DEFAULT_PAGE_FORMAT;
+        }
+        if(has(indexPage)) {
+            pageSuffix = indexPage.substring(indexPage.lastIndexOf('.')+1);
+        } else {
+            pageSuffix = indexPage.substring(loginPage.lastIndexOf('.')+1);
+        }
+        return pageSuffix;
     }
 
 
@@ -133,6 +162,24 @@ public class AdminConfig implements Serializable {
     public void setDisableFilter(boolean disableFilter) {
         this.disableFilter = disableFilter;
     }
+
+    public boolean isLeftMenuTemplate() {
+        return leftMenuTemplate;
+    }
+
+    public void setLeftMenuTemplate(boolean leftMenuTemplate) {
+        this.leftMenuTemplate = leftMenuTemplate;
+    }
+
+  
+    public ControlSidebarConfig getControlSidebar() {
+        return controlSidebar;
+    }
+
+    public void setControlSidebar(ControlSidebarConfig controlSidebarConfig) {
+        this.controlSidebar = controlSidebarConfig;
+    }
+    
 
     @Deprecated
     /**
