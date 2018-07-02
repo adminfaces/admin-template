@@ -94,7 +94,6 @@ public class AdminFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
-        
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         HttpServletRequest request = (HttpServletRequest) req;
@@ -107,7 +106,6 @@ public class AdminFilter implements Filter {
             return;
         }
 
-        //skips public pages
         if (request.getRequestURI().contains(request.getContextPath() + "/public/")) {
             chain.doFilter(req, resp);
             return;
@@ -162,7 +160,7 @@ public class AdminFilter implements Filter {
     private void redirectToLogon(HttpServletRequest request, HttpServletResponse response) {
         try {
             String referer = request.getHeader("Referer");
-            String recoveryUrlParams = "";
+            String recoveryUrlParams;
             //get request parameters
             if (has(referer) && referer.contains("?")) {
                 recoveryUrlParams = referer.substring(referer.lastIndexOf("?") + 1);
@@ -203,8 +201,16 @@ public class AdminFilter implements Filter {
 
     }
 
+    /**
+     * Skip error pages, login and index page as recovery url because it doesn't make sense redirecting user to such pages
+     * @param recoveryUrl
+     * @return 
+     */
     private boolean isValidRecoveryUrl(StringBuilder recoveryUrl) {
-        return !recoveryUrl.toString().contains(indexPage) && !recoveryUrl.toString().contains(Constants.ACCESS_DENIED_PAGE);
+        String pageSuffix = adminConfig.getPageSufix();
+        return !recoveryUrl.toString().contains(Constants.DEFAULT_INDEX_PAGE.replace("xhtml", pageSuffix)) && !recoveryUrl.toString().contains(Constants.DEFAULT_ACCESS_DENIED_PAGE.replace("xhtml", adminConfig.getPageSufix())) 
+                && !recoveryUrl.toString().contains(Constants.DEFAULT_EXPIRED_PAGE.replace("xhtml", pageSuffix)) && !recoveryUrl.toString().contains(Constants.DEFAULT_OPTIMISTIC_PAGE.replace("xhtml", adminConfig.getPageSufix()))
+                && !recoveryUrl.toString().contains(Constants.DEFAULT_LOGIN_PAGE.replace("xhtml", adminConfig.getPageSufix()));
     }
 
 }
