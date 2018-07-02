@@ -575,7 +575,7 @@ IMPORTANT: You can contribute your language locale to AdminFaces, https://github
 
 ControlSidebar is a component which provides a panel so user can `customize` the template layout:
 
-image::controlsidebar.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/controlsidebar.png[]
 
 Options selected by user are stored on `browser local storage` so they are remembered no matter the user logs off the application.
 
