@@ -1,10 +1,12 @@
 package com.github.adminfaces.template.bean;
 
+import com.github.adminfaces.template.config.AdminConfig;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import org.omnifaces.util.Faces;
 
 /**
@@ -16,29 +18,42 @@ public class LayoutMB implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(LayoutMB.class.getName());
     private static final String DEFAULT_TEMPLATE = "/admin.xhtml"; //template bundled in admin-template 
+    private static final String TEMPLATE_TOP = "/admin-top.xhtml"; //template bundled in admin-template 
     private static final String APP_TEMPLATE_PATH = "/WEB-INF/templates/template.xhtml"; // application template (left menu)
     private static final String APP_TEMPLATE_TOP_PATH = "/WEB-INF/templates/template-top.xhtml"; //application template (top menu)
 
     private String template;
     private Boolean appTemplateExists;
+    private Boolean leftMenuTemplate; 
 
-    private boolean defaultTemplateSelected;
+    @Inject
+    protected AdminConfig adminConfig;
 
     @PostConstruct
     public void init() {
-        setDefaultTemplate();
+        if (adminConfig.isLeftMenuTemplate()) {
+            setDefaultTemplate();
+        } else {
+            setTemplateTop();
+        }
     }
 
     public String getTemplate() {
         return template;
     }
 
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
     public void setTemplateTop() {
-         if (appTemplateExists()) {
+        if (appTemplateExists()) {
             template = APP_TEMPLATE_TOP_PATH;
+            
         } else {
-            template = DEFAULT_TEMPLATE;
+            template = TEMPLATE_TOP;
         }
+        leftMenuTemplate = false;
     }
 
     public void setDefaultTemplate() {
@@ -47,6 +62,15 @@ public class LayoutMB implements Serializable {
         } else {
             template = DEFAULT_TEMPLATE;
         }
+        leftMenuTemplate = true;
+    }
+
+    public Boolean getLeftMenuTemplate() {
+        return leftMenuTemplate;
+    }
+
+    public void setLeftMenuTemplate(Boolean leftMenuTemplate) {
+        this.leftMenuTemplate = leftMenuTemplate;
     }
 
     public void toggleTemplate() {
@@ -59,14 +83,6 @@ public class LayoutMB implements Serializable {
 
     public boolean isDefaultTemplate() {
         return template != null && (template.endsWith("template.xhtml") || template.equals("admin.xhtml"));
-    }
-
-    public boolean isDefaultTemplateSelected() {
-        return isDefaultTemplate();
-    }
-
-    public void setDefaultTemplateSelected(boolean defaultTemplateSelected) {
-        this.defaultTemplateSelected = defaultTemplateSelected;
     }
 
     private boolean appTemplateExists() {
