@@ -566,6 +566,14 @@
                 });
             </script>
         </ui:fragment>
+        
+         <ui:fragment rendered="#{not empty skin}">
+             <script type="text/javascript">
+               $(document).ready(function () {
+                   store('layout.skin',null);
+                });
+             </script>
+        </ui:fragment>
 
 
     </h:body>
