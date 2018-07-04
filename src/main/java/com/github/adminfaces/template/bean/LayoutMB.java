@@ -25,6 +25,7 @@ public class LayoutMB implements Serializable {
     private String template;
     private Boolean appTemplateExists;
     private Boolean leftMenuTemplate; 
+    private Boolean fixedLayout;
 
     @Inject
     protected AdminConfig adminConfig;
@@ -36,6 +37,8 @@ public class LayoutMB implements Serializable {
         } else {
             setTemplateTop();
         }
+        
+        this.fixedLayout = adminConfig.getControlSidebar().getFixedLayout();
     }
 
     public String getTemplate() {
@@ -73,12 +76,25 @@ public class LayoutMB implements Serializable {
         this.leftMenuTemplate = leftMenuTemplate;
     }
 
+    public Boolean getFixedLayout() {
+        return fixedLayout;
+    }
+
+    public void setFixedLayout(Boolean fixedLayout) {
+        this.fixedLayout = fixedLayout;
+    }
+    
+
     public void toggleTemplate() {
         if (isDefaultTemplate()) {
             setTemplateTop();
         } else {
             setDefaultTemplate();
         }
+    }
+    
+    public void toggleFixedLayout() {
+        this.fixedLayout = !fixedLayout;
     }
 
     public boolean isDefaultTemplate() {

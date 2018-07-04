@@ -32,13 +32,20 @@ import java.io.Serializable;
 public class ControlSidebarConfig implements Serializable {
     
     private Boolean showOnMobile;
+    private Boolean fixedLayout;
 
-    public ControlSidebarConfig(Boolean showOnMobile) {
-        this.showOnMobile = showOnMobile;
+
+    public ControlSidebarConfig(boolean showOnMobile, boolean fixedLayout) {
+         this.showOnMobile = showOnMobile;
+         this.fixedLayout =fixedLayout;
     }
 
     public Boolean getShowOnMobile() {
         return showOnMobile;
+    }
+
+    public Boolean getFixedLayout() {
+        return fixedLayout;
     }
     
     

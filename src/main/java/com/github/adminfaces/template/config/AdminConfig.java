@@ -48,8 +48,9 @@ public class AdminConfig implements Serializable {
     private String loadingImage;
     private boolean renderControlSidebar;
     private boolean leftMenuTemplate;
-    private String pageSuffix;
+    //controlsidebar
     private ControlSidebarConfig controlSidebar;
+    private String pageSuffix;
 
     @PostConstruct
     public void init() {
@@ -96,7 +97,8 @@ public class AdminConfig implements Serializable {
         leftMenuTemplate = Boolean.parseBoolean(getProperty("admin.controlSidebar.leftMenuTemplate"));
         
         boolean controlSidebarShowOnMobile = Boolean.parseBoolean(getProperty("admin.controlSidebar.showOnMobile"));
-        controlSidebar = new ControlSidebarConfig(controlSidebarShowOnMobile);
+        boolean fixedLayout = Boolean.parseBoolean(getProperty("admin.controlSidebar.fixedLayout"));
+        controlSidebar = new ControlSidebarConfig(controlSidebarShowOnMobile,fixedLayout);
     }
 
     /**

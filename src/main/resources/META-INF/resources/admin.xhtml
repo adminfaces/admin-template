@@ -142,8 +142,8 @@
 
             <ui:insert name="wrapper-end"/>
             <ui:fragment rendered="#{adminConfig.renderControlSidebar and (empty renderControlSidebar or renderControlSidebar)}" >
+                <!-- controlsidebar component, can't be a composite component because of multiple ui:insert and can't be an external xhtml because myfaces will not propagete ui:params and child pages will not be able to define inserted regions -->
                 <h:form prependId="false">
-                    <!-- controlsidebar component, can't be a composite component because of multiple ui:insert and can't be an external xhtml because myfaces will not propagete ui:params and child pages will not be able to define inserted regions -->
                     <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}">
                         <p:commandLink id="link-toggle-layout" action="#{layoutMB.toggleTemplate}" ajax="false" style="visibility: hidden"/>
                         <ui:insert name="before-controlsidebar-content"/>
@@ -174,7 +174,9 @@
                                         <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="fixed-layout-label" value="#{adm['controlsidebar.label.fixed-layout']}" for="fixed-layout"/>
-                                                <p:selectBooleanCheckbox id="fixed-layout" styleClass="pull-right black"/>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.fixedLayout}" id="fixed-layout" widgetVar="fixedLayout" styleClass="pull-right black">
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleFixedLayout()}" partialSubmit="true"/>
+                                                </p:selectBooleanCheckbox>    
                                             </span>
                                             <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.fixed-layout']}"/></p>
                                         </div>
