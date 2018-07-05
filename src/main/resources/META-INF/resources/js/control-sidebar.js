@@ -160,6 +160,15 @@ $(function () {
     
     function updateTemplate() {
         var isDefaultTemplate = PF('toggleLayout').input.is(':checked');
+        if(isDefaultTemplate === true || isDefaultTemplate === "true") {
+            if($('body').hasClass('layout-top-nav')) {
+                $('body').removeClass('layout-top-nav');
+            }
+        } else {
+            if(!$('body').hasClass('layout-top-nav')) {
+                $('body').addClass('layout-top-nav');
+            }
+        }
         store('layout.default-template',isDefaultTemplate);
     }
     
@@ -199,7 +208,6 @@ $(function () {
         updateSidebarSkin(sidebarSkin);
 
         updateSidebarToggle(get('layout.sidebar-control-open'));
-
 
 
         var boxedLayout = get('layout.boxed');

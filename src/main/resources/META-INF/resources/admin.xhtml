@@ -145,7 +145,6 @@
                 <!-- controlsidebar component, can't be a composite component because of multiple ui:insert and can't be an external xhtml because myfaces will not propagete ui:params and child pages will not be able to define inserted regions -->
                 <h:form prependId="false">
                     <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}">
-                        <p:commandLink id="link-toggle-layout" action="#{layoutMB.toggleTemplate}" ajax="false" style="visibility: hidden"/>
                         <ui:insert name="before-controlsidebar-content"/>
                         <aside class="control-sidebar control-sidebar-dark">
                             <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
@@ -165,8 +164,9 @@
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="toggle-menu-layout-label" value="#{adm['controlsidebar.label.menu-horientation']}" for="toggle-menu-layout"/>
                                                 <p:selectBooleanCheckbox value="#{layoutMB.leftMenuTemplate}" id="toggle-menu-layout" styleClass="pull-right black" widgetVar="toggleLayout">
-                                                    <p:ajax process="@none" update="@none" global="false" oncomplete="$('a[id$=link-toggle-layout]').click()" />
-                                                </p:selectBooleanCheckbox>    
+                                                    <p:ajax update="@none" global="false" oncomplete="updateTemplate()"/>
+                                                </p:selectBooleanCheckbox> 
+                                                <p:remoteCommand name="updateTemplate" action="#{layoutMB.toggleTemplate}" process="@this" update="@none" global="false" oncomplete="window.location.reload()"/>  
                                             </span>
                                             <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.menu-horientation']}"/></p>
                                         </div>
