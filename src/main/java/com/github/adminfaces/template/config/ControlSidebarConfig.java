@@ -31,13 +31,15 @@ import java.io.Serializable;
  */
 public class ControlSidebarConfig implements Serializable {
     
-    private Boolean showOnMobile;
-    private Boolean fixedLayout;
+    private final Boolean showOnMobile;
+    private final Boolean fixedLayout;
+    private final Boolean boxedLayout;
 
 
-    public ControlSidebarConfig(boolean showOnMobile, boolean fixedLayout) {
+    public ControlSidebarConfig(boolean showOnMobile, boolean fixedLayout, boolean boxedLayout) {
          this.showOnMobile = showOnMobile;
          this.fixedLayout =fixedLayout;
+         this.boxedLayout = boxedLayout;
     }
 
     public Boolean getShowOnMobile() {
@@ -46,6 +48,10 @@ public class ControlSidebarConfig implements Serializable {
 
     public Boolean getFixedLayout() {
         return fixedLayout;
+    }
+
+    public Boolean getBoxedLayout() {
+        return boxedLayout;
     }
     
     

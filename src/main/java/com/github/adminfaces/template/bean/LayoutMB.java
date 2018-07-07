@@ -1,6 +1,7 @@
 package com.github.adminfaces.template.bean;
 
 import com.github.adminfaces.template.config.AdminConfig;
+import com.github.adminfaces.template.config.ControlSidebarConfig;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -26,6 +27,7 @@ public class LayoutMB implements Serializable {
     private Boolean appTemplateExists;
     private Boolean leftMenuTemplate; 
     private Boolean fixedLayout;
+    private Boolean boxedLayout;
 
     @Inject
     protected AdminConfig adminConfig;
@@ -38,7 +40,10 @@ public class LayoutMB implements Serializable {
             setTemplateTop();
         }
         
-        this.fixedLayout = adminConfig.getControlSidebar().getFixedLayout();
+        ControlSidebarConfig controlSidebarConfig = adminConfig.getControlSidebar();
+        
+        this.fixedLayout = controlSidebarConfig.getFixedLayout();
+        this.boxedLayout = controlSidebarConfig.getBoxedLayout();
     }
 
     public String getTemplate() {
@@ -83,6 +88,15 @@ public class LayoutMB implements Serializable {
     public void setFixedLayout(Boolean fixedLayout) {
         this.fixedLayout = fixedLayout;
     }
+
+    public Boolean getBoxedLayout() {
+        return boxedLayout;
+    }
+
+    public void setBoxedLayout(Boolean boxedLayout) {
+        this.boxedLayout = boxedLayout;
+    }
+    
     
 
     public void toggleTemplate() {
@@ -95,6 +109,10 @@ public class LayoutMB implements Serializable {
     
     public void toggleFixedLayout() {
         this.fixedLayout = !fixedLayout;
+    }
+    
+    public void toggleBoxedLayout() {
+        this.boxedLayout = !boxedLayout;
     }
 
     public boolean isDefaultTemplate() {

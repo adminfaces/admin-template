@@ -216,7 +216,9 @@
                                                 <div class="form-group">
                                                     <span class="control-sidebar-subheading">
                                                         <p:outputLabel id="boxed-layout-label" value="#{adm['controlsidebar.label.boxed-layout']}" for="boxed-layout"/>
-                                                        <p:selectBooleanCheckbox id="boxed-layout" styleClass="pull-right black" />
+                                                        <p:selectBooleanCheckbox value="#{layoutMB.boxedLayout}" id="boxed-layout" widgetVar="boxedLayout" styleClass="pull-right black" >
+                                                              <p:ajax update="@none" global="false" listener="#{layoutMB.toggleBoxedLayout()}" partialSubmit="true"/>
+                                                        </p:selectBooleanCheckbox>    
                                                     </span>
                                                     <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.boxed-layout']}"/></p>
                                                 </div>

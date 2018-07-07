@@ -40,47 +40,55 @@ $(function () {
     }
 
     function updateBoxedLayout(boxedLayout) {
-        var boxedLayoutCkbox = $('#boxed-layout span.ui-chkbox-icon');
-        
-        if(isMobile()) {
-            boxedLayoutCkbox.addClass('ui-state-disabled');
-            $('#boxed-layout, #boxed-layout-label').addClass('ui-state-disabled');
+        if (isMobile()) { //boxed layout is not compatible with mobile screens neither fixed layout
+            disableControlSidebarOption('#boxed-layout');
             store('layout.boxed', false);
-        }
-        
+        } 
+
         if (boxedLayout === true || boxedLayout === 'true') {
-            boxedLayoutCkbox.addClass('ui-icon-check');
-            boxedLayoutCkbox.removeClass('ui-icon-blank');
-            boxedLayoutCkbox.parent().addClass('ui-state-active');
-            $('body').addClass('layout-boxed');
+            if (!$('body').hasClass('layout-boxed')) {
+                $('body').addClass('layout-boxed');
+            }
+            if (!PF('boxedLayout').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
+                PF('boxedLayout').toggle();
+            }
+            
+            enableControlSidebarOption('#boxed-layout');
+            disableControlSidebarOption('#fixed-layout');
         } else {
-            boxedLayoutCkbox.addClass('ui-icon-blank');
-            boxedLayoutCkbox.removeClass('ui-icon-check');
-            boxedLayoutCkbox.parent().removeClass('ui-state-active');
-            $('body').removeClass('layout-boxed')
+            enableControlSidebarOption('#fixed-layout');
+            if ($('body').hasClass('layout-boxed')) {
+                $('body').removeClass('layout-boxed');
+            }
+            if (PF('boxedLayout').input.is(':checked')) {//update input when value comes from local storage
+                PF('boxedLayout').toggle();
+            }
         }
         store('layout.boxed', boxedLayout);
 
     }
 
     function updateFixedLayout(fixedLayout) {
-        if(isMobile()) { //fixed layout not compatible with small screens (admin-template already has behaviour for navbar when on mobile)
-            $('#fixed-layout, #fixed-layout span.ui-chkbox-icon, #fixed-layout-label').addClass('ui-state-disabled');
+        if (isMobile()) { //fixed layout not compatible with small screens (admin-template already has behaviour for navbar when on mobile) neither boxed layout
+            disableControlSidebarOption('#fixed-layout');
             store('layout.fixed', false);
             return;
-        }
+        }  
         if (fixedLayout === true || fixedLayout === 'true') {
-            if(!$('body').hasClass('fixed')) {
+            if (!$('body').hasClass('fixed')) {
                 $('body').addClass('fixed');
             }
-            if(!PF('fixedLayout').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
+            if (!PF('fixedLayout').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
                 PF('fixedLayout').toggle();
             }
+            enableControlSidebarOption('#fixed-layout');
+            disableControlSidebarOption('#boxed-layout');
         } else {
-            if($('body').hasClass('fixed')) {
+            enableControlSidebarOption('#boxed-layout');
+            if ($('body').hasClass('fixed')) {
                 $('body').removeClass('fixed');
             }
-            if(PF('fixedLayout').input.is(':checked')) {//update input when value comes from local storage
+            if (PF('fixedLayout').input.is(':checked')) {//update input when value comes from local storage
                 PF('fixedLayout').toggle();
             }
         }
@@ -191,6 +199,15 @@ $(function () {
          
     }
 
+    function disableControlSidebarOption(id) {
+        var optionSelector = id.concat(", ").concat(id).concat(" span.ui-chkbox-icon, ").concat(id).concat("-label");
+        $(optionSelector).addClass('ui-state-disabled');
+    }
+    
+    function enableControlSidebarOption(id) {
+        var optionSelector = id.concat(" ,").concat(id).concat(" span.ui-chkbox-icon, ").concat(id).concat("-label");
+        $(optionSelector).removeClass('ui-state-disabled');
+    }
 
     /**
      * Retrieve stored settings and apply them to the template
@@ -212,18 +229,19 @@ $(function () {
 
         var boxedLayout = get('layout.boxed');
 
-        if (!boxedLayout) {
-            boxedLayout = false;
-        }
-
+        if(boxedLayout === null) {
+            boxedLayout = PF('boxedLayout').input.is(':checked');
+        }  
+        
         updateBoxedLayout(boxedLayout);
 
         var fixedLayout = get('layout.fixed');
         
+        
         if(fixedLayout === null) {
             fixedLayout = PF('fixedLayout').input.is(':checked');
-        }  
-
+        }
+        
         updateFixedLayout(fixedLayout);
 
         loadSidebarExpand();
@@ -244,8 +262,8 @@ $(function () {
         $('#boxed-layout .ui-chkbox-box, #boxed-layout-label').on('click', function () {
             var boxedLayout = !$('body').hasClass('layout-boxed');
             setTimeout(function () {
-                changeLayout('layout-boxed');
                 updateBoxedLayout(boxedLayout);
+                updateFixedLayout(get('layout.fixed'));
             }, 20);
         });
 
@@ -253,6 +271,7 @@ $(function () {
             var fixedLayout = !$('body').hasClass('fixed');
             setTimeout(function () {
                 updateFixedLayout(fixedLayout);
+                updateBoxedLayout(get('layout.boxed'));
             }, 20);
         });
 
