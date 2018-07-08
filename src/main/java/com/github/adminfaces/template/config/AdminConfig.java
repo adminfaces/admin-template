@@ -103,14 +103,17 @@ public class AdminConfig implements Serializable {
     }
 
     /**
-     * Looks for the property into user defined admin-config.properties then if not found looks into System property.
-     * If none is found defaults to admin-config.properties provided within admin-template
+     * First tries to load the property from java system properties 
+     * secondly looks for the property into user defined admin-config.properties then if
+     * not found load defaults from admin-config.properties provided within admin-template
+     *
      * @param property name
-     * @return 
+     * @return
      */
     private String getProperty(String property) {
-        return has(userConfigFile.getProperty(property)) ? userConfigFile.getProperty(property) : 
-               has(System.getProperty(property)) ? System.getProperty(property) : adminConfigFile.getProperty(property);
+        return has(System.getProperty(property)) ? System.getProperty(property)
+                : has(userConfigFile.getProperty(property)) ? userConfigFile.getProperty(property)
+                : adminConfigFile.getProperty(property);
     }
     
     /**
@@ -132,7 +135,10 @@ public class AdminConfig implements Serializable {
         }
         return pageSuffix;
     }
-
+    
+    public void restoreDefaults() {
+        loadDefaults();
+    }
 
     public String getLoginPage() {
         return loginPage;
