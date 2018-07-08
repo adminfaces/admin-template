@@ -116,22 +116,6 @@ $(function () {
 
     }
 
-    function loadSidebarExpand(expandOnHover) {
-        
-        if(isMobile() || $('body').hasClass('layout-top-nav')) {
-            disableControlSidebarOption('#sidebar-expand-hover');
-            store('layout.sidebar-expand-hover', false);
-            return;
-        }
-        
-        if (expandOnHover === true || expandOnHover === 'true') {
-            PF('sidebarExpand').input.click();
-            $pushMenu.expandOnHover();
-            collapseSidebar();
-            return;
-        }
-    }
-
     function updateSidebarExpand(expandOnHover) {
         if(isMobile() || $('body').hasClass('layout-top-nav')) {
             disableControlSidebarOption('#sidebar-expand-hover');
