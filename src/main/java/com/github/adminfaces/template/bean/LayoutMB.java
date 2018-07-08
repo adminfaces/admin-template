@@ -28,6 +28,7 @@ public class LayoutMB implements Serializable {
     private Boolean leftMenuTemplate; 
     private Boolean fixedLayout;
     private Boolean boxedLayout;
+    private Boolean expandOnHover;
 
     @Inject
     protected AdminConfig adminConfig;
@@ -41,9 +42,9 @@ public class LayoutMB implements Serializable {
         }
         
         ControlSidebarConfig controlSidebarConfig = adminConfig.getControlSidebar();
-        
         this.fixedLayout = controlSidebarConfig.getFixedLayout();
         this.boxedLayout = controlSidebarConfig.getBoxedLayout();
+        this.expandOnHover = controlSidebarConfig.getExpandOnHover();
     }
 
     public String getTemplate() {
@@ -96,7 +97,14 @@ public class LayoutMB implements Serializable {
     public void setBoxedLayout(Boolean boxedLayout) {
         this.boxedLayout = boxedLayout;
     }
-    
+
+    public Boolean getExpandOnHover() {
+        return expandOnHover;
+    }
+
+    public void setExpandOnHover(Boolean expandOnHover) {
+        this.expandOnHover = expandOnHover;
+    }
     
 
     public void toggleTemplate() {
@@ -113,6 +121,10 @@ public class LayoutMB implements Serializable {
     
     public void toggleBoxedLayout() {
         this.boxedLayout = !boxedLayout;
+    }
+    
+    public void toggleExpandOnHover() {
+        this.expandOnHover = !expandOnHover;
     }
 
     public boolean isDefaultTemplate() {
