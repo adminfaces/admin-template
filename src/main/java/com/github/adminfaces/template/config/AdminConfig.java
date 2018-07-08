@@ -99,7 +99,8 @@ public class AdminConfig implements Serializable {
         boolean controlSidebarShowOnMobile = Boolean.parseBoolean(getProperty("admin.controlSidebar.showOnMobile"));
         boolean fixedLayout = Boolean.parseBoolean(getProperty("admin.controlSidebar.fixedLayout"));
         boolean boxedLayout = Boolean.parseBoolean(getProperty("admin.controlSidebar.boxedLayout"));
-        controlSidebar = new ControlSidebarConfig(controlSidebarShowOnMobile,fixedLayout, boxedLayout);
+        boolean expandOnHover = Boolean.parseBoolean(getProperty("admin.controlSidebar.expandOnHover"));
+        controlSidebar = new ControlSidebarConfig(controlSidebarShowOnMobile,fixedLayout, boxedLayout, expandOnHover);
     }
 
     /**
@@ -139,6 +140,7 @@ public class AdminConfig implements Serializable {
     public void restoreDefaults() {
         loadDefaults();
     }
+
 
     public String getLoginPage() {
         return loginPage;

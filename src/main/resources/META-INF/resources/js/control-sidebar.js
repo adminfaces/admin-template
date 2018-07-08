@@ -116,13 +116,10 @@ $(function () {
 
     }
 
-    function loadSidebarExpand() {
-        var expandOnHover = get('layout.sidebar-expand-hover');
-        var sidebarExpandCkbox = $('#sidebar-expand-hover span.ui-chkbox-icon');
+    function loadSidebarExpand(expandOnHover) {
         
         if(isMobile() || $('body').hasClass('layout-top-nav')) {
-            sidebarExpandCkbox.addClass('ui-state-disabled');
-            $('#sidebar-expand-hover, #sidebar-expand-hover-label').addClass('ui-state-disabled');
+            disableControlSidebarOption('#sidebar-expand-hover');
             store('layout.sidebar-expand-hover', false);
             return;
         }
@@ -131,31 +128,27 @@ $(function () {
             PF('sidebarExpand').input.click();
             $pushMenu.expandOnHover();
             collapseSidebar();
-            sidebarExpandCkbox.removeClass('ui-icon-blank');
-            sidebarExpandCkbox.addClass('ui-icon-check');
-            sidebarExpandCkbox.parent().addClass('ui-state-active');
             return;
         }
     }
 
-    function updateSidebarExpand() {
-        var expandOnHover = PF('sidebarExpand').input.is(':checked');
-        var sidebarExpandCkbox = $('#sidebar-expand-hover span.ui-chkbox-icon');
-        
+    function updateSidebarExpand(expandOnHover) {
         if(isMobile() || $('body').hasClass('layout-top-nav')) {
-            sidebarExpandCkbox.addClass('ui-state-disabled');
-            $('#sidebar-expand-hover, #sidebar-expand-hover-label').addClass('ui-state-disabled');
+            disableControlSidebarOption('#sidebar-expand-hover');
             store('layout.sidebar-expand-hover', false);
             return;
         }
-
-        if (expandOnHover) {
+        
+        if (expandOnHover === true || expandOnHover === 'true') {
+           if (!PF('sidebarExpand').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
+                PF('sidebarExpand').toggle();
+            }
             $pushMenu.expandOnHover();
             collapseSidebar();
         } else {
-            sidebarExpandCkbox.addClass('ui-icon-blank');
-            sidebarExpandCkbox.removeClass('ui-icon-check');
-            sidebarExpandCkbox.parent().removeClass('ui-state-active');
+            if (PF('sidebarExpand').input.is(':checked')) {
+                PF('sidebarExpand').toggle();
+            }
             expandSidebar();
             $('[data-toggle="push-menu"]').data('lte.pushmenu', null); //not working, see https://github.com/almasaeed2010/AdminLTE/issues/1843#issuecomment-379550396
             $('[data-toggle="push-menu"]').pushMenu({expandOnHover: false});
@@ -243,8 +236,14 @@ $(function () {
         }
         
         updateFixedLayout(fixedLayout);
+        
+        var expandOnHover = get('layout.sidebar-expand-hover');
+        
+        if(expandOnHover === null) {
+            expandOnHover = PF('sidebarExpand').input.is(':checked');
+        }
 
-        loadSidebarExpand();
+        updateSidebarExpand(expandOnHover);
 
 
         $('#sidebar-skin').on('click', function () {
@@ -285,8 +284,9 @@ $(function () {
 
 
         $('#sidebar-expand-hover .ui-chkbox-box, #sidebar-expand-hover-label').on('click', function () {
+            var expandOnHover = PF('sidebarExpand').input.is(':checked')
             setTimeout(function () {
-                updateSidebarExpand();
+                updateSidebarExpand(expandOnHover);
             }, 20);
         });
 
