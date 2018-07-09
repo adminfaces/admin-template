@@ -191,9 +191,7 @@ $(function () {
         store('layout.fixed', null);
         store('layout.boxed', null);
         store('layout.sidebar-skin', null);
-        loadDefaultSkin();
-        loadDefaultTemplate();
-        window.location.reload();
+        loadLayoutDefaults();
     }
 
     /**
