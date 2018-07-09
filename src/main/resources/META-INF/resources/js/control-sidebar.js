@@ -95,7 +95,6 @@ $(function () {
         store('layout.fixed', fixedLayout);
     }
 
-
     function updateSidebarToggle(sidebarControlOpen) {
         var sidebarOpenCkbox = $('#control-sidebar-toggle span.ui-chkbox-icon');
         if (sidebarControlOpen === true || sidebarControlOpen === 'true') {
@@ -156,8 +155,6 @@ $(function () {
         }
         store('layout.default-template',isDefaultTemplate);
     }
-    
-    
 
     function loadSkin() {
         var skin = get('layout.skin');
@@ -184,6 +181,19 @@ $(function () {
     function enableControlSidebarOption(id) {
         var optionSelector = id.concat(" ,").concat(id).concat(" span.ui-chkbox-icon, ").concat(id).concat("-label");
         $(optionSelector).removeClass('ui-state-disabled');
+    }
+    
+    function restoreDefaults() {
+        store('layout.skin', null);
+        store('layout.default-template', null);
+        store('layout.sidebar-expand-hover', null);
+        store('layout.sidebar-control-open', null);
+        store('layout.fixed', null);
+        store('layout.boxed', null);
+        store('layout.sidebar-skin', null);
+        loadDefaultSkin();
+        loadDefaultTemplate();
+        window.location.reload();
     }
 
     /**
@@ -289,6 +299,11 @@ $(function () {
             }, 20);
         });
         
+        $('#restore-defaults a').on('click', function () {
+            setTimeout(function () {
+                restoreDefaults();
+            }, 20);
+        });
         
         loadTemplate();
 
