@@ -21,7 +21,7 @@ import static com.github.adminfaces.template.util.Assert.has;
 @Named
 public class BreadCrumbMB implements Serializable {
 
-    private ThreadLocal<Boolean> hasCleared = new ThreadLocal<>();
+    private transient ThreadLocal<Boolean> hasCleared = new ThreadLocal<>();
 
     @Inject
     protected AdminConfig adminConfig;

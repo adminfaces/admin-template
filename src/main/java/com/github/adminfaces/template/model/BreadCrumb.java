@@ -1,9 +1,11 @@
 package com.github.adminfaces.template.model;
 
+import java.io.Serializable;
+
 /**
  * Created by rafael-pestano on 30/11/16.
  */
-public class BreadCrumb {
+public class BreadCrumb implements Serializable {
 
     private String link;
     private String title;
