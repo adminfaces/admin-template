@@ -201,12 +201,12 @@
 
                                         <div class="form-group">
                                             <span class="control-sidebar-subheading">
-                                                <p:outputLabel id="sidebar-collapsed-label" value="#{adm['controlsidebar.label.sidebar-toggle']}" for="sidebar-collapsed"/>
+                                                <p:outputLabel id="sidebar-collapsed-label" value="#{adm['controlsidebar.label.sidebar-collapsed']}" for="sidebar-collapsed"/>
                                                 <p:selectBooleanCheckbox value="#{layoutMB.sidebarCollapsed}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-collapsed" widgetVar="sidebarCollapsed" styleClass="pull-right black" >
                                                      <p:ajax update="@none" global="false" listener="#{layoutMB.toggleSidebarCollapsed()}" partialSubmit="true"/>    
                                                 </p:selectBooleanCheckbox>    
                                             </span>
-                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-toggle']}"/></p>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-collapsed']}"/></p>
                                         </div>
                                         <div class="form-group">
                                             <span class="control-sidebar-subheading">
