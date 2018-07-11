@@ -35,13 +35,15 @@ public class ControlSidebarConfig implements Serializable {
     private final Boolean fixedLayout;
     private final Boolean boxedLayout;
     private final Boolean expandOnHover;
+    private final Boolean sidebarCollapsed;
 
 
-    public ControlSidebarConfig(boolean showOnMobile, boolean fixedLayout, boolean boxedLayout, boolean expandOnHover) {
+    public ControlSidebarConfig(boolean showOnMobile, boolean fixedLayout, boolean boxedLayout, boolean expandOnHover, boolean sidebarCollapsed) {
          this.showOnMobile = showOnMobile;
          this.fixedLayout =fixedLayout;
          this.boxedLayout = boxedLayout;
          this.expandOnHover = expandOnHover;
+         this.sidebarCollapsed = sidebarCollapsed;
     }
 
     public Boolean getShowOnMobile() {
@@ -58,6 +60,10 @@ public class ControlSidebarConfig implements Serializable {
 
     public Boolean getExpandOnHover() {
         return expandOnHover;
+    }
+
+    public Boolean getSidebarCollapsed() {
+        return sidebarCollapsed;
     }
     
     

@@ -10,7 +10,7 @@ $(document).on("pfAjaxComplete", function () {
             $messages.slideUp();
         }, readingTimeMillis);
     }
-    
+
     activateSidebarComponent();
 });
 
@@ -25,14 +25,14 @@ $(document).ready(function () {
             $messages.slideUp();
         }, readingTimeMillis);
     }
-    
+
     activateSidebarComponent()
 });
 
 /* Active menu management */
 
 $(document).ready(function () {
-    if (!$(document.body).hasClass("layout-top-nav")) {
+    if (!isLayoutTop()) {
         activateMenu(window.location.pathname, false);
     }
 });
@@ -45,7 +45,7 @@ function stripTrailingSlash(str) {
 }
 
 function saveCurrentActivatedUrl(url) {
-    if (typeof(Storage) !== "undefined") {
+    if (typeof (Storage) !== "undefined") {
         //console.log("saving :" + url);
         localStorage.setItem("activatedMenuUrl", url);
     }
@@ -178,7 +178,7 @@ function expandSidebar() {
 function toggleSidebar() {
     if ($(document.body).hasClass('sidebar-collapse')) {
         $(document.body).removeClass('sidebar-collapse')
-    } else if(!$(document.body).hasClass('layout-top-nav')) {
+    } else if (!$(document.body).hasClass('layout-top-nav')) {
         $(document.body).addClass('sidebar-collapse')
     }
 }
@@ -419,31 +419,35 @@ function activateSidebarComponent() {
     }
 }
 
- /**
-     * Get a prestored setting
-     *
-     * @param String name Name of of the setting
-     * @returns String The value of the setting | null
-     */
-    function get(name) {
-        if (typeof (Storage) !== 'undefined') {
-            return localStorage.getItem(name)
-        } else {
-            console.warn('LocalStorage not available for your browser. Layout customization will not work.')
-        }
+/**
+ * Get a prestored setting
+ *
+ * @param String name Name of of the setting
+ * @returns String The value of the setting | null
+ */
+function get(name) {
+    if (typeof (Storage) !== 'undefined') {
+        return localStorage.getItem(name)
+    } else {
+        console.warn('LocalStorage not available for your browser. Layout customization will not work.')
     }
+}
 
-    /**
-     * Store a new settings in the browser
-     *
-     * @param String name Name of the setting
-     * @param String val Value of the setting
-     * @returns void
-     */
-    function store(name, val) {
-        if (typeof (Storage) !== 'undefined') {
-            localStorage.setItem(name, val)
-        } else {
-            console.warn('LocalStorage not available for your browser. Layout customization will not work.')
-        }
+/**
+ * Store a new settings in the browser
+ *
+ * @param String name Name of the setting
+ * @param String val Value of the setting
+ * @returns void
+ */
+function store(name, val) {
+    if (typeof (Storage) !== 'undefined') {
+        localStorage.setItem(name, val)
+    } else {
+        console.warn('LocalStorage not available for your browser. Layout customization will not work.')
     }
+}
+
+function isLayoutTop() {
+    return $('body').hasClass('layout-top-nav');
+}

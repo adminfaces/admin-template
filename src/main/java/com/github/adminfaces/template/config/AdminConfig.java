@@ -100,7 +100,8 @@ public class AdminConfig implements Serializable {
         boolean fixedLayout = Boolean.parseBoolean(getProperty("admin.controlSidebar.fixedLayout"));
         boolean boxedLayout = Boolean.parseBoolean(getProperty("admin.controlSidebar.boxedLayout"));
         boolean expandOnHover = Boolean.parseBoolean(getProperty("admin.controlSidebar.expandOnHover"));
-        controlSidebar = new ControlSidebarConfig(controlSidebarShowOnMobile,fixedLayout, boxedLayout, expandOnHover);
+        boolean sidebarCollapsed = Boolean.parseBoolean(getProperty("admin.controlSidebar.sidebarCollapsed"));
+        controlSidebar = new ControlSidebarConfig(controlSidebarShowOnMobile,fixedLayout, boxedLayout, expandOnHover, sidebarCollapsed);
     }
 
     /**

@@ -213,8 +213,8 @@
                                                     <i class="fa fa-recycle"></i>
                                                     <span><p:outputLabel value="#{adm['controlsidebar.label.restore-defaults']}"/></span>
                                                 </a>
-                                                <p:remoteCommand name="loadLayoutDefaults" actionListener="#{layoutMB.init()}" action="#{skinMB.init()}" 
-                                                                 process="@this" update="@none" global="false" oncomplete="window.location.reload()"/>  
+                                                <p:remoteCommand name="loadLayoutDefaults" process="@this" update="@none" global="false" oncomplete="$('#load-defaults-link').click()"/>    
+                                                <h:commandLink style="visibility: hidden" id="load-defaults-link" action="#{layoutMB.init()}" actionListener="#{skinMB.init()}"/>
                                             </div>
                                             <ui:insert name="before-controlsidebar"/>
                                             <div>
@@ -252,8 +252,10 @@
 
                                                 <div class="form-group">
                                                     <span class="control-sidebar-subheading">
-                                                        <p:outputLabel id="sidebar-toggle-label" value="#{adm['controlsidebar.label.sidebar-toggle']}" for="sidebar-toggle"/>
-                                                        <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="sidebar-toggle" styleClass="pull-right black" />
+                                                        <p:outputLabel id="sidebar-collapsed-label" value="#{adm['controlsidebar.label.sidebar-toggle']}" for="sidebar-collapsed"/>
+                                                        <p:selectBooleanCheckbox value="#{layoutMB.sidebarCollapsed}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-collapsed" widgetVar="sidebarCollapsed" styleClass="pull-right black" >
+                                                            <p:ajax update="@none" global="false" listener="#{layoutMB.toggleSidebarCollapsed()}" partialSubmit="true"/>    
+                                                        </p:selectBooleanCheckbox>
                                                     </span>
                                                     <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-toggle']}"/></p>
                                                 </div>

@@ -95,7 +95,76 @@ $(function () {
         store('layout.fixed', fixedLayout);
     }
 
-    function updateSidebarToggle(sidebarControlOpen) {
+    function updateSidebarCollapded(sidebarCollapsed) {
+        if (isMobile() || isLayoutTop()) { //fixed layout not compatible with small screens (admin-template already has behaviour for navbar when on mobile) neither boxed layout
+            disableControlSidebarOption('#sidebar-collapsed');
+            store('layout.sidebar-collapsed', false);
+            return;
+        }  
+        if (sidebarCollapsed === true || sidebarCollapsed === 'true') {
+            if (!$('body').hasClass('sidebar-collapse')) {
+                $('body').addClass('sidebar-collapse');
+            }
+            if (!PF('sidebarCollapsed').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
+                PF('sidebarCollapsed').toggle();
+            }
+        } else {
+            if ($('body').hasClass('sidebar-collapse')) {
+                $('body').removeClass('sidebar-collapse');
+            }
+            if (PF('sidebarCollapsed').input.is(':checked')) {//update input when value comes from local storage
+                PF('sidebarCollapsed').toggle();
+            }
+        }
+        store('layout.sidebar-collapsed', sidebarCollapsed);
+
+    }
+
+    function updateSidebarExpand(expandOnHover) {
+        if(isMobile() || isLayoutTop()) {
+            disableControlSidebarOption('#sidebar-expand-hover');
+            store('layout.sidebar-expand-hover', false);
+            return;
+        }
+        
+        if (expandOnHover === true || expandOnHover === 'true') {
+           if (!PF('sidebarExpand').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
+                PF('sidebarExpand').toggle();
+            }
+            $pushMenu.expandOnHover();
+            collapseSidebar();
+        } else {
+            if (PF('sidebarExpand').input.is(':checked')) {
+                PF('sidebarExpand').toggle();
+            }
+            var sidebarCollapsed = get('layout.sidebar-collapsed');
+            if(sidebarCollapsed !== true && sidebarCollapsed !== "true") {
+                expandSidebar();
+            }
+            $('[data-toggle="push-menu"]').data('lte.pushmenu', null); //not working, see https://github.com/almasaeed2010/AdminLTE/issues/1843#issuecomment-379550396
+            $('[data-toggle="push-menu"]').pushMenu({expandOnHover: false});
+            $pushMenu = $('[data-toggle="push-menu"]').data('lte.pushmenu');
+        }
+
+        store('layout.sidebar-expand-hover', expandOnHover);
+
+    }
+    
+    function updateTemplate() {
+        var isDefaultTemplate = PF('toggleLayout').input.is(':checked');
+        if(isDefaultTemplate === true || isDefaultTemplate === "true") {
+            if(isLayoutTop()) {
+                $('body').removeClass('layout-top-nav');
+            }
+        } else {
+            if(!isLayoutTop()) {
+                $('body').addClass('layout-top-nav');
+            }
+        }
+        store('layout.default-template',isDefaultTemplate);
+    }
+    
+   function updateSidebarToggle(sidebarControlOpen) {
         var sidebarOpenCkbox = $('#control-sidebar-toggle span.ui-chkbox-icon');
         if (sidebarControlOpen === true || sidebarControlOpen === 'true') {
             sidebarOpenCkbox.addClass('ui-icon-check');
@@ -114,48 +183,7 @@ $(function () {
         store('layout.sidebar-control-open', sidebarControlOpen);
 
     }
-
-    function updateSidebarExpand(expandOnHover) {
-        if(isMobile() || $('body').hasClass('layout-top-nav')) {
-            disableControlSidebarOption('#sidebar-expand-hover');
-            store('layout.sidebar-expand-hover', false);
-            return;
-        }
-        
-        if (expandOnHover === true || expandOnHover === 'true') {
-           if (!PF('sidebarExpand').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
-                PF('sidebarExpand').toggle();
-            }
-            $pushMenu.expandOnHover();
-            collapseSidebar();
-        } else {
-            if (PF('sidebarExpand').input.is(':checked')) {
-                PF('sidebarExpand').toggle();
-            }
-            expandSidebar();
-            $('[data-toggle="push-menu"]').data('lte.pushmenu', null); //not working, see https://github.com/almasaeed2010/AdminLTE/issues/1843#issuecomment-379550396
-            $('[data-toggle="push-menu"]').pushMenu({expandOnHover: false});
-            $pushMenu = $('[data-toggle="push-menu"]').data('lte.pushmenu');
-        }
-
-        store('layout.sidebar-expand-hover', expandOnHover);
-
-    }
     
-    function updateTemplate() {
-        var isDefaultTemplate = PF('toggleLayout').input.is(':checked');
-        if(isDefaultTemplate === true || isDefaultTemplate === "true") {
-            if($('body').hasClass('layout-top-nav')) {
-                $('body').removeClass('layout-top-nav');
-            }
-        } else {
-            if(!$('body').hasClass('layout-top-nav')) {
-                $('body').addClass('layout-top-nav');
-            }
-        }
-        store('layout.default-template',isDefaultTemplate);
-    }
-
     function loadSkin() {
         var skin = get('layout.skin');
         if (skin && !$('body').hasClass(skin)) {
@@ -165,9 +193,9 @@ $(function () {
     
     function loadTemplate() {
          var isDefaultTemplate = get('layout.default-template');
-         if (isDefaultTemplate === "true" && $('body').hasClass('layout-top-nav')) {
+         if (isDefaultTemplate === "true" && isLayoutTop()) {
              PF('toggleLayout').toggle();
-         } else if(isDefaultTemplate === "false" && !$('body').hasClass('layout-top-nav')) {
+         } else if(isDefaultTemplate === "false" && !isLayoutTop()) {
              PF('toggleLayout').toggle();
          }
          
@@ -190,6 +218,7 @@ $(function () {
         store('layout.sidebar-control-open', null);
         store('layout.fixed', null);
         store('layout.boxed', null);
+        store('layout.sidebar-collapsed', null);
         store('layout.sidebar-skin', null);
         loadLayoutDefaults();
     }
@@ -229,6 +258,15 @@ $(function () {
         
         updateFixedLayout(fixedLayout);
         
+        var sidebarCollapsed = get('layout.sidebar-collapsed');
+        
+        
+        if(sidebarCollapsed === null) {
+            sidebarCollapsed = PF('sidebarCollapsed').input.is(':checked');
+        }
+        
+        updateSidebarCollapded(sidebarCollapsed);
+        
         var expandOnHover = get('layout.sidebar-expand-hover');
         
         if(expandOnHover === null) {
@@ -251,18 +289,25 @@ $(function () {
         });
 
         $('#boxed-layout .ui-chkbox-box, #boxed-layout-label').on('click', function () {
-            var boxedLayout = !$('body').hasClass('layout-boxed');
+            var boxedLayout = $('body').hasClass('layout-boxed');
             setTimeout(function () {
-                updateBoxedLayout(boxedLayout);
+                updateBoxedLayout(!boxedLayout); //negate current value in order to update it's state from boxed to not boxed and vive versa
                 updateFixedLayout(get('layout.fixed'));
             }, 20);
         });
 
         $('#fixed-layout .ui-chkbox-box, #fixed-layout-label').on('click', function () {
-            var fixedLayout = !$('body').hasClass('fixed');
+            var fixedLayout = $('body').hasClass('fixed');
             setTimeout(function () {
-                updateFixedLayout(fixedLayout);
+                updateFixedLayout(!fixedLayout); //negate it's current value so we can change it's state
                 updateBoxedLayout(get('layout.boxed'));
+            }, 20);
+        });
+        
+        $('#sidebar-collapsed .ui-chkbox-box, #sidebar-collapsed-label').on('click', function () {
+            var sidebarCollapsed = $('body').hasClass('sidebar-collapse');
+            setTimeout(function () {
+                updateSidebarCollapded(!sidebarCollapsed);//negate because we want to toogle its state from collpased to not collapsed and vice versa
             }, 20);
         });
 
@@ -280,10 +325,6 @@ $(function () {
             setTimeout(function () {
                 updateSidebarExpand(expandOnHover);
             }, 20);
-        });
-
-        $('#sidebar-toggle .ui-chkbox-box, #sidebar-toggle-label').on('click', function () {
-            $('.sidebar-toggle').click();
         });
 
 
