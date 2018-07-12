@@ -243,7 +243,7 @@ $(function () {
 
         var boxedLayout = get('layout.boxed');
 
-        if(boxedLayout === null) {
+        if(boxedLayout === null || boxedLayout === "null") {
             boxedLayout = PF('boxedLayout').input.is(':checked');
         }  
         
@@ -252,7 +252,7 @@ $(function () {
         var fixedLayout = get('layout.fixed');
         
         
-        if(fixedLayout === null) {
+        if(fixedLayout === null || fixedLayout === "null") {
             fixedLayout = PF('fixedLayout').input.is(':checked');
         }
         
@@ -261,7 +261,7 @@ $(function () {
         var sidebarCollapsed = get('layout.sidebar-collapsed');
         
         
-        if(sidebarCollapsed === null) {
+        if(sidebarCollapsed === null || sidebarCollapsed === "null") {
             sidebarCollapsed = PF('sidebarCollapsed').input.is(':checked');
         }
         
@@ -269,7 +269,7 @@ $(function () {
         
         var expandOnHover = get('layout.sidebar-expand-hover');
         
-        if(expandOnHover === null) {
+        if(expandOnHover === null || expandOnHover === "null") {
             expandOnHover = PF('sidebarExpand').input.is(':checked');
         }
 
