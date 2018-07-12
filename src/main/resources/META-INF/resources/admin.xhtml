@@ -162,8 +162,8 @@
                                                 <i class="fa fa-recycle"></i>
                                                 <span><p:outputLabel value="#{adm['controlsidebar.label.restore-defaults']}"/></span>
                                     	    </a>
-                                            <p:remoteCommand name="loadLayoutDefaults" process="@this" update="@none" global="false" oncomplete="$('#load-defaults-link').click()"/>    
-                                            <h:commandLink style="visibility: hidden" id="load-defaults-link" action="#{layoutMB.init()}" actionListener="#{skinMB.init()}"/>  
+                                           <p:remoteCommand name="loadLayoutDefaults" action="#{skinMB.init()}" process="@this" update="@none" global="false" oncomplete="resetDefaultTemplate()"/>
+                                           <p:remoteCommand name="resetDefaultTemplate" action="#{layoutMB.init()}" process="@this" update="@none" global="false" oncomplete="window.location.reload()"/> 
                                         </div>
                                     <ui:insert name="before-controlsidebar"/>
                                     <div>
