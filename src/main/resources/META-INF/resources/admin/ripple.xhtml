@@ -6,7 +6,7 @@
     <cc:interface>
         <cc:attribute name="elements" default="#{adminConfig.rippleElements}"
                       shortDescription="Comma separated values containing selectors of elements to apply ripple effect. Ex: button.ui-button, a.ui-link"/>
-        <cc:attribute name="mobileOnly" default="true"
+        <cc:attribute name="mobileOnly" default="#{adminConfig.rippleMobileOnly}"
                       shortDescription="Flag indicating wheater the ripple effect should be applied only to mobile devices. Default is true"/>
     </cc:interface>
 

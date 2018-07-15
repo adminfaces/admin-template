@@ -51,6 +51,7 @@ public class AdminConfig implements Serializable {
     //controlsidebar
     private ControlSidebarConfig controlSidebar;
     private String pageSuffix;
+    private boolean rippleMobileOnly;
 
     @PostConstruct
     public void init() {
@@ -94,8 +95,9 @@ public class AdminConfig implements Serializable {
         ignoredResources =  getProperty("admin.ignoredResources");
         loadingImage =  getProperty("admin.loadingImage");
         renderControlSidebar =  Boolean.parseBoolean(getProperty("admin.renderControlSidebar"));
-        leftMenuTemplate = Boolean.parseBoolean(getProperty("admin.controlSidebar.leftMenuTemplate"));
+        rippleMobileOnly = Boolean.parseBoolean(getProperty("admin.rippleMobileOnly"));
         
+        leftMenuTemplate = Boolean.parseBoolean(getProperty("admin.controlSidebar.leftMenuTemplate"));
         boolean controlSidebarShowOnMobile = Boolean.parseBoolean(getProperty("admin.controlSidebar.showOnMobile"));
         boolean fixedLayout = Boolean.parseBoolean(getProperty("admin.controlSidebar.fixedLayout"));
         boolean boxedLayout = Boolean.parseBoolean(getProperty("admin.controlSidebar.boxedLayout"));
@@ -191,8 +193,15 @@ public class AdminConfig implements Serializable {
     public void setControlSidebar(ControlSidebarConfig controlSidebarConfig) {
         this.controlSidebar = controlSidebarConfig;
     }
-    
 
+    public boolean isRippleMobileOnly() {
+        return rippleMobileOnly;
+    }
+
+    public void setRippleMobileOnly(boolean rippleEffectMobileOnly) {
+        this.rippleMobileOnly = rippleEffectMobileOnly;
+    }
+    
     @Deprecated
     /**
      * @deprecated use LayoutMB#template
