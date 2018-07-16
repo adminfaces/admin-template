@@ -103,7 +103,9 @@ public class AdminConfig implements Serializable {
         boolean boxedLayout = Boolean.parseBoolean(getProperty("admin.controlSidebar.boxedLayout"));
         boolean expandOnHover = Boolean.parseBoolean(getProperty("admin.controlSidebar.expandOnHover"));
         boolean sidebarCollapsed = Boolean.parseBoolean(getProperty("admin.controlSidebar.sidebarCollapsed"));
-        controlSidebar = new ControlSidebarConfig(controlSidebarShowOnMobile,fixedLayout, boxedLayout, expandOnHover, sidebarCollapsed);
+        boolean fixedControlSidebar = Boolean.parseBoolean(getProperty("admin.controlSidebar.fixed"));
+        boolean darkControlSidebarSkin = Boolean.parseBoolean(getProperty("admin.controlSidebar.darkSkin"));
+        controlSidebar = new ControlSidebarConfig(controlSidebarShowOnMobile,fixedLayout, boxedLayout, expandOnHover, sidebarCollapsed, fixedControlSidebar, darkControlSidebarSkin);
     }
 
     /**
@@ -184,7 +186,7 @@ public class AdminConfig implements Serializable {
     public void setLeftMenuTemplate(boolean leftMenuTemplate) {
         this.leftMenuTemplate = leftMenuTemplate;
     }
-
+    
   
     public ControlSidebarConfig getControlSidebar() {
         return controlSidebar;
@@ -317,6 +319,5 @@ public class AdminConfig implements Serializable {
     public void setRenderControlSidebar(boolean renderControlSidebar) {
         this.renderControlSidebar = renderControlSidebar;
     }
-    
     
 }

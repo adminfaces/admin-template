@@ -21,17 +21,16 @@ $(function () {
 
     function updateSidebarSkin(sidebarSkin) {
         var $sidebar = $('.control-sidebar');
-        var sidebarSkinCkbox = $('#sidebar-skin span.ui-chkbox-icon');
         if (sidebarSkin === 'control-sidebar-light') {
             $sidebar.removeClass('control-sidebar-dark');
-            sidebarSkinCkbox.addClass('ui-icon-blank');
-            sidebarSkinCkbox.removeClass('ui-icon-check');
-            sidebarSkinCkbox.parent().removeClass('ui-state-active');
+            if (PF('controlSidebarSkin').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
+                PF('controlSidebarSkin').toggle();
+            }
         } else {
             $sidebar.removeClass('control-sidebar-light');
-            sidebarSkinCkbox.addClass('ui-icon-check');
-            sidebarSkinCkbox.removeClass('ui-icon-blank');
-            sidebarSkinCkbox.parent().addClass('ui-state-active');
+            if (!PF('controlSidebarSkin').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
+                PF('controlSidebarSkin').toggle();
+            }
         }
 
         $sidebar.addClass(sidebarSkin);
@@ -165,23 +164,21 @@ $(function () {
     }
     
    function updateSidebarToggle(sidebarControlOpen) {
-        var sidebarOpenCkbox = $('#control-sidebar-toggle span.ui-chkbox-icon');
         if (sidebarControlOpen === true || sidebarControlOpen === 'true') {
-            sidebarOpenCkbox.addClass('ui-icon-check');
-            sidebarOpenCkbox.removeClass('ui-icon-blank');
-            sidebarOpenCkbox.parent().addClass('ui-state-active');
             $('.control-sidebar').addClass('control-sidebar-open');
             $('body').addClass('control-sidebar-open');
+            if (!PF('fixedControlSidebar').input.is(':checked')) {  
+                PF('fixedControlSidebar').toggle();
+            }
         } else {
-            sidebarOpenCkbox.addClass('ui-icon-blank');
-            sidebarOpenCkbox.removeClass('ui-icon-check');
-            sidebarOpenCkbox.parent().removeClass('ui-state-active');
             $('.control-sidebar').removeClass('control-sidebar-open')
             $('body').removeClass('control-sidebar-open');
+            if(PF('fixedControlSidebar').input.is(':checked')) { 
+                PF('fixedControlSidebar').toggle();
+            }
         }
-
         store('layout.sidebar-control-open', sidebarControlOpen);
-
+        
     }
     
     function loadSkin() {
@@ -232,13 +229,23 @@ $(function () {
 
         var sidebarSkin = get('layout.sidebar-skin');
 
-        if (!sidebarSkin) {
-            sidebarSkin = 'control-sidebar-dark';
+        if (sidebarSkin === null || sidebarSkin === "null") {
+            if(PF('controlSidebarSkin').input.is(':checked')) {
+                sidebarSkin = 'control-sidebar-dark';
+            } else {
+                sidebarSkin = 'control-sidebar-light';
+            }
         }
 
         updateSidebarSkin(sidebarSkin);
+        
+        var controlSidebarOpen = get('layout.sidebar-control-open');
+        
+        if(controlSidebarOpen === null || controlSidebarOpen === "null") {
+            controlSidebarOpen = PF('fixedControlSidebar').input.is(':checked');
+        }  
 
-        updateSidebarToggle(get('layout.sidebar-control-open'));
+        updateSidebarToggle(controlSidebarOpen);
 
 
         var boxedLayout = get('layout.boxed');
@@ -312,9 +319,9 @@ $(function () {
         });
 
         $('#control-sidebar-toggle .ui-chkbox-box, #control-sidebar-toggle-label').on('click', function () {
+            var controlSidebarFixed = $('body').hasClass('control-sidebar-open');
             setTimeout(function () {
-                changeLayout('control-sidebar-open');
-                updateSidebarToggle($('body').hasClass('control-sidebar-open'));
+                updateSidebarToggle(!controlSidebarFixed);
             }, 20);
 
         });

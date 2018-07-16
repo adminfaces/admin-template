@@ -191,396 +191,400 @@
                  onclick="window.scrollTo(0, 0)">
                 <i class="fa fa-chevron-up" style="position:relative;top: -2px"></i>
             </div>
-            
+
             <ui:fragment rendered="#{adminConfig.renderControlSidebar and (empty renderControlSidebar or renderControlSidebar)}" >
-                        <h:form prependId="false">
-                            <!-- controlsidebar component, can't be a composite component because of multiple ui:insert and can't be an external xhtml because myfaces will not propagete ui:params and child pages will not be able to define inserted regions -->
-                            <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}">
-                                <ui:insert name="before-controlsidebar-content"/>
-                                <aside class="control-sidebar control-sidebar-dark">
-                                    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                                        <li class="active">
-                                            <a href="#control-sidebar-theme-demo-options-tab" data-toggle="tab">
-                                                <i class="fa fa-wrench"></i>
-                                            </a>
-                                        </li>
-                                        <ui:insert name="controlsidebar-tabs"/>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active">
-                                            <div id="restore-defaults" style="font-size:11px;" class="align-right">
-                                                <a href="#">
-                                                    <i class="fa fa-recycle"></i>
-                                                    <span><p:outputLabel value="#{adm['controlsidebar.label.restore-defaults']}"/></span>
-                                                </a>
-                                                <p:remoteCommand name="loadLayoutDefaults" action="#{skinMB.init()}" process="@this" update="@none" global="false" oncomplete="resetDefaultTemplate()"/>
-                                                <p:remoteCommand name="resetDefaultTemplate" action="#{layoutMB.init()}" process="@this" update="@none" global="false" oncomplete="window.location.reload()"/>    
-                                            </div>
-                                            <ui:insert name="before-controlsidebar"/>
-                                            <div>
-                                                <h4 class="control-sidebar-heading">#{adm['controlsidebar.header']}</h4>
-                                                <div class="form-group">
-                                                    <span class="control-sidebar-subheading">
-                                                        <p:outputLabel id="toggle-menu-layout-label" value="#{adm['controlsidebar.label.menu-horientation']}" for="toggle-menu-layout"/>
-                                                        <p:selectBooleanCheckbox value="#{layoutMB.leftMenuTemplate}" id="toggle-menu-layout" styleClass="pull-right black" widgetVar="toggleLayout">
-                                                            <p:ajax update="@none" global="false" oncomplete="updateTemplate()"/>
-                                                        </p:selectBooleanCheckbox> 
-                                                        <p:remoteCommand name="updateTemplate" action="#{layoutMB.toggleTemplate}" process="@this" update="@none" global="false" oncomplete="window.location.reload()"/> 
-                                                    </span>
-                                                    <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.menu-horientation']}"/></p>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <span class="control-sidebar-subheading">
-                                                        <p:outputLabel id="fixed-layout-label" value="#{adm['controlsidebar.label.fixed-layout']}" for="fixed-layout"/>
-                                                        <p:selectBooleanCheckbox value="#{layoutMB.fixedLayout}" id="fixed-layout" widgetVar="fixedLayout" styleClass="pull-right black">
-                                                            <p:ajax update="@none" global="false" listener="#{layoutMB.toggleFixedLayout()}" partialSubmit="true"/>
-                                                        </p:selectBooleanCheckbox>
-                                                    </span>
-                                                    <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.fixed-layout']}"/></p>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <span class="control-sidebar-subheading">
-                                                        <p:outputLabel id="boxed-layout-label" value="#{adm['controlsidebar.label.boxed-layout']}" for="boxed-layout"/>
-                                                        <p:selectBooleanCheckbox value="#{layoutMB.boxedLayout}" id="boxed-layout" widgetVar="boxedLayout" styleClass="pull-right black" >
-                                                              <p:ajax update="@none" global="false" listener="#{layoutMB.toggleBoxedLayout()}" partialSubmit="true"/>
-                                                        </p:selectBooleanCheckbox>    
-                                                    </span>
-                                                    <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.boxed-layout']}"/></p>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <span class="control-sidebar-subheading">
-                                                        <p:outputLabel id="sidebar-collapsed-label" value="#{adm['controlsidebar.label.sidebar-collapsed']}" for="sidebar-collapsed"/>
-                                                        <p:selectBooleanCheckbox value="#{layoutMB.sidebarCollapsed}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-collapsed" widgetVar="sidebarCollapsed" styleClass="pull-right black" >
-                                                            <p:ajax update="@none" global="false" listener="#{layoutMB.toggleSidebarCollapsed()}" partialSubmit="true"/>    
-                                                        </p:selectBooleanCheckbox>
-                                                    </span>
-                                                    <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-collapsed']}"/></p>
-                                                </div>
-                                                <div class="form-group">
-                                                    <span class="control-sidebar-subheading">
-                                                        <p:outputLabel id="sidebar-expand-hover-label" value="#{adm['controlsidebar.label.sidebar-expand-hover']}" for="sidebar-expand-hover"/>
-                                                        <p:selectBooleanCheckbox value="#{layoutMB.expandOnHover}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-expand-hover" widgetVar="sidebarExpand" styleClass="pull-right black" >
-                                                            <p:ajax update="@none" global="false" listener="#{layoutMB.toggleExpandOnHover()}" partialSubmit="true"/>    
-                                                        </p:selectBooleanCheckbox>                                                    </span>
-                                                    <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-expand-hover']}"/></p>
-                                                </div>
-                                                <div class="form-group">
-                                                    <span class="control-sidebar-subheading">
-                                                        <p:outputLabel id="control-sidebar-toggle-label" value="#{adm['controlsidebar.label.sidebar-slide']}" for="control-sidebar-toggle"/>
-                                                        <p:selectBooleanCheckbox  id="control-sidebar-toggle" styleClass="pull-right black" />
-                                                    </span>
-                                                    <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-slide']}"/></p>
-                                                </div>
-                                                <div class="form-group">
-                                                    <span class="control-sidebar-subheading">
-                                                        <p:outputLabel value="#{adm['controlsidebar.label.sidebar-skin']}" for="sidebar-skin"/>
-                                                        <p:selectBooleanCheckbox id="sidebar-skin" styleClass="pull-right black"/>
-                                                    </span>
-                                                    <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-skin']}"/></p>
-                                                </div>
-
-                                                <h4 class="control-sidebar-heading">#{adm['controlsidebar.header.skins']}</h4>
-                                                <ul class="list-unstyled clearfix">
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-blue" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-blue');updateSkinBlue()" global="false"
-                                                                       process="@none" update="@none" partialSubmit="true"> <!-- the link can't process anything otherwise the controlsidebar will collapse when changing the skin-->
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9">
-
-                                                                </span>
-                                                                <span class="bg-light-blue" style="display:block; width: 80%; float: left; height: 7px;">
-
-                                                                </span>
-                                                            </div>
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinBlue" action="#{skinMB.changeSkin('skin-blue')}" process="@this" update="@none" global="false"/>  
-                                                        <p class="text-center no-margin">Blue</p>
-                                                    </li>
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-black" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-black');updateSkinBlack()" global="false"
-                                                                       process="@none" update="@none" partialSubmit="true">
-                                                            <div style="box-shadow: 0 0 2px rgba(0,0,0,0.1)" class="clearfix">
-                                                                <span style="display:block; width: 20%; float: left; height: 7px; background: #fefefe"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 7px; background: #fefefe"></span>
-                                                            </div>
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #222"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinBlack" action="#{skinMB.changeSkin('skin-black')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Black</p>
-                                                    </li>
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-purple" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-purple');updateSkinPurple()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-purple-active"></span>
-                                                                <span class="bg-purple" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinPurple" action="#{skinMB.changeSkin('skin-purple')}" process="@this" update="@none" global="false"/>
-
-                                                        <p class="text-center no-margin">Purple</p>
-
-                                                    </li>
-
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-green" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-green');updateSkinGreen()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-green-active"></span>
-                                                                <span class="bg-green" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinGreen" action="#{skinMB.changeSkin('skin-green')}" process="@this" update="@none" global="false"/>    
-
-                                                        <p class="text-center no-margin">Green</p>
-                                                    </li>
-
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-red" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-red');updateSkinRed()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-red-active"></span>
-                                                                <span class="bg-red" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinRed" action="#{skinMB.changeSkin('skin-red')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Red</p>
-                                                    </li>
-
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-yellow" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-yellow');updateSkinYellow()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-yellow-active"></span>
-                                                                <span class="bg-yellow" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinYellow" action="#{skinMB.changeSkin('skin-yellow')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Yellow</p>
-                                                    </li>
-
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-teal" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-teal');updateSkinTeal()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-teal-active"></span>
-                                                                <span class="bg-teal" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinTeal" action="#{skinMB.changeSkin('skin-teal')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Teal</p>
-                                                    </li>
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-blue-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue-light' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-blue-light');updateSkinBlueLight()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9"></span>
-                                                                <span class="bg-light-blue" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinBlueLight" action="#{skinMB.changeSkin('skin-blue-light')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Blue Light</p>
-                                                    </li>
-
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-black-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black-light' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-black-light');updateSkinBlackLight()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div style="box-shadow: 0 0 2px rgba(0,0,0,0.1)" class="clearfix">
-                                                                <span style="display:block; width: 20%; float: left; height: 7px; background: #fefefe"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 7px; background: #fefefe"></span>
-                                                            </div>
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinBlackLight" action="#{skinMB.changeSkin('skin-black-light')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Black Light</p>
-                                                    </li>
-
-
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-purple-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple-light' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-purple-light');updateSkinPurpleLight()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-purple-active"></span>
-                                                                <span class="bg-purple" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinPurpleLight" action="#{skinMB.changeSkin('skin-purple-light')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Purple Light</p>
-                                                    </li>
-
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-red-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red-light' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-red-light');updateSkinRedLight()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-red-active"></span>
-                                                                <span class="bg-red" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinRedLight" action="#{skinMB.changeSkin('skin-red-light')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Red Light</p>
-                                                    </li>
-
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-green-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green-light' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-green-light');updateSkinGreenLight()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-green-active"></span>
-                                                                <span class="bg-green" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinGreenLight" action="#{skinMB.changeSkin('skin-green-light')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Green Light</p>
-                                                    </li>
-
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-yellow-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow-light' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-yellow-light');updateSkinYellowLight()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-yellow-active"></span>
-                                                                <span class="bg-yellow" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinYellowLight" action="#{skinMB.changeSkin('skin-yellow-light')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Yellow Light</p>
-                                                    </li>
-                                                    <li style="float:left; width: 33.33333%; padding: 5px;">
-                                                        <p:commandLink id="btn-skin-teal-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal-light' ? '':'full-opacity-hover'}" 
-                                                                       oncomplete="replaceSkinWith('skin-teal-light');updateSkinTealLight()"
-                                                                       process="@none" update="@none" global="false" partialSubmit="true">
-
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-teal-active"></span>
-                                                                <span class="bg-teal" style="display:block; width: 80%; float: left; height: 7px;"></span>
-                                                            </div>
-                                                            <div>
-                                                                <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
-                                                                <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
-                                                            </div>
-                                                        </p:commandLink>
-                                                        <p:remoteCommand name="updateSkinTealLight" action="#{skinMB.changeSkin('skin-teal-light')}" process="@this" update="@none" global="false"/>
-                                                        <p class="text-center no-margin">Teal Light</p>
-                                                    </li>
-                                                    <ui:insert name="after-controlsidebar-skin"/>
-                                                </ul>
-
-                                                <ui:insert name="after-controlsidebar-tabs"/>
-                                            </div>
+                <h:form prependId="false">
+                    <!-- controlsidebar component, can't be a composite component because of multiple ui:insert and can't be an external xhtml because myfaces will not propagete ui:params and child pages will not be able to define inserted regions -->
+                    <h:panelGroup id="controlsidebarPanel" layout="block" styleClass="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}">
+                        <ui:insert name="before-controlsidebar-content"/>
+                        <aside class="control-sidebar control-sidebar-dark">
+                            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                                <li class="active">
+                                    <a href="#control-sidebar-theme-demo-options-tab" data-toggle="tab">
+                                        <i class="fa fa-wrench"></i>
+                                    </a>
+                                </li>
+                                <ui:insert name="controlsidebar-tabs"/>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active">
+                                    <div id="restore-defaults" style="font-size:11px;" class="align-right">
+                                        <a href="#">
+                                            <i class="fa fa-recycle"></i>
+                                            <span><p:outputLabel value="#{adm['controlsidebar.label.restore-defaults']}"/></span>
+                                        </a>
+                                        <p:remoteCommand name="loadLayoutDefaults" action="#{skinMB.init()}" process="@this" update="@none" global="false" oncomplete="resetDefaultTemplate()"/>
+                                        <p:remoteCommand name="resetDefaultTemplate" action="#{layoutMB.init()}" process="@this" update="@none" global="false" oncomplete="window.location.reload()"/>    
+                                    </div>
+                                    <ui:insert name="before-controlsidebar"/>
+                                    <div>
+                                        <h4 class="control-sidebar-heading">#{adm['controlsidebar.header']}</h4>
+                                        <div class="form-group">
+                                            <span class="control-sidebar-subheading">
+                                                <p:outputLabel id="toggle-menu-layout-label" value="#{adm['controlsidebar.label.menu-horientation']}" for="toggle-menu-layout"/>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.leftMenuTemplate}" id="toggle-menu-layout" styleClass="pull-right black" widgetVar="toggleLayout">
+                                                    <p:ajax update="@none" global="false" oncomplete="updateTemplate()"/>
+                                                </p:selectBooleanCheckbox> 
+                                                <p:remoteCommand name="updateTemplate" action="#{layoutMB.toggleTemplate}" process="@this" update="@none" global="false" oncomplete="window.location.reload()"/> 
+                                            </span>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.menu-horientation']}"/></p>
                                         </div>
 
-                                        <ui:insert name="controlsidebar-content"/>
+                                        <div class="form-group">
+                                            <span class="control-sidebar-subheading">
+                                                <p:outputLabel id="fixed-layout-label" value="#{adm['controlsidebar.label.fixed-layout']}" for="fixed-layout"/>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.fixedLayout}" id="fixed-layout" widgetVar="fixedLayout" styleClass="pull-right black">
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleFixedLayout()}" partialSubmit="true"/>
+                                                </p:selectBooleanCheckbox>
+                                            </span>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.fixed-layout']}"/></p>
+                                        </div>
 
+                                        <div class="form-group">
+                                            <span class="control-sidebar-subheading">
+                                                <p:outputLabel id="boxed-layout-label" value="#{adm['controlsidebar.label.boxed-layout']}" for="boxed-layout"/>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.boxedLayout}" id="boxed-layout" widgetVar="boxedLayout" styleClass="pull-right black" >
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleBoxedLayout()}" partialSubmit="true"/>
+                                                </p:selectBooleanCheckbox>    
+                                            </span>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.boxed-layout']}"/></p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <span class="control-sidebar-subheading">
+                                                <p:outputLabel id="sidebar-collapsed-label" value="#{adm['controlsidebar.label.sidebar-collapsed']}" for="sidebar-collapsed"/>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.sidebarCollapsed}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-collapsed" widgetVar="sidebarCollapsed" styleClass="pull-right black" >
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleSidebarCollapsed()}" partialSubmit="true"/>    
+                                                </p:selectBooleanCheckbox>
+                                            </span>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-collapsed']}"/></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="control-sidebar-subheading">
+                                                <p:outputLabel id="sidebar-expand-hover-label" value="#{adm['controlsidebar.label.sidebar-expand-hover']}" for="sidebar-expand-hover"/>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.expandOnHover}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-expand-hover" widgetVar="sidebarExpand" styleClass="pull-right black" >
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleExpandOnHover()}" partialSubmit="true"/>    
+                                                </p:selectBooleanCheckbox>                                                    </span>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-expand-hover']}"/></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="control-sidebar-subheading">
+                                                <p:outputLabel id="control-sidebar-toggle-label" value="#{adm['controlsidebar.label.sidebar-slide']}" for="control-sidebar-toggle"/>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.fixedControlSidebar}" id="control-sidebar-toggle" widgetVar="fixedControlSidebar" styleClass="pull-right black" >
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleFixedControlSidebar()}" partialSubmit="true"/>    
+                                                </p:selectBooleanCheckbox>  
+                                            </span>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-slide']}"/></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="control-sidebar-subheading">
+                                                <p:outputLabel value="#{adm['controlsidebar.label.sidebar-skin']}" for="sidebar-skin"/>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.darkControlSidebarSkin}" id="sidebar-skin" widgetVar="controlSidebarSkin" styleClass="pull-right black">
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleControlSidebarSkin()}" partialSubmit="true"/>    
+                                                </p:selectBooleanCheckbox>
+                                            </span>
+                                            <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-skin']}"/></p>
+                                        </div>
+
+                                        <h4 class="control-sidebar-heading">#{adm['controlsidebar.header.skins']}</h4>
+                                        <ul class="list-unstyled clearfix">
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-blue" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-blue');updateSkinBlue()" global="false"
+                                                               process="@none" update="@none" partialSubmit="true"> <!-- the link can't process anything otherwise the controlsidebar will collapse when changing the skin-->
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9">
+
+                                                        </span>
+                                                        <span class="bg-light-blue" style="display:block; width: 80%; float: left; height: 7px;">
+
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinBlue" action="#{skinMB.changeSkin('skin-blue')}" process="@this" update="@none" global="false"/>  
+                                                <p class="text-center no-margin">Blue</p>
+                                            </li>
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-black" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-black');updateSkinBlack()" global="false"
+                                                               process="@none" update="@none" partialSubmit="true">
+                                                    <div style="box-shadow: 0 0 2px rgba(0,0,0,0.1)" class="clearfix">
+                                                        <span style="display:block; width: 20%; float: left; height: 7px; background: #fefefe"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 7px; background: #fefefe"></span>
+                                                    </div>
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #222"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinBlack" action="#{skinMB.changeSkin('skin-black')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Black</p>
+                                            </li>
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-purple" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-purple');updateSkinPurple()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-purple-active"></span>
+                                                        <span class="bg-purple" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinPurple" action="#{skinMB.changeSkin('skin-purple')}" process="@this" update="@none" global="false"/>
+
+                                                <p class="text-center no-margin">Purple</p>
+
+                                            </li>
+
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-green" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-green');updateSkinGreen()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-green-active"></span>
+                                                        <span class="bg-green" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinGreen" action="#{skinMB.changeSkin('skin-green')}" process="@this" update="@none" global="false"/>    
+
+                                                <p class="text-center no-margin">Green</p>
+                                            </li>
+
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-red" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-red');updateSkinRed()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-red-active"></span>
+                                                        <span class="bg-red" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinRed" action="#{skinMB.changeSkin('skin-red')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Red</p>
+                                            </li>
+
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-yellow" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-yellow');updateSkinYellow()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-yellow-active"></span>
+                                                        <span class="bg-yellow" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinYellow" action="#{skinMB.changeSkin('skin-yellow')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Yellow</p>
+                                            </li>
+
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-teal" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-teal');updateSkinTeal()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-teal-active"></span>
+                                                        <span class="bg-teal" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinTeal" action="#{skinMB.changeSkin('skin-teal')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Teal</p>
+                                            </li>
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-blue-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue-light' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-blue-light');updateSkinBlueLight()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9"></span>
+                                                        <span class="bg-light-blue" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinBlueLight" action="#{skinMB.changeSkin('skin-blue-light')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Blue Light</p>
+                                            </li>
+
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-black-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black-light' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-black-light');updateSkinBlackLight()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div style="box-shadow: 0 0 2px rgba(0,0,0,0.1)" class="clearfix">
+                                                        <span style="display:block; width: 20%; float: left; height: 7px; background: #fefefe"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 7px; background: #fefefe"></span>
+                                                    </div>
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinBlackLight" action="#{skinMB.changeSkin('skin-black-light')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Black Light</p>
+                                            </li>
+
+
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-purple-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple-light' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-purple-light');updateSkinPurpleLight()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-purple-active"></span>
+                                                        <span class="bg-purple" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinPurpleLight" action="#{skinMB.changeSkin('skin-purple-light')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Purple Light</p>
+                                            </li>
+
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-red-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red-light' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-red-light');updateSkinRedLight()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-red-active"></span>
+                                                        <span class="bg-red" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinRedLight" action="#{skinMB.changeSkin('skin-red-light')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Red Light</p>
+                                            </li>
+
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-green-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green-light' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-green-light');updateSkinGreenLight()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-green-active"></span>
+                                                        <span class="bg-green" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinGreenLight" action="#{skinMB.changeSkin('skin-green-light')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Green Light</p>
+                                            </li>
+
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-yellow-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow-light' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-yellow-light');updateSkinYellowLight()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-yellow-active"></span>
+                                                        <span class="bg-yellow" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinYellowLight" action="#{skinMB.changeSkin('skin-yellow-light')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Yellow Light</p>
+                                            </li>
+                                            <li style="float:left; width: 33.33333%; padding: 5px;">
+                                                <p:commandLink id="btn-skin-teal-light" styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal-light' ? '':'full-opacity-hover'}" 
+                                                               oncomplete="replaceSkinWith('skin-teal-light');updateSkinTealLight()"
+                                                               process="@none" update="@none" global="false" partialSubmit="true">
+
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 7px;" class="bg-teal-active"></span>
+                                                        <span class="bg-teal" style="display:block; width: 80%; float: left; height: 7px;"></span>
+                                                    </div>
+                                                    <div>
+                                                        <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+                                                        <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+                                                    </div>
+                                                </p:commandLink>
+                                                <p:remoteCommand name="updateSkinTealLight" action="#{skinMB.changeSkin('skin-teal-light')}" process="@this" update="@none" global="false"/>
+                                                <p class="text-center no-margin">Teal Light</p>
+                                            </li>
+                                            <ui:insert name="after-controlsidebar-skin"/>
+                                        </ul>
+
+                                        <ui:insert name="after-controlsidebar-tabs"/>
                                     </div>
-                                </aside>
-                                <ui:insert name="after-controlsidebar-content"/>
-                                <div class="control-sidebar-bg"></div>
+                                </div>
 
-                                <script type="text/javascript">
-                                    /*<![CDATA[*/
-                                    function replaceSkinWith(newSkin) {
-                                        $('.skin-link').each(function () {
-                                            $(this).addClass('full-opacity-hover');
-                                        });
-                                        $('#btn-' + newSkin).removeClass('full-opacity-hover');
-                                        var cl = $('body').attr("class").split(" ");
-                                        for (var i = 0; i < cl.length; i++) {
-                                            if (cl[i].startsWith('skin-')) {
-                                                $('body').removeClass(cl[i])
-                                            }
-                                        }
-                                        $('body').addClass(newSkin);
-                                        if (typeof (Storage) !== 'undefined') {
-                                            localStorage.setItem('layout.skin', newSkin)
-                                        }
+                                <ui:insert name="controlsidebar-content"/>
+
+                            </div>
+                        </aside>
+                        <ui:insert name="after-controlsidebar-content"/>
+                        <div class="control-sidebar-bg"></div>
+
+                        <script type="text/javascript">
+                            /*<![CDATA[*/
+                            function replaceSkinWith(newSkin) {
+                                $('.skin-link').each(function () {
+                                    $(this).addClass('full-opacity-hover');
+                                });
+                                $('#btn-' + newSkin).removeClass('full-opacity-hover');
+                                var cl = $('body').attr("class").split(" ");
+                                for (var i = 0; i < cl.length; i++) {
+                                    if (cl[i].startsWith('skin-')) {
+                                        $('body').removeClass(cl[i])
                                     }
+                                }
+                                $('body').addClass(newSkin);
+                                if (typeof (Storage) !== 'undefined') {
+                                    localStorage.setItem('layout.skin', newSkin)
+                                }
+                            }
 
-                                    /* ]]>*/
-                                </script>    
-                            </h:panelGroup>
-                        </h:form>
-                    </ui:fragment>
-            
+                            /* ]]>*/
+                        </script>    
+                    </h:panelGroup>
+                </h:form>
+            </ui:fragment>
+
             <ui:insert name="wrapper-end"/>
         </div>
 

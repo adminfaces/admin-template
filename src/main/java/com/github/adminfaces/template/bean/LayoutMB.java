@@ -30,6 +30,8 @@ public class LayoutMB implements Serializable {
     private Boolean boxedLayout;
     private Boolean expandOnHover;
     private Boolean sidebarCollapsed;
+    private Boolean fixedControlSidebar;
+    private Boolean darkControlSidebarSkin;
 
     @Inject
     protected AdminConfig adminConfig;
@@ -47,6 +49,8 @@ public class LayoutMB implements Serializable {
         this.boxedLayout = controlSidebarConfig.getBoxedLayout();
         this.expandOnHover = controlSidebarConfig.getExpandOnHover();
         this.sidebarCollapsed =  controlSidebarConfig.getSidebarCollapsed();
+        this.fixedControlSidebar = controlSidebarConfig.getFixed();
+        this.darkControlSidebarSkin = controlSidebarConfig.getDarkSkin();
     }
 
     public String getTemplate() {
@@ -115,6 +119,22 @@ public class LayoutMB implements Serializable {
     public void setSidebarCollapsed(Boolean sidebarCollapsed) {
         this.sidebarCollapsed = sidebarCollapsed;
     }
+
+    public Boolean getFixedControlSidebar() {
+        return fixedControlSidebar;
+    }
+
+    public void setFixedControlSidebar(Boolean fixedControlSidebar) {
+        this.fixedControlSidebar = fixedControlSidebar;
+    }
+
+    public Boolean getDarkControlSidebarSkin() {
+        return darkControlSidebarSkin;
+    }
+
+    public void setDarkControlSidebarSkin(Boolean darkControlSidebarSkin) {
+        this.darkControlSidebarSkin = darkControlSidebarSkin;
+    }
     
     public void toggleTemplate() {
         if (isDefaultTemplate()) {
@@ -136,9 +156,18 @@ public class LayoutMB implements Serializable {
         this.expandOnHover = !expandOnHover;
     }
     
-     public void toggleSidebarCollapsed() {
+    public void toggleSidebarCollapsed() {
         this.sidebarCollapsed = !sidebarCollapsed;
     }
+    
+    public void toggleFixedControlSidebar() {
+        this.fixedControlSidebar = !fixedControlSidebar;
+    }
+    
+    public void toggleControlSidebarSkin() {
+        this.darkControlSidebarSkin = !darkControlSidebarSkin;
+    }
+    
 
     public boolean isDefaultTemplate() {
         return template != null && (template.endsWith("template.xhtml") || template.equals("admin.xhtml"));

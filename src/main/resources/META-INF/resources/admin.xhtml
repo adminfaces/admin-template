@@ -220,14 +220,18 @@
                                         <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="control-sidebar-toggle-label" value="#{adm['controlsidebar.label.sidebar-slide']}" for="control-sidebar-toggle"/>
-                                                <p:selectBooleanCheckbox disabled="#{not layoutMB.defaultTemplate}" id="control-sidebar-toggle" styleClass="pull-right black" />
+                                                <p:selectBooleanCheckbox value="#{layoutMB.fixedControlSidebar}" id="control-sidebar-toggle" widgetVar="fixedControlSidebar" styleClass="pull-right black" >
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleFixedControlSidebar()}" partialSubmit="true"/>    
+                                                </p:selectBooleanCheckbox>   
                                             </span>
                                             <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-slide']}"/></p>
                                         </div>
                                         <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel value="#{adm['controlsidebar.label.sidebar-skin']}" for="sidebar-skin"/>
-                                                <p:selectBooleanCheckbox id="sidebar-skin" styleClass="pull-right black"/>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.darkControlSidebarSkin}" id="sidebar-skin" widgetVar="controlSidebarSkin" styleClass="pull-right black">
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleControlSidebarSkin()}" partialSubmit="true"/>    
+                                                </p:selectBooleanCheckbox>  
                                             </span>
                                             <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-skin']}"/></p>
                                         </div>
