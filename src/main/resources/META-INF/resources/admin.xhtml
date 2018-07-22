@@ -65,6 +65,31 @@
             <aside id="sidebar" class="main-sidebar slideout-menu">
                 <div>
                     <ui:insert name="menu-begin"/>
+                    <ui:fragment rendered="#{adminConfig.renderMenuSearch}">
+                        <div class="sidebar-form">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control" placeholder="#{adm['menu.search.placeholder']}" autocomplete="off"
+                                       onclick="this.value = '';searchLeftMenu('')" title="#{adm['menu.search.title']}"
+                                       onkeyup="searchLeftMenu(this.value)" onblur="this.value = '';hideMenuResults()"/>
+                                <span class="input-group-btn">
+                                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
+                                            class="fa fa-search"></i>
+                                    </button>
+                                </span>
+
+                            </div>
+
+                            <ul id="menu-search" class="nav navbar-nav" role="menu">
+                                <li class="dropdown" >
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"/>
+
+                                    <ul class="dropdown-menu" role="menu">
+
+                                    </ul>
+                                </li>     
+                            </ul>    
+                        </div>
+                    </ui:fragment>
                     <section class="sidebar">
                         <ui:insert name="menu"/>
                     </section>
@@ -96,9 +121,9 @@
                                         #{b.title}
                                     </h:panelGroup>
                                     <h:panelGroup rendered="#{not status.last}">
-	                                    <a href="#{request.contextPath.concat(b.link)}" style="color: #3C8DBC;position: relative">
-	                                        #{b.title}
-	                                    </a>
+                                        <a href="#{request.contextPath.concat(b.link)}" style="color: #3C8DBC;position: relative">
+                                            #{b.title}
+                                        </a>
                                     </h:panelGroup>
                                 </li>
                             </ui:repeat>
@@ -157,14 +182,14 @@
                             </ul>
                             <div class="tab-content">
                                 <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active">
-                                	<div id="restore-defaults" style="font-size:11px;" class="align-right">
-                                            <a href="#">
-                                                <i class="fa fa-recycle"></i>
-                                                <span><p:outputLabel value="#{adm['controlsidebar.label.restore-defaults']}"/></span>
-                                    	    </a>
-                                           <p:remoteCommand name="loadLayoutDefaults" action="#{skinMB.init()}" process="@this" update="@none" global="false" oncomplete="resetDefaultTemplate()"/>
-                                           <p:remoteCommand name="resetDefaultTemplate" action="#{layoutMB.init()}" process="@this" update="@none" global="false" oncomplete="window.location.reload()"/> 
-                                        </div>
+                                    <div id="restore-defaults" style="font-size:11px;" class="align-right">
+                                        <a href="#">
+                                            <i class="fa fa-recycle"></i>
+                                            <span><p:outputLabel value="#{adm['controlsidebar.label.restore-defaults']}"/></span>
+                                        </a>
+                                        <p:remoteCommand name="loadLayoutDefaults" action="#{skinMB.init()}" process="@this" update="@none" global="false" oncomplete="resetDefaultTemplate()"/>
+                                        <p:remoteCommand name="resetDefaultTemplate" action="#{layoutMB.init()}" process="@this" update="@none" global="false" oncomplete="window.location.reload()"/> 
+                                    </div>
                                     <ui:insert name="before-controlsidebar"/>
                                     <div>
                                         <h4 class="control-sidebar-heading">#{adm['controlsidebar.header']}</h4>
@@ -193,7 +218,7 @@
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="boxed-layout-label" value="#{adm['controlsidebar.label.boxed-layout']}" for="boxed-layout"/>
                                                 <p:selectBooleanCheckbox value="#{layoutMB.boxedLayout}" id="boxed-layout" widgetVar="boxedLayout" styleClass="pull-right black" >
-                                                     <p:ajax update="@none" global="false" listener="#{layoutMB.toggleBoxedLayout()}" partialSubmit="true"/>
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleBoxedLayout()}" partialSubmit="true"/>
                                                 </p:selectBooleanCheckbox>    
                                             </span>
                                             <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.boxed-layout']}"/></p>
@@ -203,7 +228,7 @@
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="sidebar-collapsed-label" value="#{adm['controlsidebar.label.sidebar-collapsed']}" for="sidebar-collapsed"/>
                                                 <p:selectBooleanCheckbox value="#{layoutMB.sidebarCollapsed}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-collapsed" widgetVar="sidebarCollapsed" styleClass="pull-right black" >
-                                                     <p:ajax update="@none" global="false" listener="#{layoutMB.toggleSidebarCollapsed()}" partialSubmit="true"/>    
+                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleSidebarCollapsed()}" partialSubmit="true"/>    
                                                 </p:selectBooleanCheckbox>    
                                             </span>
                                             <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-collapsed']}"/></p>
@@ -586,13 +611,13 @@
                 });
             </script>
         </ui:fragment>
-        
-         <ui:fragment rendered="#{not empty skin}">
-             <script type="text/javascript">
-               $(document).ready(function () {
-                   store('layout.skin',null);
+
+        <ui:fragment rendered="#{not empty skin}">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    store('layout.skin', null);
                 });
-             </script>
+            </script>
         </ui:fragment>
 
 

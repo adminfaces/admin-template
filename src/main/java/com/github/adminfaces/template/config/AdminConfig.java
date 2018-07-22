@@ -48,6 +48,7 @@ public class AdminConfig implements Serializable {
     private String loadingImage;
     private boolean renderControlSidebar;
     private boolean leftMenuTemplate;
+     private boolean renderMenuSearch;
     //controlsidebar
     private ControlSidebarConfig controlSidebar;
     private String pageSuffix;
@@ -96,6 +97,7 @@ public class AdminConfig implements Serializable {
         loadingImage =  getProperty("admin.loadingImage");
         renderControlSidebar =  Boolean.parseBoolean(getProperty("admin.renderControlSidebar"));
         rippleMobileOnly = Boolean.parseBoolean(getProperty("admin.rippleMobileOnly"));
+        renderMenuSearch = Boolean.parseBoolean(getProperty("admin.renderMenuSearch"));
         
         leftMenuTemplate = Boolean.parseBoolean(getProperty("admin.controlSidebar.leftMenuTemplate"));
         boolean controlSidebarShowOnMobile = Boolean.parseBoolean(getProperty("admin.controlSidebar.showOnMobile"));
@@ -183,10 +185,18 @@ public class AdminConfig implements Serializable {
         return leftMenuTemplate;
     }
 
+    public boolean isRenderMenuSearch() {
+        return renderMenuSearch;
+    }
+
+    public void setRenderMenuSearch(boolean renderMenuSearch) {
+        this.renderMenuSearch = renderMenuSearch;
+    }
+    
+
     public void setLeftMenuTemplate(boolean leftMenuTemplate) {
         this.leftMenuTemplate = leftMenuTemplate;
     }
-    
   
     public ControlSidebarConfig getControlSidebar() {
         return controlSidebar;
@@ -319,5 +329,6 @@ public class AdminConfig implements Serializable {
     public void setRenderControlSidebar(boolean renderControlSidebar) {
         this.renderControlSidebar = renderControlSidebar;
     }
+    
     
 }
