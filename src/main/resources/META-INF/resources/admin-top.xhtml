@@ -104,8 +104,8 @@
                             <ui:fragment rendered="#{adminConfig.renderMenuSearch}">
                                 <form class="navbar-form navbar-left" role="search">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="navbar-search-input"
-                                               placeholder="#{adm['menu.search.placeholder']}" onclick="this.value = '';searchTopMenu('')" title="#{adm['menu.search.title']}"
+                                        <input type="text" class="form-control" id="navbar-search-input" autocomplete="off"
+                                               placeholder="#{adm['menu.search.placeholder']}" onclick="this.value = '';searchTopMenu('')"
                                                onkeyup="searchTopMenu(this.value)" onblur="this.value = '';hideMenuResults()"/>
 
                                         <ul id="menu-search" class="nav navbar-nav" role="menu">
