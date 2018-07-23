@@ -336,6 +336,7 @@ admin.controlSidebar.expandOnHover=false <22>
 admin.controlSidebar.fixed=false <23>
 admin.controlSidebar.darkSkin=true <24>
 admin.rippleMobileOnly=true <25>
+admin.renderMenuSearch=true <26>
 
 ----
 <1> login page location (relative to webapp). It you only be used if you configure <<Admin Session>>.
@@ -363,6 +364,7 @@ admin.rippleMobileOnly=true <25>
 <23> When true control sidebar will be fixed on the page.
 <24> Changes control sidebar skin between `dark` and `light`.
 <25> When true the ripple effect will be enabled only on mobile (small) screens. 
+<26> Enables or disables menu  search. 
 
 IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need to change.
 
