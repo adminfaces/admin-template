@@ -59,6 +59,8 @@ function activateMenu(url, activated) {
         if (activePage == currentPage) {
             $(this).parent().addClass('active');
             activated = true;
+        } else {
+            $(this).parent().removeClass('active');
         }
     });
 
@@ -73,7 +75,7 @@ function activateMenu(url, activated) {
         }
     });
 
-    if (!activated && localStorage.getItem("activatedMenuUrl")) {
+    if (!isLayoutTop() && !activated && localStorage.getItem("activatedMenuUrl")) {
         //if not activated set latest activated url
         activateMenu(localStorage.getItem("activatedMenuUrl"), true);
     } else {
