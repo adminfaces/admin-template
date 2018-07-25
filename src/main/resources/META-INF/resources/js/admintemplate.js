@@ -32,9 +32,7 @@ $(document).ready(function () {
 /* Active menu management */
 
 $(document).ready(function () {
-    if (!isLayoutTop()) {
-        activateMenu(window.location.pathname, false);
-    }
+     activateMenu(window.location.pathname, false);
 });
 
 function stripTrailingSlash(str) {
@@ -55,7 +53,7 @@ function saveCurrentActivatedUrl(url) {
 /* set active style in menu based on current url */
 function activateMenu(url, activated) {
     var activePage = stripTrailingSlash(url);
-    $('.sidebar-menu li a').each(function () {
+    $('.sidebar-menu li a, ul.navbar-nav li a').each(function () {
         var currentPage = stripTrailingSlash($(this).attr('href'));
         //console.log("activePage:" + activePage +" currentPage:" + currentPage);
         if (activePage == currentPage) {
