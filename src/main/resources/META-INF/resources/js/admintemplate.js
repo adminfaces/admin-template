@@ -1,37 +1,11 @@
-/* hide info,warn messages */
+/* Active menu management */
+
 $(document).on("pfAjaxComplete", function () {
-    var $messages = $("div[id$='info-messages']");
-
-    if ($messages.length) {
-        var wordCount = $messages.text().split(/\W/).length;
-        var readingTimeMillis = 2500 + (wordCount * 200);
-
-        setTimeout(function () {
-            $messages.slideUp();
-        }, readingTimeMillis);
-    }
-
     activateSidebarComponent();
 });
 
 $(document).ready(function () {
-    var $messages = $("div[id$='info-messages']");
-
-    if ($messages.length) {
-        var wordCount = $messages.text().split(/\W/).length;
-        var readingTimeMillis = 2500 + (wordCount * 200);
-
-        setTimeout(function () {
-            $messages.slideUp();
-        }, readingTimeMillis);
-    }
-
-    activateSidebarComponent()
-});
-
-/* Active menu management */
-
-$(document).ready(function () {
+     activateSidebarComponent();
      activateMenu(window.location.pathname, false);
 });
 

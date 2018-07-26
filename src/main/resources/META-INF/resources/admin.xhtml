@@ -611,6 +611,42 @@
                 });
             </script>
         </ui:fragment>
+        
+        <ui:fragment rendered="#{adminConfig.autoHideMessages and (empty autoHideMessages or autoHideMessages)}">
+
+            <script type="text/javascript">
+                //<![CDATA[
+                /* hide info messages */
+                $(document).on("pfAjaxComplete", function () {
+                    var $messages = $("div[id$='info-messages']");
+
+                    if ($messages.length) {
+                        var wordCount = $messages.text().split(/\W/).length;
+                        var readingTimeMillis = #{adminConfig.messagesHideTimeout} + (wordCount * 200);
+
+                        setTimeout(function () {
+                            $messages.slideUp();
+                        }, readingTimeMillis);
+                    }
+
+                });
+
+                $(document).ready(function () {
+                    var $messages = $("div[id$='info-messages']");
+
+                    if ($messages.length) {
+                        var wordCount = $messages.text().split(/\W/).length;
+                        var readingTimeMillis = #{adminConfig.messagesHideTimeout} + (wordCount * 200);
+
+                        setTimeout(function () {
+                            $messages.slideUp();
+                        }, readingTimeMillis);
+                    }
+
+                });
+                //]]>
+            </script>
+        </ui:fragment>
 
         <ui:fragment rendered="#{not empty skin}">
             <script type="text/javascript">

@@ -344,6 +344,8 @@ admin.controlSidebar.fixed=false <23>
 admin.controlSidebar.darkSkin=true <24>
 admin.rippleMobileOnly=true <25>
 admin.renderMenuSearch=true <26>
+admin.autoHideMessages=true <27>
+admin.messagesHideTimeout=2500 <28>
 
 ----
 <1> login page location (relative to webapp). It you only be used if you configure <<Admin Session>>.
@@ -372,6 +374,8 @@ admin.renderMenuSearch=true <26>
 <24> Changes control sidebar skin between `dark` and `light`.
 <25> When true the ripple effect will be enabled only on mobile (small) screens. 
 <26> Enables or disables menu  search. 
+<27> If true PrimeFaces *info* messages will be hidden after a certain timeout.
+<28> Timeout to hide info messages. Note that the timeout is also composed by `configured timeout + number of words` in message.
 
 IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need to change.
 

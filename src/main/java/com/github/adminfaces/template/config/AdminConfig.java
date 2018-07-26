@@ -53,6 +53,8 @@ public class AdminConfig implements Serializable {
     private ControlSidebarConfig controlSidebar;
     private String pageSuffix;
     private boolean rippleMobileOnly;
+    private String messagesHideTimeout;
+    private boolean autoHideMessages;
 
     @PostConstruct
     public void init() {
@@ -93,12 +95,13 @@ public class AdminConfig implements Serializable {
         enableSlideMenu =  Boolean.parseBoolean(getProperty("admin.enableSlideMenu"));
         skin = getProperty("admin.skin");
         autoShowNavbar =  Boolean.parseBoolean(getProperty("admin.autoShowNavbar"));
+        autoHideMessages =  Boolean.parseBoolean(getProperty("admin.autoHideMessages"));
         ignoredResources =  getProperty("admin.ignoredResources");
         loadingImage =  getProperty("admin.loadingImage");
         renderControlSidebar =  Boolean.parseBoolean(getProperty("admin.renderControlSidebar"));
         rippleMobileOnly = Boolean.parseBoolean(getProperty("admin.rippleMobileOnly"));
         renderMenuSearch = Boolean.parseBoolean(getProperty("admin.renderMenuSearch"));
-        
+        messagesHideTimeout = getProperty("admin.messagesHideTimeout");
         leftMenuTemplate = Boolean.parseBoolean(getProperty("admin.controlSidebar.leftMenuTemplate"));
         boolean controlSidebarShowOnMobile = Boolean.parseBoolean(getProperty("admin.controlSidebar.showOnMobile"));
         boolean fixedLayout = Boolean.parseBoolean(getProperty("admin.controlSidebar.fixedLayout"));
@@ -192,8 +195,23 @@ public class AdminConfig implements Serializable {
     public void setRenderMenuSearch(boolean renderMenuSearch) {
         this.renderMenuSearch = renderMenuSearch;
     }
-    
 
+    public boolean isAutoHideMessages() {
+        return autoHideMessages;
+    }
+
+    public void setAutoHideMessages(boolean autoHideMessages) {
+        this.autoHideMessages = autoHideMessages;
+    }
+    
+    public String getMessagesHideTimeout() {
+        return messagesHideTimeout;
+    }
+
+    public void setMessagesHideTimeout(String messagesHideTimeout) {
+        this.messagesHideTimeout = messagesHideTimeout;
+    }
+    
     public void setLeftMenuTemplate(boolean leftMenuTemplate) {
         this.leftMenuTemplate = leftMenuTemplate;
     }
