@@ -32,9 +32,7 @@ $(document).ready(function () {
 /* Active menu management */
 
 $(document).ready(function () {
-    if (!isLayoutTop()) {
-        activateMenu(window.location.pathname, false);
-    }
+     activateMenu(window.location.pathname, false);
 });
 
 function stripTrailingSlash(str) {
@@ -55,12 +53,14 @@ function saveCurrentActivatedUrl(url) {
 /* set active style in menu based on current url */
 function activateMenu(url, activated) {
     var activePage = stripTrailingSlash(url);
-    $('.sidebar-menu li a').each(function () {
+    $('.sidebar-menu li a, ul.navbar-nav li a').each(function () {
         var currentPage = stripTrailingSlash($(this).attr('href'));
         //console.log("activePage:" + activePage +" currentPage:" + currentPage);
         if (activePage == currentPage) {
             $(this).parent().addClass('active');
             activated = true;
+        } else {
+            $(this).parent().removeClass('active');
         }
     });
 
@@ -75,7 +75,7 @@ function activateMenu(url, activated) {
         }
     });
 
-    if (!activated && localStorage.getItem("activatedMenuUrl")) {
+    if (!isLayoutTop() && !activated && localStorage.getItem("activatedMenuUrl")) {
         //if not activated set latest activated url
         activateMenu(localStorage.getItem("activatedMenuUrl"), true);
     } else {
@@ -192,7 +192,7 @@ function searchTopMenu(criteria) {
         criteria = criteria.toLowerCase();
         var match = false;
         $('ul.nav.navbar-nav ul.dropdown-menu[role="menu"] > li').each(function () {
-            var linkText = $(this).find('a span');
+            var linkText = $(this).find('a span:not(.label)');
             if (linkText && linkText.html().toLowerCase().indexOf(criteria) !== -1) {
                 menuResults.append("<li>").append($(this).clone()).append("</li>");
                 match = true;
@@ -200,11 +200,9 @@ function searchTopMenu(criteria) {
         });
         if (!match) {
             $('#menu-search li.dropdown').removeClass('open');
-            //$('#menu-search').hide();
         }
     } else {
         $('#menu-search li.dropdown').removeClass('open');
-        //$('#menu-search').hide();
     }
 }
 
