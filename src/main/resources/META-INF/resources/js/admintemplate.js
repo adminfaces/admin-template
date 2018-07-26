@@ -192,7 +192,7 @@ function searchTopMenu(criteria) {
         criteria = criteria.toLowerCase();
         var match = false;
         $('ul.nav.navbar-nav ul.dropdown-menu[role="menu"] > li').each(function () {
-            var linkText = $(this).find('a span');
+            var linkText = $(this).find('a span:not(.label)');
             if (linkText && linkText.html().toLowerCase().indexOf(criteria) !== -1) {
                 menuResults.append("<li>").append($(this).clone()).append("</li>");
                 match = true;
@@ -200,11 +200,9 @@ function searchTopMenu(criteria) {
         });
         if (!match) {
             $('#menu-search li.dropdown').removeClass('open');
-            //$('#menu-search').hide();
         }
     } else {
         $('#menu-search li.dropdown').removeClass('open');
-        //$('#menu-search').hide();
     }
 }
 
