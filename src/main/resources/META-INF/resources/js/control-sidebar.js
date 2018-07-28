@@ -348,7 +348,7 @@ $(function () {
             $('.control-sidebar').removeClass('control-sidebar-open');
         });
 
-        $('#toggle-menu-layout .ui-chkbox-box, #toggle-menu-layout').on('click', function () {
+        $('#toggle-menu-layout .ui-chkbox-box, #toggle-menu-layout-label').on('click', function () {
             var isDefaultTemplate = PF('toggleLayout').input.is(':checked');
             setTimeout(function () {
                 updateTemplate(isDefaultTemplate);
