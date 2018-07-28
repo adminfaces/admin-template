@@ -42,7 +42,7 @@ $(function () {
         if (isMobile()) { //boxed layout is not compatible with mobile screens neither fixed layout
             disableControlSidebarOption('#boxed-layout');
             store('layout.boxed', false);
-        } 
+        }
 
         if (boxedLayout === true || boxedLayout === 'true') {
             if (!$('body').hasClass('layout-boxed')) {
@@ -51,7 +51,7 @@ $(function () {
             if (!PF('boxedLayout').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
                 PF('boxedLayout').toggle();
             }
-            
+
             enableControlSidebarOption('#boxed-layout');
             disableControlSidebarOption('#fixed-layout');
         } else {
@@ -72,7 +72,7 @@ $(function () {
             disableControlSidebarOption('#fixed-layout');
             store('layout.fixed', false);
             return;
-        }  
+        }
         if (fixedLayout === true || fixedLayout === 'true') {
             if (!$('body').hasClass('fixed')) {
                 $('body').addClass('fixed');
@@ -99,7 +99,7 @@ $(function () {
             disableControlSidebarOption('#sidebar-collapsed');
             store('layout.sidebar-collapsed', false);
             return;
-        }  
+        }
         if (sidebarCollapsed === true || sidebarCollapsed === 'true') {
             if (!$('body').hasClass('sidebar-collapse')) {
                 $('body').addClass('sidebar-collapse');
@@ -120,14 +120,14 @@ $(function () {
     }
 
     function updateSidebarExpand(expandOnHover) {
-        if(isMobile() || isLayoutTop()) {
+        if (isMobile() || isLayoutTop()) {
             disableControlSidebarOption('#sidebar-expand-hover');
             store('layout.sidebar-expand-hover', false);
             return;
         }
-        
+
         if (expandOnHover === true || expandOnHover === 'true') {
-           if (!PF('sidebarExpand').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
+            if (!PF('sidebarExpand').input.is(':checked')) {//it will not be checked when the value comes from browser local storage 
                 PF('sidebarExpand').toggle();
             }
             $pushMenu.expandOnHover();
@@ -137,7 +137,7 @@ $(function () {
                 PF('sidebarExpand').toggle();
             }
             var sidebarCollapsed = get('layout.sidebar-collapsed');
-            if(sidebarCollapsed !== true && sidebarCollapsed !== "true") {
+            if (sidebarCollapsed !== true && sidebarCollapsed !== "true") {
                 expandSidebar();
             }
             $('[data-toggle="push-menu"]').data('lte.pushmenu', null); //not working, see https://github.com/almasaeed2010/AdminLTE/issues/1843#issuecomment-379550396
@@ -148,66 +148,75 @@ $(function () {
         store('layout.sidebar-expand-hover', expandOnHover);
 
     }
-    
-    function updateTemplate() {
-        var isDefaultTemplate = PF('toggleLayout').input.is(':checked');
-        if(isDefaultTemplate === true || isDefaultTemplate === "true") {
-            if(isLayoutTop()) {
-                $('body').removeClass('layout-top-nav');
-            }
-        } else {
-            if(!isLayoutTop()) {
+
+    function updateTemplate(isDefaultTemplate) {
+        store('layout.default-template', isDefaultTemplate);
+        if (isDefaultTemplate === true || isDefaultTemplate === "true") {
+            if (isLayoutTop()) {
                 $('body').addClass('layout-top-nav');
+                PF('toggleLayout').toggle();
             }
+        } else if (!isLayoutTop()) {
+            $('body').removeClass('layout-top-nav');
+            PF('toggleLayout').toggle();
         }
-        store('layout.default-template',isDefaultTemplate);
+        var toggleLayoutCkbox = $('#toggle-menu-layout span.ui-chkbox-icon');
+        var isDefaultMenuLayoutChecked = PF('toggleLayout').input.is(':checked');
+        if (isLayoutTop() && isDefaultMenuLayoutChecked) {
+            //don't use toggle() to avoid page reloading 
+            toggleLayoutCkbox.addClass('ui-icon-blank');
+            toggleLayoutCkbox.removeClass('ui-icon-check');
+            toggleLayoutCkbox.parent().removeClass('ui-state-active');
+        } else if (!isLayoutTop() && !isDefaultMenuLayoutChecked) {
+            toggleLayoutCkbox.removeClass('ui-icon-blank');
+            toggleLayoutCkbox.addClass('ui-icon-check');
+            toggleLayoutCkbox.parent().addClass('ui-state-active');
+        }
     }
-    
-   function updateSidebarToggle(sidebarControlOpen) {
+
+    function updateSidebarToggle(sidebarControlOpen) {
         if (sidebarControlOpen === true || sidebarControlOpen === 'true') {
             $('.control-sidebar').addClass('control-sidebar-open');
             $('body').addClass('control-sidebar-open');
-            if (!PF('fixedControlSidebar').input.is(':checked')) {  
+            if (!PF('fixedControlSidebar').input.is(':checked')) {
                 PF('fixedControlSidebar').toggle();
             }
         } else {
             $('.control-sidebar').removeClass('control-sidebar-open')
             $('body').removeClass('control-sidebar-open');
-            if(PF('fixedControlSidebar').input.is(':checked')) { 
+            if (PF('fixedControlSidebar').input.is(':checked')) {
                 PF('fixedControlSidebar').toggle();
             }
         }
         store('layout.sidebar-control-open', sidebarControlOpen);
-        
+
     }
-    
+
     function loadSkin() {
         var skin = get('layout.skin');
         if (skin && !$('body').hasClass(skin)) {
-            $('#btn-'+skin).click();
+            $('#btn-' + skin).click();
         }
     }
-    
+
     function loadTemplate() {
-         var isDefaultTemplate = get('layout.default-template');
-         if (isDefaultTemplate === "true" && isLayoutTop()) {
-             PF('toggleLayout').toggle();
-         } else if(isDefaultTemplate === "false" && !isLayoutTop()) {
-             PF('toggleLayout').toggle();
-         }
-         
+        var isDefaultTemplate = get('layout.default-template');
+        if (isDefaultTemplate === null || isDefaultTemplate === "null") {
+            isDefaultTemplate = PF('toggleLayout').input.is(':checked');
+        }
+        updateTemplate(isDefaultTemplate);
     }
 
     function disableControlSidebarOption(id) {
         var optionSelector = id.concat(", ").concat(id).concat(" span.ui-chkbox-icon, ").concat(id).concat("-label");
         $(optionSelector).addClass('ui-state-disabled');
     }
-    
+
     function enableControlSidebarOption(id) {
         var optionSelector = id.concat(" ,").concat(id).concat(" span.ui-chkbox-icon, ").concat(id).concat("-label");
         $(optionSelector).removeClass('ui-state-disabled');
     }
-    
+
     function restoreDefaults() {
         store('layout.skin', null);
         store('layout.default-template', null);
@@ -230,7 +239,7 @@ $(function () {
         var sidebarSkin = get('layout.sidebar-skin');
 
         if (sidebarSkin === null || sidebarSkin === "null") {
-            if(PF('controlSidebarSkin').input.is(':checked')) {
+            if (PF('controlSidebarSkin').input.is(':checked')) {
                 sidebarSkin = 'control-sidebar-dark';
             } else {
                 sidebarSkin = 'control-sidebar-light';
@@ -238,45 +247,45 @@ $(function () {
         }
 
         updateSidebarSkin(sidebarSkin);
-        
+
         var controlSidebarOpen = get('layout.sidebar-control-open');
-        
-        if(controlSidebarOpen === null || controlSidebarOpen === "null") {
+
+        if (controlSidebarOpen === null || controlSidebarOpen === "null") {
             controlSidebarOpen = PF('fixedControlSidebar').input.is(':checked');
-        }  
+        }
 
         updateSidebarToggle(controlSidebarOpen);
 
 
         var boxedLayout = get('layout.boxed');
 
-        if(boxedLayout === null || boxedLayout === "null") {
+        if (boxedLayout === null || boxedLayout === "null") {
             boxedLayout = PF('boxedLayout').input.is(':checked');
-        }  
-        
+        }
+
         updateBoxedLayout(boxedLayout);
 
         var fixedLayout = get('layout.fixed');
-        
-        
-        if(fixedLayout === null || fixedLayout === "null") {
+
+
+        if (fixedLayout === null || fixedLayout === "null") {
             fixedLayout = PF('fixedLayout').input.is(':checked');
         }
-        
+
         updateFixedLayout(fixedLayout);
-        
+
         var sidebarCollapsed = get('layout.sidebar-collapsed');
-        
-        
-        if(sidebarCollapsed === null || sidebarCollapsed === "null") {
+
+
+        if (sidebarCollapsed === null || sidebarCollapsed === "null") {
             sidebarCollapsed = PF('sidebarCollapsed').input.is(':checked');
         }
-        
+
         updateSidebarCollapded(sidebarCollapsed);
-        
+
         var expandOnHover = get('layout.sidebar-expand-hover');
-        
-        if(expandOnHover === null || expandOnHover === "null") {
+
+        if (expandOnHover === null || expandOnHover === "null") {
             expandOnHover = PF('sidebarExpand').input.is(':checked');
         }
 
@@ -310,7 +319,7 @@ $(function () {
                 updateBoxedLayout(get('layout.boxed'));
             }, 20);
         });
-        
+
         $('#sidebar-collapsed .ui-chkbox-box, #sidebar-collapsed-label').on('click', function () {
             var sidebarCollapsed = $('body').hasClass('sidebar-collapse');
             setTimeout(function () {
@@ -338,19 +347,20 @@ $(function () {
         $('#content').click(function () {
             $('.control-sidebar').removeClass('control-sidebar-open');
         });
-        
+
         $('#toggle-menu-layout .ui-chkbox-box, #toggle-menu-layout').on('click', function () {
+            var isDefaultTemplate = PF('toggleLayout').input.is(':checked');
             setTimeout(function () {
-                updateTemplate();
+                updateTemplate(isDefaultTemplate);
             }, 20);
         });
-        
+
         $('#restore-defaults a').on('click', function () {
             setTimeout(function () {
                 restoreDefaults();
             }, 20);
         });
-        
+
         loadTemplate();
 
         loadSkin();
