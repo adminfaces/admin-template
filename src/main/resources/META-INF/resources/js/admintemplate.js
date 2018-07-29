@@ -61,7 +61,7 @@ function activateMenu(url, activated) {
 
 function activateMobileBar() {
     if (isMobile()) {
-        $('ul.sidebar-menu a.ui-link, ul.navbar-nav li a.ui-link, ol.breadcrumb a').click(function () {
+        $('ul.sidebar-menu a.ui-link, ul.navbar-nav li a.ui-link:not(#layout-setup), ol.breadcrumb a').click(function () {
             $(this).prop('disabled', true);
             showBar();
         });
