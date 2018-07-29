@@ -5,9 +5,9 @@ $(document).on("pfAjaxComplete", function () {
 });
 
 $(document).ready(function () {
-     activateSidebarComponent();
-     activateMenu(window.location.pathname, false);
-     activateMobileBar();
+    activateSidebarComponent();
+    activateMenu(window.location.pathname, false);
+    activateMobileBar();
 });
 
 function stripTrailingSlash(str) {
@@ -61,10 +61,10 @@ function activateMenu(url, activated) {
 
 function activateMobileBar() {
     if (isMobile()) {
-        $('ul.sidebar-menu a.ui-link, ul.navbar li a.ui-link').click(function () {
+        $('ul.sidebar-menu a.ui-link, ul.navbar-nav li a.ui-link, ol.breadcrumb a').click(function () {
             $(this).prop('disabled', true);
             showBar();
-        })
+        });
     }
 }
 
