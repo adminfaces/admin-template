@@ -140,7 +140,6 @@ function searchLeftMenu(criteria) {
     $('#menu-search').show();
     $('#menu-search li.dropdown').addClass('open');
     var menuResults = $('#menu-search ul.dropdown-menu[role="menu"]');
-    console.log($('#menu-search ul.dropdown-menu[role="menu"]').html());
     $('#menu-search li.dropdown li').remove();
 
     if (criteria != null && criteria.length >= 2) {

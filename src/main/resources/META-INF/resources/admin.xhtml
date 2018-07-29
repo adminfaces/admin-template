@@ -98,7 +98,7 @@
             </aside>
             <!-- content -->
             <div id="content" class="content-wrapper">
-                <adm:breadcrumb title="#{title}" rendered="#{not empty title}"/>
+                <adm:breadcrumb title="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.message']}"/>
                 <ui:insert name="content-wrapper"/>
                 <section class="content-header">
                     <h1>
@@ -107,7 +107,7 @@
                         </ui:insert>
                         <small><ui:insert name="description"/></small>
                     </h1>
-                    <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb) }">
+                    <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb) and (empty requestScope['javax.servlet.error.message'])}">
                         <ol class="breadcrumb" style="overflow: hidden;">
                             <li style="position: relative;">
                                 <a href="#{request.contextPath}/" onclick="clearBreadCrumbs();" style="position: relative;">
