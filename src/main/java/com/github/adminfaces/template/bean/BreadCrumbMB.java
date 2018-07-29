@@ -62,6 +62,10 @@ public class BreadCrumbMB implements Serializable {
             String pageUrl = FacesContext.getCurrentInstance().getViewRoot().getViewId();
             link = pageUrl.replaceAll(pageUrl.substring(pageUrl.lastIndexOf('.') + 1), adminConfig.getPageSufix());
         }
+        
+        if(!link.startsWith("/")) {
+            link = "/"+link;
+        }
 
         if(link != null && adminConfig.isExtensionLessUrls()) {
             link = link.substring(0, link.lastIndexOf("."));
