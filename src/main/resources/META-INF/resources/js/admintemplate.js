@@ -7,6 +7,7 @@ $(document).on("pfAjaxComplete", function () {
 $(document).ready(function () {
      activateSidebarComponent();
      activateMenu(window.location.pathname, false);
+     activateMobileBar();
 });
 
 function stripTrailingSlash(str) {
@@ -57,6 +58,16 @@ function activateMenu(url, activated) {
     }
 
 }
+
+function activateMobileBar() {
+    if (isMobile()) {
+        $('ul.sidebar-menu a.ui-link, ul.nav navbar a.ui-link').click(function () {
+            $(this).prop('disabled', true);
+            showBar();
+        });
+    }
+}
+
 
 function searchMenu(criteria) {
     if (criteria != null && criteria.length >= 2) {
