@@ -328,11 +328,15 @@ $(function () {
         });
 
 
-        $('#sidebar-expand-hover .ui-chkbox-box, #sidebar-expand-hover-label').on('click', function () {
-            var expandOnHover = PF('sidebarExpand').input.is(':checked')
+        $('#sidebar-expand-hover .ui-chkbox-box').on('click', function () {
+            var expandOnHover = PF('sidebarExpand').input.is(':checked');
             setTimeout(function () {
                 updateSidebarExpand(expandOnHover);
             }, 20);
+        });
+        
+        $('#sidebar-expand-hover-label').on('click', function () {
+              $('#sidebar-expand-hover .ui-chkbox-box').click();
         });
 
 
@@ -374,7 +378,6 @@ $(function () {
 
 
 });
-
 
 function toggleTemplate() {
     store('layout.default-template', null);
