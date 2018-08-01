@@ -62,7 +62,9 @@ public class AdminConfig implements Serializable {
         adminConfigFile = new Properties();
         userConfigFile = new Properties();
         try (InputStream is = cl.getResourceAsStream(("admin-config.properties"))) {
-            userConfigFile.load(is);
+			if (is != null) {
+				userConfigFile.load(is);
+			}
         } catch (IOException ex) {
             log.log(Level.WARNING,"Could not load user defined admin template properties. Falling back to default properties.");
         }
