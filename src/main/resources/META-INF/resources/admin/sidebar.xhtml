@@ -1,37 +1,45 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:cc="http://java.sun.com/jsf/composite">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite">
 
 
-    <cc:interface>
-        <cc:attribute name="collapsed" shortDescription="When true it will collapse layout sidebar."  />
-        <cc:attribute name="mini" shortDescription="When false it will remove sidebar-mini class from body." default="true"  />
-    </cc:interface>
+	<cc:interface>
+		<cc:attribute name="collapsed" shortDescription="When true it will collapse layout sidebar." />
+		<cc:attribute name="mini" shortDescription="When false it will remove sidebar-mini class from body." default="true" />
+	</cc:interface>
 
-    <cc:implementation>
-         <ui:fragment rendered="#{cc.attrs.collapsed}">
-             <script type="text/javascript">
-                 collapseSidebar();
-             </script>
-         </ui:fragment>
-
-         <ui:fragment rendered="#{cc.attrs.mini}">
-             <script type="text/javascript">
-                 setSidebarMini();
-             </script>
-         </ui:fragment>
-
-        <ui:fragment rendered="#{empty cc.attrs.collapsed or not cc.attrs.collapsed}">
-            <script type="text/javascript">
-                 expandSidebar();
+	<cc:implementation>
+		<ui:fragment rendered="#{cc.attrs.collapsed}">
+			<script type="text/javascript">
+	            setTimeout(function () {
+	                collapseSidebar();
+	            }, 180);
             </script>
-        </ui:fragment>
+		</ui:fragment>
 
-        <ui:fragment rendered="#{empty cc.attrs.mini or not cc.attrs.mini}">
-            <script type="text/javascript">
-                 removeSidebarMini();
+		<ui:fragment rendered="#{cc.attrs.mini}">
+			<script type="text/javascript">
+	            setTimeout(function () {
+	                setSidebarMini();
+	            }, 180);
             </script>
-        </ui:fragment>
-    </cc:implementation>
+		</ui:fragment>
+
+		<ui:fragment rendered="#{empty cc.attrs.collapsed or not cc.attrs.collapsed}">
+			<script type="text/javascript">
+	            setTimeout(function () {
+	                expandSidebar();
+	            }, 180);
+            </script>
+		</ui:fragment>
+
+		<ui:fragment rendered="#{empty cc.attrs.mini or not cc.attrs.mini}">
+			<script type="text/javascript">
+	               setTimeout(function () {
+	                removeSidebarMini();
+	               }, 180);
+            </script>
+		</ui:fragment>
+	</cc:implementation>
 
 </ui:composition>
