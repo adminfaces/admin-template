@@ -13,15 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.adminfaces.template.util.Assert.has;
+import java.io.IOException;
+import org.omnifaces.util.Faces;
 
 /**
  * Created by rafael-pestano on 30/11/16.
  */
-@SessionScoped
 @Named
+@SessionScoped
 public class BreadCrumbMB implements Serializable {
-
-    private transient ThreadLocal<Boolean> hasCleared = new ThreadLocal<>();
 
     @Inject
     protected AdminConfig adminConfig;
@@ -51,12 +51,6 @@ public class BreadCrumbMB implements Serializable {
     }
 
     public void add(BreadCrumb breadCrumb) {
-        if (hasCleared.get() != null) {
-            //when clicking on home breadcrumb it calls add two times
-            hasCleared.remove();
-            return;
-        }
-
         String link = breadCrumb.getLink();
         if (!has(link)) {
             String pageUrl = FacesContext.getCurrentInstance().getViewRoot().getViewId();
@@ -83,14 +77,18 @@ public class BreadCrumbMB implements Serializable {
         }
         breadCrumbs.add(breadCrumb);
     }
-
+    
     public void remove(BreadCrumb breadCrumb) {
         breadCrumbs.remove(breadCrumb);
     }
 
     public void clear() {
         breadCrumbs.clear();
-        hasCleared.set(true);
+    }
+    
+    public void clearAndHome() throws IOException {
+        clear();
+        Faces.redirect(Faces.getRequestBaseURL());
     }
 
     public List<BreadCrumb> getBreadCrumbs() {
