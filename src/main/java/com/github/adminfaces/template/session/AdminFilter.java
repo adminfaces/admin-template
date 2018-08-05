@@ -31,7 +31,7 @@ import static com.github.adminfaces.template.util.Assert.has;
 @WebFilter(urlPatterns = {"/*"})
 public class AdminFilter implements Filter {
 
-    private static final String FACES_RESOURCES = "javax.faces.resource";
+    private static final String FACES_RESOURCES = "/javax.faces.resource";
     private static final Logger log = Logger.getLogger(AdminFilter.class.getName());
 
     private boolean disableFilter;
@@ -154,7 +154,7 @@ public class AdminFilter implements Filter {
     private boolean skipResource(HttpServletRequest request, HttpServletResponse response) {
         String path = request.getServletPath();
         path = path.substring(0,path.lastIndexOf("."));
-        boolean skip = path.startsWith(FACES_RESOURCES) || ignoredResources.contains(path) || response.getStatus() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+        boolean skip = path.startsWith(FACES_RESOURCES) || shouldIgnoreResource(path) || response.getStatus() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
         return skip;
     }
 
@@ -212,6 +212,20 @@ public class AdminFilter implements Filter {
         return !recoveryUrl.toString().contains(Constants.DEFAULT_INDEX_PAGE.replace("xhtml", pageSuffix)) && !recoveryUrl.toString().contains(Constants.DEFAULT_ACCESS_DENIED_PAGE.replace("xhtml", adminConfig.getPageSufix())) 
                 && !recoveryUrl.toString().contains(Constants.DEFAULT_EXPIRED_PAGE.replace("xhtml", pageSuffix)) && !recoveryUrl.toString().contains(Constants.DEFAULT_OPTIMISTIC_PAGE.replace("xhtml", adminConfig.getPageSufix()))
                 && !recoveryUrl.toString().contains(Constants.DEFAULT_LOGIN_PAGE.replace("xhtml", adminConfig.getPageSufix()));
+    }
+
+    /**
+     * 
+     * @param path
+     * @return true if requested path starts with a ignored resource (configured in admin-config.properties)
+     */
+    private boolean shouldIgnoreResource(String path) {
+        for (String ignoredResource : ignoredResources) {
+            if(path.startsWith(ignoredResource)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
