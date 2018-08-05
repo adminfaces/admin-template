@@ -152,7 +152,8 @@ public class AdminFilter implements Filter {
      * @return true if resource must be skipped by the filter false otherwise
      */
     private boolean skipResource(HttpServletRequest request, HttpServletResponse response) {
-        String path = request.getServletPath().replaceAll("/", "");
+        String path = request.getServletPath();
+        path = path.substring(0,path.indexOf("."));
         boolean skip = path.startsWith(FACES_RESOURCES) || ignoredResources.contains(path) || response.getStatus() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
         return skip;
     }
