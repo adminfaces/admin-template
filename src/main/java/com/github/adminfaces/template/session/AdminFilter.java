@@ -73,8 +73,8 @@ public class AdminFilter implements Filter {
                 loginPage = loginPage.startsWith("/") ? loginPage.substring(1) : loginPage;
                 indexPage = indexPage.startsWith("/") ? indexPage.substring(1) : indexPage;
 
-                ignoredResources.add(loginPage);
-                ignoredResources.add(errorPage);
+                ignoredResources.add(loginPage.substring(0,loginPage.lastIndexOf(".")));
+                ignoredResources.add(errorPage.substring(0,errorPage.lastIndexOf(".")));
 
                 String configuredResouces = adminConfig.getIgnoredResources();
                 if(has(configuredResouces)) {
