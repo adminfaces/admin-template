@@ -98,16 +98,16 @@
             </aside>
             <!-- content -->
             <div id="content" class="content-wrapper">
-                <adm:breadcrumb title="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.exception_type']}"/>
+                <adm:breadcrumb title="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message']}"/>
                 <ui:insert name="content-wrapper"/>
                 <section class="content-header">
                     <h1>
                         <ui:insert name="title">
-                            <h:outputText value="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.exception_type']}"/>
+                            <h:outputText value="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message']}"/>
                         </ui:insert>
                         <small><ui:insert name="description"/></small>
                     </h1>
-                    <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb) and (empty requestScope['javax.servlet.error.exception_type'])}">
+                    <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb) and (empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message'])}">
                         <ol class="breadcrumb" style="overflow: hidden;">
                             <li style="position: relative;">
                                 <p:commandLink id="link-home" action="#{breadCrumbMB.clearAndHome}" process="@this" update="@none">
