@@ -153,7 +153,7 @@ public class AdminFilter implements Filter {
      */
     private boolean skipResource(HttpServletRequest request, HttpServletResponse response) {
         String path = request.getServletPath();
-        path = path.substring(0,path.indexOf("."));
+        path = path.substring(0,path.lastIndexOf("."));
         boolean skip = path.startsWith(FACES_RESOURCES) || ignoredResources.contains(path) || response.getStatus() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
         return skip;
     }
