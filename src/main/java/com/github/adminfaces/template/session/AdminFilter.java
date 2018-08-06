@@ -79,6 +79,11 @@ public class AdminFilter implements Filter {
                 String configuredResouces = adminConfig.getIgnoredResources();
                 if(has(configuredResouces)) {
                     this.ignoredResources.addAll(Arrays.asList(configuredResouces.split(",")));
+                    for (String ignoredResource : ignoredResources) {
+                        if(!ignoredResource.startsWith("/")) { //we need leading slash for ignoredResources beucase getServletPath (in this#skipResource) returns a string with leading slash 
+                            ignoredResources.set(ignoredResources.indexOf(ignoredResource), "/" + ignoredResource);
+                        }
+                    }
                 }
 
             } catch (Exception e) {

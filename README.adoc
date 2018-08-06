@@ -361,7 +361,7 @@ admin.messagesHideTimeout=2500 <28>
 <11> A list of comma separated list of (jquery) selector which elements will be affected by ripple effect.
 <12> Default template skin
 <13> Automatic shows navbar when users scrolls page up (on small screens). Can be enable/disabled per page with <ui:param name="autoShowNavbar" value="false".
-<14> Comma separated resources (pages or urls) to be skiped by AdminFilter. Ex: /rest,/pages/car-list.xhtml. Note that by default the filter skips pages under *CONTEXT/public/* folder.
+<14> Comma separated resources (pages or urls) to be skiped by AdminFilter. Ex: /rest, /pages/car-list. Note that by default the filter skips pages under *CONTEXT/public/* folder.
 <15> image used for the loading popup. It must be under `webapp/resources/images` folder.
 <16> Removes extension suffix from breadCrumb links.
 <17> When true it will activate <<Control Sidebar, control sidebar>> component.
