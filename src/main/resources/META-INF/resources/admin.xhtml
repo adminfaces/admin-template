@@ -108,12 +108,13 @@
                         <small><ui:insert name="description"/></small>
                     </h1>
                     <ui:fragment rendered="#{(adminConfig.renderBreadCrumb) and (empty renderBreadCrumb or renderBreadCrumb) and (empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message'])}">
-                        <h:form prependId="false">
                             <ol class="breadcrumb" style="overflow: hidden;">
                                 <li style="position: relative;">
-                                    <p:commandLink id="link-home" action="#{breadCrumbMB.clearAndHome}" process="@this" update="@none">
-                                        <i class="fa fa-home"></i><h:outputText value="#{adm['label.home']}"/>
-                                    </p:commandLink>
+                                    <h:form prependId="false">
+                                        <p:commandLink id="link-home" action="#{breadCrumbMB.clearAndHome}" process="@this" update="@none">
+                                            <i class="fa fa-home"></i><h:outputText value="#{adm['label.home']}"/>
+                                        </p:commandLink>
+                                    </h:form>
                                 </li>
                                 <ui:repeat value="#{breadCrumbMB.breadCrumbs}" var="b" varStatus="status">
                                     <li class="#{status.last ? 'active':''}">
@@ -128,7 +129,6 @@
                                     </li>
                                 </ui:repeat>
                             </ol>
-                        </h:form>
                     </ui:fragment>
                     <ui:insert name="content-header"/>
                 </section>
