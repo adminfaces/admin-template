@@ -15,7 +15,7 @@
 :warning-caption: :warning:
 
 image:https://travis-ci.org/adminfaces/admin-template.svg[Build Status (Travis CI), link=https://travis-ci.org/adminfaces/admin-template]
-image:https://maven-badges.herokuapp.com/maven-central/com.github.adminfaces/admin-template/badge.svg["Maven Central",link="http://search.maven.org/#search|ga|1|admin-template"]
+image:https://img.shields.io/maven-central/v/com.github.adminfaces/admin-template.svg?label=Maven%20Central["Maven Central",link="https://search.maven.org/search?q=g:com.github.adminfaces%20AND%20a:admin-template"]
 image:https://badges.gitter.im/Join%20Chat.svg[link="https://gitter.im/adminfaces?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"]
 
 A https://javaserverfaces.java.net/[JSF^] *fully responsive* `admin template` based on http://primefaces.org/themes[Primefaces^], https://almsaeedstudio.com/themes/AdminLTE/index2.html[Admin LTE^] and http://getbootstrap.com[Bootstrap^].
@@ -338,14 +338,16 @@ admin.renderControlSidebar=false <17>
 admin.controlSidebar.showOnMobile=false <18>
 admin.controlSidebar.leftMenuTemplate=true <19>
 admin.controlSidebar.fixedLayout=false <20>
-admin.controlSidebar.sidebarCollapsed=false <21>
-admin.controlSidebar.expandOnHover=false <22>
-admin.controlSidebar.fixed=false <23>
-admin.controlSidebar.darkSkin=true <24>
-admin.rippleMobileOnly=true <25>
-admin.renderMenuSearch=true <26>
-admin.autoHideMessages=true <27>
-admin.messagesHideTimeout=2500 <28>
+admin.controlSidebar.boxedLayout=false <21>
+admin.controlSidebar.sidebarCollapsed=false <22>
+admin.controlSidebar.expandOnHover=false <23>
+admin.controlSidebar.fixed=false <24>
+admin.controlSidebar.darkSkin=true <25>
+admin.rippleMobileOnly=true <26>
+admin.renderMenuSearch=true <27>
+admin.autoHideMessages=true <28>
+admin.messagesHideTimeout=2500 <29>
+ 
 
 ----
 <1> login page location (relative to webapp). It you only be used if you configure <<Admin Session>>.
@@ -359,8 +361,8 @@ admin.messagesHideTimeout=2500 <28>
 <9> If true will make left menu touch enable (can be closed or opened via touch). Can be enable/disabled per page with <ui:param name="enableSlideMenu" value="false".
 <10> When true it will create a http://materializecss.com/waves.html#![wave/ripple effect^] on elements specified by `rippleElements`.
 <11> A list of comma separated list of (jquery) selector which elements will be affected by ripple effect.
-<12> Default template skin
-<13> Automatic shows navbar when users scrolls page up (on small screens). Can be enable/disabled per page with <ui:param name="autoShowNavbar" value="false".
+<12> Default template skin.
+<13> Automatic shows navbar when users scrolls page up `on small screens`. Can be enable/disabled per page with <ui:param name="autoShowNavbar" value="false".
 <14> Comma separated resources (pages or urls) to be skiped by AdminFilter. Ex: /rest, /pages/car-list. Note that by default the filter skips pages under *CONTEXT/public/* folder.
 <15> image used for the loading popup. It must be under `webapp/resources/images` folder.
 <16> Removes extension suffix from breadCrumb links.
@@ -368,14 +370,15 @@ admin.messagesHideTimeout=2500 <28>
 <18> When true control sidebar will be also rendered on mobile devices. 
 <19> Switches layout between left (default) and top menu.
 <20> Toggles fixed layout where navbar is fixed on the page.
-<21> When true left sidebar will be collapsed.
-<22> When true left sidebar will expand on mouse hover.
-<23> When true control sidebar will be fixed on the page.
-<24> Changes control sidebar skin between `dark` and `light`.
-<25> When true the ripple effect will be enabled only on mobile (small) screens. 
-<26> Enables or disables menu  search. 
-<27> If true PrimeFaces *info* messages will be hidden after a certain timeout.
-<28> Timeout to hide info messages. Note that the timeout is also composed by `configured timeout + number of words` in message.
+<21> Toggles boxed layout which is helpful when working on large screens because it prevents the site from stretching very wide.
+<22> When true left sidebar will be collapsed.
+<23> When true left sidebar will expand on mouse hover.
+<24> When true control sidebar will be fixed on the page.
+<25> Changes control sidebar skin between `dark` and `light`.
+<26> When true the ripple effect will be enabled only on mobile (small) screens.
+<27> Enables or disables menu  search. 
+<28> If true PrimeFaces *info* messages will be hidden after a certain timeout.
+<29> Timeout to hide info messages. Note that the timeout is composed by `configured timeout + number of words` in message.
 
 IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need to change.
 

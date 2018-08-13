@@ -25,7 +25,9 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class AdminConfig implements Serializable {
 
-    private static final Logger log = Logger.getLogger(AdminConfig.class.getName());
+	private static final long serialVersionUID = 834212776758014169L;
+
+	private static final Logger log = Logger.getLogger(AdminConfig.class.getName());
 
     private Properties adminConfigFile;//default config
     private Properties userConfigFile;//user defined properties
@@ -48,7 +50,7 @@ public class AdminConfig implements Serializable {
     private String loadingImage;
     private boolean renderControlSidebar;
     private boolean leftMenuTemplate;
-     private boolean renderMenuSearch;
+    private boolean renderMenuSearch;
     //controlsidebar
     private ControlSidebarConfig controlSidebar;
     private String pageSuffix;
