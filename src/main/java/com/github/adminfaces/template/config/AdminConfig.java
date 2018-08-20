@@ -25,9 +25,9 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class AdminConfig implements Serializable {
 
-    private static final long serialVersionUID = 834212776758014169L;
+	private static final long serialVersionUID = 834212776758014169L;
 
-    private static final Logger log = Logger.getLogger(AdminConfig.class.getName());
+	private static final Logger log = Logger.getLogger(AdminConfig.class.getName());
 
     private Properties adminConfigFile;//default config
     private Properties userConfigFile;//user defined properties
@@ -57,6 +57,7 @@ public class AdminConfig implements Serializable {
     private boolean rippleMobileOnly;
     private String messagesHideTimeout;
     private boolean autoHideMessages;
+    private boolean iconsEffect;
 
     @PostConstruct
     public void init() {
@@ -98,8 +99,9 @@ public class AdminConfig implements Serializable {
         rippleElements = getProperty("admin.rippleElements");
         enableSlideMenu =  Boolean.parseBoolean(getProperty("admin.enableSlideMenu"));
         skin = getProperty("admin.skin");
-        autoShowNavbar =  Boolean.parseBoolean(getProperty("admin.autoShowNavbar"));
-        autoHideMessages =  Boolean.parseBoolean(getProperty("admin.autoHideMessages"));
+        autoShowNavbar = Boolean.parseBoolean(getProperty("admin.autoShowNavbar"));
+        autoHideMessages = Boolean.parseBoolean(getProperty("admin.autoHideMessages"));
+        iconsEffect = Boolean.parseBoolean(getProperty("admin.iconsEffect"));
         ignoredResources =  getProperty("admin.ignoredResources");
         loadingImage =  getProperty("admin.loadingImage");
         renderControlSidebar =  Boolean.parseBoolean(getProperty("admin.renderControlSidebar"));
@@ -167,6 +169,14 @@ public class AdminConfig implements Serializable {
     public String getDateFormat() {
         return dateFormat;
     }
+    
+    public boolean isIconsEffect() {
+		return iconsEffect;
+	}
+
+	public void setIconsEffect(boolean iconsEffect) {
+		this.iconsEffect = iconsEffect;
+	} 
 
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
