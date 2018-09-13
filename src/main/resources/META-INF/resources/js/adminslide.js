@@ -1,10 +1,14 @@
 //slideoutjs integration
 $(document).ready(function () {
-    initSlideout();
+    setTimeout(function () {
+        initSlideout();
+    }, 30);
 });
 
 $(window).on('resize', function () {
-    initSlideout();
+    setTimeout(function () {
+        initSlideout();
+    }, 30);
 });
 
 
