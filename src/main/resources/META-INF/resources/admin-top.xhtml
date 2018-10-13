@@ -23,12 +23,6 @@
                   onstart="showBar();"
                   onsuccess="hideBar();"/>
 
-    <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
-              resizable="false" responsive="true" showHeader="false" appendTo="@(body)">
-        <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
-    </p:dialog>
-
-
     <div class="wrapper">
         <div id="loader" class="load-bar" style="display: none">
             <div class="bar"></div>
@@ -652,6 +646,10 @@
         </script>
     </ui:fragment>
 
+    <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
+              resizable="false" responsive="true" showHeader="false" appendTo="@(body)">
+        <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
+    </p:dialog>
 
 </h:body>
 
