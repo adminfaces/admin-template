@@ -347,6 +347,7 @@ admin.rippleMobileOnly=true <26>
 admin.renderMenuSearch=true <27>
 admin.autoHideMessages=true <28>
 admin.messagesHideTimeout=2500 <29>
+admin.iconsEffect=true <30>
  
 
 ----
@@ -379,6 +380,7 @@ admin.messagesHideTimeout=2500 <29>
 <27> Enables or disables menu  search. 
 <28> If true PrimeFaces *info* messages will be hidden after a certain timeout.
 <29> Timeout to hide info messages. Note that the timeout is composed by `configured timeout + number of words` in message.
+<30> Enables material effect when icons (e.g modal close, calendar) are clicked.
 
 IMPORTANT: You don't need to declare all values in your admin-config.properties, you can specify only the ones you need to change.
 
