@@ -5,8 +5,10 @@ cache:
   directories:
   - "$HOME/.m2/repository"
 script:
-- mvn clean -U package deploy --settings settings.xml
+- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then mvn clean -U package deploy --settings settings.xml ; fi ;
+- if [[ $TRAVIS_PULL_REQUEST == "true" ]]; then mvn package ; fi ;
 env:
   global:
   - secure: yyc7C5k/ERqys8nHwui/ZqOTlQ/3VmZ5spGsgC7wQ1J75qJyhYp4N0UInQu4+YXR1+NVmxNX46pj//61+HRwdPBR2P9kffQeFRGRyKKKOgQcRnbmzQFvri9Ndu6yIZgATs5mfcxYqNWYaDZU/RQ/98J1oil+UxrI+RzZrlMnsENMCIJVwRPf64CYw+UgNtSFS/MBHERUVVBfmA2j5oyJSPHVIEPH4nq6UDStm3gsa4IEt40pKAD/a+Jnr3j+/I/X0QXb4A5s7OhvyfyZW2TFqd7JvzgFE/sumAgHdenFqFJWS57GAAFWvvY51R1+IA7YZXNtH7L752LVNYgswjPmsFJc2mxsNI0nJItDSfhfEa4eGrhJsXQw4me9dWXBYSCO+lwfFyTRf9cNeWoTooKwkm9emx6aOr+J8fr5GWdAkKF1FpvcEYOoa/6Dv9Xek84VFLOS1OjVrCYDlvmTYztQTcruRkSnb1c35T88JPfDt2kgIweQC7lTtHHH7viy5VkN36ovzpccpQl1SHZoiwPqlnDuTCRtwsdvF9qCCVwNyhVrMw+13nJTnzRkOGQ2cYn+f2e8ISLIyVJYtgNqctWQjtpW8qkh8y7lexevVfUgquZvXOkIDD+G5EM3DViGb3CzPE369oS3hud6k4+Sbbsg58ZTO+9uLngSGOE7apsk7rU=
   - secure: uNKJIfZL3BOtSutoCOf+xP+Ierpwon13JxYUz73Sol07WaGSjJXGpczR5ksInzoge5xJU85rv1Xm5puLPG4nRVJ0uQ5eh3sPzm32ECv+puVJISrY6THeVmV0y2W4hyZnK/PxQhY7maPZK9b7LMfvNoDbsuIp7OKsSKA72PVuRo7I8uItwO8E4TySYrZ81FTnrRjW5U4/08kD0rDN0Ce9Y9g5LH2J3aMhI/+9dlRnUto/6fLWvbh+TPl4Zd01QazynNoE+RDBjz5wrsOuqE3ud1ik4nl/P09nieP9TzfQ/bro/b2bxKdsTci+XDuZpO6x+Cn+oKWa0gm5azbrxHr/SAMhOHEDZhlPtnrQBqQAA+hJViN2Ek1Uc4OWVRRVCqUN2N2jpVCMu6mRnKmy0LnNq9q7z4XpCTdEzLMy+45+R6QkFaTUAglGxilTDlXDZstx5bonafzyF7EzFez748aWdcX8LTI7hOZiKzikhwsjfE7AfhfbhQoLuse4JeajrdPCONlDYX7bt7e0aD0OJxxUziSD0LNiuc960dEkqOEMGR1KJIxxs8nJCkrnPvKEwVWiAN29/dqN6pwRv8iK/U09QJngYAao5h93gjpm809ozr4Z+OaXddWO+GiR+fRf+ePf80IfFnybMdivQ+5+Ogk4oLt70LPI2SA9D7LlOb3yPLY=
+
