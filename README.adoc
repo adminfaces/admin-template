@@ -307,6 +307,8 @@ As a *convention over configuration* LayoutMB will load templates from the follo
 * `webapp/WEB-INF/templates/template.xhtml` for the `left menu` based template 
 * `webapp/WEB-INF/templates/template-top.xhtml` for horizontal menu layout.
 
+NOTE: If you don't provide a <<Application template>> then built in `admin.xhtml` and `admin-top.xhtml` templates will be used. 
+
 See admin-starer templates for a reference: https://github.com/adminfaces/admin-starter/tree/master/src/main/webapp/WEB-INF/templates
 
 == Configuration
@@ -494,27 +496,27 @@ The page will also be triggered when a `Throwable` is raised (and not catch).
 
 Here is how 500 page look like:
 
-image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/500.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-docs/master/src/docs/images/500.png[]
 
 .403
 User is redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/403.xhtml[403.xhtml^] whenever a _403_ response code is returned in a request. The page will also be triggered when a `com.github.adminfaces.template.exception.AccessDeniedException` is raised.
 
-image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/403.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-docs/master/src/docs/images/403.png[]
 
 .404
 User will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/non-existing.xhtml[404.xhtml^] whenever a 404 response code is returned from a request.
 
-image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/404.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-docs/master/src/docs/images/404.png[]
 
 .ViewExpired
 When a JSF `javax.faces.application.ViewExpiredException` is raised user will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/expired.xhtml[expired.xhtml^].
 
-image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/expired.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-docs/master/src/docs/images/expired.png[]
 
 .OptimisticLock
 When a JPA `javax.persistence.OptimisticLockException` is thrown user will be redirected to http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/optimistic.xhtml[optimistic.xhtml^].
 
-image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/optimistic.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-docs/master/src/docs/images/optimistic.png[]
 
 === Providing custom error pages
 
@@ -611,7 +613,7 @@ IMPORTANT: You can contribute your language locale to AdminFaces, https://github
 
 ControlSidebar is a component which provides a panel so user can `customize` the template layout:
 
-image::https://raw.githubusercontent.com/adminfaces/admin-showcase/master/src/docs/images/controlsidebar.png[]
+image::https://raw.githubusercontent.com/adminfaces/admin-docs/master/src/docs/images/controlsidebar.png[]
 
 Options selected by user are stored on `browser local storage` so they are remembered no matter the user logs off the application.
 
