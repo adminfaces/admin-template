@@ -37,7 +37,7 @@ image:https://cloud.githubusercontent.com/assets/1592273/25071807/dd37121e-2296-
 ** Auto show and hide navbar based on page scroll 
 ** Scroll to top
 * Automatically activates (highlight) menu based on current page +
-image:https://github.com/adminfaces/admin-showcase/raw/master/src/docs/images/menu-highlight.png[link="https://github.com/adminfaces/admin-showcase/blob/master/src/docs/images/menu-highlight.png?raw=true"]
+image:https://github.com/adminfaces/admin-docs/raw/master/src/docs/images/menu-highlight.png[link="https://github.com/adminfaces/admin-showcase/blob/master/src/docs/images/menu-highlight.png?raw=true"]
 * Custom <<Error Pages, error pages>>
 * Two menu modes, left and horizontal based menu
 * Configurable, see <<Configuration>>
@@ -45,7 +45,7 @@ image:https://github.com/adminfaces/admin-showcase/raw/master/src/docs/images/me
 * Layout customization via <<Control Sidebar>>
 * High resolution and responsible icons based on Glyphycons and FontAwesome
 * Menu itens search +
-image:https://github.com/adminfaces/admin-showcase/raw/master/src/docs/images/menu-search.png[link="https://github.com/adminfaces/admin-showcase/blob/master/src/docs/images/menu-search.png?raw=true"]
+image:https://github.com/adminfaces/admin-docs/raw/master/src/docs/images/menu-search.png[link="https://github.com/adminfaces/admin-showcase/blob/master/src/docs/images/menu-search.png?raw=true"]
 * Builtin `dark` and `light` skins
 * Back to previous screen when logging in again after session expiration (or accessing a page via url without being logged in)
 
