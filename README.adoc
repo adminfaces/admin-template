@@ -29,7 +29,7 @@ Below is a non exhaustive list of notable features brought out of the box by thi
 ** Its based on Bootstrap and AdminLTE two well tested and solid frameworks
 * Enhanced mobile experience
 ** Material design load bar
-** Material design http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/pages/components/buttons.xhtml?flat=true[flat buttons^]
+** Material design http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/pages/components/buttons.xhtml?material=true[flat buttons^]
 ** Ripple effect based on http://materializecss.com/waves.html[materialize css^] +
 image:https://user-images.githubusercontent.com/1592273/27104868-d9bfb33e-5063-11e7-83be-2201a3f8cda5.gif[]
 ** Touch enabled menu to slide in/out and show navbar on scroll up +
