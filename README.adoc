@@ -29,7 +29,7 @@ Below is a non exhaustive list of notable features brought out of the box by thi
 ** Its based on Bootstrap and AdminLTE two well tested and solid frameworks
 * Enhanced mobile experience
 ** Material design load bar
-** Material design flat buttons
+** Material design http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/pages/components/buttons.xhtml?flat=true[flat buttons^]
 ** Ripple effect based on http://materializecss.com/waves.html[materialize css^] +
 image:https://user-images.githubusercontent.com/1592273/27104868-d9bfb33e-5063-11e7-83be-2201a3f8cda5.gif[]
 ** Touch enabled menu to slide in/out and show navbar on scroll up +
@@ -37,7 +37,7 @@ image:https://cloud.githubusercontent.com/assets/1592273/25071807/dd37121e-2296-
 ** Auto show and hide navbar based on page scroll 
 ** Scroll to top
 * Automatically activates (highlight) menu based on current page +
-image:https://github.com/adminfaces/admin-docs/raw/master/src/docs/images/menu-highlight.png[link="https://github.com/adminfaces/admin-showcase/blob/master/src/docs/images/menu-highlight.png?raw=true"]
+image:https://github.com/adminfaces/admin-docs/raw/master/src/docs/images/menu-highlight.png[link="https://github.com/adminfaces/admin-docs/blob/master/src/docs/images/menu-highlight.png?raw=true"]
 * Custom <<Error Pages, error pages>>
 * Two menu modes, left and horizontal based menu
 * Configurable, see <<Configuration>>
@@ -45,7 +45,7 @@ image:https://github.com/adminfaces/admin-docs/raw/master/src/docs/images/menu-h
 * Layout customization via <<Control Sidebar>>
 * High resolution and responsible icons based on Glyphycons and FontAwesome
 * Menu itens search +
-image:https://github.com/adminfaces/admin-docs/raw/master/src/docs/images/menu-search.png[link="https://github.com/adminfaces/admin-showcase/blob/master/src/docs/images/menu-search.png?raw=true"]
+image:https://github.com/adminfaces/admin-docs/raw/master/src/docs/images/menu-search.png[link="https://github.com/adminfaces/admin-docs/blob/master/src/docs/images/menu-search.png?raw=true"]
 * Builtin `dark` and `light` skins
 * Back to previous screen when logging in again after session expiration (or accessing a page via url without being logged in)
 
