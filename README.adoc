@@ -304,8 +304,8 @@ The user can change layout modes via <<Control Sidebar, control sidebar>> but to
 
 As a *convention over configuration* LayoutMB will load templates from the following locations:
 
-* `webapp/WEB-INF/templates/template.xhtml` for the `left menu` based template 
-* `webapp/WEB-INF/templates/template-top.xhtml` for horizontal menu layout.
+* `webapp/WEB-INF/templates/template.xhtml` and `resources/META-INF/resources/templates/template.xhtml` for the `left menu` based template 
+* `webapp/WEB-INF/templates/template-top.xhtml` and `resources/META-INF/resources/templates/template-top.xhtml` for horizontal menu layout.
 
 NOTE: If you don't provide a <<Application template>> then built in `admin.xhtml` and `admin-top.xhtml` templates will be used. 
 
