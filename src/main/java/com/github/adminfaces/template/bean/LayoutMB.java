@@ -26,6 +26,8 @@ public class LayoutMB implements Serializable {
     private static final String WEBAPP_PREFFIX = "/WEB-INF"; // template webapp preffix path
 
     private String template;
+	private String templatePath;
+	private String templateTopPath;
     private Boolean leftMenuTemplate; 
     private Boolean fixedLayout;
     private Boolean boxedLayout;
@@ -39,7 +41,10 @@ public class LayoutMB implements Serializable {
 
     @PostConstruct
     public void init() {
-        if (adminConfig.isLeftMenuTemplate()) {
+		this.templatePath = findTemplate(APP_TEMPLATE_PATH, DEFAULT_TEMPLATE);
+		this.templateTopPath = findTemplate(APP_TEMPLATE_TOP_PATH, TEMPLATE_TOP);
+
+		if (adminConfig.isLeftMenuTemplate()) {
             setDefaultTemplate();
         } else {
             setTemplateTop();
@@ -63,18 +68,12 @@ public class LayoutMB implements Serializable {
     }
 
     public void setTemplateTop() {
-		template = findAppTemplate(APP_TEMPLATE_TOP_PATH);
-		if (template == null) {
-            template = TEMPLATE_TOP;
-        }
+		template = templateTopPath;
         leftMenuTemplate = false;
-    }
-
+	}
+	
     public void setDefaultTemplate() {
-		template = findAppTemplate(APP_TEMPLATE_PATH);
-        if (template == null) {
-            template = DEFAULT_TEMPLATE;
-        }
+		template = templatePath;
         leftMenuTemplate = true;
     }
 
@@ -180,12 +179,14 @@ public class LayoutMB implements Serializable {
         }		
 	}
 	
-    private String findAppTemplate(String appTemplatePath) {
-		String result = null;
+    private String findTemplate(String appTemplatePath, String bundledPath) {
+		String result;
 		if (templateExists(WEBAPP_PREFFIX + appTemplatePath)) {
 			result = WEBAPP_PREFFIX + appTemplatePath;
 		} else if (templateExists(RESOURCES_PREFFIX + appTemplatePath)) {
 			result = RESOURCES_PREFFIX + appTemplatePath;
+		} else {
+			result = bundledPath;
 		}
         return result;
     }
