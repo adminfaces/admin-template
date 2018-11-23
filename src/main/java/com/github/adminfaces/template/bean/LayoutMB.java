@@ -139,32 +139,7 @@ public class LayoutMB implements Serializable {
         } else {
             setDefaultTemplate();
         }
-    }
-    
-    public void toggleFixedLayout() {
-        this.fixedLayout = !fixedLayout;
-    }
-    
-    public void toggleBoxedLayout() {
-        this.boxedLayout = !boxedLayout;
-    }
-    
-    public void toggleExpandOnHover() {
-        this.expandOnHover = !expandOnHover;
-    }
-    
-    public void toggleSidebarCollapsed() {
-        this.sidebarCollapsed = !sidebarCollapsed;
-    }
-    
-    public void toggleFixedControlSidebar() {
-        this.fixedControlSidebar = !fixedControlSidebar;
-    }
-    
-    public void toggleControlSidebarSkin() {
-        this.darkControlSidebarSkin = !darkControlSidebarSkin;
-    }
-    
+    }    
 
     public boolean isDefaultTemplate() {
         return template != null && (template.endsWith("template.xhtml") || template.equals("admin.xhtml"));
