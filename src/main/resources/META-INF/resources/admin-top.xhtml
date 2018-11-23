@@ -196,9 +196,7 @@
                                     <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="fixed-layout-label" value="#{adm['controlsidebar.label.fixed-layout']}" for="fixed-layout"/>
-                                                <p:selectBooleanCheckbox value="#{layoutMB.fixedLayout}" id="fixed-layout" widgetVar="fixedLayout" styleClass="pull-right black">
-                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleFixedLayout()}" partialSubmit="true"/>
-                                                </p:selectBooleanCheckbox>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.fixedLayout}" id="fixed-layout" widgetVar="fixedLayout" styleClass="pull-right black"/>
                                             </span>
                                         <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.fixed-layout']}"/></p>
                                     </div>
@@ -206,9 +204,7 @@
                                     <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="boxed-layout-label" value="#{adm['controlsidebar.label.boxed-layout']}" for="boxed-layout"/>
-                                                <p:selectBooleanCheckbox value="#{layoutMB.boxedLayout}" id="boxed-layout" widgetVar="boxedLayout" styleClass="pull-right black" >
-                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleBoxedLayout()}" partialSubmit="true"/>
-                                                </p:selectBooleanCheckbox>    
+                                                <p:selectBooleanCheckbox value="#{layoutMB.boxedLayout}" id="boxed-layout" widgetVar="boxedLayout" styleClass="pull-right black"/>
                                             </span>
                                         <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.boxed-layout']}"/></p>
                                     </div>
@@ -216,35 +212,28 @@
                                     <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="sidebar-collapsed-label" value="#{adm['controlsidebar.label.sidebar-collapsed']}" for="sidebar-collapsed"/>
-                                                <p:selectBooleanCheckbox value="#{layoutMB.sidebarCollapsed}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-collapsed" widgetVar="sidebarCollapsed" styleClass="pull-right black" >
-                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleSidebarCollapsed()}" partialSubmit="true"/>    
-                                                </p:selectBooleanCheckbox>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.sidebarCollapsed}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-collapsed" widgetVar="sidebarCollapsed" styleClass="pull-right black"/>
                                             </span>
                                         <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-collapsed']}"/></p>
                                     </div>
                                     <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="sidebar-expand-hover-label" value="#{adm['controlsidebar.label.sidebar-expand-hover']}" for="sidebar-expand-hover"/>
-                                                <p:selectBooleanCheckbox value="#{layoutMB.expandOnHover}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-expand-hover" widgetVar="sidebarExpand" styleClass="pull-right black" >
-                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleExpandOnHover()}" partialSubmit="true"/>    
-                                                </p:selectBooleanCheckbox>                                                    </span>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.expandOnHover}" disabled="#{not layoutMB.defaultTemplate}" id="sidebar-expand-hover" widgetVar="sidebarExpand" styleClass="pull-right black"/>
+                                            </span>
                                         <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-expand-hover']}"/></p>
                                     </div>
                                     <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel id="control-sidebar-toggle-label" value="#{adm['controlsidebar.label.sidebar-slide']}" for="control-sidebar-toggle"/>
-                                                <p:selectBooleanCheckbox value="#{layoutMB.fixedControlSidebar}" id="control-sidebar-toggle" widgetVar="fixedControlSidebar" styleClass="pull-right black" >
-                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleFixedControlSidebar()}" partialSubmit="true"/>    
-                                                </p:selectBooleanCheckbox>  
+                                                <p:selectBooleanCheckbox value="#{layoutMB.fixedControlSidebar}" id="control-sidebar-toggle" widgetVar="fixedControlSidebar" styleClass="pull-right black"/>
                                             </span>
                                         <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-slide']}"/></p>
                                     </div>
                                     <div class="form-group">
                                             <span class="control-sidebar-subheading">
                                                 <p:outputLabel value="#{adm['controlsidebar.label.sidebar-skin']}" for="sidebar-skin"/>
-                                                <p:selectBooleanCheckbox value="#{layoutMB.darkControlSidebarSkin}" id="sidebar-skin" widgetVar="controlSidebarSkin" styleClass="pull-right black">
-                                                    <p:ajax update="@none" global="false" listener="#{layoutMB.toggleControlSidebarSkin()}" partialSubmit="true"/>    
-                                                </p:selectBooleanCheckbox>
+                                                <p:selectBooleanCheckbox value="#{layoutMB.darkControlSidebarSkin}" id="sidebar-skin" widgetVar="controlSidebarSkin" styleClass="pull-right black"/>
                                             </span>
                                         <p><h:outputText escape="false" value="#{adm['controlsidebar.txt.sidebar-skin']}"/></p>
                                     </div>
