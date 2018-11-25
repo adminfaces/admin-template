@@ -38,6 +38,9 @@ public class LayoutMB implements Serializable {
 
     @Inject
     protected AdminConfig adminConfig;
+    
+    @Inject
+    private SkinMB skinMB;
 
     @PostConstruct
     public void init() {
@@ -57,6 +60,11 @@ public class LayoutMB implements Serializable {
         this.sidebarCollapsed =  controlSidebarConfig.getSidebarCollapsed();
         this.fixedControlSidebar = controlSidebarConfig.getFixed();
         this.darkControlSidebarSkin = controlSidebarConfig.getDarkSkin();
+    }
+    
+    public void restoreDefaults() {
+    	skinMB.init();
+    	this.init();
     }
 
     public String getTemplate() {

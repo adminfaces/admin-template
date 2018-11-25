@@ -23,7 +23,10 @@
     <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
                   onstart="showBar();"
                   onsuccess="hideBar();"/>
-
+                  
+    <h:form prependId="false" style="display:none;">
+        <h:commandButton id="btn-restore-layout" style="visibility:hidden;" actionListener="#{layoutMB.restoreDefaults}" onclick="restoreLayoutDefaults();"/>
+    </h:form>
     <div class="wrapper">
         <div id="loader" class="load-bar" style="display: none">
             <div class="bar"></div>
@@ -173,12 +176,10 @@
                         <div class="tab-content">
                             <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active">
                                 <div id="restore-defaults" style="font-size:11px;" class="align-right">
-                                    <a href="#">
+                                    <a href="#" onclick="$('#btn-restore-layout').click()">
                                         <i class="fa fa-recycle"></i>
                                         <span><p:outputLabel value="#{adm['controlsidebar.label.restore-defaults']}"/></span>
                                     </a>
-                                    <p:remoteCommand name="loadLayoutDefaults" action="#{skinMB.init()}" process="@this" update="@none" global="false" oncomplete="resetDefaultTemplate()"/>
-                                    <p:remoteCommand name="resetDefaultTemplate" action="#{layoutMB.init()}" process="@this" update="@none" global="false" oncomplete="window.location.reload()"/>
                                 </div>
                                 <ui:insert name="before-controlsidebar"/>
                                 <div>
