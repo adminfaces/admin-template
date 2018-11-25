@@ -5,11 +5,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="/admin-base.xhtml">
-
-    <ui:define name="metadata">
-        <ui:insert name="metadata"/>
-        <ui:param name="bodyStyleClass" value="sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''} "/>
-    </ui:define>
+    
+    <ui:param name="bodyStyleClass" value="sidebar-mini #{not empty sidebarCollapse and sidebarCollapse eq 'true' ? 'sidebar-collapse':''} "/>
 
     <ui:define name="template-header">
         <a href="#{request.contextPath}/" class="logo">
