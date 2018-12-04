@@ -62,7 +62,10 @@ public class BreadCrumbMB implements Serializable {
         }
 
         if(link != null && adminConfig.isExtensionLessUrls()) {
-            link = link.substring(0, link.lastIndexOf("."));
+            int idx = link.lastIndexOf(".");
+            if (idx != -1) {
+                link = link.substring(0, idx);
+            }
         } else if(link != null && !link.contains(".")) {
             link = link + "." + adminConfig.getPageSufix();
         }
