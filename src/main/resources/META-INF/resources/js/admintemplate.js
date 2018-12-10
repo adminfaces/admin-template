@@ -52,8 +52,11 @@ function activateMenu(url, activated) {
         var currentPage = stripTrailingSlash($(this).attr('href'));
         //console.log("sub-activePage:" + activePage +" sub-currentPage:" + currentPage);
         if (activePage == currentPage) {
-            $(this).parent().addClass('active');
-            $(this).parent().parent().parent().addClass('active');
+        	$(this).parentsUntil( "ul.sidebar-menu", "li.treeview" ).each(function () {
+                $(this).addClass('active');
+             });
+            //$(this).parent().addClass('active');
+            //$(this).parent().parent().parent().addClass('active');
             activated = true;
         }
     });
