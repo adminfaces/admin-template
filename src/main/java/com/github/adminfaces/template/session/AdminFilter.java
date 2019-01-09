@@ -24,7 +24,7 @@ import static com.github.adminfaces.template.util.Assert.has;
 /**
  * Based on https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/filter/ConventionsFilter.java
  * Created by rafael-pestano on 07/01/17.
- *
+ * <p>
  * This filter controls when user must be redirected to logon or index page
  * and saves current url to redirect back when session expires
  */
@@ -36,8 +36,8 @@ public class AdminFilter implements Filter {
 
     private boolean disableFilter;
     private String loginPage;
-    private String errorPage;
     private String indexPage;
+    private String redirectPrefix;
 
     @Inject
     AdminSession adminSession;
@@ -48,7 +48,7 @@ public class AdminFilter implements Filter {
     private final List<String> ignoredResources = new ArrayList<>();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         String disableAdminFilter = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.DISABLE_FILTER);
         if (adminConfig.isDisableFilter() || has(disableAdminFilter) && Boolean.valueOf(disableAdminFilter)) {
             disableFilter = true;
@@ -59,7 +59,7 @@ public class AdminFilter implements Filter {
                 if (!has(loginPage)) {
                     loginPage = has(adminConfig) ? adminConfig.getLoginPage() : Constants.DEFAULT_LOGIN_PAGE;
                 }
-                errorPage = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.ERROR_PAGE);
+                String errorPage = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.ERROR_PAGE);
                 if (!has(errorPage)) {
                     errorPage = Constants.DEFAULT_ERROR_PAGE;
                 }
@@ -73,21 +73,21 @@ public class AdminFilter implements Filter {
                 loginPage = loginPage.startsWith("/") ? loginPage.substring(1) : loginPage;
                 indexPage = indexPage.startsWith("/") ? indexPage.substring(1) : indexPage;
 
-                ignoredResources.add("/"+loginPage.substring(0,loginPage.lastIndexOf(".")));//we need leading slash for ignoredResources
-                ignoredResources.add("/"+errorPage.substring(0,errorPage.lastIndexOf(".")));
+                ignoredResources.add("/" + loginPage.substring(0, loginPage.lastIndexOf(".")));//we need leading slash for ignoredResources
+                ignoredResources.add("/" + errorPage.substring(0, errorPage.lastIndexOf(".")));
 
                 String configuredResouces = adminConfig.getIgnoredResources();
-                if(has(configuredResouces)) {
+                if (has(configuredResouces)) {
                     this.ignoredResources.addAll(Arrays.asList(configuredResouces.split(",")));
                     for (String ignoredResource : ignoredResources) {
-                        if(!ignoredResource.startsWith("/")) { //we need leading slash for ignoredResources beucase getServletPath (in this#skipResource) returns a string with leading slash 
+                        if (!ignoredResource.startsWith("/")) { //we need leading slash for ignoredResources beucase getServletPath (in this#skipResource) returns a string with leading slash
                             ignoredResources.set(ignoredResources.indexOf(ignoredResource), "/" + ignoredResource);
                         }
                     }
                 }
 
             } catch (Exception e) {
-                log.log(Level.SEVERE,"problem initializing admin filter", e);
+                log.log(Level.SEVERE, "problem initializing admin filter", e);
             }
         }
 
@@ -107,7 +107,7 @@ public class AdminFilter implements Filter {
 
         if (request.getRequestURI().equals(request.getContextPath() + "/")
                 || (adminSession.isLoggedIn() && request.getRequestURI().endsWith(loginPage))) {
-            response.sendRedirect(request.getContextPath() + "/" + indexPage);
+            response.sendRedirect(getRedirectPrefix(request) + request.getContextPath() + "/" + indexPage);
             return;
         }
 
@@ -119,13 +119,15 @@ public class AdminFilter implements Filter {
         if (skipResource(request, response) || adminSession.isLoggedIn()) {
             if (!adminSession.isUserRedirected() && adminSession.isLoggedIn() && has(request.getHeader("Referer")) && request.getHeader("Referer").contains("?page=")) {
                 adminSession.setUserRedirected(true);
-                response.sendRedirect(request.getContextPath() + extractPageFromURL(request.getHeader("Referer")));
+                String pageFromURL = request.getContextPath() + extractPageFromURL(request.getHeader("Referer"));
+                log.info("Redirecting user back to " + pageFromURL);
+                response.sendRedirect(getRedirectPrefix(request) + pageFromURL);
                 return;
             }
             try {
                 chain.doFilter(req, resp);
             } catch (FileNotFoundException e) {
-                log.log(Level.WARNING,"File not found", e);
+                log.log(Level.WARNING, "File not found", e);
                 response.sendError(404);
             }
         } else { //resource not skipped (e.g a page that is not logon page) AND user not logged in
@@ -140,7 +142,7 @@ public class AdminFilter implements Filter {
         try {
             return URLDecoder.decode(page, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            log.log(Level.WARNING,"Could not extract page from url", e);
+            log.log(Level.WARNING, "Could not extract page from url", e);
             return indexPage;
         }
     }
@@ -158,8 +160,8 @@ public class AdminFilter implements Filter {
      */
     private boolean skipResource(HttpServletRequest request, HttpServletResponse response) {
         String path = request.getServletPath();
-        if(path.contains(".")) {
-            path = path.substring(0,path.lastIndexOf("."));
+        if (path.contains(".")) {
+            path = path.substring(0, path.lastIndexOf("."));
         }
         boolean skip = path.startsWith(FACES_RESOURCES) || shouldIgnoreResource(path) || response.getStatus() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
         return skip;
@@ -200,39 +202,50 @@ public class AdminFilter implements Filter {
                         .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
                         .printf("<partial-response><redirect url=\"%s\"></redirect></partial-response>", redirectUrl);
             } else {//normal redirect
-                response.sendRedirect(redirectUrl);
+                response.sendRedirect(getRedirectPrefix(request) + redirectUrl);
             }
 
         } catch (Exception e) {
-            log.log(Level.SEVERE,"Could not redirect to " + loginPage, e);
+            log.log(Level.SEVERE, "Could not redirect to " + loginPage, e);
         }
 
     }
 
     /**
      * Skip error pages, login and index page as recovery url because it doesn't make sense redirecting user to such pages
+     *
      * @param recoveryUrl
-     * @return 
+     * @return
      */
     private boolean isValidRecoveryUrl(StringBuilder recoveryUrl) {
         String pageSuffix = adminConfig.getPageSufix();
-        return !recoveryUrl.toString().contains(Constants.DEFAULT_INDEX_PAGE.replace("xhtml", pageSuffix)) && !recoveryUrl.toString().contains(Constants.DEFAULT_ACCESS_DENIED_PAGE.replace("xhtml", adminConfig.getPageSufix())) 
+        return !recoveryUrl.toString().contains(Constants.DEFAULT_INDEX_PAGE.replace("xhtml", pageSuffix)) && !recoveryUrl.toString().contains(Constants.DEFAULT_ACCESS_DENIED_PAGE.replace("xhtml", adminConfig.getPageSufix()))
                 && !recoveryUrl.toString().contains(Constants.DEFAULT_EXPIRED_PAGE.replace("xhtml", pageSuffix)) && !recoveryUrl.toString().contains(Constants.DEFAULT_OPTIMISTIC_PAGE.replace("xhtml", adminConfig.getPageSufix()))
                 && !recoveryUrl.toString().contains(Constants.DEFAULT_LOGIN_PAGE.replace("xhtml", adminConfig.getPageSufix()));
     }
 
     /**
-     * 
      * @param path
      * @return true if requested path starts with a ignored resource (configured in admin-config.properties)
      */
     private boolean shouldIgnoreResource(String path) {
         for (String ignoredResource : ignoredResources) {
-            if(path.startsWith(ignoredResource)) {
+            if (path.startsWith(ignoredResource)) {
                 return true;
             }
         }
         return false;
     }
 
+    private String getRedirectPrefix(HttpServletRequest request) {
+        if(redirectPrefix == null) {
+            StringBuffer str = request.getRequestURL();
+            String url = str.toString();
+            String uri = request.getRequestURI();
+            int offset = url.indexOf(uri);
+            redirectPrefix = url.substring(0, offset);
+            log.info("Configured redirect prefix: "+redirectPrefix);
+        }
+        return redirectPrefix;
+    }
 }
