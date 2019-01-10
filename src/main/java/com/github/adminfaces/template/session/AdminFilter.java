@@ -247,6 +247,9 @@ public class AdminFilter implements Filter {
                 redirectPrefix = redirectPrefix.replace("http:","https:");
             }
             log.info("Configured redirect prefix: "+redirectPrefix);
+            log.info("Server port: "+request.getServerPort());
+            log.info("Is secure: "+request.isSecure());
+            log.info("X-Forwarded-Proto: "+request.getHeader("X-Forwarded-Proto"));
         }
         return redirectPrefix;
     }
