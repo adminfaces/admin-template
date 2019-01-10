@@ -24,7 +24,7 @@ import static com.github.adminfaces.template.util.Assert.has;
 /**
  * Based on https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/filter/ConventionsFilter.java
  * Created by rafael-pestano on 07/01/17.
- * <p>
+ *
  * This filter controls when user must be redirected to logon or index page
  * and saves current url to redirect back when session expires
  */
