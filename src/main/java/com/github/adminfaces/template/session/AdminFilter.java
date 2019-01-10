@@ -243,6 +243,9 @@ public class AdminFilter implements Filter {
             String uri = request.getRequestURI();
             int offset = url.indexOf(uri);
             redirectPrefix = url.substring(0, offset);
+            if(request.isSecure()) {
+                redirectPrefix = redirectPrefix.replace("http:","https:");
+            }
             log.info("Configured redirect prefix: "+redirectPrefix);
         }
         return redirectPrefix;
