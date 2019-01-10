@@ -239,8 +239,7 @@ public class AdminFilter implements Filter {
 
     private String getRedirectPrefix(HttpServletRequest request) {
         if(redirectPrefix == null) {
-            StringBuffer str = request.getRequestURL();
-            String url = str.toString();
+            String url = request.getRequestURL().toString();
             String uri = request.getRequestURI();
             int offset = url.indexOf(uri);
             redirectPrefix = url.substring(0, offset);
