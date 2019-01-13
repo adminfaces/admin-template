@@ -243,7 +243,7 @@ public class AdminFilter implements Filter {
             String uri = request.getRequestURI();
             int offset = url.indexOf(uri);
             redirectPrefix = url.substring(0, offset);
-            if(request.isSecure() || request.getServerPort() == 443) {
+            if(useHttps(request)) {
                 redirectPrefix = redirectPrefix.replace("http:","https:");
             }
             log.info("Configured redirect prefix: "+redirectPrefix);
@@ -252,5 +252,12 @@ public class AdminFilter implements Filter {
             log.info("X-Forwarded-Proto: "+request.getHeader("X-Forwarded-Proto"));
         }
         return redirectPrefix;
+    }
+
+    private static boolean useHttps(HttpServletRequest request) {
+        String protocolProperty = System.getProperty("admin.protocol", System.getenv("admin.protocol"));
+        log.info("admin.protocol: "+protocolProperty);
+        return request.isSecure() || request.getServerPort() == 443 || (protocolProperty != null 
+            && protocolProperty.toLowerCase().equals("https"));
     }
 }
