@@ -257,7 +257,9 @@ public class AdminFilter implements Filter {
     private static boolean useHttps(HttpServletRequest request) {
         String protocolProperty = System.getProperty("admin.protocol", System.getenv("admin.protocol"));
         log.info("admin.protocol: "+protocolProperty);
-        return request.isSecure() || request.getServerPort() == 443 || (protocolProperty != null 
-            && protocolProperty.toLowerCase().equals("https"));
+        String protoHeader = request.getHeader("X-Forwarded-Proto");
+        return request.isSecure() || request.getServerPort() == 443 
+            || (protoHeader != null && protoHeader.toLowerCase().equals("https")) 
+            || (protocolProperty != null && protocolProperty.toLowerCase().equals("https"));
     }
 }
