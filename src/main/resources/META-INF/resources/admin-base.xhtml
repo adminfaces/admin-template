@@ -24,6 +24,11 @@
     <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
                   onstart="showBar();"
                   onsuccess="hideBar();"/>
+
+    <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
+              resizable="false" responsive="true" showHeader="false" appendTo="@(body)">
+        <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
+    </p:dialog>
                   
     <h:form prependId="false" style="display:none;">
         <h:commandButton id="btn-restore-layout" style="visibility:hidden;" actionListener="#{layoutMB.restoreDefaults}"
@@ -70,7 +75,7 @@
 
         <ui:insert name="template-menu"/>
         <!-- content -->
-        <div id="content" class="content-wrapper">
+        <h:panelGroup layout="block" id="content" styleClass="content-wrapper">
             <adm:breadcrumb title="#{title}" rendered="#{not empty title and empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message']}"/>
             <ui:insert name="content-wrapper"/>
             <section class="content-header">
@@ -123,8 +128,7 @@
                 <ui:insert name="body"/>
             </section>
             <ui:insert name="content-end"/>
-        </div>
-
+        </h:panelGroup>
 
         <footer class="main-footer">
             <ui:insert name="footer"/>
@@ -582,10 +586,6 @@
     </ui:fragment>
 
     <ui:insert name="body-end"/>
-    <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
-              resizable="false" responsive="true" showHeader="false" appendTo="@(body)">
-        <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
-    </p:dialog>
 </h:body>
 
 </html>
