@@ -115,12 +115,16 @@
                 <ui:fragment rendered="#{adminConfig.renderMessages and (empty renderMessages or renderMessages)}">
                     <div class="row">
                         <div class="col-sm-12">
-                            <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true"
-                                        showDetail="true" severity="error,fatal" escape="false"/>
-                            <!-- we need two messages because info-messages are hidden by javascript  -->
-                            <p:messages id="info-messages" closable="true" autoUpdate="true" showDetail="true"
-                                        severity="info,warn" escape="false"/>
-                            <p:tooltip/> <!-- exception messages with type tooltip -->
+                            <p:messages id="messages" closable="true" globalOnly="true"
+                                        showDetail="true" severity="error,fatal" escape="false">
+                                <p:autoUpdate disabled="#{not empty disableMessagesUpdate and disableMessagesUpdate}"/>
+                            </p:messages>
+                            <!-- we need two messages because info-messages are automatically hidden via javascript  -->
+                            <p:messages id="info-messages" closable="true" showDetail="true"
+                                        severity="info,warn" escape="false">
+                                <p:autoUpdate disabled="#{not empty disableMessagesUpdate and disableMessagesUpdate}"/>
+                            </p:messages>
+                            <p:tooltip /> <!-- exception messages with type tooltip -->
                         </div>
                     </div>
                 </ui:fragment>

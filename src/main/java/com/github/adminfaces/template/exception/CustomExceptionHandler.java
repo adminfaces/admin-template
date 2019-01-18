@@ -4,7 +4,6 @@ import com.github.adminfaces.template.util.Constants;
 import com.github.adminfaces.template.util.WebXml;
 import org.omnifaces.util.Exceptions;
 import org.omnifaces.util.Messages;
-import org.primefaces.context.RequestContext;
 
 import javax.ejb.EJBException;
 import javax.faces.FacesException;
@@ -23,6 +22,7 @@ import java.util.logging.Logger;
 
 import static com.github.adminfaces.template.util.Assert.has;
 import static javax.servlet.RequestDispatcher.*;
+import org.primefaces.PrimeFaces;
 
 /**
  * Based on: https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/exception/ConventionsExceptionHandler.java
@@ -167,9 +167,9 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
      * Set primefaces validationFailled callback param
      */
     private void validationFailed() {
-        RequestContext rc = RequestContext.getCurrentInstance();
-        if (rc != null) {
-            rc.addCallbackParam("validationFailed", true);
+        PrimeFaces pf = PrimeFaces.current();
+        if (pf != null) {
+            pf.ajax().addCallbackParam("validationFailed", true);
         }
     }
 
