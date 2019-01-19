@@ -244,22 +244,18 @@ public class AdminFilter implements Filter {
             int offset = url.indexOf(uri);
             redirectPrefix = url.substring(0, offset);
             if(useHttps(request)) {
+                log.info("Changing request scheme to https");
                 redirectPrefix = redirectPrefix.replace("http:","https:");
             }
-            log.info("Configured redirect prefix: "+redirectPrefix);
-            log.info("Server port: "+request.getServerPort());
-            log.info("Is secure: "+request.isSecure());
-            log.info("X-Forwarded-Proto: "+request.getHeader("X-Forwarded-Proto"));
         }
         return redirectPrefix;
     }
 
     private static boolean useHttps(HttpServletRequest request) {
         String protocolProperty = System.getProperty("admin.protocol", System.getenv("admin.protocol"));
-        log.info("admin.protocol: "+protocolProperty);
+        
         String protoHeader = request.getHeader("X-Forwarded-Proto");
-        return request.isSecure() || request.getServerPort() == 443 
-            || (protoHeader != null && protoHeader.toLowerCase().equals("https")) 
+        return request.isSecure() || (protoHeader != null && protoHeader.toLowerCase().equals("https")) 
             || (protocolProperty != null && protocolProperty.toLowerCase().equals("https"));
     }
 }

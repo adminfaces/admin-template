@@ -1,6 +1,7 @@
 package com.github.adminfaces.template.session;
 
 
+import static com.github.adminfaces.template.util.Assert.has;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.ResourceBundle;
@@ -17,8 +18,10 @@ public class AdminServletContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
+            boolean isLegacyTemplate = has(ResourceBundle.getBundle("admin").getString("admin.legacy"));
             StringBuilder sb = new StringBuilder("Using Admin Template ")
                     .append(ResourceBundle.getBundle("admin").getString("admin.version"))
+                    .append(isLegacyTemplate ? " (legacy)":"")
                     .append(" and Admin Theme ").append(ResourceBundle.getBundle("admin-theme").getString("theme.version"));
             log.log(Level.INFO,sb.toString());
         }catch (Exception e) {

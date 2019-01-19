@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 
 import static com.github.adminfaces.template.util.Assert.has;
 import static javax.servlet.RequestDispatcher.*;
-import org.primefaces.PrimeFaces;
 
 /**
  * Based on: https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/exception/ConventionsExceptionHandler.java
@@ -167,14 +166,34 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
      * Set primefaces validationFailled callback param
      */
     private void validationFailed() {
-        PrimeFaces pf = PrimeFaces.current();
-        if (pf != null) {
-            pf.ajax().addCallbackParam("validationFailed", true);
-        }
+    	if(isRequestContextOnClasspath()) {
+    		org.primefaces.context.RequestContext context = org.primefaces.context.RequestContext.getCurrentInstance();
+    		if(context != null) {
+    			context.addCallbackParam("validationFailed", true);
+    		}
+    	} else {
+    		org.primefaces.PrimeFaces pf = org.primefaces.PrimeFaces.current();
+            if (pf != null) {
+                pf.ajax().addCallbackParam("validationFailed", true);
+            }
+    	}
     }
 
 
     /**
+     * Older versions of PrimeFaces (6.1) doesn't have new PrimeFaces.current() so we must use RequestContext 
+     * @return
+     */
+    private boolean isRequestContextOnClasspath() {
+    	 try {
+             Class.forName("org.primefaces.context.RequestContext");
+             return true;
+         } catch (ClassNotFoundException e) {
+             return false;
+         }
+	}
+
+	/**
      * If there is any faces message queued add PrimeFaces validation failed
      *
      * @param context

@@ -27,7 +27,7 @@
         </developer>
     </developers>
 
-   <licenses>
+    <licenses>
         <license>
             <name>The MIT License (MIT)</name>
             <url>https://opensource.org/licenses/MIT</url>
@@ -87,10 +87,76 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.2</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <ignoreMissingFile>false</ignoreMissingFile>
+                    <regex>false</regex>
+                    <file>${project.build.directory}/classes/META-INF/resources/admin-base.xhtml</file>
+                    <replacements>
+                        <replacement>
+                            <token>autoUpdate="true"</token>
+                            <value></value>
+                        </replacement>
+                    </replacements>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
     <profiles>
+        <profile>
+            <id>legacy</id>
+            <properties>
+                <admin.legacy>true</admin.legacy>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>3.0.2</version>
+                        <configuration>
+                            <classifier>legacy</classifier>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.google.code.maven-replacer-plugin</groupId>
+                        <artifactId>replacer</artifactId>
+                        <version>1.5.2</version>
+                        <executions>
+                            <execution>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>replace</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <ignoreMissingFile>false</ignoreMissingFile>
+                            <regex>false</regex>
+                            <file>${project.build.directory}/classes/META-INF/resources/admin-base.xhtml</file>
+                            <replacements>
+                                <replacement>
+                                    <token>&lt;p:autoUpdate /&gt;</token>
+                                    <value></value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>    
+        </profile>    
         <profile>
             <id>release</id>
             <build>
@@ -147,6 +213,12 @@
             <id>snapshots</id>
             <name>libs-snapshot</name>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
         </repository>
     </repositories>
 
