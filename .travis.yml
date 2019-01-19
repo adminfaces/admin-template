@@ -5,7 +5,7 @@ cache:
   directories:
   - "$HOME/.m2/repository"
 script:
-- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then mvn clean -U package deploy --settings settings.xml && mvn clean -U package deploy -Plegacy --settings settings.xml && ; fi ;
+- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then mvn clean -U package deploy --settings settings.xml && mvn clean -U package deploy -Plegacy --settings settings.xml ; fi ;
 - if [[ $TRAVIS_PULL_REQUEST == "true" ]]; then mvn package ; fi ;
 env:
   global:
