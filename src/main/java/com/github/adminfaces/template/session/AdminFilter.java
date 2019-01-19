@@ -244,7 +244,7 @@ public class AdminFilter implements Filter {
             int offset = url.indexOf(uri);
             redirectPrefix = url.substring(0, offset);
             if(useHttps(request)) {
-                log.info("Changing request scheme to https");
+                log.log(Level.WARNING,"Changing request scheme to https.");
                 redirectPrefix = redirectPrefix.replace("http:","https:");
             }
         }
