@@ -10,6 +10,10 @@ $(document).ready(function () {
     activateMobileBar();
 });
 
+$(window).on('resize', function () {
+    adjustSidebarPosition();
+});
+
 function activateRippleIcons() {
     $(document.body).on('mousedown touchstart', '.ui-messages .ui-icon, .ui-growl-item .ui-icon, span.ui-tree-toggler, span.ui-icon-calendar, div.ui-selectcheckboxmenu-trigger span.ui-icon-triangle-1-s, span.ui-icon-circle-close, .ui-panel-titlebar span.ui-icon, .ui-dialog-titlebar span.ui-icon, .ui-paginator span.ui-icon, .ui-autocomplete-dropdown span.ui-icon-triangle-1-s, .ui-selectonemenu-trigger span.ui-icon-triangle-1-s, .ui-spinner-button .ui-icon', null, function (e) {
         $(this).addClass("icon-ripple");
@@ -17,7 +21,7 @@ function activateRippleIcons() {
         $(this).removeClass("icon-ripple");
     });
 }
- 
+
 function stripTrailingSlash(str) {
     if (str && str.substr(-1) == '/') {
         return str.substr(0, str.length - 1);
@@ -52,9 +56,9 @@ function activateMenu(url, activated) {
         var currentPage = stripTrailingSlash($(this).attr('href'));
         //console.log("sub-activePage:" + activePage +" sub-currentPage:" + currentPage);
         if (activePage == currentPage) {
-        	$(this).parentsUntil( "ul.sidebar-menu", "li.treeview" ).each(function () {
+            $(this).parentsUntil( "ul.sidebar-menu", "li.treeview" ).each(function () {
                 $(this).addClass('active');
-             });
+            });
             //$(this).parent().addClass('active');
             //$(this).parent().parent().parent().addClass('active');
             activated = true;
@@ -352,11 +356,13 @@ function adjustSidebarPosition() {
         if (window.pageYOffset > 150) {
             var sidebarOffset = window.pageYOffset - 100 + "px";
             sidebar.css("top", sidebarOffset);
-            sidebar.css("z-index", 1031);
+            sidebar.css("z-index", 900);
         } else {
             sidebar.css("top", 0);
             sidebar.css("z-index", 1);
         }
+    } else {
+        $('#sidebar').css("top", 0);
     }
 }
 
@@ -452,11 +458,11 @@ $(document).on("click", "div.ui-inputswitch", function () {
 
 
 /**
- * 
- * removes 'will-change' attribute of content wrapper when primefaces sidebar component is used 
+ *
+ * removes 'will-change' attribute of content wrapper when primefaces sidebar component is used
  * and user is on a mobele device (small screen)
- * 
- *  This is needed because of conflict with slideoutjs 
+ *
+ *  This is needed because of conflict with slideoutjs
  */
 function activateSidebarComponent() {
     if (isMobile()) {
