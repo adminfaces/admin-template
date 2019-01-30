@@ -363,6 +363,7 @@ function adjustSidebarPosition() {
         }
     } else {
         $('#sidebar').css("top", 0);
+        setStaticNavbar();//when resizing from mobile the template sets the 'fixed' navbar so here we reset to 'static'
     }
 }
 
