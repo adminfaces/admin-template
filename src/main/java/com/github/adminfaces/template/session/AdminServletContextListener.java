@@ -18,7 +18,8 @@ public class AdminServletContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
-            boolean isLegacyTemplate = has(ResourceBundle.getBundle("admin").getString("admin.legacy"));
+            ResourceBundle adminBundle = ResourceBundle.getBundle("admin");
+            boolean isLegacyTemplate = has(adminBundle.getString("admin.legacy")) && adminBundle.getString("admin.legacy").equals("true");
             StringBuilder sb = new StringBuilder("Using Admin Template ")
                     .append(ResourceBundle.getBundle("admin").getString("admin.version"))
                     .append(isLegacyTemplate ? " (legacy)":"")
