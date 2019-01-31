@@ -4,6 +4,7 @@ package com.github.adminfaces.template.session;
 import static com.github.adminfaces.template.util.Assert.has;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +20,12 @@ public class AdminServletContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
             ResourceBundle adminBundle = ResourceBundle.getBundle("admin");
-            ResourceBundle adminPersistenceBundle = ResourceBundle.getBundle("admin-persistence");
+            ResourceBundle adminPersistenceBundle = null;
+            try {
+                adminPersistenceBundle = ResourceBundle.getBundle("admin-persistence");
+            }catch (MissingResourceException mre) {
+                //intentional
+            }
             boolean isLegacyTemplate = has(adminBundle.getString("admin.legacy")) && adminBundle.getString("admin.legacy").equals("true");
             StringBuilder sb = new StringBuilder("Using Admin Template ")
                     .append(ResourceBundle.getBundle("admin").getString("admin.version"))
