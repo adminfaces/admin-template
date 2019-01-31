@@ -10,6 +10,7 @@
             <supported-locale>pt_BR</supported-locale>
             <supported-locale>es_MX</supported-locale>
             <supported-locale>zh_CN</supported-locale>
+            <supported-locale>ar</supported-locale>
         </locale-config>
             
         <resource-bundle>
