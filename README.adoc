@@ -100,7 +100,7 @@ Since `admin-template RC21` the template is compatible with PrimeFaces *6.2* and
 <dependency>
     <groupId>com.github.adminfaces</groupId>
     <artifactId>admin-template</artifactId>
-    <version>{docVersion}</version>
+    <version>version</version>
     <classifier>legacy</classifier>
 </dependency>
 <dependency>
