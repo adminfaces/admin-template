@@ -85,10 +85,30 @@ Admin template will bring the following transitive dependencies:
     <artifactId>omnifaces</artifactId>
     <version>2.1</version>
 </dependency>
-
 ----    
 
 Which you can override in your pom.xml as needed.
+====
+
+
+[IMPORTANT]
+====
+Since `admin-template RC21` the template is compatible with PrimeFaces *6.2* and newer versions. To use the template with older PrimeFaces version, use the *legacy classifier*:
+
+[source,xml,subs="attributes+"]
+----
+<dependency>
+    <groupId>com.github.adminfaces</groupId>
+    <artifactId>admin-template</artifactId>
+    <version>{docVersion}</version>
+    <classifier>legacy</classifier>
+</dependency>
+<dependency>
+    <groupId>org.primefaces</groupId>
+    <artifactId>primefaces</artifactId>
+    <version>6.1</version>
+</dependency>
+----
 ====
 
 With the template dependency in classpath now you can use `admin` facelets template into your JSF pages.
