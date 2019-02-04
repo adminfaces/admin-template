@@ -515,3 +515,112 @@ function store(name, val) {
 function isLayoutTop() {
     return $('body').hasClass('layout-top-nav');
 }
+
+//calendar locales, adding only languages supported in AdminFaces: https://adminfaces.github.io/site/docs/latest/#internationalization
+PrimeFaces.locales['pt'] = {
+    closeText : 'Fechar',
+    prevText : 'Anterior ',
+    nextText : 'Próximo ',
+    currentText : 'Hoje ',
+    monthNames : [ 'Janeiro ', 'Fevereiro ', 'Março ', 'Abril ', 'Maio ', 'Junho ', 'Julho ', 'Agosto ', 'Setembro ', 'Outubro ', 'Novembro ', 'Dezembro ' ],
+    monthNamesShort : [ 'Jan ', 'Fev ', 'Mar ', 'Abr ', 'Mai ', 'Jun ', 'Jul ', 'Ago ', 'Set ', 'Out ', 'Nov ', 'Dez ' ],
+    dayNames : [ 'Domingo ', 'Segunda ', 'Terça ', 'Quarta ', 'Quinta ', 'Sexta ', 'Sábado ' ],
+    dayNamesShort : [ 'Dom ', 'Seg ', 'Ter ', 'Qua ', 'Qui ', 'Sex ', 'Sáb ' ],
+    dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+    weekHeader : 'Semana ',
+    firstDay : 0,
+    isRTL : false,
+    showMonthAfterYear : false,
+    yearSuffix : '',
+    timeOnlyTitle : 'Só Horas ',
+    timeText : 'Tempo ',
+    hourText : 'Hora ',
+    minuteText : 'Minuto ',
+    secondText : 'Segundo ',
+    ampm : false,
+    month : 'Mês ',
+    week : 'Semana ',
+    day : 'Dia ',
+    allDayText : 'Todo o Dia '
+};
+
+PrimeFaces.locales['es'] = {
+    closeText: 'Cerrar',
+    prevText: 'Anterior',
+    nextText: 'Siguiente',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+    dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+    weekHeader: 'Semana',
+    firstDayOfWeek: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: '',
+    timeOnlyTitle: 'Sólo hora',
+    timeText: 'Tiempo',
+    hourText: 'Hora',
+    minuteText: 'Minuto',
+    secondText: 'Segundo',
+    currentText: 'Fecha actual',
+    ampm: false,
+    month: 'Mes',
+    week: 'Semana',
+    day: 'Día',
+    allDayText: 'Todo el día'
+};
+
+PrimeFaces.locales ['ar'] = {
+    closeText: 'إغلق',
+    prevText: 'إلى الخلف',
+    nextText: 'إلى الأمام',
+    currentText: 'بداية',
+    monthNames: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'ابريل', 'مارس', 'فبراير', 'يناير' ],
+    monthNamesShort: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'ابريل', 'مارس', 'فبراير', 'يناير' ],
+    dayNames: ['يوم الأحد‎', 'يوم الإثنين‎', 'يوم الثلاثاء‎', '‏يوم الأَرْبعاء‎', '‏يوم الخَمِيس‎', 'يوم الجُمْعَة‎‎', 'يوم السَّبْت'],
+    dayNamesShort: ['الأحد‎', 'الإثنين‎', 'الثلاثاء‎', 'الأَرْبعاء‎', 'الخَمِيس‎', 'الجُمْعَة‎‎', 'السَّبْت'],
+    dayNamesMin: ['الأحد‎', 'الإثنين‎', 'الثلاثاء‎', 'الأَرْبعاء‎', 'الخَمِيس‎', 'الجُمْعَة‎‎', 'السَّبْت'],
+    weekHeader: 'الأسبوع',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix:'' ,
+    timeOnlyTitle: 'الوقت فقط' ,
+    timeText: 'الوقت' ,
+    hourText: 'ساعة',
+    minuteText: 'دقيقة',
+    secondText: 'ثانية',
+    ampm: false,
+    month: 'الشهر',
+    week: 'الأسبوع',
+    day: 'اليوم',
+    allDayText: 'سا ئراليوم'
+};
+
+PrimeFaces.locales['zh_CN'] = {
+    closeText: '关闭',
+    prevText: '上个月',
+    nextText: '下个月',
+    currentText: '今天',
+    monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+    monthNamesShort: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+    dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+    dayNamesShort: ['日','一','二','三','四','五','六'],
+    dayNamesMin: ['日','一','二','三','四','五','六'],
+    weekHeader: '周',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: true,
+    yearSuffix: '', // 年
+    timeOnlyTitle: '仅时间',
+    timeText: '时间',
+    hourText: '时',
+    minuteText: '分',
+    secondText: '秒',
+    ampm: false,
+    month: '月',
+    week: '周',
+    day: '日',
+    allDayText : '全天'
+};
