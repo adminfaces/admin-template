@@ -20,6 +20,12 @@ function activateRippleIcons() {
     }).on('mouseup mouseleave touchend touchcancel', '.ui-messages .ui-icon, .ui-growl-item .ui-icon, span.ui-tree-toggler, span.ui-icon-calendar, div.ui-selectcheckboxmenu-trigger span.ui-icon-triangle-1-s, span.ui-icon-circle-close, .ui-panel-titlebar span.ui-icon, .ui-dialog-titlebar span.ui-icon, .ui-paginator span.ui-icon, .ui-autocomplete-dropdown span.ui-icon-triangle-1-s, .ui-selectonemenu-trigger span.ui-icon-triangle-1-s, .ui-spinner-button .ui-icon', null, function (e) {
         $(this).removeClass("icon-ripple");
     });
+
+    $(document.body).on('mousedown touchstart', 'a.ui-rowgroup-toggler', null, function (e) {
+        $(this).find('.ui-rowgroup-toggler-icon').addClass("icon-ripple");
+    }).on('mouseup mouseleave touchend touchcancel', 'a.ui-rowgroup-toggler', null, function (e) {
+        $(this).find('.ui-rowgroup-toggler-icon').removeClass("icon-ripple");
+    });
 }
 
 function stripTrailingSlash(str) {
@@ -363,7 +369,7 @@ function adjustSidebarPosition() {
         }
     } else {
         $('#sidebar').css("top", 0);
-        setStaticNavbar();//when resizing from mobile the template sets the 'fixed' navbar so here we reset to 'static'
+        setStaticNavbar();
     }
 }
 
@@ -517,6 +523,7 @@ function isLayoutTop() {
 }
 
 //calendar locales, adding only languages supported in AdminFaces: https://adminfaces.github.io/site/docs/latest/#internationalization
+
 PrimeFaces.locales['pt'] = {
     closeText : 'Fechar',
     prevText : 'Anterior ',
