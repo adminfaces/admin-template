@@ -11,7 +11,7 @@
 
     <groupId>com.github.adminfaces</groupId>
     <artifactId>admin-template</artifactId>
-    <version>1.0.0-RC21-SNAPSHOT</version>
+    <version>1.0.0-RC21</version>
 
     <name>admin-template</name>
     <url>https://github.com/adminfaces/admin-template</url>
@@ -67,7 +67,7 @@
         <dependency>
             <groupId>com.github.adminfaces</groupId>
             <artifactId>admin-theme</artifactId>
-            <version>1.0.0-RC20</version>
+            <version>1.0.0-RC21</version>
         </dependency>
 
     </dependencies>
@@ -107,7 +107,7 @@
                     <replacements>
                         <replacement>
                             <token>autoUpdate="true"</token>
-                            <value></value>
+                            <value />
                         </replacement>
                     </replacements>
                 </configuration>
@@ -150,7 +150,7 @@
                             <replacements>
                                 <replacement>
                                     <token>&lt;p:autoUpdate /&gt;</token>
-                                    <value></value>
+                                    <value />
                                 </replacement>
                             </replacements>
                         </configuration>
