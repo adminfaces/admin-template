@@ -15,9 +15,9 @@ $(window).on('resize', function () {
 });
 
 function activateRippleIcons() {
-    $(document.body).on('mousedown touchstart', '.ui-messages .ui-icon, .ui-growl-item .ui-icon, span.ui-tree-toggler, span.ui-icon-calendar, div.ui-selectcheckboxmenu-trigger span.ui-icon-triangle-1-s, span.ui-icon-circle-close, .ui-panel-titlebar span.ui-icon, .ui-dialog-titlebar span.ui-icon, .ui-paginator span.ui-icon, .ui-autocomplete-dropdown span.ui-icon-triangle-1-s, .ui-selectonemenu-trigger span.ui-icon-triangle-1-s, .ui-spinner-button .ui-icon', null, function (e) {
+    $(document.body).on('mousedown touchstart', '.ui-messages .ui-icon, .ui-growl-item .ui-icon, span.ui-tree-toggler, div.ui-row-toggler, span.ui-icon-calendar, div.ui-selectcheckboxmenu-trigger span.ui-icon-triangle-1-s, span.ui-icon-circle-close, .ui-panel-titlebar span.ui-icon, .ui-dialog-titlebar span.ui-icon, .ui-paginator span.ui-icon, .ui-autocomplete-dropdown span.ui-icon-triangle-1-s, .ui-selectonemenu-trigger span.ui-icon-triangle-1-s, .ui-spinner-button .ui-icon', null, function (e) {
         $(this).addClass("icon-ripple");
-    }).on('mouseup mouseleave touchend touchcancel', '.ui-messages .ui-icon, .ui-growl-item .ui-icon, span.ui-tree-toggler, span.ui-icon-calendar, div.ui-selectcheckboxmenu-trigger span.ui-icon-triangle-1-s, span.ui-icon-circle-close, .ui-panel-titlebar span.ui-icon, .ui-dialog-titlebar span.ui-icon, .ui-paginator span.ui-icon, .ui-autocomplete-dropdown span.ui-icon-triangle-1-s, .ui-selectonemenu-trigger span.ui-icon-triangle-1-s, .ui-spinner-button .ui-icon', null, function (e) {
+    }).on('mouseup mouseleave touchend touchcancel', '.ui-messages .ui-icon, .ui-growl-item .ui-icon, span.ui-tree-toggler, div.ui-row-toggler, span.ui-icon-calendar, div.ui-selectcheckboxmenu-trigger span.ui-icon-triangle-1-s, span.ui-icon-circle-close, .ui-panel-titlebar span.ui-icon, .ui-dialog-titlebar span.ui-icon, .ui-paginator span.ui-icon, .ui-autocomplete-dropdown span.ui-icon-triangle-1-s, .ui-selectonemenu-trigger span.ui-icon-triangle-1-s, .ui-spinner-button .ui-icon', null, function (e) {
         $(this).removeClass("icon-ripple");
     });
 
@@ -163,7 +163,7 @@ function searchLeftMenu(criteria) {
     var menuResults = $('#menu-search ul.dropdown-menu[role="menu"]');
     $('#menu-search li.dropdown li').remove();
 
-    if (criteria != null && criteria.length >= 2) {
+    if (criteria != null && criteria.length >= 1) {
         criteria = criteria.toLowerCase();
         var match = false;
         $('ul.sidebar-menu.tree li:not(.treeview, .header)').each(function () {
@@ -193,7 +193,7 @@ function searchTopMenu(criteria) {
     var menuResults = $('#menu-search ul.dropdown-menu[role="menu"]');
     $('#menu-search li.dropdown li').remove();
 
-    if (criteria != null && criteria.length >= 2) {
+    if (criteria != null && criteria.length >= 1) {
         criteria = criteria.toLowerCase();
         var match = false;
         $('ul.nav.navbar-nav ul.dropdown-menu[role="menu"] > li').each(function () {
