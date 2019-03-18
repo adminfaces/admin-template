@@ -18,16 +18,16 @@ import java.util.logging.Logger;
 
 /**
  * Holds global application configuration 
- * 
+ *
  * Created by rafael-pestano on 22/11/16.
  */
 @Named
 @ApplicationScoped
 public class AdminConfig implements Serializable {
 
-	private static final long serialVersionUID = 834212776758014169L;
+    private static final long serialVersionUID = 834212776758014169L;
 
-	private static final Logger log = Logger.getLogger(AdminConfig.class.getName());
+    private static final Logger log = Logger.getLogger(AdminConfig.class.getName());
 
     private Properties adminConfigFile;//default config
     private Properties userConfigFile;//user defined properties
@@ -51,6 +51,7 @@ public class AdminConfig implements Serializable {
     private boolean renderControlSidebar;
     private boolean leftMenuTemplate;
     private boolean renderMenuSearch;
+    private boolean renderAsterisks;
     //controlsidebar
     private ControlSidebarConfig controlSidebar;
     private String pageSuffix;
@@ -65,9 +66,9 @@ public class AdminConfig implements Serializable {
         adminConfigFile = new Properties();
         userConfigFile = new Properties();
         try (InputStream is = cl.getResourceAsStream(("admin-config.properties"))) {
-			if (is != null) {
-				userConfigFile.load(is);
-			}
+            if (is != null) {
+                userConfigFile.load(is);
+            }
         } catch (IOException ex) {
             log.log(Level.WARNING,"Could not load user defined admin template properties. Falling back to default properties.");
         }
@@ -107,6 +108,7 @@ public class AdminConfig implements Serializable {
         renderControlSidebar =  Boolean.parseBoolean(getProperty("admin.renderControlSidebar"));
         rippleMobileOnly = Boolean.parseBoolean(getProperty("admin.rippleMobileOnly"));
         renderMenuSearch = Boolean.parseBoolean(getProperty("admin.renderMenuSearch"));
+        renderAsterisks = Boolean.parseBoolean(getProperty("admin.renderAsterisks"));
         messagesHideTimeout = getProperty("admin.messagesHideTimeout");
         leftMenuTemplate = Boolean.parseBoolean(getProperty("admin.controlSidebar.leftMenuTemplate"));
         boolean controlSidebarShowOnMobile = Boolean.parseBoolean(getProperty("admin.controlSidebar.showOnMobile"));
@@ -120,7 +122,7 @@ public class AdminConfig implements Serializable {
     }
 
     /**
-     * First tries to load the property from java system properties 
+     * First tries to load the property from java system properties
      * secondly looks for the property into user defined admin-config.properties then if
      * not found load defaults from admin-config.properties provided within admin-template
      *
@@ -132,10 +134,10 @@ public class AdminConfig implements Serializable {
                 : has(userConfigFile.getProperty(property)) ? userConfigFile.getProperty(property)
                 : adminConfigFile.getProperty(property);
     }
-    
+
     /**
      * infer page suffix from index and login page configured in admin-config.properties
-     * 
+     *
      * If none is configured then use default suffix: 'xhtml'.
      */
     public String getPageSufix() {
@@ -152,7 +154,7 @@ public class AdminConfig implements Serializable {
         }
         return pageSuffix;
     }
-    
+
     public void restoreDefaults() {
         loadDefaults();
     }
@@ -169,14 +171,14 @@ public class AdminConfig implements Serializable {
     public String getDateFormat() {
         return dateFormat;
     }
-    
-    public boolean isIconsEffect() {
-		return iconsEffect;
-	}
 
-	public void setIconsEffect(boolean iconsEffect) {
-		this.iconsEffect = iconsEffect;
-	} 
+    public boolean isIconsEffect() {
+        return iconsEffect;
+    }
+
+    public void setIconsEffect(boolean iconsEffect) {
+        this.iconsEffect = iconsEffect;
+    }
 
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
@@ -217,7 +219,15 @@ public class AdminConfig implements Serializable {
     public void setAutoHideMessages(boolean autoHideMessages) {
         this.autoHideMessages = autoHideMessages;
     }
-    
+
+    public boolean isRenderAsterisks() {
+        return renderAsterisks;
+    }
+
+    public void setRenderAsterisks(boolean renderAsterisks) {
+        this.renderAsterisks = renderAsterisks;
+    }
+
     public String getMessagesHideTimeout() {
         return messagesHideTimeout;
     }
@@ -225,11 +235,11 @@ public class AdminConfig implements Serializable {
     public void setMessagesHideTimeout(String messagesHideTimeout) {
         this.messagesHideTimeout = messagesHideTimeout;
     }
-    
+
     public void setLeftMenuTemplate(boolean leftMenuTemplate) {
         this.leftMenuTemplate = leftMenuTemplate;
     }
-  
+
     public ControlSidebarConfig getControlSidebar() {
         return controlSidebar;
     }
@@ -245,7 +255,7 @@ public class AdminConfig implements Serializable {
     public void setRippleMobileOnly(boolean rippleEffectMobileOnly) {
         this.rippleMobileOnly = rippleEffectMobileOnly;
     }
-    
+
     @Deprecated
     /**
      * @deprecated use LayoutMB#template
@@ -361,6 +371,5 @@ public class AdminConfig implements Serializable {
     public void setRenderControlSidebar(boolean renderControlSidebar) {
         this.renderControlSidebar = renderControlSidebar;
     }
-    
-    
+
 }
