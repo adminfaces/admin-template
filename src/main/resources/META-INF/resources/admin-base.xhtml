@@ -26,7 +26,7 @@
                   onsuccess="hideBar();"/>
 
     <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="#{adminConfig.closableLoading}"
-              resizable="false" responsive="true" showHeader="false" appendTo="@(body)">
+              resizable="false" responsive="true" showHeader="#{adminConfig.closableLoading}" appendTo="@(body)">
         <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
     </p:dialog>
 
