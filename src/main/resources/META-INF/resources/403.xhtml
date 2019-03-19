@@ -15,15 +15,13 @@
 
                 <p>
                     #{adm['label.go-back']} <p:link style="text-decoration: underline" outcome="/#{adminConfig.indexPage}" value="#{adm['label.home']}"
-                                                    escape="false"/>.
+                                                    escape="false"/> #{adm['label.or-to']} <a href="#{sessionScope.requestedUri}" class="ui-link" style="text-decoration: underline">#{adm['label.previous-page']}</a>.
                 </p>
 
             </div>
         </div>
-        <adm:sidebar collapsed="true"/>
-
         <h:form>
-            <p:remoteCommand autoRun="true" process="@none" global="false" partialSubmit="true" update="@none" oncomplete="$('body').layout('fix')"/>
+            <p:remoteCommand autoRun="true" process="@none" global="false" partialSubmit="true" update="@none" oncomplete="$('body').layout('fix');window.setTimeout(collapseSidebar, 100);"/>
         </h:form>
     </ui:define>
 
