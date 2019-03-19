@@ -23,9 +23,10 @@ import static com.github.adminfaces.template.util.Assert.has;
 import java.io.IOException;
 
 /**
- * Based on: https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/exception/ConventionsExceptionHandler.java
- * This handler adds FacesMessages when BusinessExceptions are thrown
- * OR sends user to error page when unexpected exception are raised.
+ * Based on:
+ * https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/exception/ConventionsExceptionHandler.java
+ * This handler adds FacesMessages when BusinessExceptions are thrown OR sends user to error page when unexpected
+ * exception are raised.
  *
  * @author rafael-pestano
  */
@@ -75,7 +76,6 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
     }
 
-
     /**
      * @param context
      * @param e
@@ -88,18 +88,18 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         }
 
         if (e instanceof FileNotFoundException) {
-            logger.log(Level.WARNING,"File not found", e);
+            logger.log(Level.WARNING, "File not found", e);
             throw new FacesException(e);
         }
 
         ErrorMB errorMB = context.getApplication().evaluateExpressionGet(context, "#{errorMB}", ErrorMB.class);
-         
+
         String requestedUri = request.getHeader("Referer");
         errorMB.setUserAgent(request.getHeader("user-agent"));
         errorMB.setRequestedUri(requestedUri);
         errorMB.setStacktrace(e);
-        errorMB.setExceptionType(e != null ? e.getClass().getName():null);
-        errorMB.setErrorMessage(e != null ? e.getMessage():"");
+        errorMB.setExceptionType(e != null ? e.getClass().getName() : null);
+        errorMB.setErrorMessage(e != null ? e.getMessage() : "");
         String userIp = request.getHeader("x-forwarded-for") != null ? request.getHeader("x-forwarded-for").split(",")[0] : request.getRemoteAddr();
         errorMB.setUserIp(userIp);
 
@@ -113,7 +113,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         try {
             context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + errorPage);
         } catch (IOException ex) {
-            logger.log(Level.SEVERE, "Could not redirect user to error page: "+context.getExternalContext().getRequestContextPath() + errorPage,ex);
+            logger.log(Level.SEVERE, "Could not redirect user to error page: " + context.getExternalContext().getRequestContextPath() + errorPage, ex);
         }
     }
 
@@ -134,7 +134,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
     /**
      * @param context
-     * @param e       application business exception
+     * @param e application business exception
      */
     private void handleBusinessException(FacesContext context, BusinessException e) {
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -171,34 +171,34 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
      * Set primefaces validationFailled callback param
      */
     private void validationFailed() {
-    	if(isRequestContextOnClasspath()) {
-    		org.primefaces.context.RequestContext context = org.primefaces.context.RequestContext.getCurrentInstance();
-    		if(context != null) {
-    			context.addCallbackParam("validationFailed", true);
-    		}
-    	} else {
-    		org.primefaces.PrimeFaces pf = org.primefaces.PrimeFaces.current();
+        if (isRequestContextOnClasspath()) {
+            org.primefaces.context.RequestContext context = org.primefaces.context.RequestContext.getCurrentInstance();
+            if (context != null) {
+                context.addCallbackParam("validationFailed", true);
+            }
+        } else {
+            org.primefaces.PrimeFaces pf = org.primefaces.PrimeFaces.current();
             if (pf != null) {
                 pf.ajax().addCallbackParam("validationFailed", true);
             }
-    	}
+        }
     }
 
-
     /**
-     * Older versions of PrimeFaces (6.1) doesn't have new PrimeFaces.current() so we must use RequestContext 
+     * Older versions of PrimeFaces (6.1) doesn't have new PrimeFaces.current() so we must use RequestContext
+     *
      * @return
      */
     private boolean isRequestContextOnClasspath() {
-    	 try {
-             Class.forName("org.primefaces.context.RequestContext");
-             return true;
-         } catch (ClassNotFoundException e) {
-             return false;
-         }
-	}
+        try {
+            Class.forName("org.primefaces.context.RequestContext");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
 
-	/**
+    /**
      * If there is any faces message queued add PrimeFaces validation failed
      *
      * @param context
