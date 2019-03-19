@@ -19,10 +19,8 @@
                 </div>
             </div>
         </div>
-        <adm:sidebar collapsed="true"/>
-
         <h:form>
-            <p:remoteCommand autoRun="true" process="@none" global="false" partialSubmit="true" update="@none" oncomplete="$('body').layout('fix')"/>
+            <p:remoteCommand autoRun="true" process="@none" global="false" partialSubmit="true" update="@none" oncomplete="$('body').layout('fix');window.setTimeout(collapseSidebar, 100);"/>
         </h:form>
     </ui:define>
 
