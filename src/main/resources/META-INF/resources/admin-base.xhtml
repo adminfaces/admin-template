@@ -597,6 +597,15 @@
         </style>
     </ui:fragment>
 
+    <ui:fragment rendered="#{adminConfig.closableLoading}">
+        <style type="text/css">
+            #adminStatusDialog .ui-dialog-titlebar {
+                padding: 0;
+                border: 0;
+            }
+        </style>
+    </ui:fragment>
+
     <ui:insert name="body-end"/>
 </h:body>
 
