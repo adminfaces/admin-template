@@ -110,7 +110,7 @@ public class AdminConfig implements Serializable {
         rippleMobileOnly = Boolean.parseBoolean(getProperty("admin.rippleMobileOnly"));
         renderMenuSearch = Boolean.parseBoolean(getProperty("admin.renderMenuSearch"));
         renderAsterisks = Boolean.parseBoolean(getProperty("admin.renderAsterisks"));
-        closableLoading = Boolean.parseBoolean(getProperty("admin.cloasableLoading"));
+        closableLoading = Boolean.parseBoolean(getProperty("admin.closableLoading"));
         messagesHideTimeout = getProperty("admin.messagesHideTimeout");
         leftMenuTemplate = Boolean.parseBoolean(getProperty("admin.controlSidebar.leftMenuTemplate"));
         boolean controlSidebarShowOnMobile = Boolean.parseBoolean(getProperty("admin.controlSidebar.showOnMobile"));
