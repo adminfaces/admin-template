@@ -11,7 +11,7 @@
 
     <groupId>com.github.adminfaces</groupId>
     <artifactId>admin-template</artifactId>
-    <version>1.0.0-RC22-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>admin-template</name>
     <url>https://github.com/adminfaces/admin-template</url>
@@ -55,9 +55,8 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>6.2</version>
+            <version>7.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>

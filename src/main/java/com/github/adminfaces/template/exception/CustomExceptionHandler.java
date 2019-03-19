@@ -16,6 +16,7 @@ import javax.faces.event.PhaseId;
 import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
@@ -142,7 +143,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         } else { //Single exception
             addFacesMessage(e);
         }
-        validationFailed();
+        validationFailed(context);
         context.renderResponse();
     }
 
@@ -165,32 +166,14 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
     /**
      * Set primefaces validationFailled callback param
      */
-    private void validationFailed() {
-        if (isRequestContextOnClasspath()) {
-            org.primefaces.context.RequestContext context = org.primefaces.context.RequestContext.getCurrentInstance();
-            if (context != null) {
-                context.addCallbackParam("validationFailed", true);
-            }
-        } else {
-            org.primefaces.PrimeFaces pf = org.primefaces.PrimeFaces.current();
-            if (pf != null) {
-                pf.ajax().addCallbackParam("validationFailed", true);
-            }
+    private void validationFailed(FacesContext context) {
+        Map<Object, Object> callbackParams = (Map<Object, Object>) context.getAttributes().get("CALLBACK_PARAMS");
+        if(callbackParams == null) {
+            callbackParams = new HashMap<>();
+            callbackParams.put("CALLBACK_PARAMS",callbackParams);
         }
-    }
+        callbackParams.put("validationFailed",true);
 
-    /**
-     * Older versions of PrimeFaces (6.1) doesn't have new PrimeFaces.current() so we must use RequestContext
-     *
-     * @return
-     */
-    private boolean isRequestContextOnClasspath() {
-        try {
-            Class.forName("org.primefaces.context.RequestContext");
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
     }
 
     /**
@@ -204,7 +187,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         }
         for (FacesMessage msg : context.getMessageList()) {
             if (msg.getSeverity().equals(FacesMessage.SEVERITY_ERROR) || msg.getSeverity().equals(FacesMessage.SEVERITY_FATAL)) {
-                validationFailed();
+                validationFailed(context);
                 break;
             }
         }
