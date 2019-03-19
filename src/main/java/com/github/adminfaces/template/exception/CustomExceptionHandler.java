@@ -15,12 +15,13 @@ import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.PhaseId;
 import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static com.github.adminfaces.template.util.Assert.has;
-import java.io.IOException;
 
 /**
  * Based on:
@@ -83,25 +84,21 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
      */
     private void goToErrorPage(FacesContext context, Throwable e) {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            throw new FacesException(e);
-        }
-
         if (e instanceof FileNotFoundException) {
             logger.log(Level.WARNING, "File not found", e);
             throw new FacesException(e);
         }
 
-        ErrorMB errorMB = context.getApplication().evaluateExpressionGet(context, "#{errorMB}", ErrorMB.class);
+        Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
 
         String requestedUri = request.getHeader("Referer");
-        errorMB.setUserAgent(request.getHeader("user-agent"));
-        errorMB.setRequestedUri(requestedUri);
-        errorMB.setStacktrace(e);
-        errorMB.setExceptionType(e != null ? e.getClass().getName() : null);
-        errorMB.setErrorMessage(e != null ? e.getMessage() : "");
+        sessionMap.put("userAgent",request.getHeader("user-agent"));
+        sessionMap.put("requestedUri",requestedUri);
+        sessionMap.put("stacktrace",e);
+        sessionMap.put("errorMessage",e != null ? e.getMessage() : "");
+        sessionMap.put("exceptionType", e != null ? e.getClass().getName() : null);
         String userIp = request.getHeader("x-forwarded-for") != null ? request.getHeader("x-forwarded-for").split(",")[0] : request.getRemoteAddr();
-        errorMB.setUserIp(userIp);
+        sessionMap.put("userIp",userIp);
 
         String errorPage = findErrorPage(e);
         if (!has(errorPage)) {

@@ -20,8 +20,7 @@
 
                         <p>
                             #{adm['label.go-back']} <p:link style="text-decoration: underline" outcome="/#{adminConfig.indexPage}" value="#{adm['label.home']}"
-                                    escape="false"/> #{adm['label.or-to']} <p:link style="text-decoration: underline" href="#{requestedUri}" value="#{adm['label.previous-page']}" 
-                                                             escape="false"/>.
+                                                            escape="false"/> #{adm['label.or-to']} <a href="#{sessionScope.requestedUri}" class="ui-link" style="text-decoration: underline">#{adm['label.previous-page']}</a>.
                         </p>
                     </div>
                 </div>    
@@ -37,16 +36,16 @@
                 <div class="box-body" style="overflow: auto">
                     <ul>
                         <li><b>Date/time:</b> #{of:formatDate(now, adminConfig.dateFormat)}</li>
-                        <li><b>User agent:</b> #{userAgent}</li>
+                        <li><b>User agent:</b> #{sessionScope.userAgent}</li>
                         <li>
-                            <b>User IP:</b> #{userIp}
+                            <b>User IP:</b> #{sessionScope.userIp}
                         </li>
                         <li><b>Request URI:</b> <a
-                                href="#{requestedUri}">#{requestedUri}</a>
+                                href="#{sessionScope.requestedUri}">#{sessionScope.requestedUri}</a>
                         </li>
                         <li><b>Ajax request:</b> #{facesContext.partialViewContext.ajaxRequest ? 'Yes' : 'No'}</li>
-                        <li><b>Exception type: </b>#{exceptionType}</li>
-                        <li><b>Message:</b> #{errorMessage}</li>
+                        <li><b>Exception type: </b>#{sessionScope.exceptionType}</li>
+                        <li><b>Message:</b> #{sessionScope.errorMessage}</li>
                     </ul>
                 </div>
             </div>
@@ -56,7 +55,7 @@
                 </div>
                 <div class="box-body" style="overflow: auto">
                     <pre>
-#{of:printStackTrace(stacktrace)}
+#{of:printStackTrace(sessionScope.stacktrace)}
 					</pre>
                 </div>
 
