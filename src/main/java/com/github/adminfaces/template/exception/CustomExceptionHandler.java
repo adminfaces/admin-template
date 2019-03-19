@@ -14,14 +14,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.PhaseId;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static com.github.adminfaces.template.util.Assert.has;
-import static javax.servlet.RequestDispatcher.*;
+import java.io.IOException;
 
 /**
  * Based on: https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/exception/ConventionsExceptionHandler.java
@@ -84,8 +83,6 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
      */
     private void goToErrorPage(FacesContext context, Throwable e) {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        request.setAttribute(ERROR_EXCEPTION + "_stacktrace", e);
-
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             throw new FacesException(e);
         }
@@ -95,11 +92,16 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
             throw new FacesException(e);
         }
 
-
-        request.setAttribute(ERROR_EXCEPTION_TYPE, e.getClass().getName());
-        request.setAttribute(ERROR_MESSAGE, e.getMessage());
-        request.setAttribute(ERROR_REQUEST_URI, request.getHeader("Referer"));
-        request.setAttribute(ERROR_STATUS_CODE, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        ErrorMB errorMB = context.getApplication().evaluateExpressionGet(context, "#{errorMB}", ErrorMB.class);
+         
+        String requestedUri = request.getHeader("Referer");
+        errorMB.setUserAgent(request.getHeader("user-agent"));
+        errorMB.setRequestedUri(requestedUri);
+        errorMB.setStacktrace(e);
+        errorMB.setExceptionType(e != null ? e.getClass().getName():null);
+        errorMB.setErrorMessage(e != null ? e.getMessage():"");
+        String userIp = request.getHeader("x-forwarded-for") != null ? request.getHeader("x-forwarded-for").split(",")[0] : request.getRemoteAddr();
+        errorMB.setUserIp(userIp);
 
         String errorPage = findErrorPage(e);
         if (!has(errorPage)) {
@@ -108,8 +110,11 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
                 errorPage = Constants.DEFAULT_ERROR_PAGE;
             }
         }
-        context.getApplication().getNavigationHandler().handleNavigation(context, null, errorPage);
-        context.renderResponse();
+        try {
+            context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + errorPage);
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, "Could not redirect user to error page: "+context.getExternalContext().getRequestContextPath() + errorPage,ex);
+        }
     }
 
     /**
