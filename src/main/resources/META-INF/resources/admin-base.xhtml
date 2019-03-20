@@ -515,13 +515,14 @@
         <script type="text/javascript">
             $(window).scroll(function () {
                 if (isMobile()) {
-                    var minScrollTimeNav = 300;
+                    var minScrollTimeNav = 700;
                     var now = new Date().getTime();
-                    if (!scrollTimerNav) {
-                        if (now - lastScrollFireTimeNav > (3 * minScrollTimeNav)) {
+                    if (scrollTimerNav) {
+                        if ((now - lastScrollFireTimeNav) > (5 * minScrollTimeNav)) {
                             activateAutoShowNavbarOnScrollUp();   // fire immediately on first scroll
                             lastScrollFireTimeNav = now;
                         }
+                    } else {
                         scrollTimerNav = setTimeout(function () {
                             scrollTimerNav = null;
                             lastScrollFireTimeNav = new Date().getTime();

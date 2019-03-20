@@ -338,7 +338,7 @@ var scrollTimerNav, lastScrollFireTimeNav = 0;
 function activateAutoShowNavbarOnScrollUp() {
     if (isMobile() && window.pageYOffset > 150) {
         var currentScrollPositionNav = $(this).scrollTop();
-        if (currentScrollPositionNav > (scrollPosition - 20)) {
+        if (currentScrollPositionNav > (scrollPosition - 50)) {
             //scroll down (default navbar)
             setStaticNavbar();
 
