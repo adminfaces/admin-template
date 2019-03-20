@@ -53,6 +53,7 @@ public class AdminConfig implements Serializable {
     private boolean renderMenuSearch;
     private boolean renderFormAsterisks;
     private boolean closableLoading;
+    private boolean enableMobileHeader;
     //controlsidebar
     private ControlSidebarConfig controlSidebar;
     private String pageSuffix;
@@ -110,6 +111,7 @@ public class AdminConfig implements Serializable {
         rippleMobileOnly = Boolean.parseBoolean(getProperty("admin.rippleMobileOnly"));
         renderMenuSearch = Boolean.parseBoolean(getProperty("admin.renderMenuSearch"));
         renderFormAsterisks = Boolean.parseBoolean(getProperty("admin.renderFormAsterisks"));
+        enableMobileHeader = Boolean.parseBoolean(getProperty("admin.enableMobileHeader"));
         closableLoading = Boolean.parseBoolean(getProperty("admin.closableLoading"));
         messagesHideTimeout = getProperty("admin.messagesHideTimeout");
         leftMenuTemplate = Boolean.parseBoolean(getProperty("admin.controlSidebar.leftMenuTemplate"));
@@ -248,6 +250,14 @@ public class AdminConfig implements Serializable {
 
     public void setControlSidebar(ControlSidebarConfig controlSidebarConfig) {
         this.controlSidebar = controlSidebarConfig;
+    }
+
+    public boolean isEnableMobileHeader() {
+        return enableMobileHeader;
+    }
+
+    public void setEnableMobileHeader(boolean enableMobileHeader) {
+        this.enableMobileHeader = enableMobileHeader;
     }
 
     public boolean isRippleMobileOnly() {

@@ -577,6 +577,9 @@
             });
         </script>
     </ui:fragment>
+    <ui:fragment rendered="#{adminConfig.enableMobileHeader and (empty enableMobileHeader or enableMobileHeader)}">
+        <div id="enableMobileHeader"></div>
+    </ui:fragment>
 
     <ui:fragment rendered="#{adminConfig.iconsEffect and (empty iconsEffect or iconsEffect)}">
         <script type="text/javascript">

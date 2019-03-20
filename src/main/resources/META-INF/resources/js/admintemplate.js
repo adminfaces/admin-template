@@ -40,7 +40,6 @@ function saveCurrentActivatedUrl(url) {
         //console.log("saving :" + url);
         localStorage.setItem("activatedMenuUrl", url);
     }
-
 }
 
 /* set active style in menu based on current url */
@@ -51,6 +50,12 @@ function activateMenu(url, activated) {
         //console.log("activePage:" + activePage +" currentPage:" + currentPage);
         if (activePage == currentPage) {
             $(this).parent().addClass('active');
+            if(isMobile() && $('#enableMobileHeader').length) {
+                $('.mobile-header > h4').html($(this).html());
+                if($('.mobile-header > h4 span.label').length) {
+                    $('.mobile-header > h4 span.label').remove();
+                }
+            }
             activated = true;
         } else {
             $(this).parent().removeClass('active');
@@ -290,7 +295,6 @@ function isMobile() {
     var mq = window.matchMedia("(max-width: 767px)");
     return (typeof mq != 'undefined' && mq.matches);
 }
-
 
 function activateScrollToTop() {
     if (isMobile() && window.pageYOffset > 400) {
