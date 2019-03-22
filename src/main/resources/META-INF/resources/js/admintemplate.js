@@ -327,20 +327,21 @@ var scrollPosition = 0;
 var scrollTimerNav, lastScrollFireTimeNav = 0;
 
 function activateAutoShowNavbarOnScrollUp() {
+    var nav = $('.navbar');
     if (isMobile() && window.pageYOffset > 150) {
+        nav.css('display','none');
         updateMobileHeaderVisibility();
-        $('.navbar').css('display','none');
         setFixedNavbar();
         var currentScrollPositionNav = $(this).scrollTop();
         if (currentScrollPositionNav > (scrollPosition - 50)) {
-            $('.navbar').fadeOut(500);
+            nav.fadeOut(500);
         } else {
-            $('.navbar').fadeIn(500);
+            nav.fadeIn(500);
             adjustSidebarPosition();
         }
         scrollPosition = currentScrollPositionNav;
     } else {
-        $('.navbar').show(400);
+        nav.show(400);
         setStaticNavbar();
         adjustSidebarPosition();
         updateMobileHeaderVisibility();
