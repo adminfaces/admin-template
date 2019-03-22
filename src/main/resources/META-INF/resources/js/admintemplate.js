@@ -329,7 +329,9 @@ var scrollTimerNav, lastScrollFireTimeNav = 0;
 function activateAutoShowNavbarOnScrollUp() {
     var nav = $('.navbar');
     if (isMobile() && window.pageYOffset > 150) {
-        nav.css('display','none');
+    	if(nav.hasClass('navbar-static-top')) {
+    		nav.css('display','none');
+    	}
         updateMobileHeaderVisibility();
         setFixedNavbar();
         var currentScrollPositionNav = $(this).scrollTop();
@@ -355,6 +357,7 @@ function updateMobileHeaderVisibility() {
         $('.mobile-header').css('display','none');
     }
 }
+
 
 function adjustSidebarPosition() {
     if (isMobile()) {
