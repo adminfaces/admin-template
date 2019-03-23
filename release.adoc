@@ -37,7 +37,7 @@ This document contains the release steps of AdminFaces components.
 
 == https://github.com/adminfaces/admin-persistence[Admin Persistence^]
 
-Same as admin-template
+Same as admin-template but note that it admin-persistence is not tied to admin-theme and template so it can be released independently. 
 
 
 == https://github.com/adminfaces?utf8=%E2%9C%93&q=archetype&type=&language=[Archetypes^]
