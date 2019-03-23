@@ -1,0 +1,45 @@
+= Release process
+:linkattrs:
+:sectanchors:
+:sectlink:
+:doctype: book
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+
+This document contains the release steps of AdminFaces components.
+
+== https://github.com/adminfaces/admin-theme/[Admin-theme^]
+
+. Manually remove the snapshot from pom.xml
+. execute `maven-install-local.sh` located on the root of the project 
+. create new version on https://bintray.com/rmpestano/AdminFaces/admin-theme/new/version[bintray^]
+. upload jars from local maven repository to bintray
+. Release and sync to maven central via bintray 
+. manually append snapshot to pom version again
+. run `mvn release:prepare` to create the git tag 
+. On github close the release https://github.com/adminfaces/admin-theme/milestones?closed=0[milestone^]
+. Edit the recently created tag and link issues closed on the milestone to the `Release notes` section on the tag description.   
+
+== https://github.com/adminfaces/admin-template[Admin template^]
+
+. Change theme version to the just released admin-theme version. 
+. Manually remove the snapshot from pom.xml
+. run `mvn clean install`
+. create new version on https://bintray.com/rmpestano/AdminFaces/admin-template/new/version[bintray^]
+. upload jar from local maven repository to bintray
+. Release and sync to maven central via bintray 
+. manually append snapshot to pom version again
+. run `mvn release:prepare` to create the git tag 
+. On github close the release https://github.com/adminfaces/admin-template/milestones?closed=0[milestone^]
+
+== https://github.com/adminfaces/admin-persistence[Admin Persistence^]
+
+Same as admin-template
+
+
+== https://github.com/adminfaces?utf8=%E2%9C%93&q=archetype&type=&language=[Archetypes^]
+
+Update admin-theme and template versions and follow the same release process above.
