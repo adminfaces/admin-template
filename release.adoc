@@ -34,6 +34,7 @@ This document contains the release steps of AdminFaces components.
 . manually append snapshot to pom version again
 . run `mvn release:prepare` to create the git tag 
 . On github close the release https://github.com/adminfaces/admin-template/milestones?closed=0[milestone^]
+. Edit the recently created tag and link issues closed on the milestone to the `Release notes` section on the tag description.   
 
 == https://github.com/adminfaces/admin-persistence[Admin Persistence^]
 
