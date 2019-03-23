@@ -27,7 +27,7 @@ This document contains the release steps of AdminFaces components.
 
 . Change theme version to the just released admin-theme version. 
 . Manually remove the snapshot from pom.xml
-. run `mvn clean install`
+. run `mvn clean install -Prelease`
 . create new version on https://bintray.com/rmpestano/AdminFaces/admin-template/new/version[bintray^]
 . upload jar from local maven repository to bintray
 . Release and sync to maven central via bintray 
