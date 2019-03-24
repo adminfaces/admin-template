@@ -7,6 +7,7 @@
     <application>
         <locale-config>
             <supported-locale>en</supported-locale>
+            <supported-locale>en_US</supported-locale>		
             <supported-locale>pt_BR</supported-locale>
             <supported-locale>es_MX</supported-locale>
             <supported-locale>zh_CN</supported-locale>
