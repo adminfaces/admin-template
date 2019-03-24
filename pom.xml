@@ -17,7 +17,7 @@
     <url>https://github.com/adminfaces/admin-template</url>
 
     <description>
-        A responsive JSF template based on Admin LTE.
+        A responsive JSF template based on Bootstrap and Admin LTE.
     </description>
 
     <developers>
@@ -66,7 +66,7 @@
         <dependency>
             <groupId>com.github.adminfaces</groupId>
             <artifactId>admin-theme</artifactId>
-            <version>1.0.0-RC21</version>
+            <version>1.0.0</version>
         </dependency>
 
     </dependencies>
