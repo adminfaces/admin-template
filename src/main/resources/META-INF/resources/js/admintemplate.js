@@ -7,11 +7,11 @@ $(document).on("pfAjaxComplete", function () {
 $(document).ready(function () {
     activateSidebarComponent();
     activateMenu(window.location.pathname, false);
+    activateMobileBar();
 });
 
 $(window).on('resize', function () {
     adjustSidebarPosition();
-    activateMobileHeader();
 });
 
 function activateRippleIcons() {
