@@ -16,6 +16,13 @@
                         collapseSidebar();
                     }, 180);
                 });
+
+                $(document).on("pfAjaxComplete", function () {
+                	 setTimeout(function () {
+                         collapseSidebar();
+                     }, 180);
+                 });
+                    
             </script>
         </ui:fragment>
 
@@ -26,7 +33,12 @@
                         setSidebarMini();
                     }, 180);
                 });
-
+                
+                $(document).on("pfAjaxComplete", function () {
+               	 setTimeout(function () {
+               		    setSidebarMini();
+                    }, 180);
+                });
             </script>
         </ui:fragment>
 
@@ -37,6 +49,11 @@
                     setTimeout(function () {
                         expandSidebar();
                     }, 180);
+                });
+                $(document).on("pfAjaxComplete", function () {
+                  	 setTimeout(function () {
+                  		expandSidebar();
+                       }, 180);
                 });
             </script>
         </ui:fragment>
