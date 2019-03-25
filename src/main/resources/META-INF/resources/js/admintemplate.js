@@ -12,6 +12,7 @@ $(document).ready(function () {
 
 $(window).on('resize', function () {
     adjustSidebarPosition();
+    activateMobileBar();
 });
 
 function activateRippleIcons() {
