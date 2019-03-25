@@ -15,7 +15,7 @@
 :warning-caption: :warning:
 [quote]
 ____
-The admin of JSF templates!
+The `admin` of JSF templates!
 ____
 
 
