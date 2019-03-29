@@ -13,11 +13,11 @@
 :important-caption: :heavy_exclamation_mark:
 :caution-caption: :fire:
 :warning-caption: :warning:
+
 [quote]
 ____
 The `admin` of JSF templates!
 ____
-
 
 image:https://travis-ci.org/adminfaces/admin-template.svg[Build Status (Travis CI), link=https://travis-ci.org/adminfaces/admin-template]
 image:https://img.shields.io/maven-central/v/com.github.adminfaces/admin-template.svg?label=Maven%20Central["Maven Central",link="https://search.maven.org/search?q=g:com.github.adminfaces%20AND%20a:admin-template"]
