@@ -48,7 +48,7 @@ function activateMenu(url, activated) {
     $('.sidebar-menu li a, ul.navbar-nav li a').each(function () {
         var currentPage = stripTrailingSlash($(this).attr('href'));
         //console.log("activePage:" + activePage +" currentPage:" + currentPage);
-        if (activePage == currentPage) {
+        if (currentPage && currentPage.startsWith(activePage)) {
             $(this).parent().addClass('active');
             if(isMobile() && $('#enableMobileHeader').length) {
                createMobileHeader($(this).html());
@@ -63,7 +63,7 @@ function activateMenu(url, activated) {
     $('.sidebar-menu li ul a').each(function () {
         var currentPage = stripTrailingSlash($(this).attr('href'));
         //console.log("sub-activePage:" + activePage +" sub-currentPage:" + currentPage);
-        if (activePage == currentPage) {
+        if (currentPage && currentPage.startsWith(activePage)) {
             $(this).parentsUntil( "ul.sidebar-menu", "li.treeview" ).each(function () {
                 $(this).addClass('active');
             });
