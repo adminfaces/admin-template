@@ -2,6 +2,7 @@ package com.github.adminfaces.template.bean;
 
 import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.model.BreadCrumb;
+import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -11,10 +12,10 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.github.adminfaces.template.util.Assert.has;
-import java.io.IOException;
-import org.omnifaces.util.Faces;
 
 /**
  * Created by rafael-pestano on 30/11/16.
@@ -89,9 +90,14 @@ public class BreadCrumbMB implements Serializable {
         breadCrumbs.clear();
     }
     
-    public void clearAndHome() throws IOException {
+    public void clearAndHome() {
         clear();
-        Faces.redirect(Faces.getRequestBaseURL());
+        try {
+            Faces.redirect(Faces.getRequestBaseURL());
+        } catch (Exception e) {
+           //see issue #177
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,"Could not redirect to Home.",e);
+        }
     }
 
     public List<BreadCrumb> getBreadCrumbs() {
