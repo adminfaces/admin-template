@@ -87,5 +87,14 @@ public class Assert implements Serializable {
         }
         return false;
     }
+    
+    public static boolean startsWithOneOf(String string, String... prefixes) {
+		for (String prefix : prefixes) {
+			if (string.startsWith(prefix)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

@@ -2,6 +2,8 @@ package com.github.adminfaces.template.bean;
 
 import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.model.BreadCrumb;
+import com.github.adminfaces.template.util.AdminUtils;
+
 import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
@@ -93,7 +95,7 @@ public class BreadCrumbMB implements Serializable {
     public void clearAndHome() {
         clear();
         try {
-            Faces.redirect(Faces.getRequestBaseURL());
+            AdminUtils.redirect(Faces.getRequestBaseURL());
         } catch (Exception e) {
            //see issue #177
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,"Could not redirect to Home.",e);
