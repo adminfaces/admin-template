@@ -2,8 +2,6 @@ package com.github.adminfaces.template.bean;
 
 import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.model.BreadCrumb;
-import com.github.adminfaces.template.util.AdminUtils;
-
 import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
@@ -59,7 +57,7 @@ public class BreadCrumbMB implements Serializable {
             String pageUrl = FacesContext.getCurrentInstance().getViewRoot().getViewId();
             link = pageUrl.replaceAll(pageUrl.substring(pageUrl.lastIndexOf('.') + 1), adminConfig.getPageSufix());
         }
-        
+
         if(!link.startsWith("/")) {
             link = "/"+link;
         }
@@ -83,7 +81,7 @@ public class BreadCrumbMB implements Serializable {
         }
         breadCrumbs.add(breadCrumb);
     }
-    
+
     public void remove(BreadCrumb breadCrumb) {
         breadCrumbs.remove(breadCrumb);
     }
@@ -91,11 +89,11 @@ public class BreadCrumbMB implements Serializable {
     public void clear() {
         breadCrumbs.clear();
     }
-    
+
     public void clearAndHome() {
         clear();
         try {
-            AdminUtils.redirect(Faces.getRequestBaseURL());
+            Faces.redirect(Faces.getRequestBaseURL());
         } catch (Exception e) {
            //see issue #177
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,"Could not redirect to Home.",e);
