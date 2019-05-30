@@ -84,17 +84,17 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
      * @throws Throwable
      */
     private void goToErrorPage(FacesContext context, Throwable e) {
+        logger.log(Level.WARNING, "", e);
         if (e instanceof FileNotFoundException) {
-            logger.log(Level.WARNING, "File not found", e);
             throw new FacesException(e);
         }
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
-        String requestedUri = request.getHeader("Referer");
-        sessionMap.put("userAgent",request.getHeader("user-agent"));
-        sessionMap.put("requestedUri",requestedUri);
+        String referer = request.getHeader("Referer");
+        sessionMap.put("userAgent", request.getHeader("user-agent"));
+        sessionMap.put("requestedUri", has(referer) ? referer : request.getRequestURL());
         sessionMap.put("stacktrace",e);
-        sessionMap.put("errorMessage",e != null ? e.getMessage() : "");
+        sessionMap.put("errorMessage", e != null ? e.getMessage() : "");
         sessionMap.put("exceptionType", e != null ? e.getClass().getName() : null);
         String userIp = request.getHeader("x-forwarded-for") != null ? request.getHeader("x-forwarded-for").split(",")[0] : request.getRemoteAddr();
         sessionMap.put("userIp",userIp);
