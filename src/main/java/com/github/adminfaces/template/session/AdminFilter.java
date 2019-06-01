@@ -3,6 +3,7 @@ package com.github.adminfaces.template.session;
 import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.util.Constants;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -49,6 +50,9 @@ public class AdminFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
+        if(adminConfig == null) {
+            initBeans();
+        }
         String disableAdminFilter = filterConfig.getServletContext().getInitParameter(Constants.InitialParams.DISABLE_FILTER);
         if (adminConfig.isDisableFilter() || has(disableAdminFilter) && Boolean.valueOf(disableAdminFilter)) {
             disableFilter = true;
@@ -91,6 +95,19 @@ public class AdminFilter implements Filter {
             }
         }
 
+    }
+
+    /**
+     * Workaround for open web beans on tomcat, see https://stackoverflow.com/questions/45205472/apache-openwebbeanscdi-servlet-injection-not-working
+     */
+    private void initBeans() {
+        try {
+            Class.forName("javax.enterprise.inject.spi.CDI");
+            adminConfig = CDI.current().select(AdminConfig.class).get();
+            adminSession = CDI.current().select(AdminSession.class).get();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Could not initialize beans via lookup.", e);
+        }
     }
 
     @Override
