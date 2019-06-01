@@ -11,7 +11,7 @@
 
     <groupId>com.github.adminfaces</groupId>
     <artifactId>admin-template</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <name>admin-template</name>
     <url>https://github.com/adminfaces/admin-template</url>
