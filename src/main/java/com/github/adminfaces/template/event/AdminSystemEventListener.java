@@ -1,8 +1,9 @@
-package com.github.adminfaces.template.session;
+package com.github.adminfaces.template.event;
 
 import static com.github.adminfaces.template.util.Assert.has;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+
+import javax.faces.event.SystemEvent;
+import javax.faces.event.SystemEventListener;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -11,12 +12,16 @@ import java.util.logging.Logger;
 /**
  * Created by rmpestano on 28/04/17.
  */
-public class AdminServletContextListener implements ServletContextListener {
+public class AdminSystemEventListener implements SystemEventListener {
 
-    private static final Logger log = Logger.getLogger(AdminServletContextListener.class.getName());
+    private static final Logger log = Logger.getLogger(AdminSystemEventListener.class.getName());
 
-    @Override
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
+
+    public boolean isListenerForSource(final Object source) {
+        return true;
+    }
+
+    public void processEvent(final SystemEvent event) {
         try {
             ResourceBundle adminBundle = ResourceBundle.getBundle("admin");
             ResourceBundle adminPersistenceBundle = null;
@@ -27,9 +32,8 @@ public class AdminServletContextListener implements ServletContextListener {
             }
             boolean isLegacyTemplate = has(adminBundle.getString("admin.legacy")) && adminBundle.getString("admin.legacy").equals("true");
             StringBuilder sb = new StringBuilder("Using Admin Template ")
-                .append(ResourceBundle.getBundle("admin").getString("admin.version"))
-                .append(isLegacyTemplate ? " (legacy)" : "");
-
+                    .append(adminBundle.getString("admin.version"))
+                    .append(isLegacyTemplate ? " (legacy)" : "");
             if (has(adminPersistenceBundle)) {
                 sb.append(", Admin Persistence ").append(adminPersistenceBundle.getString("admin-persistence.version"));
             }
@@ -40,8 +44,5 @@ public class AdminServletContextListener implements ServletContextListener {
         }
     }
 
-    @Override
-    public void contextDestroyed(ServletContextEvent servletContextEvent) {
 
-    }
 }

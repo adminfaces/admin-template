@@ -19,6 +19,11 @@
             <base-name>com.github.adminfaces.template.i18n.AdminUTF8Bundle</base-name>
             <var>adm</var>
         </resource-bundle>
+        <system-event-listener>
+            <system-event-listener-class>com.github.adminfaces.template.event.AdminSystemEventListener</system-event-listener-class>
+            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+            <source-class>javax.faces.application.Application</source-class>
+        </system-event-listener>
     </application>
 
     <factory>
