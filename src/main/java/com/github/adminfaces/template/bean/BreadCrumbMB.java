@@ -63,12 +63,12 @@ public class BreadCrumbMB implements Serializable {
             link = "/"+link;
         }
 
-        if(link != null && adminConfig.isExtensionLessUrls()) {
+        if(adminConfig.isExtensionLessUrls()) {
             int idx = link.lastIndexOf(".");
             if (idx != -1) {
                 link = link.substring(0, idx);
             }
-        } else if(link != null && !link.contains(".")) {
+        } else if(!link.contains(".")) {
             link = link + "." + adminConfig.getPageSufix();
         }
         breadCrumb.setLink(link);
@@ -97,7 +97,7 @@ public class BreadCrumbMB implements Serializable {
             AdminUtils.redirect(Faces.getRequestBaseURL());
         } catch (Exception e) {
            //see issue #177
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE,"Could not redirect to Home.",e);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,"Could not redirect to Home page.",e);
         }
     }
 

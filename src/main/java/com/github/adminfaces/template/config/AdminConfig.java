@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 public class AdminConfig implements Serializable {
 
     private static final long serialVersionUID = 834212776758014169L;
-
     private static final Logger log = Logger.getLogger(AdminConfig.class.getName());
 
     private Properties adminConfigFile;//default config
@@ -131,7 +130,7 @@ public class AdminConfig implements Serializable {
      * not found load defaults from admin-config.properties provided within admin-template
      *
      * @param property name
-     * @return
+     * @return the property value
      */
     private String getProperty(String property) {
         return has(System.getProperty(property)) ? System.getProperty(property)

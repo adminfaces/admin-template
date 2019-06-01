@@ -1,16 +1,14 @@
 package com.github.adminfaces.template.util;
 
-import static java.lang.String.format;
-import static java.nio.charset.StandardCharsets.UTF_8;
-
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import static java.lang.String.format;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class AdminUtils {
 
@@ -24,19 +22,19 @@ public class AdminUtils {
 	}
 
 	/**
-	 * Copied from OmniFaces to avoid version conflicts]
+	 * Copied from OmniFaces to avoid version conflicts (see https://github.com/adminfaces/admin-template/issues/177)
 	 * 
 	 * @param context
 	 * @param url
 	 * @param paramValues
 	 */
-	public static void redirect(FacesContext context, String url, Object... paramValues) {
+	private static void redirect(FacesContext context, String url, Object... paramValues) {
 		ExternalContext externalContext = context.getExternalContext();
 		externalContext.getFlash().setRedirect(true); // MyFaces also requires this for a redirect in current request (which is incorrect).
 		try {
 			externalContext.redirect(prepareRedirectURL(getRequest(context), url, paramValues));
 		} catch (IOException e) {
-			throw new UncheckedIOException(e);
+			throw new RuntimeException("Could not redirect to url: "+url, e);
 		}
 	}
 
