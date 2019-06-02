@@ -26,7 +26,7 @@ import static com.github.adminfaces.template.util.Assert.has;
 public class BreadCrumbMB implements Serializable {
 
     @Inject
-    protected AdminConfig adminConfig;
+    AdminConfig adminConfig;
 
     private int maxSize = 5;
 

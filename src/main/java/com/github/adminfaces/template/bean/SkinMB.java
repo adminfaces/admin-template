@@ -20,7 +20,7 @@ public class SkinMB implements Serializable {
     private String skin;
 
     @Inject
-    private AdminConfig adminConfig;
+    AdminConfig adminConfig;
 
     @PostConstruct
     public void init() {

@@ -37,10 +37,10 @@ public class LayoutMB implements Serializable {
     private Boolean darkControlSidebarSkin;
 
     @Inject
-    protected AdminConfig adminConfig;
+    AdminConfig adminConfig;
     
     @Inject
-    private SkinMB skinMB;
+    SkinMB skinMB;
 
     @PostConstruct
     public void init() {
@@ -173,4 +173,5 @@ public class LayoutMB implements Serializable {
 		}
         return result;
     }
+
 }
