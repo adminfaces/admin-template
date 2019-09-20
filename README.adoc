@@ -688,7 +688,7 @@ Also don't forget to remove the `hidden-sm hidden-xs` classes from the button/li
 
 == Docs
 
-https://adminfaces.github.io/site/docs/latest/#admin_template
+https://adminfaces.github.io/docs/latest/#admin_template
 
 == Snapshots
 
