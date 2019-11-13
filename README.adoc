@@ -39,7 +39,7 @@ Below is a non exhaustive list of notable features brought out of the box by thi
 image:https://user-images.githubusercontent.com/1592273/27104868-d9bfb33e-5063-11e7-83be-2201a3f8cda5.gif[]
 ** Touch enabled menu to slide in/out and show navbar on scroll up +
 image:https://cloud.githubusercontent.com/assets/1592273/25071807/dd37121e-2296-11e7-855c-8f20b59dcf5f.gif[]
-** Auto show and hide navbar based on page scroll 
+** Auto show and hide navbar based on page scroll
 ** Scroll to top
 * Automatically activates (highlight) menu based on current page +
 image:https://github.com/adminfaces/admin-docs/raw/master/src/docs/images/menu-highlight.png[link="https://github.com/adminfaces/admin-docs/blob/master/src/docs/images/menu-highlight.png?raw=true"]
@@ -49,7 +49,7 @@ image:https://github.com/adminfaces/admin-docs/raw/master/src/docs/images/menu-h
 * http://admin-showcase-admin-showcase.7e14.starter-us-west-2.openshiftapps.com/showcase/pages/layout/breadcrumb.xhtml[Breadcrumb^] based navigation
 * Layout customization via <<Control Sidebar>>
 * High resolution and responsible icons based on Glyphycons and FontAwesome
-* Menu itens search +
+* Menu items search +
 image:https://github.com/adminfaces/admin-docs/raw/master/src/docs/images/menu-search.png[link="https://github.com/adminfaces/admin-docs/blob/master/src/docs/images/menu-search.png?raw=true"]
 * Builtin `dark` and `light` skins
 * Back to previous screen when logging in again after session expiration (or accessing a page via url without being logged in)
@@ -90,7 +90,7 @@ Admin template will bring the following transitive dependencies:
     <artifactId>omnifaces</artifactId>
     <version>2.1</version>
 </dependency>
-----    
+----
 
 Which you can override in your pom.xml as needed.
 ====
@@ -165,7 +165,7 @@ Consider the following sample page:
     <ui:define name="top-menu">
         <ui:include src="/includes/top-bar.xhtml"/>
     </ui:define>
-    
+
       <ui:define name="title">
         <h2 class="align-center">
             Welcome to the <span class="text-aqua"> <i><a href="https://github.com/adminfaces/admin-starter" target="_blank"
@@ -228,7 +228,7 @@ Instead of repeating sections like *menu*, *logo*, *head* and *footer* on every 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/admin.xhtml"> 
+                template="/admin.xhtml">
 
     <ui:define name="head">
             <title>Admin Starter</title>
@@ -278,7 +278,7 @@ Instead of repeating sections like *menu*, *logo*, *head* and *footer* on every 
         </div>
     </ui:define>
 
-</ui:composition>   
+</ui:composition>
 ----
 
 And now the page can just define its content and title:
@@ -290,7 +290,7 @@ And now the page can just define its content and title:
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/templates/template.xhtml"> 
+                template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="title">
         A page title
@@ -304,12 +304,12 @@ And now the page can just define its content and title:
     	<h2>Page body</h2>
     </ui:define>
 
-</ui:composition>   
+</ui:composition>
 ----
 
 === Switching between *left menu* and *top menu* templates
 
-AdminFaces supports two layout modes, one is *left based menu* and the other is *top based menu*. 
+AdminFaces supports two layout modes, one is *left based menu* and the other is *top based menu*.
 
 The user can change layout modes via <<Control Sidebar, control sidebar>> but to make it work you have to use *LayoutMB* to define page template:
 
@@ -320,19 +320,19 @@ The user can change layout modes via <<Control Sidebar, control sidebar>> but to
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="#{layoutMB.template}"> 
+                template="#{layoutMB.template}">
 
 <!-- page content -->
 
-</ui:composition> 
+</ui:composition>
 ----
 
 As a *convention over configuration* LayoutMB will load templates from the following locations:
 
-* `webapp/WEB-INF/templates/template.xhtml` and `resources/META-INF/resources/templates/template.xhtml` for the `left menu` based template 
+* `webapp/WEB-INF/templates/template.xhtml` and `resources/META-INF/resources/templates/template.xhtml` for the `left menu` based template
 * `webapp/WEB-INF/templates/template-top.xhtml` and `resources/META-INF/resources/templates/template-top.xhtml` for horizontal menu layout.
 
-NOTE: If you don't provide a <<Application template>> then built in `admin.xhtml` and `admin-top.xhtml` templates will be used. 
+NOTE: If you don't provide a <<Application template>> then built in `admin.xhtml` and `admin-top.xhtml` templates will be used.
 
 See admin-starer templates for a reference: https://github.com/adminfaces/admin-starter/tree/master/src/main/webapp/WEB-INF/templates
 
@@ -375,7 +375,7 @@ admin.renderMenuSearch=true <27>
 admin.autoHideMessages=true <28>
 admin.messagesHideTimeout=2500 <29>
 admin.iconsEffect=true <30>
- 
+
 
 ----
 <1> login page location (relative to webapp). It you only be used if you configure <<Admin Session>>.
@@ -395,7 +395,7 @@ admin.iconsEffect=true <30>
 <15> image used for the loading popup. It must be under `webapp/resources/images` folder.
 <16> Removes extension suffix from breadCrumb links.
 <17> When true it will activate <<Control Sidebar, control sidebar>> component.
-<18> When true control sidebar will be also rendered on mobile devices. 
+<18> When true control sidebar will be also rendered on mobile devices.
 <19> Switches layout between left (default) and top menu.
 <20> Toggles fixed layout where navbar is fixed on the page.
 <21> Toggles boxed layout which is helpful when working on large screens because it prevents the site from stretching very wide.
@@ -404,7 +404,7 @@ admin.iconsEffect=true <30>
 <24> When true control sidebar will be fixed on the page.
 <25> Changes control sidebar skin between `dark` and `light`.
 <26> When true the ripple effect will be enabled only on mobile (small) screens.
-<27> Enables or disables menu  search. 
+<27> Enables or disables menu  search.
 <28> If true PrimeFaces *info* messages will be hidden after a certain timeout.
 <29> Timeout to hide info messages. Note that the timeout is composed by `configured timeout + number of words` in message.
 <30> Enables material effect when icons (e.g modal close, calendar) are clicked.
@@ -413,7 +413,7 @@ IMPORTANT: You don't need to declare all values in your admin-config.properties,
 
 TIP: Since vRC16 config properties can be passed as Java `system properties`.
 
-NOTE: Controlsidebar entries (admin.controlSidebar.xxx) will be used only for initial/default values because they will be stored on browser local storage as soon as user changes them. 
+NOTE: Controlsidebar entries (admin.controlSidebar.xxx) will be used only for initial/default values because they will be stored on browser local storage as soon as user changes them.
 
 == Admin Session
 
@@ -626,18 +626,18 @@ controlsidebar.txt.sidebar-skin=If checked <b class\="sidebar-bold">dark</b> ski
 controlsidebar.header.skins=Skins
 
 #menu search
-menu.search.placeholder=Search menu itens...
+menu.search.placeholder=Search menu items...
 ----
 
-[TIP] 
+[TIP]
 ====
-You can provide your own language bundle adding a file named _admin_YOUR_LANGUAGE.properties_ in your application `resources` folder. 
+You can provide your own language bundle adding a file named _admin_YOUR_LANGUAGE.properties_ in your application `resources` folder.
 
-Don't forget to add it as `supported locale` in *faces-config*, see https://github.com/adminfaces/admin-template/blob/02c0db5d9ff567c803e7e83f336f8a7308e9d4ec/src/main/resources/META-INF/faces-config.xml#L9[example here^]. 
+Don't forget to add it as `supported locale` in *faces-config*, see https://github.com/adminfaces/admin-template/blob/02c0db5d9ff567c803e7e83f336f8a7308e9d4ec/src/main/resources/META-INF/faces-config.xml#L9[example here^].
 
 ====
 
-IMPORTANT: You can contribute your language locale to AdminFaces, https://github.com/adminfaces/admin-template/tree/master/src/main/resources[check here^] the current supported locales.  
+IMPORTANT: You can contribute your language locale to AdminFaces, https://github.com/adminfaces/admin-template/tree/master/src/main/resources[check here^] the current supported locales.
 
 
 == Control Sidebar
@@ -663,12 +663,12 @@ And then add a link or button on your page which opens the sidebar. The link or 
   <a href="#" id="layout-setup" data-toggle="control-sidebar" class="hidden-sm hidden-xs"><i class="fa fa-gears"></i></a>
 ----
 
-On admin-starter the link is located on https://github.com/adminfaces/admin-starter/blob/c8adbe5e692171b144b93292e14ea203b654a13b/src/main/webapp/includes/top-bar.xhtml#L58[top-bar.xhtml^]. 
+On admin-starter the link is located on https://github.com/adminfaces/admin-starter/blob/c8adbe5e692171b144b93292e14ea203b654a13b/src/main/webapp/includes/top-bar.xhtml#L58[top-bar.xhtml^].
 
 {link-admin-showcase-openshift}/pages/layout/controlsidebar.xhtml[Click here^] to see controlsidebar in action on admin showcase.
 
 
-By default the control sidebar comes only with the configuration tab but you can define additional tabs by defining `controlsidebar-tabs` and `controlsidebar-content` on your template. An example can be found on https://github.com/adminfaces/admin-starter/blob/c8adbe5e692171b144b93292e14ea203b654a13b/src/main/webapp/WEB-INF/templates/template.xhtml#L38[admin-starter template^].  
+By default the control sidebar comes only with the configuration tab but you can define additional tabs by defining `controlsidebar-tabs` and `controlsidebar-content` on your template. An example can be found on https://github.com/adminfaces/admin-starter/blob/c8adbe5e692171b144b93292e14ea203b654a13b/src/main/webapp/WEB-INF/templates/template.xhtml#L38[admin-starter template^].
 
 [TIP]
 ====
