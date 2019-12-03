@@ -1,17 +1,12 @@
 package com.github.adminfaces.template.session;
 
-import com.github.adminfaces.template.config.AdminConfig;
-import com.github.adminfaces.template.util.Constants;
+import static com.github.adminfaces.template.util.Assert.*;
 
-import javax.enterprise.inject.spi.CDI;
-import javax.inject.Inject;
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -20,7 +15,20 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.github.adminfaces.template.util.Assert.has;
+import javax.enterprise.inject.spi.CDI;
+import javax.inject.Inject;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.github.adminfaces.template.config.AdminConfig;
+import com.github.adminfaces.template.util.Constants;
 
 /**
  * Based on https://github.com/conventions/core/blob/master/src/main/java/org/conventionsframework/filter/ConventionsFilter.java
@@ -154,15 +162,21 @@ public class AdminFilter implements Filter {
 
     }
 
-    private String extractPageFromURL(String referer) {
-        String page = referer.substring(referer.indexOf("page=") + 5);
-        try {
-            return URLDecoder.decode(page, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+	private String extractPageFromURL(String referer) {
+		try {
+			URL url = new URL(referer);
+			String[] params = url.getQuery().split("&");
+			for (String param : params) {
+				String[] split = param.split("=");
+				if ("page".equals(split[0])) {
+					return URLDecoder.decode(split[1], "UTF-8");
+				}
+			}
+		} catch (MalformedURLException | UnsupportedEncodingException e) {
             log.log(Level.WARNING, "Could not extract page from url", e);
-            return indexPage;
-        }
-    }
+		}
+		return indexPage;
+	}
 
     @Override
     public void destroy() {
@@ -270,9 +284,9 @@ public class AdminFilter implements Filter {
 
     private static boolean useHttps(HttpServletRequest request) {
         String protocolProperty = System.getProperty("admin.protocol", System.getenv("admin.protocol"));
-        
+
         String protoHeader = request.getHeader("X-Forwarded-Proto");
-        return request.isSecure() || (protoHeader != null && protoHeader.toLowerCase().equals("https")) 
+        return request.isSecure() || (protoHeader != null && protoHeader.toLowerCase().equals("https"))
             || (protocolProperty != null && protocolProperty.toLowerCase().equals("https"));
     }
 }
