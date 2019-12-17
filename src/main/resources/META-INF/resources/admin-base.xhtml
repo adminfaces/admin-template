@@ -21,7 +21,7 @@
 
 <h:body styleClass="#{not empty skin ? skin:skinMB.skin} #{bodyStyleClass}">
     <ui:insert name="body-begin"/>
-    <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus}"
+    <p:ajaxStatus rendered="#{adminConfig.renderAjaxStatus and (empty renderAjaxStatus or renderAjaxStatus)}"
                   onstart="showBar();"
                   onsuccess="hideBar();"/>
 
