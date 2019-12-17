@@ -404,12 +404,12 @@ function adminMaterial() {
     }).trigger('blur');
 
     //add focused class on material div each time a checkbox (from checkbox menu) is clicked
-    //if there are itens on checkboxmenu then it is considered focused and (material) label will be removed
+    //if there are items on checkboxmenu then it is considered focused and (material) label will be removed
     $(document).on('click', 'div.ui-selectcheckboxmenu-panel div.ui-chkbox', function (e) {
         materialCheckboxMenu();
     });
 
-    //when checkbox menu is blur then decide if it 'focused' based on size of itens
+    //when checkbox menu is blur then decide if it 'focused' based on size of items
     $(document).on('blur', 'div.material div.ui-selectcheckboxmenu', function (e) {
         materialCheckboxMenu();
     });

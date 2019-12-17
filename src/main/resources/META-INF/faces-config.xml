@@ -13,6 +13,7 @@
             <supported-locale>zh_CN</supported-locale>
             <supported-locale>ar</supported-locale>
             <supported-locale>de_DE</supported-locale>
+            <supported-locale>ru_RU</supported-locale>
         </locale-config>
             
         <resource-bundle>
