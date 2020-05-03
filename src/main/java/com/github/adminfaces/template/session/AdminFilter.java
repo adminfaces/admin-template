@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.servlet.Filter;
@@ -271,9 +273,22 @@ public class AdminFilter implements Filter {
     private String getRedirectPrefix(HttpServletRequest request) {
         if(redirectPrefix == null) {
             String url = request.getRequestURL().toString();
+
+            // Find the end of the scheme in the URL.  This avoids false matches in the offset
+            // calculation below.
+            Matcher urlWithScheme = Pattern.compile("^(https?://).*").matcher(url);
+            int urlHostIndex;
+            if (urlWithScheme.matches()) {
+                urlHostIndex = urlWithScheme.group(1).length();
+            } else {
+                urlHostIndex = 0;
+            }
+
             String uri = request.getRequestURI();
-            int offset = url.indexOf(uri);
+            int offset = url.indexOf(uri, urlHostIndex);
+
             redirectPrefix = url.substring(0, offset);
+
             if(useHttps(request)) {
                 log.log(Level.WARNING,"Changing request scheme to https.");
                 redirectPrefix = redirectPrefix.replace("http:","https:");
