@@ -142,6 +142,8 @@ public class AdminConfig implements Serializable {
      * infer page suffix from index and login page configured in admin-config.properties
      *
      * If none is configured then use default suffix: 'xhtml'.
+     *
+     * @return the page suffix
      */
     public String getPageSufix() {
         if(has(pageSuffix)) {

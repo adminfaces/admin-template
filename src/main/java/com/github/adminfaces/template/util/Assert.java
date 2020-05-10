@@ -10,9 +10,7 @@ import java.util.Map;
  */
 public class Assert implements Serializable {
 
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
 
     private Assert() {
@@ -20,6 +18,7 @@ public class Assert implements Serializable {
     }
 
     /**
+     * @param object object to check if null
      * @return TRUE assertion when given objects is not null, FALSE otherwise
      */
     public static boolean has(Object object) {
@@ -27,6 +26,7 @@ public class Assert implements Serializable {
     }
 
     /**
+     * @param text text to check for characters
      * @return TRUE when given text has any character, FALSE otherwise
      */
     public static boolean has(String text) {
@@ -37,6 +37,8 @@ public class Assert implements Serializable {
     }
 
     /**
+     * @param textToSearch the text to search
+     * @param substring string to check in text
      * @return TRUE when given text contains the given substring, FALSE otherwise
      */
     public static boolean contains(String textToSearch, String substring) {
@@ -47,6 +49,7 @@ public class Assert implements Serializable {
     }
 
     /**
+     * @param array array to check for presence of elements
      * @return TRUE when given array has elements; that is, it must not be {@code null} and must
      *         have at least one element. FALSE otherwise
      */
@@ -63,6 +66,7 @@ public class Assert implements Serializable {
     }
 
     /**
+     * @param collection collection to check for presence of elements
      * @return TRUE when given collection has elements; that is, it must not be {@code null} and
      *         must have at least one element. @return FALSE otherwise
      */
@@ -75,6 +79,7 @@ public class Assert implements Serializable {
     }
 
     /**
+     * @param map map to check entries
      * @return TRUE if given Map has entries; that is, it must not be {@code null} and must have at
      *         least one entry. Queue FALSE otherwise
      */

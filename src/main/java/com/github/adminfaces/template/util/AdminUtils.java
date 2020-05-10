@@ -14,8 +14,8 @@ public class AdminUtils {
 
 	/**
 	 * 
-	 * @param url
-	 * @param paramValues
+	 * @param url the url to redirect
+	 * @param paramValues url params
 	 */
 	public static void redirect(String url, Object... paramValues) {
 		redirect(FacesContext.getCurrentInstance(), url, paramValues);
@@ -24,9 +24,9 @@ public class AdminUtils {
 	/**
 	 * Copied from OmniFaces to avoid version conflicts (see https://github.com/adminfaces/admin-template/issues/177)
 	 * 
-	 * @param context
-	 * @param url
-	 * @param paramValues
+	 * @param context facesContext
+	 * @param url url to redirect
+	 * @param paramValues url params
 	 */
 	private static void redirect(FacesContext context, String url, Object... paramValues) {
 		ExternalContext externalContext = context.getExternalContext();
