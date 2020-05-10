@@ -88,7 +88,7 @@ Admin template will bring the following transitive dependencies:
 <dependency>
     <groupId>org.omnifaces</groupId>
     <artifactId>omnifaces</artifactId>
-    <version>2.1</version>
+    <version>2.7.1</version>
 </dependency>
 ----
 
@@ -96,9 +96,9 @@ Which you can override in your pom.xml as needed.
 ====
 
 
-[IMPORTANT]
+[TIP]
 ====
-Since `admin-template RC21` the template is compatible with PrimeFaces *6.2* and newer versions. To use the template with older PrimeFaces version, use the *legacy classifier*:
+The template is also compatible with PrimeFaces *6.2* and below. To use the template with older PrimeFaces version, use the *legacy classifier*:
 
 [source,xml,subs="attributes+"]
 ----
