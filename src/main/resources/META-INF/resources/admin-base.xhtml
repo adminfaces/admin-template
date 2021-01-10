@@ -116,12 +116,14 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <p:messages id="messages" closable="true" globalOnly="true" autoUpdate="true"
-                                        showDetail="true" severity="error,fatal" escape="false">
+                                        showDetail="true" severity="error,fatal" escape="false"
+                                        skipDetailIfEqualsSummary="#{adminConfig.skipMessageDetailIfEqualsSummary}">
                                 <p:autoUpdate/>
                             </p:messages>
                                 <!-- we need two messages because info-messages are automatically hidden via javascript  -->
                             <p:messages id="info-messages" closable="true" showDetail="true" autoUpdate="true"
-                                        severity="info,warn" escape="false">
+                                        severity="info,warn" escape="false"
+                                        skipDetailIfEqualsSummary="#{adminConfig.skipMessageDetailIfEqualsSummary}">
                                 <p:autoUpdate/>
                             </p:messages>
                             <p:tooltip/> <!-- exception messages with type tooltip -->

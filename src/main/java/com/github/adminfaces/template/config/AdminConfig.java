@@ -36,6 +36,7 @@ public class AdminConfig implements Serializable {
     private String templatePath;
     private Integer breadCrumbMaxSize;
     private boolean renderMessages;
+    private boolean skipMessageDetailIfEqualsSummary;
     private boolean renderAjaxStatus;
     private boolean disableFilter;
     private boolean enableRipple;
@@ -93,6 +94,7 @@ public class AdminConfig implements Serializable {
         templatePath = getProperty("admin.templatePath");
         breadCrumbMaxSize = Integer.parseInt(getProperty("admin.breadcrumbSize"));
         renderMessages = Boolean.parseBoolean(getProperty("admin.renderMessages"));
+        skipMessageDetailIfEqualsSummary = Boolean.parseBoolean(getProperty("admin.skipMessageDetailIfEqualsSummary"));
         renderAjaxStatus = Boolean.parseBoolean(getProperty("admin.renderAjaxStatus"));
         disableFilter = Boolean.parseBoolean(getProperty("admin.disableFilter"));
         enableRipple = Boolean.parseBoolean(getProperty("admin.enableRipple"));
@@ -295,6 +297,14 @@ public class AdminConfig implements Serializable {
 
     public void setRenderMessages(boolean renderMessages) {
         this.renderMessages = renderMessages;
+    }
+
+    public boolean isSkipMessageDetailIfEqualsSummary() {
+        return skipMessageDetailIfEqualsSummary;
+    }
+
+    public void setSkipMessageDetailIfEqualsSummary(boolean skipMessageDetailIfEqualsSummary) {
+        this.skipMessageDetailIfEqualsSummary = skipMessageDetailIfEqualsSummary;
     }
 
     public boolean isRenderAjaxStatus() {
