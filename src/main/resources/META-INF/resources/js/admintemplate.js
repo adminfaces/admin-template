@@ -1,18 +1,32 @@
 /* Active menu management */
-
 $(document).on("pfAjaxComplete", function () {
     activateSidebarComponent();
+    activateResizeOnMenuToggle();
 });
 
 $(document).ready(function () {
     activateSidebarComponent();
     activateMenu(window.location.pathname, false);
     activateMobileBar();
+    activateResizeOnMenuToggle();
 });
 
 $(window).on('resize', function () {
     adjustSidebarPosition();
 });
+
+function activateResizeOnMenuToggle() {
+    $("a.sidebar-toggle").on('click', function () {
+        windowResize();
+    });
+}
+
+function windowResize() {
+    if(!isMobile() && )
+    setTimeout(function () {
+        $(window).trigger('resize');
+    }, 500);
+}
 
 function activateRippleIcons() {
     $(document.body).on('mousedown touchstart', '.ui-messages .ui-icon, .ui-growl-item .ui-icon, span.ui-tree-toggler, span.ui-treetable-toggler, div.ui-row-toggler, span.ui-icon-calendar, div.ui-selectcheckboxmenu-trigger span.ui-icon-triangle-1-s, span.ui-icon-circle-close, .ui-panel-titlebar span.ui-icon, .ui-dialog-titlebar span.ui-icon, .ui-paginator span.ui-icon, .ui-autocomplete-dropdown span.ui-icon-triangle-1-s, .ui-selectonemenu-trigger span.ui-icon-triangle-1-s, .ui-spinner-button .ui-icon', null, function (e) {
@@ -50,8 +64,8 @@ function activateMenu(url, activated) {
         //console.log("activePage:" + activePage +" currentPage:" + currentPage);
         if (activePage == currentPage) {
             $(this).parent().addClass('active');
-            if(isMobile() && $('#enableMobileHeader').length) {
-               createMobileHeader($(this).html());
+            if (isMobile() && $('#enableMobileHeader').length) {
+                createMobileHeader($(this).html());
             }
             activated = true;
         } else {
@@ -64,7 +78,7 @@ function activateMenu(url, activated) {
         var currentPage = stripTrailingSlash($(this).attr('href'));
         //console.log("sub-activePage:" + activePage +" sub-currentPage:" + currentPage);
         if (activePage == currentPage) {
-            $(this).parentsUntil( "ul.sidebar-menu", "li.treeview" ).each(function () {
+            $(this).parentsUntil("ul.sidebar-menu", "li.treeview").each(function () {
                 $(this).addClass('active');
             });
             activated = true;
@@ -241,12 +255,14 @@ function removeBodyClass(clazz) {
 function collapseSidebar() {
     if (!$(document.body).hasClass('sidebar-collapse') && !$(document.body).hasClass('layout-top-nav')) {
         $(document.body).addClass('sidebar-collapse')
+        windowResize();
     }
 }
 
 function expandSidebar() {
     if ($(document.body).hasClass('sidebar-collapse')) {
         $(document.body).removeClass('sidebar-collapse');
+        windowResize();
     }
 }
 
@@ -256,6 +272,7 @@ function toggleSidebar() {
     } else if (!$(document.body).hasClass('layout-top-nav')) {
         $(document.body).addClass('sidebar-collapse')
     }
+    windowResize();
 }
 
 function toggleSidebarMini() {
@@ -329,9 +346,9 @@ var scrollTimerNav, lastScrollFireTimeNav = 0;
 function activateAutoShowNavbarOnScrollUp() {
     var nav = $('.navbar');
     if (isMobile() && window.pageYOffset > 150) {
-    	if(nav.hasClass('navbar-static-top')) {
-    		nav.css('display','none');
-    	}
+        if (nav.hasClass('navbar-static-top')) {
+            nav.css('display', 'none');
+        }
         updateMobileHeaderVisibility();
         setFixedNavbar();
         var currentScrollPositionNav = $(this).scrollTop();
@@ -351,10 +368,10 @@ function activateAutoShowNavbarOnScrollUp() {
 }
 
 function updateMobileHeaderVisibility() {
-    if(isMobile() && window.pageYOffset > 150) {
-        $('.mobile-header').css('display','block');
+    if (isMobile() && window.pageYOffset > 150) {
+        $('.mobile-header').css('display', 'block');
     } else {
-        $('.mobile-header').css('display','none');
+        $('.mobile-header').css('display', 'none');
     }
 }
 
@@ -528,30 +545,30 @@ function isLayoutTop() {
 //calendar locales, adding only languages supported in AdminFaces: https://adminfaces.github.io/site/docs/latest/#internationalization
 
 PrimeFaces.locales['pt'] = {
-    closeText : 'Fechar',
-    prevText : 'Anterior ',
-    nextText : 'Próximo ',
-    currentText : 'Hoje ',
-    monthNames : [ 'Janeiro ', 'Fevereiro ', 'Março ', 'Abril ', 'Maio ', 'Junho ', 'Julho ', 'Agosto ', 'Setembro ', 'Outubro ', 'Novembro ', 'Dezembro ' ],
-    monthNamesShort : [ 'Jan ', 'Fev ', 'Mar ', 'Abr ', 'Mai ', 'Jun ', 'Jul ', 'Ago ', 'Set ', 'Out ', 'Nov ', 'Dez ' ],
-    dayNames : [ 'Domingo ', 'Segunda ', 'Terça ', 'Quarta ', 'Quinta ', 'Sexta ', 'Sábado ' ],
-    dayNamesShort : [ 'Dom ', 'Seg ', 'Ter ', 'Qua ', 'Qui ', 'Sex ', 'Sáb ' ],
-    dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
-    weekHeader : 'Semana ',
-    firstDay : 0,
-    isRTL : false,
-    showMonthAfterYear : false,
-    yearSuffix : '',
-    timeOnlyTitle : 'Só Horas ',
-    timeText : 'Tempo ',
-    hourText : 'Hora ',
-    minuteText : 'Minuto ',
-    secondText : 'Segundo ',
-    ampm : false,
-    month : 'Mês ',
-    week : 'Semana ',
-    day : 'Dia ',
-    allDayText : 'Todo o Dia '
+    closeText: 'Fechar',
+    prevText: 'Anterior ',
+    nextText: 'Próximo ',
+    currentText: 'Hoje ',
+    monthNames: ['Janeiro ', 'Fevereiro ', 'Março ', 'Abril ', 'Maio ', 'Junho ', 'Julho ', 'Agosto ', 'Setembro ', 'Outubro ', 'Novembro ', 'Dezembro '],
+    monthNamesShort: ['Jan ', 'Fev ', 'Mar ', 'Abr ', 'Mai ', 'Jun ', 'Jul ', 'Ago ', 'Set ', 'Out ', 'Nov ', 'Dez '],
+    dayNames: ['Domingo ', 'Segunda ', 'Terça ', 'Quarta ', 'Quinta ', 'Sexta ', 'Sábado '],
+    dayNamesShort: ['Dom ', 'Seg ', 'Ter ', 'Qua ', 'Qui ', 'Sex ', 'Sáb '],
+    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+    weekHeader: 'Semana ',
+    firstDay: 0,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: '',
+    timeOnlyTitle: 'Só Horas ',
+    timeText: 'Tempo ',
+    hourText: 'Hora ',
+    minuteText: 'Minuto ',
+    secondText: 'Segundo ',
+    ampm: false,
+    month: 'Mês ',
+    week: 'Semana ',
+    day: 'Dia ',
+    allDayText: 'Todo o Dia '
 };
 
 PrimeFaces.locales['es'] = {
@@ -586,8 +603,8 @@ PrimeFaces.locales ['ar'] = {
     prevText: 'إلى الخلف',
     nextText: 'إلى الأمام',
     currentText: 'بداية',
-    monthNames: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'ابريل', 'مارس', 'فبراير', 'يناير' ],
-    monthNamesShort: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'ابريل', 'مارس', 'فبراير', 'يناير' ],
+    monthNames: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'ابريل', 'مارس', 'فبراير', 'يناير'],
+    monthNamesShort: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'ابريل', 'مارس', 'فبراير', 'يناير'],
     dayNames: ['يوم الأحد‎', 'يوم الإثنين‎', 'يوم الثلاثاء‎', '‏يوم الأَرْبعاء‎', '‏يوم الخَمِيس‎', 'يوم الجُمْعَة‎‎', 'يوم السَّبْت'],
     dayNamesShort: ['الأحد‎', 'الإثنين‎', 'الثلاثاء‎', 'الأَرْبعاء‎', 'الخَمِيس‎', 'الجُمْعَة‎‎', 'السَّبْت'],
     dayNamesMin: ['الأحد‎', 'الإثنين‎', 'الثلاثاء‎', 'الأَرْبعاء‎', 'الخَمِيس‎', 'الجُمْعَة‎‎', 'السَّبْت'],
@@ -595,9 +612,9 @@ PrimeFaces.locales ['ar'] = {
     firstDay: 1,
     isRTL: false,
     showMonthAfterYear: false,
-    yearSuffix:'' ,
-    timeOnlyTitle: 'الوقت فقط' ,
-    timeText: 'الوقت' ,
+    yearSuffix: '',
+    timeOnlyTitle: 'الوقت فقط',
+    timeText: 'الوقت',
     hourText: 'ساعة',
     minuteText: 'دقيقة',
     secondText: 'ثانية',
@@ -613,11 +630,11 @@ PrimeFaces.locales['zh_CN'] = {
     prevText: '上个月',
     nextText: '下个月',
     currentText: '今天',
-    monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
-    monthNamesShort: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
-    dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
-    dayNamesShort: ['日','一','二','三','四','五','六'],
-    dayNamesMin: ['日','一','二','三','四','五','六'],
+    monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    monthNamesShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+    dayNamesShort: ['日', '一', '二', '三', '四', '五', '六'],
+    dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
     weekHeader: '周',
     firstDay: 1,
     isRTL: false,
@@ -632,15 +649,15 @@ PrimeFaces.locales['zh_CN'] = {
     month: '月',
     week: '周',
     day: '日',
-    allDayText : '全天'
+    allDayText: '全天'
 };
 
 PrimeFaces.locales ['de'] = {
     closeText: 'Schließen',
     prevText: 'Zurück',
     nextText: 'Weiter',
-    monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
-    monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez' ],
+    monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
     dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
     dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
     dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
@@ -648,7 +665,7 @@ PrimeFaces.locales ['de'] = {
     firstDay: 1,
     isRTL: false,
     showMonthAfterYear: false,
-    yearSuffix:'',
+    yearSuffix: '',
     timeOnlyTitle: 'Nur Zeit',
     timeText: 'Zeit',
     hourText: 'Stunde',
