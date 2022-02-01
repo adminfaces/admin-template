@@ -1,0 +1,34 @@
+name: Admin Template build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-18.04
+    env:
+      user: ${{ secrets.user }}
+      pass: ${{ secrets.pass }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@main
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+      - uses: actions/cache@v2.1.7
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: build & deploy
+        if: "contains(github.ref, 'master')"
+        run: mvn clean -U package deploy --settings settings.xml && mvn clean -U package deploy -Plegacy --settings settings.xml
+      - name: build
+        if: "!contains(github.ref, 'master')"
+        run: mvn package

@@ -11,8 +11,8 @@
     <servers>
         <server>
             <id>snapshots</id>
-            <username>${env.user}</username>
-            <password>${env.pass}</password>
+            <username>${user}</username>
+            <password>${pass}</password>
         </server>
     </servers>
     <mirrors/>
