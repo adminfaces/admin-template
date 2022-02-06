@@ -22,7 +22,7 @@ function activateResizeOnMenuToggle() {
 }
 
 function windowResize() {
-    if(!isMobile() && )
+    if(!isMobile())
     setTimeout(function () {
         $(window).trigger('resize');
     }, 500);
