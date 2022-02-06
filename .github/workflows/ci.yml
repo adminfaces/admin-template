@@ -10,13 +10,10 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-18.04
-    env:
-      user: ${{ secrets.user }}
-      pass: ${{ secrets.pass }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
-        uses: actions/setup-java@main
+        uses: actions/setup-java@v2.5.0
         with:
           distribution: 'adopt'
           java-version: '8'
@@ -26,9 +23,38 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: build & deploy
-        if: "contains(github.ref, 'master')"
-        run: mvn clean -U package deploy --settings settings.xml && mvn clean -U package deploy -Plegacy --settings settings.xml
       - name: build
-        if: "!contains(github.ref, 'master')"
         run: mvn package
+
+  release:
+    name: Release Admin template to maven central
+    runs-on: ubuntu-18.04
+    needs: build
+    env:
+      user: ${{ secrets.user }}
+      pass: ${{ secrets.pass }}
+      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2.5.0
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+          server-id: releases
+          server-username: user
+          server-password: pass
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: GPG_PASSPHRASE
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Deploy snapshots
+        run: mvn deploy --settings settings.xml
+        if: "contains(github.ref, 'master') && !contains(github.event.head_commit.message, 'prepare release')"
+      - name: Release
+        run: mvn deploy -Prelease
+        if: "contains(github.ref, 'master') && contains(github.event.head_commit.message, 'prepare release')"
