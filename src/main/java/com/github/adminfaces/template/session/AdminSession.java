@@ -1,6 +1,6 @@
 package com.github.adminfaces.template.session;
 
-import javax.enterprise.context.SessionScoped;
+import jakarta.enterprise.context.SessionScoped;
 import java.io.Serializable;
 
 /**

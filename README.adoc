@@ -444,8 +444,8 @@ A simple way to change AdminSession logged in value is by extending it:
 
 [source,java]
 ----
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Specializes;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.inject.Specializes;
 import com.github.adminfaces.template.session.AdminSession;
 import org.omnifaces.util.Faces;
 import java.io.Serializable;

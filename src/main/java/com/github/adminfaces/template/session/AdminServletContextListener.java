@@ -1,7 +1,7 @@
 package com.github.adminfaces.template.session;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 import java.util.logging.Logger;
 
 /**

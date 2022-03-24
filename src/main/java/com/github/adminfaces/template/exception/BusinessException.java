@@ -1,8 +1,8 @@
 package com.github.adminfaces.template.exception;
 
-import javax.ejb.ApplicationException;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import jakarta.ejb.ApplicationException;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
