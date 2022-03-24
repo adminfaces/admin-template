@@ -2,8 +2,8 @@ package com.github.adminfaces.template.event;
 
 import static com.github.adminfaces.template.util.Assert.has;
 
-import javax.faces.event.SystemEvent;
-import javax.faces.event.SystemEventListener;
+import jakarta.faces.event.SystemEvent;
+import jakarta.faces.event.SystemEventListener;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;

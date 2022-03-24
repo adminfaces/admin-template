@@ -2,12 +2,12 @@ package com.github.adminfaces.template.bean;
 
 import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.config.ControlSidebarConfig;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.logging.Logger;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.omnifaces.util.Faces;
 
 /**

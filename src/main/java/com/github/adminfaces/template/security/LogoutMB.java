@@ -4,10 +4,10 @@ import com.github.adminfaces.template.config.AdminConfig;
 import com.github.adminfaces.template.util.Constants;
 import org.omnifaces.util.Faces;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.context.ExternalContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.io.IOException;
 
 /**

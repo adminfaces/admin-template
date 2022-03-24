@@ -1,6 +1,6 @@
 package com.github.adminfaces.template.exception;
 
-import javax.ejb.ApplicationException;
+import jakarta.ejb.ApplicationException;
 import java.io.Serializable;
 
 /**
