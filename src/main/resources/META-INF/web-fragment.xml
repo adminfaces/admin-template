@@ -5,7 +5,9 @@
               id="admin_template" version="3.0">
 
     <name>admin_template_fragment</name>
-    
+
+    <distributable />
+
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>admin</param-value>
