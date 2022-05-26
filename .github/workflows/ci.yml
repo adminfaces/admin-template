@@ -53,8 +53,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Deploy snapshots
-        run: mvn deploy --settings settings.xml
         if: "contains(github.ref, 'master') && !contains(github.event.head_commit.message, 'prepare release')"
+        run: |
+          chmod +x "${GITHUB_WORKSPACE}/release-snapshots.sh"
+          "${GITHUB_WORKSPACE}/release-snapshots.sh"
       - name: Release
-        run: mvn deploy -Prelease
         if: "contains(github.ref, 'master') && contains(github.event.head_commit.message, 'prepare release')"
+        run: |
+          chmod +x "${GITHUB_WORKSPACE}/release.sh"
+          "${GITHUB_WORKSPACE}/release.sh"

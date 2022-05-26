@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.github.adminfaces</groupId>
             <artifactId>admin-theme</artifactId>
-            <version>1.4.1</version>
+            <version>1.5.0</version>
         </dependency>
     </dependencies>
 
@@ -163,7 +163,43 @@
                     </plugin>
                 </plugins>
             </build>    
-        </profile>    
+        </profile>
+        <profile>
+            <id>javax</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>3.0.2</version>
+                        <configuration>
+                            <classifier>javax</classifier>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>io.github.floverfelt</groupId>
+                        <artifactId>find-and-replace-maven-plugin</artifactId>
+                        <version>1.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>exec</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>find-and-replace</goal>
+                                </goals>
+                                <configuration>
+                                    <replacementType>file-contents</replacementType>
+                                    <baseDir>target/classes/</baseDir>
+                                    <findRegex>jakarta</findRegex>
+                                    <replaceValue>javax</replaceValue>
+                                    <recursive>true</recursive>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>release</id>
             <build>
