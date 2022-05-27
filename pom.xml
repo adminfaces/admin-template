@@ -237,7 +237,7 @@
                                         </artifact>
                                         <artifact>
                                             <file>
-                                                ${project.build.directory}/admin-template-javax.jar.asc
+                                                ${project.build.directory}/admin-template-${project.version}-javax.jar.asc
                                             </file>
                                             <type>jar.asc</type>
                                             <classifier>javax</classifier>
