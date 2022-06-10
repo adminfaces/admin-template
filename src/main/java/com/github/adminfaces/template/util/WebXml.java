@@ -50,15 +50,16 @@ import jakarta.faces.webapp.FacesServlet;
 import jakarta.servlet.Filter;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextListener;
-import jakarta.xml.xpath.XPath;
-import jakarta.xml.xpath.XPathExpressionException;
-import jakarta.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 /**
  * COPIED from OmniFaces because when users update to OmniFaces 3.x they get java.lang.IncompatibleClassChangeError: Found interface org.omnifaces.config.WebXml, but class was expected

@@ -61,7 +61,7 @@
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
-            <version>4.0-M13</version>
+            <version>4.0-M16</version>
         </dependency>
         <dependency>
             <groupId>com.github.adminfaces</groupId>
