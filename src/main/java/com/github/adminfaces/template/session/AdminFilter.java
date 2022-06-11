@@ -42,7 +42,7 @@ import com.github.adminfaces.template.util.Constants;
 @WebFilter(urlPatterns = {"/*"})
 public class AdminFilter implements Filter {
 
-    private static final String FACES_RESOURCES = "/javax.faces.resource";
+    private static final String FACES_RESOURCES = "/jakarta.faces.resource";
     private static final Logger log = Logger.getLogger(AdminFilter.class.getName());
 
     private boolean disableFilter;
@@ -112,7 +112,7 @@ public class AdminFilter implements Filter {
      */
     private void initBeans() {
         try {
-            Class.forName("javax.enterprise.inject.spi.CDI");
+            Class.forName("jakarta.enterprise.inject.spi.CDI");
             adminConfig = CDI.current().select(AdminConfig.class).get();
             adminSession = CDI.current().select(AdminSession.class).get();
         } catch (ClassNotFoundException e) {
