@@ -21,7 +21,7 @@
         <location>/403.xhtml</location>
     </error-page>
     <error-page>
-        <exception-type>javax.ejb.AccessLocalException</exception-type>
+        <exception-type>jakarta.ejb.AccessLocalException</exception-type>
         <location>/403.xhtml</location>
     </error-page>
     <error-page>
@@ -37,11 +37,11 @@
         <location>/500.xhtml</location>
     </error-page>
     <error-page>
-        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <exception-type>jakarta.faces.application.ViewExpiredException</exception-type>
         <location>/expired.xhtml</location>
     </error-page>
     <error-page>
-        <exception-type>javax.persistence.OptimisticLockException</exception-type>
+        <exception-type>jakarta.persistence.OptimisticLockException</exception-type>
         <location>/optimistic.xhtml</location>
     </error-page>
 
