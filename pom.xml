@@ -67,7 +67,7 @@
         <dependency>
             <groupId>com.github.adminfaces</groupId>
             <artifactId>admin-theme</artifactId>
-            <version>1.5.1</version>
+            <version>1.6.0</version>
         </dependency>
     </dependencies>
 
@@ -238,7 +238,7 @@
                                 <configuration>
                                     <target>
                                         <delete>
-                                            <fileset dir="${project.build.directory}/classes" includes="**/*.java"/>
+                                            <fileset dir="${project.build.directory}/classes" includes="**/*.java" />
                                         </delete>
                                     </target>
                                 </configuration>
