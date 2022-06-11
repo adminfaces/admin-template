@@ -686,6 +686,11 @@ Also don't forget to remove the `hidden-sm hidden-xs` classes from the button/li
 
 ====
 
+== JakartaEE migration
+
+Since version `1.6.0` admin-template supports jakartaEE by default, https://github.com/adminfaces/admin-starter/blob/dda0a159fe9d604cbccecb9beab2b60f958569d0/pom.xml#L18-L34[see admin-starter^] for a sample project.
+Admin template also supports the `javax` package and for that you must use *javax* maven classifier, https://github.com/adminfaces/quarkus-admin-starter/blob/fa651c30408fdd6d941d1c6546746ea1b10031a7/pom.xml#L43-L58[see quarkus-admin-starter^].
+
 == Docs
 
 https://adminfaces.github.io/docs/latest/#admin_template
