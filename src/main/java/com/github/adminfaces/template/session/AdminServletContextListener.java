@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 /**
  * Created by rmpestano on 28/04/17.
  */
+@Deprecated
 public class AdminServletContextListener implements ServletContextListener {
 
     private static final Logger log = Logger.getLogger(AdminServletContextListener.class.getName());
