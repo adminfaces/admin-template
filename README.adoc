@@ -82,39 +82,19 @@ Admin template will bring the following transitive dependencies:
 <dependency>
     <groupId>org.primefaces</groupId>
     <artifactId>primefaces</artifactId>
-    <version>7.0</version>
+    <version>12.0</version>
 </dependency>
 
 <dependency>
     <groupId>org.omnifaces</groupId>
     <artifactId>omnifaces</artifactId>
-    <version>2.7.1</version>
+    <version>4.1</version>
 </dependency>
 ----
 
 Which you can override in your pom.xml as needed.
 ====
 
-
-[TIP]
-====
-The template is also compatible with PrimeFaces *6.2* and below. To use the template with older PrimeFaces version, use the *legacy classifier*:
-
-[source,xml,subs="attributes+"]
-----
-<dependency>
-    <groupId>com.github.adminfaces</groupId>
-    <artifactId>admin-template</artifactId>
-    <version>version</version>
-    <classifier>legacy</classifier>
-</dependency>
-<dependency>
-    <groupId>org.primefaces</groupId>
-    <artifactId>primefaces</artifactId>
-    <version>6.1</version>
-</dependency>
-----
-====
 
 With the template dependency in classpath now you can use `admin` facelets template into your JSF pages.
 
@@ -126,7 +106,7 @@ Consider the following sample page:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:ui="jakarta.faces.facelets"
                 xmlns:p="http://primefaces.org/ui"
                 template="/admin.xhtml"> <1>
 
@@ -226,7 +206,7 @@ Instead of repeating sections like *menu*, *logo*, *head* and *footer* on every 
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:ui="jakarta.faces.facelets"
                 xmlns:p="http://primefaces.org/ui"
                 template="/admin.xhtml">
 
@@ -288,8 +268,7 @@ And now the page can just define its content and title:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="jakarta.faces.facelets"
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="title">
@@ -318,8 +297,7 @@ The user can change layout modes via <<Control Sidebar, control sidebar>> but to
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="jakarta.faces.facelets"
                 template="#{layoutMB.template}">
 
 <!-- page content -->
@@ -689,7 +667,6 @@ Also don't forget to remove the `hidden-sm hidden-xs` classes from the button/li
 == JakartaEE migration
 
 Since version `1.6.0` admin-template supports jakartaEE by default, https://github.com/adminfaces/admin-starter/blob/dda0a159fe9d604cbccecb9beab2b60f958569d0/pom.xml#L18-L34[see admin-starter^] for a sample project.
-Admin template also supports the `javax` package and for that you must use *javax* maven classifier, https://github.com/adminfaces/quarkus-admin-starter/blob/fa651c30408fdd6d941d1c6546746ea1b10031a7/pom.xml#L43-L58[see quarkus-admin-starter^].
 
 == Docs
 

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mvn clean install -Prelease && mvn install -Pjavax -Prelease && mvn deploy -Prelease
+mvn clean install -Prelease && mvn deploy -Prelease

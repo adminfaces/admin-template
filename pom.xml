@@ -11,7 +11,7 @@
 
     <groupId>com.github.adminfaces</groupId>
     <artifactId>admin-template</artifactId>
-    <version>1.6.1-SNAPSHOT</version>
+    <version>1.6.2-SNAPSHOT</version>
 
     <name>admin-template</name>
     <url>https://github.com/adminfaces/admin-template</url>
@@ -50,19 +50,19 @@
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-web-api</artifactId>
-            <version>9.1.0</version>
+            <version>10.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>11.0.0</version>
+            <version>12.0.0</version>
             <classifier>jakarta</classifier>
         </dependency>
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
-            <version>4.0-M16</version>
+            <version>4.1</version>
         </dependency>
         <dependency>
             <groupId>com.github.adminfaces</groupId>
@@ -125,129 +125,6 @@
     </build>
 
     <profiles>
-        <profile>
-            <id>legacy</id>
-            <properties>
-                <admin.legacy>true</admin.legacy>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <version>3.0.2</version>
-                        <configuration>
-                            <classifier>legacy</classifier>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>com.google.code.maven-replacer-plugin</groupId>
-                        <artifactId>replacer</artifactId>
-                        <version>1.5.2</version>
-                        <executions>
-                            <execution>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>replace</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <ignoreMissingFile>false</ignoreMissingFile>
-                            <regex>false</regex>
-                            <file>${project.build.directory}/classes/META-INF/resources/admin-base.xhtml</file>
-                            <replacements>
-                                <replacement>
-                                    <token>&lt;p:autoUpdate /&gt;</token>
-                                    <value />
-                                </replacement>
-                            </replacements>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>    
-        </profile>
-        <profile>
-            <id>javax</id>
-            <properties>
-                <src.dir>${project.build.directory}/classes</src.dir>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>javax</groupId>
-                    <artifactId>javaee-api</artifactId>
-                    <version>8.0</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.omnifaces</groupId>
-                    <artifactId>omnifaces</artifactId>
-                    <version>2.7.1</version>
-                </dependency>
-            </dependencies>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/java</directory>
-                        <includes>
-                            <include>**/*.java</include>
-                        </includes>
-                    </resource>
-                </resources>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <version>3.0.2</version>
-                        <configuration>
-                            <classifier>javax</classifier>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>io.github.floverfelt</groupId>
-                        <artifactId>find-and-replace-maven-plugin</artifactId>
-                        <version>1.1.0</version>
-                        <executions>
-                            <execution>
-                                <id>exec</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>find-and-replace</goal>
-                                </goals>
-                                <configuration>
-                                    <replacementType>file-contents</replacementType>
-                                    <baseDir>target/classes/</baseDir>
-                                    <fileMask>.java,.xml,.xhtml</fileMask>
-                                    <findRegex>jakarta</findRegex>
-                                    <replaceValue>javax</replaceValue>
-                                    <recursive>true</recursive>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.7</version>
-                        <executions>
-                            <execution>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <delete>
-                                            <fileset dir="${project.build.directory}/classes" includes="**/*.java" />
-                                        </delete>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>release</id>
             <build>
