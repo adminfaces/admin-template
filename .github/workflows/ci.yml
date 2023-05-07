@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
@@ -28,7 +28,7 @@ jobs:
 
   release:
     name: Release Admin template to maven central
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     needs: build
     env:
       user: ${{ secrets.user }}
